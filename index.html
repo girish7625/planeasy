@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Plan Easy — Prototype v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FCFCFC;--card:#FFF;--primary:#464646;--accent:#FCC425;--accent-soft:#FAE29B;
+  --accent-wash:#FFF8E1;--text:#464646;--text-light:#BEBEBF;--text-mid:#8A8A8A;
+  --border:#E9EAEA;--border-strong:#BEBEBF;--radius:16px;
+  --shadow:0 1px 3px rgba(70,70,70,.06),0 1px 2px rgba(70,70,70,.04);
+  --shadow-lg:0 8px 30px rgba(70,70,70,.08),0 2px 8px rgba(70,70,70,.04);
+  --gold-glow:0 0 0 3px rgba(252,196,37,.2);
+  --green:#34A853;--green-wash:#E8F5E9;--red:#EA4335;--blue:#4285F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* Top bar */
+.topbar{background:#fff;border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.logo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--primary);letter-spacing:-.5px}
+.logo span{color:var(--accent)}
+.phase-indicator{display:flex;gap:8px}
+.phase-pill{padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;border:1.5px solid var(--border);color:var(--text-light);transition:all .3s}
+.phase-pill.active{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+.phase-pill.done{background:var(--green-wash);border-color:var(--green);color:var(--green)}
+
+/* Progress */
+.progress-wrap{background:#fff;border-bottom:1px solid var(--border);padding:0 24px}
+.progress-bar{height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .5s ease}
+
+/* Screen */
+.screen-wrap{max-width:700px;margin:0 auto;padding:40px 20px 100px;min-height:calc(100vh - 100px)}
+.screen{display:none;animation:fadeUp .4s ease}.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* Screen header */
+.sh{text-align:center;margin-bottom:32px}
+.sh-step{display:inline-block;padding:4px 14px;border-radius:100px;background:var(--accent-wash);border:1px solid var(--accent-soft);font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+.sh h2{font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--primary);letter-spacing:-.5px;margin-bottom:6px}
+.sh p{color:var(--text-mid);font-size:14px;max-width:500px;margin:0 auto}
+
+/* Occasion cards */
+.occ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.occ-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:20px 14px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.occ-card:hover{border-color:var(--accent-soft);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.occ-card.selected{border-color:var(--accent);background:var(--accent-wash);box-shadow:var(--gold-glow)}
+.occ-card .oe{font-size:32px;display:block;margin-bottom:8px}
+.occ-card .on{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.occ-card .od{font-size:10px;color:var(--text-mid);margin-top:3px}
+.occ-card .ck{position:absolute;top:8px;right:8px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--primary);display:none;align-items:center;justify-content:center;font-size:11px;font-weight:800}
+.occ-card.selected .ck{display:flex}
+
+/* Sub-type section */
+.subtype-section{margin-top:24px;padding:20px;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);display:none}
+.subtype-section.visible{display:block;animation:fadeUp .3s ease}
+.subtype-section h3{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px}
+
+/* Chips */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:8px 18px;border:1.5px solid var(--border);border-radius:100px;font-size:13px;font-weight:500;color:var(--text);cursor:pointer;transition:all .2s;user-select:none;background:#fff}
+.chip:hover{border-color:var(--accent-soft);background:var(--accent-wash)}
+.chip.selected{background:var(--accent);border-color:var(--accent);color:var(--primary);font-weight:700;box-shadow:var(--gold-glow)}
+.chip.sm{padding:6px 14px;font-size:11px;border-radius:10px}
+
+/* Form */
+.form-group{margin-bottom:24px}
+.form-label{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px;margin-bottom:8px;display:block}
+.form-hint{font-size:11px;color:var(--text-mid);margin-bottom:8px;font-style:italic}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:500px){.form-row,.form-row-3{grid-template-columns:1fr}}
+input[type="text"],input[type="date"],input[type="number"],textarea,select{
+  width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;color:var(--text);background:#fff;transition:all .2s;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:var(--gold-glow)}
+input::placeholder,textarea::placeholder{color:var(--text-light)}
+textarea{resize:vertical;min-height:70px}
+select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23BEBEBF' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center #fff}
+.optional-tag{font-size:9px;font-weight:600;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+
+/* Category checklist */
+.cat-list{display:flex;flex-direction:column;gap:10px}
+.cat-item{display:flex;align-items:center;gap:14px;padding:16px 18px;background:#fff;border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .2s;user-select:none}
+.cat-item:hover{border-color:var(--accent-soft);box-shadow:var(--shadow)}
+.cat-item.checked{border-color:var(--accent);background:var(--accent-wash)}
+.cat-check{width:22px;height:22px;border-radius:7px;border:2px solid var(--border-strong);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;font-size:12px;color:transparent}
+.cat-item.checked .cat-check{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+.cat-info{flex:1}.cat-name{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.cat-desc{font-size:11px;color:var(--text-mid);margin-top:2px}
+.cat-emoji{font-size:22px;flex-shrink:0}
+.rec-badge{padding:3px 8px;border-radius:6px;background:var(--accent-wash);border:1px solid var(--accent-soft);font-size:9px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+.special-badge{padding:3px 8px;border-radius:6px;background:#FFF3E0;border:1px solid #FFE0B2;font-size:9px;font-weight:700;color:#E65100;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+
+/* Category question card */
+.cq-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:16px}
+.cq-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;cursor:pointer}
+.cq-header:hover{background:#FAFAFA}
+.cq-emoji{font-size:22px}
+.cq-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);flex:1}
+.cq-status{font-size:10px;font-weight:600;padding:3px 10px;border-radius:8px}
+.cq-status.todo{background:#F5F5F5;color:var(--text-light)}
+.cq-status.done{background:var(--green-wash);color:var(--green)}
+.cq-arrow{font-size:16px;color:var(--text-light);transition:transform .2s}
+.cq-card.open .cq-arrow{transform:rotate(180deg)}
+.cq-body{padding:20px;display:none}
+.cq-card.open .cq-body{display:block;animation:fadeUp .25s ease}
+.cq-section{margin-bottom:20px}.cq-section:last-child{margin-bottom:0}
+.cq-section-title{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+
+/* Budget toggle */
+.budget-toggle{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.budget-toggle label{font-size:13px;color:var(--text);font-weight:500;cursor:pointer}
+.toggle-switch{width:42px;height:24px;border-radius:12px;background:var(--border);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle-switch.on{background:var(--accent)}
+.toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:transform .2s}
+.toggle-switch.on::after{transform:translateX(18px)}
+.budget-fields{display:none;margin-top:8px}.budget-fields.visible{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* Notes */
+.notes-wrap{background:#FAFAFA;border:1px dashed var(--border-strong);border-radius:12px;padding:14px}
+.notes-wrap label{font-size:11px;font-weight:600;color:var(--text-mid);display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.notes-wrap textarea{border:1px solid var(--border);background:#fff;min-height:56px;font-size:12px}
+
+/* Conditional sub-section */
+.cond-section{margin-top:12px;padding:14px;background:var(--accent-wash);border:1px solid var(--accent-soft);border-radius:12px;display:none}
+.cond-section.visible{display:block;animation:fadeUp .25s ease}
+.cond-section .cq-section-title{color:var(--primary)}
+
+/* Help callout */
+.help-callout{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:#F0F7FF;border:1px solid #BBDEFB;border-radius:12px;margin-top:12px;font-size:12px;color:#1565C0;cursor:pointer;transition:all .2s}
+.help-callout:hover{background:#E3F2FD}
+.help-callout .hc-icon{font-size:16px;flex-shrink:0}
+
+/* Event manager checkbox */
+.em-option{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#F0F7FF;border:1.5px solid #BBDEFB;border-radius:12px;cursor:pointer;transition:all .2s;user-select:none}
+.em-option:hover{background:#E3F2FD;border-color:#90CAF9}
+.em-option.checked{background:#E3F2FD;border-color:var(--blue)}
+.em-check{width:20px;height:20px;border-radius:6px;border:2px solid #90CAF9;display:flex;align-items:center;justify-content:center;font-size:11px;color:transparent;transition:all .2s;flex-shrink:0}
+.em-option.checked .em-check{background:var(--blue);border-color:var(--blue);color:#fff}
+.em-text{font-size:13px;color:#1565C0;font-weight:600}
+
+/* Moodboard toggle section */
+.moodboard-toggle{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:#FAFAFA;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;user-select:none;margin-top:12px}
+.moodboard-toggle:hover{background:var(--accent-wash);border-color:var(--accent-soft)}
+.moodboard-toggle.checked{background:var(--accent-wash);border-color:var(--accent)}
+.moodboard-toggle.checked .em-check{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+.moodboard-section .mb-desc{font-size:11px;color:var(--text-mid);margin-bottom:14px;line-height:1.6}
+.mb-upload-area{display:flex;gap:10px;flex-wrap:wrap}
+.mb-upload-btn{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#fff;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;font-size:12px;font-weight:600;color:var(--text);transition:all .2s}
+.mb-upload-btn:hover{border-color:var(--accent);background:var(--accent-wash)}
+.mb-upload-btn .mb-icon{font-size:16px}
+
+/* Buttons */
+.btn{padding:12px 28px;border-radius:12px;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;border:none;letter-spacing:-.1px}
+.btn-primary{background:var(--accent);color:var(--primary);box-shadow:var(--gold-glow)}
+.btn-primary:hover{box-shadow:0 0 0 4px rgba(252,196,37,.3),var(--shadow-lg);transform:translateY(-1px)}
+.btn-secondary{background:#fff;color:var(--primary);border:1.5px solid var(--border)}
+.btn-secondary:hover{border-color:var(--primary)}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 0 0 3px rgba(52,168,83,.15)}
+.btn-green:hover{box-shadow:0 0 0 4px rgba(52,168,83,.25)}
+.btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:20px;border-top:1px solid var(--border)}
+
+/* Review */
+.review-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
+.rc-h{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.rc-h h3{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.edit-link{font-size:12px;color:var(--accent);cursor:pointer;font-weight:600;text-decoration:underline}
+.rc-b{padding:14px 18px}
+.rr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #F5F5F5;font-size:13px}
+.rr:last-child{border-bottom:none}
+.rr .rl{color:var(--text-mid);font-weight:500}.rr .rv{font-weight:600;color:var(--primary);text-align:right;max-width:60%}
+
+/* ===== PHASE 2 ===== */
+
+/* Dashboard */
+.dash-header{text-align:center;margin-bottom:28px}
+.dash-header h2{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.dash-header p{color:var(--text-mid);font-size:13px}
+.dash-stats{display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
+.dash-stat{padding:12px 20px;background:#fff;border:1.5px solid var(--border);border-radius:12px;text-align:center;min-width:90px}
+.ds-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:var(--primary)}
+.ds-label{font-size:10px;color:var(--text-mid);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* Running total bar */
+.running-total{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:2px solid var(--accent);padding:12px 24px;display:none;align-items:center;justify-content:center;gap:24px;z-index:99;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.running-total.visible{display:flex}
+.rt-item{text-align:center}
+.rt-item .rt-label{font-size:10px;color:var(--text-mid);font-weight:600;text-transform:uppercase}
+.rt-item .rt-val{font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:var(--primary)}
+.rt-item .rt-val.accent{color:var(--accent)}
+
+/* Category dashboard cards */
+.dash-grid{display:flex;flex-direction:column;gap:10px}
+.dash-cat{display:flex;align-items:center;gap:14px;padding:18px 20px;background:#fff;border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .2s}
+.dash-cat:hover{border-color:var(--accent-soft);box-shadow:var(--shadow-lg);transform:translateY(-1px)}
+.dash-cat.has-selection{border-color:var(--green);background:var(--green-wash)}
+.dc-emoji{font-size:24px;flex-shrink:0}
+.dc-info{flex:1}.dc-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.dc-meta{font-size:11px;color:var(--text-mid);margin-top:2px}
+.dc-selected{font-size:11px;color:var(--green);font-weight:600;margin-top:2px}
+.dc-quotes{display:flex;align-items:center;gap:6px}
+.quote-badge{padding:4px 12px;border-radius:8px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700}
+.quote-badge.ready{background:var(--green-wash);color:var(--green)}
+.quote-badge.pending{background:#FFF3E0;color:#E65100}
+.dc-arrow{color:var(--text-light);font-size:18px}
+
+/* Vendor cards */
+.vl-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.vl-header h3{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary)}
+.vendor-sort{display:flex;gap:6px}
+.sort-chip{padding:5px 12px;border-radius:8px;font-size:11px;font-weight:600;border:1.5px solid var(--border);cursor:pointer;color:var(--text-mid);background:#fff;transition:all .2s}
+.sort-chip.active{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+
+.vc{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:14px;transition:all .25s}
+.vc:hover{box-shadow:var(--shadow-lg);border-color:var(--border-strong)}
+.vc.selected-vendor{border-color:var(--green);box-shadow:0 0 0 3px rgba(52,168,83,.15)}
+.vc-top{display:flex;gap:16px;padding:18px 20px}
+.vc-photos{width:120px;height:90px;border-radius:10px;background:var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text-mid);overflow:hidden;position:relative}
+.vc-photos .pc{position:absolute;bottom:6px;right:6px;padding:2px 8px;background:rgba(0,0,0,.6);color:#fff;border-radius:6px;font-size:9px;font-weight:700}
+.vc-info{flex:1;min-width:0}
+.vc-name{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.vc-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.vc-tag{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:600;background:#F5F5F5;color:var(--text-mid)}
+.vc-tag.gold{background:var(--accent-wash);color:var(--primary);border:1px solid var(--accent-soft)}
+.vc-rating{display:flex;align-items:center;gap:6px;font-size:12px}
+.vc-rating .stars{color:var(--accent);font-weight:700}
+.vc-rating .cnt{color:var(--text-mid)}
+.vc-price{text-align:right;flex-shrink:0;min-width:100px}
+.price-amt{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--primary)}
+.price-lbl{font-size:10px;color:var(--text-mid)}
+.vc-bottom{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA;flex-wrap:wrap;gap:8px}
+.vc-highlights{display:flex;gap:14px;font-size:11px;color:var(--text-mid);flex-wrap:wrap}
+.vc-highlights span{display:flex;align-items:center;gap:4px;white-space:nowrap}
+.vc-space-note{width:100%;display:flex;align-items:flex-start;gap:6px;padding:8px 12px;background:#FFF3E0;border:1px solid #FFE0B2;border-radius:8px;font-size:11px;color:#E65100;line-height:1.5;margin-bottom:4px}
+.vc-space-note .sn-icon{font-size:14px;flex-shrink:0}
+.vc-actions{display:flex;gap:8px}
+.btn-sm{padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-sm.compare{background:#fff;border:1.5px solid var(--border);color:var(--text)}
+.btn-sm.compare.added{background:var(--accent-wash);border-color:var(--accent);color:var(--primary)}
+.btn-sm.select-vendor{background:var(--accent);color:var(--primary)}
+.btn-sm.selected-btn{background:var(--green);color:#fff}
+
+/* Compare table */
+.compare-wrap{overflow-x:auto;margin-bottom:20px}
+.ct{width:100%;border-collapse:separate;border-spacing:0;min-width:500px}
+.ct th{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:10px 14px;background:#FAFAFA;border-bottom:1px solid var(--border)}
+.ct td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top}
+.ct tr:last-child td{border-bottom:none}
+.ct .attr{font-weight:600;color:var(--text-mid);font-size:12px;width:120px;background:#FAFAFA}
+.ct .winner{background:var(--accent-wash);font-weight:700;color:var(--primary)}
+.cv-header{text-align:center;padding:14px 10px}
+.cv-name{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.cv-price{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:var(--primary);margin-top:3px}
+.cv-select{margin-top:8px}
+
+/* Responsive */
+@media(max-width:600px){
+  .screen-wrap{padding:24px 12px 120px}
+  .occ-grid{grid-template-columns:1fr 1fr 1fr}
+  .form-row,.form-row-3{grid-template-columns:1fr}
+  .vc-top{flex-direction:column}.vc-photos{width:100%;height:140px}
+  .vc-price{text-align:left;min-width:auto;margin-top:6px}
+  .topbar{padding:10px 14px}.logo{font-size:17px}
+  .running-total{flex-wrap:wrap;gap:12px;padding:10px 16px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">Plan<span>Easy</span></div>
+  <div class="phase-indicator">
+    <div class="phase-pill active" id="pill-p1">Phase 1 · Plan</div>
+    <div class="phase-pill" id="pill-p2">Phase 2 · Compare</div>
+  </div>
+</div>
+<div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
+
+<div class="screen-wrap">
+
+<!-- ==================== SCREEN 1: OCCASION ==================== -->
+<div class="screen active" id="s1">
+  <div class="sh">
+    <div class="sh-step">Step 1 of 5</div>
+    <h2>What are you celebrating?</h2>
+    <p>Pick your occasion — we'll customize everything that follows.</p>
+  </div>
+  <div class="occ-grid">
+    <div class="occ-card" onclick="pickOcc(this,'birthday')"><div class="ck">✓</div><span class="oe">🎂</span><div class="on">Birthday</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'babyshower')"><div class="ck">✓</div><span class="oe">🍼</span><div class="on">Baby Shower</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'bridalshower')"><div class="ck">✓</div><span class="oe">💍</span><div class="on">Bridal Shower</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'diwali')"><div class="ck">✓</div><span class="oe">🪔</span><div class="on">Diwali Night</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'retirement')"><div class="ck">✓</div><span class="oe">🎖️</span><div class="on">Retirement</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'other')"><div class="ck">✓</div><span class="oe">✨</span><div class="on">Other</div></div>
+  </div>
+
+  <div class="btn-row"><div></div><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
+</div>
+
+<!-- ==================== SCREEN 2: DETAILS ==================== -->
+<div class="screen" id="s2">
+  <div class="sh">
+    <div class="sh-step">Step 2 of 5</div>
+    <h2>Tell us about your event</h2>
+    <p>These details help us match the right vendors and get you accurate quotes.</p>
+  </div>
+
+  <!-- Sub-type (dynamic based on occasion) -->
+  <div class="subtype-section" id="subtypeSection" style="margin-bottom:24px">
+    <h3 id="subtypeTitle">What kind?</h3>
+    <div class="chip-group" id="subtypeChips"></div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Give your event a name <span class="optional-tag">Optional</span></label>
+    <input type="text" placeholder="e.g., Aarav's 30th, Diwali Bash 2026, Mom's Retirement">
+    <div class="form-hint" style="margin-top:4px">Helps vendors personalize their quote. You can skip this.</div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">When?</label>
+    <div class="form-row-3">
+      <input type="date">
+      <select><option value="">Time of day</option><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–8pm)</option><option>Night (8pm+)</option></select>
+      <select><option value="">Est. duration</option><option>2–3 hours</option><option>3–5 hours</option><option>5–8 hours</option><option>Full day</option><option>Not sure</option></select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Where?</label>
+    <div class="form-hint">Just pincode — no full address needed. Vendors use this to estimate travel cost.</div>
+    <div class="form-row">
+      <input type="text" placeholder="City">
+      <input type="text" placeholder="Pincode" maxlength="6">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">How many guests?</label>
+    <div class="chip-group">
+      <div class="chip" onclick="selectChip(this,'guests')">Under 25</div>
+      <div class="chip" onclick="selectChip(this,'guests')">25–50</div>
+      <div class="chip" onclick="selectChip(this,'guests')">50–100</div>
+      <div class="chip" onclick="selectChip(this,'guests')">100–200</div>
+      <div class="chip" onclick="selectChip(this,'guests')">200+</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Overall budget comfort <span class="optional-tag">Optional</span></label>
+    <div class="form-hint">Helps us match the right tier of vendors. You can set per-category budgets in the next step.</div>
+    <div class="chip-group">
+      <div class="chip" onclick="selectChip(this,'budget')">No budget yet</div>
+      <div class="chip" onclick="selectChip(this,'budget')">Under ₹50K</div>
+      <div class="chip" onclick="selectChip(this,'budget')">₹50K – 1L</div>
+      <div class="chip" onclick="selectChip(this,'budget')">₹1L – 3L</div>
+      <div class="chip" onclick="selectChip(this,'budget')">₹3L – 5L</div>
+      <div class="chip" onclick="selectChip(this,'budget')">₹5L+</div>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
+    <button class="btn btn-primary" onclick="goTo(3)">Continue →</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 3: DYNAMIC CATEGORIES ==================== -->
+<div class="screen" id="s3">
+  <div class="sh">
+    <div class="sh-step">Step 3 of 5</div>
+    <h2>What do you need?</h2>
+    <p>We've pre-selected what's most common for your occasion. Adjust as needed.</p>
+  </div>
+  <div class="cat-list" id="catList">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
+    <button class="btn btn-primary" onclick="buildCatQuestions();goTo(4)">Continue →</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 4: PER-CATEGORY QUESTIONS ==================== -->
+<div class="screen" id="s4">
+  <div class="sh">
+    <div class="sh-step">Step 4 of 5</div>
+    <h2>A few details per category</h2>
+    <p>Helps vendors send accurate quotes. Skip anything you're unsure about.</p>
+  </div>
+  <div id="catQuestions">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(3)">← Back</button>
+    <button class="btn btn-primary" onclick="goTo(5)">Review & Submit →</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 5: REVIEW ==================== -->
+<div class="screen" id="s5">
+  <div class="sh">
+    <div class="sh-step">Step 5 of 5</div>
+    <h2>Review your plan</h2>
+    <p>Vendors will see this information when quoting.</p>
+  </div>
+  <div id="reviewContent">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
+    <button class="btn btn-green" onclick="goTo(6)">✓ Submit & Get Quotes</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 6: MATCHING TRANSITION ==================== -->
+<div class="screen" id="s6">
+  <div style="text-align:center;padding:80px 20px">
+    <div style="font-size:48px;margin-bottom:20px">🎯</div>
+    <h2 style="font-family:'Sora',sans-serif;font-size:24px;color:var(--primary);margin-bottom:8px">Matching you with vendors…</h2>
+    <p style="color:var(--text-mid);font-size:14px;max-width:400px;margin:0 auto 32px">Sending your requirements to the best-matched vendors. Quotes typically arrive within 2–6 hours.</p>
+    <div style="width:200px;height:4px;background:var(--border);border-radius:2px;margin:0 auto;overflow:hidden">
+      <div style="width:100%;height:100%;background:var(--accent);border-radius:2px;animation:loading 1.5s ease infinite"></div>
+    </div>
+    <style>@keyframes loading{0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)}}</style>
+    <button class="btn btn-primary" onclick="goTo(7)" style="margin-top:40px">View Quotes Dashboard →</button>
+    <p style="font-size:11px;color:var(--text-light);margin-top:12px">(Demo: in production this auto-transitions)</p>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 7: QUOTES DASHBOARD ==================== -->
+<div class="screen" id="s7">
+  <div class="dash-header">
+    <h2>Your Quotes</h2>
+    <p id="dashSummary">🎂 Birthday · 15 Mar · Bangalore · 50–100 guests</p>
+  </div>
+  <div class="dash-stats">
+    <div class="dash-stat"><div class="ds-num" id="dsCats">5</div><div class="ds-label">Categories</div></div>
+    <div class="dash-stat"><div class="ds-num" id="dsQuotes">16</div><div class="ds-label">Quotes</div></div>
+    <div class="dash-stat"><div class="ds-num" id="dsSelected">0</div><div class="ds-label">Selected</div></div>
+    <div class="dash-stat"><div class="ds-num" id="dsTotal">—</div><div class="ds-label">Running total</div></div>
+  </div>
+  <div class="dash-grid" id="dashGrid">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row"><button class="btn btn-secondary" onclick="goTo(5)">← Edit plan</button><div></div></div>
+</div>
+
+<!-- ==================== SCREEN 8: VENDOR LIST (dynamic per category) ==================== -->
+<div class="screen" id="s8">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(7)" style="padding:8px 16px;font-size:12px">← Back to dashboard</button></div>
+  <div id="vendorListContent">
+    <!-- Populated dynamically per category -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(7)">← Dashboard</button>
+    <button class="btn btn-primary" onclick="goTo(9)">Compare Selected →</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 9: COMPARE VIEW ==================== -->
+<div class="screen" id="s9">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(8)" style="padding:8px 16px;font-size:12px">← Back to vendors</button></div>
+  <div id="compareContent">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
+    <button class="btn btn-primary" onclick="goTo(7)">Confirm & Return to Dashboard</button>
+  </div>
+</div>
+
+</div><!-- end screen-wrap -->
+
+<!-- Running total bar (Phase 2) -->
+<div class="running-total" id="runningTotal">
+  <div class="rt-item"><div class="rt-label">Selected</div><div class="rt-val" id="rtSelected">0 / 5</div></div>
+  <div class="rt-item"><div class="rt-label">Running Total</div><div class="rt-val accent" id="rtTotal">₹0</div></div>
+  <div class="rt-item"><button class="btn btn-primary" style="padding:8px 20px;font-size:12px" onclick="goTo(10)">Finalize →</button></div>
+</div>
+
+<script>
+// ========== STATE ==========
+let state = {
+  occasion: null, subType: null,
+  selectedCats: [], currentViewCat: null,
+  vendorSelections: {} // {catKey: vendorIndex}
+};
+
+// ========== OCCASION CONFIG ==========
+const OCC = {
+  birthday: {
+    label:'Birthday', emoji:'🎂',
+    subTypes:[
+      {id:'1st',label:'1st Birthday ✨'},
+      {id:'kids',label:'Kids (2–12)'},
+      {id:'teen',label:'Teenager (13–17)'},
+      {id:'adult',label:'Adult (18+)'},
+    ],
+    subTypeTitle:'What age group?'
+  },
+  babyshower: {
+    label:'Baby Shower', emoji:'🍼',
+    subTypes:[
+      {id:'godhbharai',label:'Godh Bharai'},
+      {id:'modern',label:'Modern Baby Shower'},
+      {id:'valaikappu',label:'Valaikappu'},
+      {id:'other',label:'Other tradition'},
+    ],
+    subTypeTitle:'What type of ceremony?'
+  },
+  bridalshower: {
+    label:'Bridal Shower', emoji:'💍',
+    subTypes:[
+      {id:'modern',label:'Modern Bridal Shower'},
+      {id:'haldi',label:'Haldi Ceremony'},
+      {id:'mehendi',label:'Mehendi Night'},
+      {id:'sangeet',label:'Ladies Sangeet'},
+      {id:'bachelorette',label:'Bachelorette Party'},
+    ],
+    subTypeTitle:'What kind of celebration?'
+  },
+  diwali: {
+    label:'Diwali Night', emoji:'🪔',
+    subTypes:[
+      {id:'homepuja',label:'Home Puja + Dinner'},
+      {id:'party',label:'Diwali Party'},
+      {id:'corporate',label:'Corporate Diwali'},
+      {id:'community',label:'Community Celebration'},
+      {id:'cardnight',label:'Card Party / Teen Patti'},
+    ],
+    subTypeTitle:'What type of Diwali celebration?'
+  },
+  retirement: {
+    label:'Retirement', emoji:'🎖️',
+    subTypes:[
+      {id:'corporate',label:'Office / Corporate'},
+      {id:'family',label:'Family Celebration'},
+    ],
+    subTypeTitle:'What setting?'
+  },
+  other: {
+    label:'Other', emoji:'✨',
+    subTypes:[
+      {id:'anniversary',label:'Anniversary'},
+      {id:'housewarming',label:'Housewarming'},
+      {id:'farewell',label:'Farewell'},
+      {id:'other',label:'Something else'},
+    ],
+    subTypeTitle:'What occasion?'
+  }
+};
+
+// ========== CATEGORY DEFINITIONS ==========
+const CATS = {
+  venue:      {emoji:'📍',name:'Venue',desc:'Your space or find one'},
+  fb:         {emoji:'🍽️',name:'Food & Beverage',desc:'Catering, cakes, bar service'},
+  entertainment:{emoji:'🎤',name:'Entertainment',desc:'DJ, musician, comedian, games'},
+  decor:      {emoji:'🎨',name:'Decor',desc:'Balloons, theme, floral, stage'},
+  photo:      {emoji:'📸',name:'Photography',desc:'Photo, video, photobooth'},
+  florist:    {emoji:'🌸',name:'Florist',desc:'Floral arrangements, garlands'},
+  slp:        {emoji:'🔊',name:'Sound / Light / AV',desc:'Speakers, lights, projector'},
+  returnGifts:{emoji:'🎁',name:'Return Gifts',desc:'Custom, eco, edible'},
+  staffing:   {emoji:'👥',name:'Staffing',desc:'Waiters, bartenders, security'},
+  mehendi:    {emoji:'✍️',name:'Mehendi Artist',desc:'Bridal, Arabic, minimal'},
+  ceremonial: {emoji:'🙏',name:'Ceremonial',desc:'Pandit, puja items, religious ceremonies'},
+  rangoli:    {emoji:'🎨',name:'Rangoli Artist',desc:'Traditional, floral, modern'},
+  fireworks:  {emoji:'🎆',name:'Fireworks / Light Show',desc:'Sparklers, LED, sky lanterns'},
+  gifting:    {emoji:'🎁',name:'Gifting',desc:'Hampers, personalized, corporate'},
+  emcee:      {emoji:'🎙️',name:'Emcee / Host',desc:'Event hosting, speeches, flow'},
+  memoryVideo:{emoji:'🎬',name:'Tribute Video',desc:'Life journey, montage, interviews'},
+};
+
+// Categories per occasion+subtype: [catKey, recommended?]
+const CAT_MAP = {
+  'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
+  'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
+  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
+  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0]],
+  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
+  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
+  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
+  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0]],
+  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['mehendi',0],['florist',0],['slp',0],['staffing',0]],
+  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['florist',0],['staffing',0]],
+  'bridalshower-mehendi':[['venue',1],['mehendi',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
+  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['slp',1],['florist',0],['staffing',0]],
+  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['staffing',0]],
+  'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0]],
+  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0]],
+  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0]],
+  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1]],
+  'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0]],
+  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
+  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0]],
+  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
+  'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0]],
+  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0]],
+  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0]],
+};
+
+// ========== CONTEXT HELPERS ==========
+function getAge(){ return state.subType || 'adult'; }
+function isKids(){ return ['1st','kids'].includes(getAge()); }
+function isTeen(){ return getAge()==='teen'; }
+function isAdult(){ return !isKids() && !isTeen(); }
+function isDiwali(){ return state.occasion==='diwali'; }
+function isBridal(){ return state.occasion==='bridalshower'; }
+function isBabyShower(){ return state.occasion==='babyshower'; }
+function isRetirement(){ return state.occasion==='retirement'; }
+function isTraditional(){ return ['godhbharai','valaikappu','haldi','homepuja'].includes(state.subType); }
+function isCorporate(){ return ['corporate'].includes(state.subType); }
+function chips(arr){ return arr.map(o=>`<div class="chip sm" onclick="toggleChipMulti(this)">${o}</div>`).join(''); }
+function singleChips(arr,grp){ return arr.map(o=>`<div class="chip" onclick="selectChip(this,'${grp}')">${o}</div>`).join(''); }
+
+// ========== CATEGORY QUESTION TEMPLATES (CONTEXT-AWARE) ==========
+const CQ = {
+
+  // ──── VENUE (adapts space options by occasion) ────
+  venue: () => {
+    let spaceTypes = ['Home','Apartment hall','Terrace / Rooftop','Office space','Other'];
+    if(isCorporate()) spaceTypes = ['Office / conference room','Company cafeteria','Coworking space','Other'];
+    if(isDiwali() && state.subType==='homepuja') spaceTypes = ['Home','Apartment','Temple','Other'];
+    let venueTypes = ['Indoor','Outdoor','Rooftop','Poolside','No preference'];
+    if(isKids()) venueTypes = ['Indoor (play area)','Outdoor (garden / park)','Indoor party hall','Rooftop','No preference'];
+    if(isBridal()) venueTypes = ['Indoor','Outdoor','Resort / spa','Rooftop','Farmhouse','No preference'];
+    return `
+    <div class="cq-section"><div class="cq-section-title">Do you have a space or need one?</div>
+      <div class="chip-group" data-field="venue-status">
+        <div class="chip" onclick="handleVenueChoice(this,'have')">I have a space</div>
+        <div class="chip" onclick="handleVenueChoice(this,'need')">Looking for a venue</div>
+        <div class="chip" onclick="handleVenueChoice(this,'unsure')">Not sure yet</div>
+      </div></div>
+    <div class="cond-section" id="cond-venue-have">
+      <div class="cq-section-title">Tell us about your space</div>
+      <div class="chip-group" style="margin-bottom:12px">${chips(spaceTypes)}</div>
+      <div style="margin-top:8px">
+        <input type="text" placeholder="Approx capacity (people)" style="max-width:220px">
+      </div></div>
+    <div class="cond-section" id="cond-venue-need">
+      <div class="cq-section-title">Venue preference</div>
+      <div class="chip-group">${chips(venueTypes)}</div></div>
+    ${budgetBlock('venue','venue budget')}
+    ${notesBlock('venue vendors','e.g., "Must allow outside catering" or "Need wheelchair access"')}`;
+  },
+
+  // ──── FOOD & BEVERAGE (adapts by age + occasion) ────
+  fb: () => {
+    // Service types
+    let services, cuisines, extras;
+    if(isKids()){
+      services = ['Buffet','Snack stations','Pizza + finger food','Sit-down'];
+      cuisines = ['Pizza / pasta','Sandwiches / wraps','Indian snacks (samosa, chaat)','Chinese / noodles','Multi-cuisine'];
+      extras = ['Custom cake','Dessert table / candy bar','Juice bar / mocktails','Ice cream station','Cotton candy / popcorn'];
+    } else if(isTeen()){
+      services = ['Buffet','Stalls / street food','Live counters','Sit-down'];
+      cuisines = ['North Indian','Chinese / Indo-Chinese','Pizza / pasta','Street food (chaat, pani puri)','Multi-cuisine'];
+      extras = ['Custom cake','Dessert table','Mocktails / milkshakes','Ice cream station','Waffle / crepe station'];
+    } else if(isDiwali()){
+      services = ['Buffet','Sit-down','Live counters','Stalls / street food','Private chef'];
+      cuisines = ['North Indian','South Indian','Mughlai','Rajasthani','Street food','Multi-cuisine'];
+      extras = ['Mithai / sweets box','Dry fruits counter','Custom cake','Dessert table','Chai / coffee station','Bar / cocktails','Mocktails only','Thandai station'];
+    } else if(isBabyShower() && isTraditional()){
+      services = ['Buffet','Sit-down','Private chef'];
+      cuisines = ['North Indian','South Indian','Gujarati','Rajasthani','Multi-cuisine'];
+      extras = ['Traditional sweets / ladoo','Custom cake','Dessert table','Chai / coffee station','Fruit / dry fruit counter','Mocktails only'];
+    } else if(isBridal()){
+      services = ['Buffet','Sit-down','Live counters','Stalls / street food','Private chef'];
+      cuisines = ['North Indian','South Indian','Mughlai','Chinese / Indo-Chinese','Continental','Multi-cuisine'];
+      extras = ['Custom cake','Dessert table','Bar / cocktails','Mocktails / brunch drinks','Chai / coffee station','Mithai / sweets','Grazing table'];
+    } else if(isRetirement()){
+      services = ['Buffet','Sit-down','Live counters','Cocktail / canape style'];
+      cuisines = ['North Indian','South Indian','Mughlai','Continental','Chinese / Indo-Chinese','Multi-cuisine'];
+      extras = ['Custom cake','Dessert table','Bar / cocktails','Mocktails only','Chai / coffee station','Mithai / sweets'];
+    } else {
+      services = ['Buffet','Sit-down','Live counters','Stalls / street food','Private chef'];
+      cuisines = ['North Indian','South Indian','Mughlai','Chinese / Indo-Chinese','Continental','Street food','Multi-cuisine'];
+      extras = ['Custom cake','Dessert table','Bar / cocktails','Mocktails only','Chai / coffee station','Mithai / sweets'];
+    }
+    // Dietary — always shown
+    let dietary = ['Vegetarian','Non-veg','Jain','Vegan'];
+    // No non-veg for traditional religious ceremonies
+    if(isTraditional() && (isDiwali() || isBabyShower())) dietary = ['Vegetarian','Jain','Vegan','Non-veg for some dishes'];
+
+    return `
+    <div class="cq-section"><div class="cq-section-title">Service type</div>
+      <div class="chip-group">${chips(services)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Cuisine (select all)</div>
+      <div class="chip-group">${chips(cuisines)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Dietary needs</div>
+      <div class="chip-group">${chips(dietary)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Extras</div>
+      <div class="chip-group">${chips(extras)}</div></div>
+    ${budgetBlock('fb','per-plate budget')}
+    ${notesBlock('caterers', isKids() 
+      ? 'e.g., "Nut-free required" or "No spicy food" or "Need a smash cake for the birthday kid"' 
+      : isDiwali() 
+        ? 'e.g., "Satvik food for puja day" or "Want a live chaat counter"'
+        : 'e.g., "Nut allergies for 3 guests" or "Want a Rajasthani live counter"')}`;
+  },
+
+  // ──── ENTERTAINMENT (fully context-aware + genre sub-options) ────
+  entertainment: () => {
+    const djGenres = ['Bollywood','EDM / House','Hip Hop','Retro / 80s–90s','Punjabi','Sufi','Commercial / Top 40','Mix of everything'];
+    const liveGenres = ['Bollywood covers','Sufi / qawwali','Classical fusion','Retro / old Hindi','Ghazal','Jazz / blues','Acoustic / unplugged','Rock','Folk / Rajasthani','Mix of everything'];
+    const teenDjGenres = ['Bollywood','EDM / House','Hip Hop','K-Pop','Pop / Top 40','Retro','Mix of everything'];
+    const bridalDjGenres = ['Bollywood','Punjabi','Sufi','EDM / House','Retro / 80s–90s','Mix of everything'];
+    const diwaliLiveGenres = ['Bollywood covers','Sufi / qawwali','Folk / Rajasthani','Classical fusion','Ghazal','Bhajan','Retro / old Hindi','Mix of everything'];
+
+    let types, vibeQ, langQ = true;
+
+    if(state.occasion==='birthday' && state.subType==='1st'){
+      types = [
+        {label:'Magician',id:'magician'},{label:'Puppet show',id:'puppet'},
+        {label:'Balloon artist',id:'balloon'},{label:'Storyteller',id:'storyteller'},
+        {label:'Soft music / lullaby musician',id:'softmusic'},{label:'Games coordinator',id:'games'}
+      ]; vibeQ = false; langQ = false;
+    } else if(isKids()){
+      types = [
+        {label:'Magician',id:'magician'},{label:'Clown',id:'clown'},
+        {label:'Puppet show',id:'puppet'},{label:'Balloon artist',id:'balloon'},
+        {label:'Storyteller',id:'storyteller'},{label:'Games coordinator',id:'games'},
+        {label:'Face painter',id:'facepainter'},{label:'Stiltwalker',id:'stiltwalker'},
+        {label:'Character artist (cosplay)',id:'cosplay'},{label:'Caricature artist',id:'caricature'}
+      ]; vibeQ = false; langQ = false;
+    } else if(isTeen()){
+      types = [
+        {label:'DJ',id:'dj',genres:teenDjGenres},
+        {label:'Games coordinator',id:'games'},{label:'Dance workshop',id:'dance'},
+        {label:'Beatboxer',id:'beatbox'},{label:'Emcee / Host',id:'emcee'},
+        {label:'Photo / video challenge coordinator',id:'photochallenge'},
+        {label:'Open mic / karaoke',id:'openmic'}
+      ]; vibeQ = false;
+    } else if(isBridal() && state.subType==='sangeet'){
+      types = [
+        {label:'DJ',id:'dj',genres:bridalDjGenres},
+        {label:'Choreographer',id:'choreo'},
+        {label:'Live musician / band',id:'liveband',genres:liveGenres},
+        {label:'Dhol player',id:'dhol'},{label:'Emcee / Host',id:'emcee'},
+        {label:'Games coordinator',id:'games'}
+      ]; vibeQ = false;
+    } else if(isBridal() && state.subType==='bachelorette'){
+      types = [
+        {label:'DJ',id:'dj',genres:bridalDjGenres},
+        {label:'Comedian',id:'comedian'},{label:'Dance workshop',id:'dance'},
+        {label:'Games coordinator',id:'games'},{label:'Emcee / Host',id:'emcee'},
+        {label:'Mixology workshop',id:'mixology'}
+      ]; vibeQ = true;
+    } else if(isBridal()){
+      types = [
+        {label:'DJ',id:'dj',genres:bridalDjGenres},
+        {label:'Live musician / band',id:'liveband',genres:liveGenres},
+        {label:'Dhol player',id:'dhol'},{label:'Choreographer',id:'choreo'},
+        {label:'Comedian',id:'comedian'},{label:'Emcee / Host',id:'emcee'}
+      ]; vibeQ = true;
+    } else if(isDiwali()){
+      types = [
+        {label:'DJ',id:'dj',genres:djGenres},
+        {label:'Live musician / band',id:'liveband',genres:diwaliLiveGenres},
+        {label:'Folk performers (Rajasthani, etc.)',id:'folk'},
+        {label:'Dhol / nagada player',id:'dhol'},{label:'Comedian',id:'comedian'},
+        {label:'Games coordinator',id:'games'},{label:'Emcee / Host',id:'emcee'}
+      ]; vibeQ = true;
+    } else if(isRetirement()){
+      types = [
+        {label:'Emcee / Host',id:'emcee'},
+        {label:'Live musician / band',id:'liveband',genres:liveGenres},
+        {label:'Comedian (clean)',id:'comedian'},
+        {label:'DJ',id:'dj',genres:djGenres},{label:'Tribute act',id:'tribute'}
+      ]; vibeQ = true;
+    } else if(isBabyShower()){
+      types = [
+        {label:'Games coordinator',id:'games'},
+        {label:'Live musician (soft / acoustic)',id:'liveband',genres:['Acoustic / unplugged','Classical fusion','Sufi / qawwali','Ghazal','Bollywood covers','Mix of everything']},
+        {label:'Emcee / Host',id:'emcee'}
+      ]; vibeQ = false; langQ = false;
+    } else {
+      types = [
+        {label:'DJ',id:'dj',genres:djGenres},
+        {label:'Live musician / band',id:'liveband',genres:liveGenres},
+        {label:'Comedian',id:'comedian'},{label:'Magician',id:'magician'},
+        {label:'Games coordinator',id:'games'},{label:'Emcee / Host',id:'emcee'}
+      ]; vibeQ = true;
+    }
+
+    // Build chips — types with genres get special onclick to reveal genre section
+    const typeChips = types.map(t => t.genres
+      ? `<div class="chip sm" onclick="toggleEntType(this,'${t.id}')">${t.label}</div>`
+      : `<div class="chip sm" onclick="toggleChipMulti(this)">${t.label}</div>`
+    ).join('');
+
+    // Build hidden genre sub-sections
+    const genreSections = types.filter(t=>t.genres).map(t => {
+      const genreLabel = t.id==='dj' ? 'DJ genre — what should they play?' : 'Music genre — what style?';
+      return `<div class="cond-section ent-genre-section" id="ent-genre-${t.id}">
+        <div class="cq-section-title">${genreLabel}</div>
+        <div class="chip-group">${t.genres.map(g=>`<div class="chip sm" onclick="toggleChipMulti(this)">${g}</div>`).join('')}</div>
+      </div>`;
+    }).join('');
+
+    let html = `<div class="cq-section"><div class="cq-section-title">What kind? (select all)</div>
+      <div class="chip-group">${typeChips}</div></div>`;
+    html += genreSections;
+
+    if(vibeQ){
+      html += `<div class="cq-section"><div class="cq-section-title">Audience vibe</div>
+        <div class="chip-group">${singleChips(['Family-friendly','Adults only','Mixed ages'],'ent-vibe')}</div></div>`;
+    }
+    if(langQ){
+      const langs = isDiwali()
+        ? ['Hindi','English','Punjabi','Gujarati','Rajasthani','Tamil','Telugu','No preference']
+        : isBridal()
+          ? ['Hindi','English','Punjabi','Tamil','Telugu','Marathi','No preference']
+          : ['Hindi','English','Punjabi','Tamil','Telugu','No preference'];
+      html += `<div class="cq-section"><div class="cq-section-title">Music / language preference <span class="optional-tag">Optional</span></div>
+        <div class="chip-group">${chips(langs)}</div></div>`;
+    }
+
+    // Suggestion input instead of "Not sure"
+    html += `<div class="cq-section"><div class="cq-section-title">Looking for something else? <span class="optional-tag">Optional</span></div>
+      <input type="text" placeholder="e.g., fire dancer, tabla player, karaoke DJ, acoustic guitarist…" style="width:100%">
+      <div class="form-hint" style="margin-top:4px">Tell us what you have in mind — we'll find the right vendor for you.</div></div>`;
+
+    html += budgetBlock('ent','entertainment budget');
+    const noteHint = isKids()
+      ? 'e.g., "45-min show max, kids lose attention" or "No scary tricks"'
+      : isTeen()
+        ? 'e.g., "Clean content only" or "Need an Instagram-worthy activity"'
+        : isBridal()
+          ? 'e.g., "Need choreographer for sangeet prep" or "Bollywood + Punjabi mix"'
+          : isRetirement()
+            ? 'e.g., "Need someone who can coordinate tribute speeches" or "Keep it warm and nostalgic"'
+            : 'e.g., "Bollywood only" or "Need 2-hour set after dinner" or "Clean humor, no roasts"';
+    html += notesBlock('entertainment vendors', noteHint);
+    return html;
+  },
+
+  // ──── DECOR (themes for kids, styles for adults, cultural for traditional) ────
+  decor: () => {
+    let scaleQ = true, themeSection = '', musthaves;
+
+    if(state.occasion==='birthday' && state.subType==='1st'){
+      scaleQ = true;
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Theme <span class="optional-tag">Popular for 1st birthdays</span></div>
+        <div class="chip-group">${chips(['Teddy bear / animal','Prince / Princess','Jungle safari','Hot air balloon','Pastel rainbow','Twinkle star','Custom theme'])}</div></div>`;
+      musthaves = ['Balloon arch','Photo backdrop / milestone board','High chair decor','Cake smash area','Name / number standee','Entrance banner','Table centerpieces'];
+    } else if(isKids()){
+      scaleQ = true;
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Theme <span class="optional-tag">Popular for kids</span></div>
+        <div class="chip-group">${chips(['Superhero','Princess / fairy','Dinosaur','Unicorn','Cartoon character','Space / astronaut','Jungle / animal','Sports','Custom theme'])}</div></div>`;
+      musthaves = ['Balloon arch','Photo backdrop','Entrance gate / banner','Table centerpieces','LED / Neon sign','Activity corner decor','Pinata setup'];
+    } else if(isTeen()){
+      scaleQ = true;
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Vibe <span class="optional-tag">Popular for teens</span></div>
+        <div class="chip-group">${chips(['Neon / glow party','Retro / vintage','Hollywood glam','Sports themed','Bollywood night','Pool party','No specific theme'])}</div></div>`;
+      musthaves = ['Balloon arch','Photo backdrop / selfie wall','LED / Neon sign','Stage setup','Entrance decor','Fairy lights','Table centerpieces'];
+    } else if(isDiwali()){
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Diwali style</div>
+        <div class="chip-group">${singleChips(['Traditional / ethnic','Modern fusion','Grand / palatial','Minimalist','Not sure yet'],'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = ['Diya / candle arrangements','Toran / door hangings','Flower arrangements','Rangoli','Fairy lights / LED strings','Lanterns / kandils','Table decor','Entrance decor'];
+    } else if(isBridal()){
+      let bridalStyle = state.subType==='haldi' 
+        ? ['Yellow & marigold','Rustic / bohemian','Minimalist','Grand floral','Not sure yet']
+        : state.subType==='mehendi'
+          ? ['Colorful Rajasthani','Moroccan / Arabian','Pastel garden','Modern minimalist','Not sure yet']
+          : ['Floral & pastel','Modern chic','Bohemian / rustic','Grand & traditional','Rose gold & blush','Not sure yet'];
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Style</div>
+        <div class="chip-group">${singleChips(bridalStyle,'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = ['Flower wall','Photo backdrop','Stage / seating area','Entrance decor','Table centerpieces','Hanging installations','LED / Neon sign','Fairy lights'];
+    } else if(isRetirement()){
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Style</div>
+        <div class="chip-group">${singleChips(['Elegant / formal','Warm & personal','Fun & celebratory','Minimalist','Not sure yet'],'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = ['Photo backdrop / memory wall','Stage setup','Entrance banner','Table centerpieces','Career timeline display','Balloon arrangements','LED / Neon sign'];
+    } else if(isBabyShower()){
+      let bsStyle = isTraditional()
+        ? ['Traditional / ethnic','Pastel & soft','Floral','Minimalist','Not sure yet']
+        : ['Pastel & soft','Teddy bear / animal','Floral garden','Gender reveal ready','Minimalist','Not sure yet'];
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Style</div>
+        <div class="chip-group">${singleChips(bsStyle,'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = ['Balloon arch','Photo backdrop','Entrance decor','Table centerpieces','Baby name / letter standee','Cradle decor','Fairy lights'];
+    } else {
+      // Adult birthday default
+      musthaves = ['Balloon arch','Photo backdrop','Stage setup','Entrance decor','Table centerpieces','LED / Neon sign','Flower wall','Fairy lights'];
+    }
+
+    let html = '';
+    if(scaleQ){
+      html += `<div class="cq-section"><div class="cq-section-title">Scale</div>
+        <div class="chip-group">${singleChips(['Minimal & elegant','Moderate','Grand & elaborate','Not sure yet'],'decor-scale')}</div></div>`;
+    }
+    html += themeSection;
+    html += `<div class="cq-section"><div class="cq-section-title">Must-haves <span class="optional-tag">Optional</span></div>
+      <div class="chip-group">${chips(musthaves)}</div></div>`;
+    html += eventManagerBlock();
+    html += moodboardBlock('decorators');
+    html += budgetBlock('decor','decor budget');
+    const noteHint = isKids() ? 'e.g., "Peppa Pig theme" or "Blue & white colors only"'
+      : isDiwali() ? 'e.g., "Traditional marigold & diya look" or "Want it to feel like a haveli"'
+      : isBridal() ? 'e.g., "Pinterest board: [link]" or "Yellow & green palette for haldi"'
+      : 'e.g., "Rustic boho theme" or "Black & gold" or "Want a Pinterest board feel"';
+    html += notesBlock('decor vendors', noteHint);
+    return html;
+  },
+
+  // ──── PHOTOGRAPHY (minor adaptations) ────
+  photo: () => {
+    let services = ['Photography','Videography','Photobooth','Drone shots'];
+    if(isKids()) services = ['Photography','Videography','Photobooth','Instant prints'];
+    if(isBridal()) services = ['Photography','Videography','Photobooth','Drone shots','Pre-event shoot'];
+
+    let deliverables = ['Digital photos','Highlight reel (60–90s)','Full event video','Photo album','Same-day social edit'];
+    if(isKids()) deliverables = ['Digital photos','Short highlight reel','Photo album','Instant prints','Same-day WhatsApp edit'];
+
+    let styles = ['Candid','Traditional / posed','Cinematic','No preference'];
+    if(isKids()) styles = ['Candid / playful','Traditional / posed','No preference'];
+
+    return `
+    <div class="cq-section"><div class="cq-section-title">Services needed</div>
+      <div class="chip-group">${chips(services)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Deliverables</div>
+      <div class="chip-group">${chips(deliverables)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Style preference <span class="optional-tag">Optional</span></div>
+      <div class="chip-group">${singleChips(styles,'photo-style')}</div></div>
+    ${budgetBlock('photo','photography budget')}
+    ${notesBlock('photographers', isKids() ? 'e.g., "Focus on the birthday kid" or "Need same-day WhatsApp photos"' : 'e.g., "Need same-day Instagram edit" or "Cinematic reel priority"')}`;
+  },
+
+  // ──── RETURN GIFTS (age-aware) ────
+  returnGifts: () => {
+    let opts;
+    if(state.occasion==='birthday' && (state.subType==='1st' || state.subType==='kids')){
+      opts = ['Toys / novelty','Art & craft kits','Stationery sets','Chocolates / candy bags','Eco-friendly','Custom / personalized','No preference'];
+    } else if(isTeen()){
+      opts = ['Custom / personalized','Accessories','Tech accessories','Gift cards','Chocolates / treats','Eco-friendly','No preference'];
+    } else if(isDiwali()){
+      opts = ['Dry fruit boxes','Sweet boxes / mithai','Diyas / candle sets','Eco-friendly hampers','Custom / personalized','No preference'];
+    } else if(isBabyShower()){
+      opts = ['Baby-themed favors','Sweet boxes','Eco-friendly','Custom / personalized','No preference'];
+    } else {
+      opts = ['Custom / personalized','Eco-friendly','Edible (sweets, chocolates)','Luxury hampers','No preference'];
+    }
+    return simpleQ('returnGifts','Preference',opts,'return gift vendors','e.g., "Budget ₹200 per gift" or "Eco-friendly only"');
+  },
+
+  // ──── MEHENDI (context-aware) ────
+  mehendi: () => {
+    let styles = ['Traditional / Rajasthani','Arabic','Minimalist / Modern'];
+    if(isBridal()) styles.push('Bridal (full hands & feet)');
+    if(isTeen()) styles = ['Minimalist / Modern','Arabic','Glitter mehendi','Traditional'];
+    return `
+    <div class="cq-section"><div class="cq-section-title">Style</div>
+      <div class="chip-group">${chips(styles)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How many guests getting mehendi?</div>
+      <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 5 close family','5–15 guests','15+']:['Just me','2–5','5–15','15+'],'meh-count')}</div></div>
+    ${budgetBlock('meh','mehendi budget')}
+    ${notesBlock('mehendi artists','e.g., "Organic henna only" or "Need artist for 3 hours"')}`;
+  },
+
+  // ──── CEREMONIAL (pandit + puja items combined, ceremony-aware) ────
+  ceremonial: () => {
+    let ceremonies;
+    if(isDiwali()) ceremonies = ['Lakshmi-Ganesh Puja','Satyanarayan Katha','Griha Shanti','Other (describe in notes)'];
+    else if(isBabyShower()) ceremonies = ['Godh Bharai ceremony','Annaprashan / Naming','Valaikappu','Other (describe in notes)'];
+    else if(isBridal()) ceremonies = ['Haldi ceremony','Mehendi puja','Ganesh puja','Other (describe in notes)'];
+    else if(state.subType==='housewarming') ceremonies = ['Griha Pravesh','Satyanarayan Katha','Vastu puja','Other (describe in notes)'];
+    else if(state.subType==='1st') ceremonies = ['Annaprashan (first food)','Naming ceremony','Mundan (first haircut)','Other (describe in notes)'];
+    else ceremonies = ['Lakshmi-Ganesh Puja','Griha Pravesh','Satyanarayan Katha','Annaprashan / Naming','Haldi ceremony','Other (describe in notes)'];
+
+    let pujaOpts;
+    if(isDiwali()) pujaOpts = ['Complete Diwali puja kit','Diyas & candles','Flowers & garlands','Lakshmi-Ganesh idols','Custom samagri kit'];
+    else if(isBabyShower()) pujaOpts = ['Complete ceremony kit','Flowers & garlands','Coconut / kalash set','Custom samagri kit'];
+    else pujaOpts = ['Complete puja kit','Diyas & candles only','Flowers & garlands','Idols / murtis','Custom samagri kit'];
+
+    return `
+    <div class="cq-section"><div class="cq-section-title">1. Pandit — What ceremony?</div>
+      <div class="chip-group">${chips(ceremonies)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">2. Puja Items / Samagri — What do you need?</div>
+      <div class="chip-group">${chips(pujaOpts)}</div></div>
+    ${budgetBlock('ceremonial','ceremonial budget')}
+    ${notesBlock('ceremonial vendors','e.g., "Hindi-speaking pandit" or "Short 30-min ceremony" or "Eco-friendly diyas"')}`;
+  },
+
+  // ──── REMAINING (unchanged, already specific enough) ────
+  florist: () => {
+    return `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
+      <div class="chip-group">${chips(['Stage / entrance floral','Table arrangements','Garlands','Bouquets','No idea — just make it pretty'])}</div></div>
+    ${moodboardBlock('florists')}
+    ${budgetBlock('florist','florist budget')}
+    ${notesBlock('florist vendors','e.g., "Marigold & jasmine only" or "White & green palette"')}`;
+  },
+  slp: () => {
+    return `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
+      <div class="chip-group">${chips(['Sound system (speakers + mic)','Lighting rig','Projector / screen','Full AV setup','Not sure — venue may provide'])}</div></div>
+    ${eventManagerBlock()}
+    ${budgetBlock('slp','SLP budget')}
+    ${notesBlock('SLP vendors','e.g., "Outdoor setup for 100 people" or "Need projector for tribute video"')}`;
+  },
+  staffing: () => {
+    let opts = ['Wait staff','Bartender','Security','Valet','Event coordinator'];
+    if(isKids()) opts = ['Wait staff','Activity coordinator','Security','Event coordinator'];
+    return simpleQ('staffing','What staff?',opts,'staffing vendors','e.g., "Need 4 waiters for 5 hours" or "Formal uniform required"');
+  },
+  rangoli: () => simpleQ('rangoli','Style',['Traditional powder','Floral rangoli','Modern / geometric','Sand art','Not sure — show me options'],'rangoli artists','e.g., "6ft entrance rangoli" or "Indoor-safe materials"'),
+  fireworks: () => simpleQ('fireworks','Type',['Cold sparklers (indoor-safe)','LED fireworks','Sky lanterns','Traditional crackers','Not sure — what\'s best?'],'fireworks vendors','e.g., "Indoor-safe only" or "5-minute finale show"'),
+  gifting: () => {
+    let types;
+    if(isCorporate()) types = ['Corporate hampers','Personalized / branded','Sweet boxes','Luxury hampers','Eco-friendly'];
+    else if(isDiwali()) types = ['Dry fruit boxes','Sweet boxes / mithai','Diyas / candle sets','Eco-friendly hampers','Luxury hampers','Custom / personalized'];
+    else types = ['Personalized gifts','Corporate hampers','Sweet boxes','Luxury hampers','Eco-friendly'];
+    return `
+    <div class="cq-section"><div class="cq-section-title">Type</div>
+      <div class="chip-group">${chips(types)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How many gifts?</div>
+      <div class="chip-group">${singleChips(['Under 25','25–50','50–100','100+'],'gift-qty')}</div></div>
+    ${budgetBlock('gift','per-gift budget')}
+    ${notesBlock('gifting vendors','e.g., "Brand logo on packaging" or "Mix of sweet + dry fruits"')}`;
+  },
+  emcee: () => {
+    let styles;
+    if(isCorporate()) styles = ['Formal / corporate','Professional + warm','Bilingual (Hindi + English)','English only'];
+    else if(isRetirement()) styles = ['Warm / emotional','Formal + personal','Fun / energetic','Bilingual (Hindi + English)'];
+    else styles = ['Formal / corporate','Warm / emotional','Fun / energetic','Bilingual (Hindi + English)'];
+    return simpleQ('emcee','Style',styles,'emcee vendors','e.g., "Need to coordinate tribute speeches" or "Must handle 2-hour program"');
+  },
+  memoryVideo: () => simpleQ('memoryVideo','Type',['Photo montage / slideshow','Interview-based tribute','Life journey timeline','Quick highlight reel'],'video editors','e.g., "Have 200+ old photos to include" or "Need colleague interviews shot beforehand"'),
+};
+
+// ========== HELPERS ==========
+function budgetBlock(key, label){
+  return `<div class="cq-section">
+    <div class="budget-toggle">
+      <div class="toggle-switch" onclick="toggleBudget(this,'budget-${key}')"></div>
+      <label>I have a ${label} in mind</label>
+    </div>
+    <div class="budget-fields" id="budget-${key}">
+      <input type="text" placeholder="Min (₹)"><input type="text" placeholder="Max (₹)">
+    </div></div>`;
+}
+function notesBlock(to, placeholder){
+  return `<div class="cq-section"><div class="notes-wrap">
+    <label>📝 Notes to ${to}</label>
+    <textarea placeholder="${placeholder}"></textarea>
+  </div></div>`;
+}
+function simpleQ(key, title, opts, noteTo, notePH){
+  return `<div class="cq-section"><div class="cq-section-title">${title}</div>
+    <div class="chip-group">${opts.map(o=>`<div class="chip sm" onclick="toggleChipMulti(this)">${o}</div>`).join('')}</div></div>
+    ${budgetBlock(key, key+' budget')}
+    ${notesBlock(noteTo, notePH)}`;
+}
+function eventManagerBlock(){
+  return `<div class="em-option" onclick="toggleEM(this)">
+    <div class="em-check">✓</div>
+    <div>
+      <div class="em-text">Just get me someone who can handle all this</div>
+      <div style="font-size:11px;color:var(--text-mid);margin-top:2px;font-weight:400">Too many decisions? First time planning? We'll match you with event managers who'll take it from here.</div>
+    </div>
+  </div>`;
+}
+function moodboardBlock(catLabel){
+  const uid = 'mb-'+catLabel.replace(/\s/g,'');
+  return `<div class="moodboard-toggle" onclick="toggleMoodboard(this,'${uid}')">
+    <div class="em-check">✓</div>
+    <div>
+      <div class="em-text">🎨 I want to design my gathering myself</div>
+      <div style="font-size:11px;color:var(--text-mid);margin-top:2px">Upload photos / moodboards / Pinterest links and get ${catLabel} to price out specific items</div>
+    </div>
+  </div>
+  <div class="cond-section moodboard-section" id="${uid}">
+    <div class="mb-desc">Give us as much detail as possible to get better costings. Add photos, screenshots, or links to inspiration.</div>
+    <div class="mb-upload-area">
+      <label class="mb-upload-btn"><span class="mb-icon">📎</span>Upload photos<input type="file" multiple accept="image/*" style="display:none"></label>
+    </div>
+    <div class="mb-links" style="margin-top:12px;display:flex;flex-direction:column;gap:8px">
+      <input type="text" placeholder="Paste link 1 — Pinterest / Instagram / image URL">
+      <input type="text" placeholder="Paste link 2">
+      <input type="text" placeholder="Paste link 3">
+      <div class="mb-add-link" onclick="addMbLink(this)" style="font-size:12px;color:var(--blue);cursor:pointer;font-weight:600;padding:4px 0">+ Add another link</div>
+    </div>
+  </div>`;
+}
+
+// ========== DEMO VENDOR DATA (Phase 2) ==========
+const VENDORS = {
+  venue: [
+    {name:'The Garden Terrace',tags:['Top Rated','Outdoor','150 pax'],rating:'4.8',reviews:95,price:'₹35,000',priceLabel:'full day',exp:'6 yrs',events:'200+',highlights:['AC backup','Outside catering ✓','Parking 30 cars'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
+    {name:'Skyline Banquet Hall',tags:['Indoor','AC','300 pax'],rating:'4.5',reviews:67,price:'₹25,000',priceLabel:'per slot',exp:'4 yrs',events:'150+',highlights:['In-house catering','Projector incl.','Valet available'],bg:'linear-gradient(135deg,#BBDEFB,#42A5F5)'},
+    {name:'The Rustic Farmhouse',tags:['Most Unique','Outdoor','200 pax'],rating:'4.9',reviews:142,price:'₹45,000',priceLabel:'full day',exp:'8 yrs',events:'400+',highlights:['Pool area','Bonfire setup','Generator backup'],bg:'linear-gradient(135deg,#FFE0B2,#FF9800)'},
+  ],
+  fb: [
+    {name:'Spice Route Catering',tags:['Top Rated','North Indian','Mughlai'],rating:'4.8',reviews:127,price:'₹650',priceLabel:'per plate',exp:'5 yrs',events:'320+',highlights:['FSSAI ✓','Live counters incl.','Free tasting'],bg:'linear-gradient(135deg,#FFE0B2,#FFCC02)'},
+    {name:'Green Table Kitchen',tags:['Multi-cuisine','Vegan','Organic'],rating:'4.6',reviews:84,price:'₹550',priceLabel:'per plate',exp:'3 yrs',events:'150+',highlights:['FSSAI ✓','Organic focus','Crockery incl.'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
+    {name:'Royal Feast Caterers',tags:['Most Experienced','Bar service'],rating:'4.9',reviews:203,price:'₹900',priceLabel:'per plate',exp:'8 yrs',events:'600+',highlights:['FSSAI ✓','Bar included','8 staff incl.'],bg:'linear-gradient(135deg,#FFCDD2,#EF5350)'},
+  ],
+  entertainment: [
+    {name:'DJ Aakash',tags:['Bollywood','EDM','Weddings'],rating:'4.7',reviews:88,price:'₹15,000',priceLabel:'3-hr set',exp:'6 yrs',events:'250+',highlights:['Own sound system','Light rig incl.','Takes requests'],bg:'linear-gradient(135deg,#E1BEE7,#AB47BC)'},
+    {name:'Rahul Dua Comedy',tags:['Stand-up','Clean','Corporate'],rating:'4.9',reviews:156,price:'₹25,000',priceLabel:'45-min set',exp:'5 yrs',events:'180+',highlights:['Custom material','Netflix featured','Family-safe'],bg:'linear-gradient(135deg,#FFE082,#FFB300)'},
+    {name:'The Groove Band',tags:['Live Band','Bollywood','Retro'],rating:'4.8',reviews:112,price:'₹35,000',priceLabel:'2-hr set',exp:'7 yrs',events:'300+',highlights:['5-piece band','Own equipment','Setlist flexible'],bg:'linear-gradient(135deg,#B2DFDB,#26A69A)',spaceNote:'5-piece band — needs stage area of at least 10×8 ft. Ensure your venue has enough space.'},
+  ],
+  decor: [
+    {name:'Balloon Bliss Studio',tags:['Balloon Art','Theme Decor'],rating:'4.7',reviews:93,price:'₹18,000',priceLabel:'package',exp:'4 yrs',events:'280+',highlights:['Setup + teardown','Custom themes','LED signs incl.'],bg:'linear-gradient(135deg,#F8BBD0,#EC407A)'},
+    {name:'Floral Dreams Decor',tags:['Premium','Floral','Stage'],rating:'4.9',reviews:168,price:'₹45,000',priceLabel:'package',exp:'9 yrs',events:'500+',highlights:['Full venue transform','Flower walls','Site visit free'],bg:'linear-gradient(135deg,#DCEDC8,#8BC34A)'},
+  ],
+  photo: [
+    {name:'PixelPerfect Studios',tags:['Candid','Cinematic','Drone'],rating:'4.8',reviews:134,price:'₹20,000',priceLabel:'4 hrs',exp:'6 yrs',events:'350+',highlights:['Same-day edit','Album incl.','Drone shots'],bg:'linear-gradient(135deg,#B3E5FC,#03A9F4)'},
+    {name:'MomentCraft Photography',tags:['Photo + Video','Budget'],rating:'4.5',reviews:76,price:'₹12,000',priceLabel:'4 hrs',exp:'3 yrs',events:'120+',highlights:['200 edited photos','Highlight reel','Quick delivery'],bg:'linear-gradient(135deg,#F0F4C3,#CDDC39)'},
+  ]
+};
+
+// ========== COMPARE DATA ==========
+const COMPARE = {
+  fb: {
+    headers:['Spice Route','Green Table','Royal Feast'],
+    prices:['₹650/plate','₹550/plate','₹900/plate'],
+    rows:[
+      ['Est. Total (75 pax)','₹48,750','₹41,250','₹67,500',[1,0,0]],
+      ['Rating','★ 4.8 (127)','★ 4.6 (84)','★ 4.9 (203)',[0,0,1]],
+      ['Experience','5 years','3 years','8 years',[0,0,1]],
+      ['Events Done','320+','150+','600+',[0,0,1]],
+      ['Cuisine Match','North Indian, Mughlai ✓','Multi-cuisine','North Indian, Chinese ✓',[1,0,1]],
+      ['Live Counters','Included','₹5K extra','Included',[1,0,1]],
+      ['Bar Service','₹8K extra','Not available','Included',[0,0,1]],
+      ['Tasting Session','Free','Free','₹2K (adjustable)',[1,1,0]],
+      ['Staff Included','Yes (6 pax)','Yes (4 pax)','Yes (8 pax)',[1,0,1]],
+      ['FSSAI Licensed','✅','✅','✅',[1,1,1]],
+    ]
+  }
+};
+
+// ========== NAVIGATION ==========
+function goTo(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  let pct = n<=5 ? ((n-1)/4)*100 : 100;
+  document.getElementById('progressFill').style.width = pct+'%';
+  const p1=document.getElementById('pill-p1'),p2=document.getElementById('pill-p2');
+  if(n<=5){p1.className='phase-pill active';p2.className='phase-pill';}
+  else{p1.className='phase-pill done';p2.className='phase-pill active';}
+  // Show running total in phase 2
+  document.getElementById('runningTotal').classList.toggle('visible', n>=7 && n<=9);
+  // Build dynamic content
+  if(n===3) buildCatList();
+  if(n===5) buildReview();
+  if(n===7) buildDashboard();
+}
+
+// ========== SCREEN 1: OCCASION ==========
+function pickOcc(el, occ){
+  document.querySelectorAll('.occ-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.occasion = occ;
+  state.subType = null; // reset subtype on occasion change
+  // Pre-populate subtypes for Screen 2
+  const cfg = OCC[occ];
+  const sec = document.getElementById('subtypeSection');
+  if(cfg.subTypes.length > 0){
+    document.getElementById('subtypeTitle').textContent = cfg.subTypeTitle;
+    document.getElementById('subtypeChips').innerHTML = cfg.subTypes.map(st=>
+      `<div class="chip" onclick="pickSubType(this,'${st.id}')">${st.label}</div>`
+    ).join('');
+    sec.classList.add('visible');
+  } else { sec.classList.remove('visible'); }
+}
+function pickSubType(el, id){
+  el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.subType = id;
+}
+
+// ========== SCREEN 3: DYNAMIC CATEGORIES ==========
+function buildCatList(){
+  const key = state.occasion+'-'+(state.subType||'adult');
+  const cats = CAT_MAP[key] || CAT_MAP['birthday-adult'];
+  let h='';
+  cats.forEach(([catKey,rec])=>{
+    const c=CATS[catKey];
+    const isSpecial = ['ceremonial','rangoli','fireworks','emcee','memoryVideo'].includes(catKey);
+    h+=`<div class="cat-item${rec?' checked':''}" onclick="toggleCat(this)" data-cat="${catKey}">
+      <div class="cat-check">✓</div><span class="cat-emoji">${c.emoji}</span>
+      <div class="cat-info"><div class="cat-name">${c.name}</div><div class="cat-desc">${c.desc}</div></div>
+      ${rec?'<div class="rec-badge">Recommended</div>':''}
+      ${isSpecial&&!rec?'<div class="special-badge">Occasion-specific</div>':''}
+    </div>`;
+  });
+  document.getElementById('catList').innerHTML = h;
+}
+
+// ========== SCREEN 4: CATEGORY QUESTIONS ==========
+function buildCatQuestions(){
+  const checked = document.querySelectorAll('#catList .cat-item.checked');
+  state.selectedCats = [];
+  checked.forEach(el=>state.selectedCats.push(el.dataset.cat));
+  let h='';
+  state.selectedCats.forEach((catKey,i)=>{
+    const c=CATS[catKey];
+    const qFn = CQ[catKey];
+    const body = qFn ? qFn() : simpleQ(catKey,c.name+' details',['Option A','Option B'],c.name+' vendors','Any specific requirements?');
+    h+=`<div class="cq-card open" id="cq-${catKey}">
+      <div class="cq-header" onclick="toggleCQ(this)">
+        <span class="cq-emoji">${c.emoji}</span><span class="cq-title">${c.name}</span>
+        <span class="cq-status todo">${i+1} of ${state.selectedCats.length}</span>
+        <span class="cq-arrow">▼</span>
+      </div>
+      <div class="cq-body">${body}</div>
+    </div>`;
+  });
+  document.getElementById('catQuestions').innerHTML = h;
+  // Auto-open first, collapse rest
+  document.querySelectorAll('.cq-card').forEach((card,i)=>{
+    if(i>0) card.classList.remove('open');
+  });
+}
+
+// ========== SCREEN 5: REVIEW ==========
+function buildReview(){
+  const occ = OCC[state.occasion];
+  const st = occ?.subTypes?.find(s=>s.id===state.subType);
+  let h=`<div class="review-card"><div class="rc-h"><h3>📋 Event Basics</h3><span class="edit-link" onclick="goTo(1)">Edit</span></div>
+    <div class="rc-b">
+      <div class="rr"><span class="rl">Occasion</span><span class="rv">${occ?.emoji||'✨'} ${occ?.label||'Event'}${st?' — '+st.label:''}</span></div>
+      <div class="rr"><span class="rl">Categories</span><span class="rv">${state.selectedCats.length} selected</span></div>
+    </div></div>`;
+  state.selectedCats.forEach(catKey=>{
+    const c=CATS[catKey];
+    h+=`<div class="review-card"><div class="rc-h"><h3>${c.emoji} ${c.name}</h3><span class="edit-link" onclick="goTo(4)">Edit</span></div>
+      <div class="rc-b"><div class="rr"><span class="rl">Status</span><span class="rv" style="color:var(--green)">✓ Details provided</span></div></div></div>`;
+  });
+  document.getElementById('reviewContent').innerHTML = h;
+}
+
+// ========== SCREEN 7: DASHBOARD ==========
+function buildDashboard(){
+  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,mehendi:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1};
+  let h='', totalQuotes=0;
+  state.selectedCats.forEach(catKey=>{
+    const c=CATS[catKey];
+    const qc = quoteCounts[catKey]||1;
+    totalQuotes += qc;
+    const hasV = VENDORS[catKey];
+    const selected = state.vendorSelections[catKey] !== undefined;
+    h+=`<div class="dash-cat${selected?' has-selection':''}" onclick="viewVendors('${catKey}')">
+      <span class="dc-emoji">${c.emoji}</span>
+      <div class="dc-info">
+        <div class="dc-name">${c.name}</div>
+        <div class="dc-meta">${qc} vendor${qc>1?'s':''} quoted</div>
+        ${selected?`<div class="dc-selected">✓ ${VENDORS[catKey]?.[state.vendorSelections[catKey]]?.name||'Selected'}</div>`:''}
+      </div>
+      <div class="dc-quotes"><span class="quote-badge${hasV?' ready':' pending'}">${hasV?qc+' quotes':'View'}</span></div>
+      <span class="dc-arrow">›</span>
+    </div>`;
+  });
+  document.getElementById('dashGrid').innerHTML = h;
+  document.getElementById('dsCats').textContent = state.selectedCats.length;
+  document.getElementById('dsQuotes').textContent = totalQuotes;
+  document.getElementById('dsSelected').textContent = Object.keys(state.vendorSelections).length;
+  updateRunningTotal();
+}
+
+// ========== SCREEN 8: VENDOR LIST ==========
+function viewVendors(catKey){
+  state.currentViewCat = catKey;
+  const c = CATS[catKey];
+  const vendors = VENDORS[catKey];
+  if(!vendors){
+    document.getElementById('vendorListContent').innerHTML=`
+      <div class="vl-header"><h3>${c.emoji} ${c.name}</h3></div>
+      <div style="text-align:center;padding:40px;color:var(--text-mid)">
+        <div style="font-size:36px;margin-bottom:12px">⏳</div>
+        <p>Vendor quotes for ${c.name} are being matched.<br>Check back soon!</p>
+      </div>`;
+    goTo(8); return;
+  }
+  let h=`<div class="vl-header"><h3>${c.emoji} ${c.name} — ${vendors.length} Quotes</h3>
+    <div class="vendor-sort">
+      <div class="sort-chip active" onclick="sortVendors(this)">Price ↑</div>
+      <div class="sort-chip" onclick="sortVendors(this)">Rating</div>
+      <div class="sort-chip" onclick="sortVendors(this)">Experience</div>
+    </div></div>`;
+  vendors.forEach((v,i)=>{
+    const isSelected = state.vendorSelections[catKey]===i;
+    h+=`<div class="vc${isSelected?' selected-vendor':''}" id="vc-${catKey}-${i}">
+      <div class="vc-top">
+        <div class="vc-photos" style="background:${v.bg}">${c.emoji}<div class="pc">${8+i*4} photos</div></div>
+        <div class="vc-info">
+          <div class="vc-name">${v.name}</div>
+          <div class="vc-tags">${v.tags.map((t,j)=>`<span class="vc-tag${j===0?' gold':''}">${t}</span>`).join('')}</div>
+          <div class="vc-rating"><span class="stars">★ ${v.rating}</span><span class="cnt">(${v.reviews} reviews)</span></div>
+        </div>
+        <div class="vc-price"><div class="price-amt">${v.price}</div><div class="price-lbl">${v.priceLabel}</div></div>
+      </div>
+      <div class="vc-bottom">
+        ${v.spaceNote?`<div class="vc-space-note"><span class="sn-icon">📐</span>${v.spaceNote}</div>`:''}
+        <div class="vc-highlights"><span>📅 ${v.exp}</span><span>🎉 ${v.events} events</span>${v.highlights.slice(0,2).map(h=>`<span>✅ ${h}</span>`).join('')}</div>
+        <div class="vc-actions">
+          <button class="btn-sm${isSelected?' selected-btn':' select-vendor'}" onclick="selectVendor('${catKey}',${i})">${isSelected?'✓ Selected':'Select'}</button>
+        </div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('vendorListContent').innerHTML = h;
+  goTo(8);
+}
+
+function selectVendor(catKey, idx){
+  if(state.vendorSelections[catKey]===idx) delete state.vendorSelections[catKey];
+  else state.vendorSelections[catKey]=idx;
+  viewVendors(catKey); // refresh
+  updateRunningTotal();
+}
+
+function updateRunningTotal(){
+  const sel = Object.keys(state.vendorSelections).length;
+  document.getElementById('rtSelected').textContent = sel+' / '+state.selectedCats.length;
+  document.getElementById('dsSelected').textContent = sel;
+  // Simple price sum for demo
+  let total = 0;
+  Object.entries(state.vendorSelections).forEach(([cat,idx])=>{
+    const v = VENDORS[cat]?.[idx];
+    if(v) total += parseInt(v.price.replace(/[₹,]/g,''))||0;
+  });
+  const totalStr = total > 0 ? '₹'+total.toLocaleString('en-IN') : '—';
+  document.getElementById('rtTotal').textContent = totalStr;
+  document.getElementById('dsTotal').textContent = totalStr;
+}
+
+function sortVendors(el){
+  el.parentElement.querySelectorAll('.sort-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ========== INTERACTIONS ==========
+function selectChip(el, group){
+  el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleChipMulti(el){ el.classList.toggle('selected'); }
+function toggleEM(el){ el.classList.toggle('checked'); }
+function toggleEntType(el, typeId){
+  el.classList.toggle('selected');
+  const sec = document.getElementById('ent-genre-'+typeId);
+  if(sec) sec.classList.toggle('visible', el.classList.contains('selected'));
+}
+function toggleMoodboard(el, sectionId){
+  el.classList.toggle('checked');
+  const sec = document.getElementById(sectionId);
+  if(sec) sec.classList.toggle('visible', el.classList.contains('checked'));
+}
+function addMbLink(btn){
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Paste link — Pinterest / Instagram / image URL';
+  btn.parentNode.insertBefore(input, btn);
+}
+function toggleCat(el){ el.classList.toggle('checked'); }
+function toggleCQ(header){
+  const card = header.closest('.cq-card');
+  card.classList.toggle('open');
+}
+function toggleBudget(sw, fieldsId){
+  sw.classList.toggle('on');
+  document.getElementById(fieldsId).classList.toggle('visible');
+}
+function handleVenueChoice(el, choice){
+  selectChip(el, 'venue-status');
+  document.querySelectorAll('[id^="cond-venue-"]').forEach(s=>s.classList.remove('visible'));
+  const target = document.getElementById('cond-venue-'+choice);
+  if(target) target.classList.add('visible');
+}
+
+// Init
+buildCatList();
+</script>
+</body>
+</html>
