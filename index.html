@@ -232,12 +232,30 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .vc-price{text-align:right;flex-shrink:0;min-width:100px}
 .price-amt{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--primary)}
 .price-lbl{font-size:10px;color:var(--text-mid)}
-.vc-bottom{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#FAFAFA;flex-wrap:wrap;gap:8px}
+.vc-bottom{padding:12px 20px;border-top:1px solid var(--border);display:flex;flex-direction:column;background:#FAFAFA;gap:8px}
 .vc-highlights{display:flex;gap:14px;font-size:11px;color:var(--text-mid);flex-wrap:wrap}
 .vc-highlights span{display:flex;align-items:center;gap:4px;white-space:nowrap}
 .vc-space-note{width:100%;display:flex;align-items:flex-start;gap:6px;padding:8px 12px;background:#FFF3E0;border:1px solid #FFE0B2;border-radius:8px;font-size:11px;color:#E65100;line-height:1.5;margin-bottom:4px}
 .vc-space-note .sn-icon{font-size:14px;flex-shrink:0}
-.vc-actions{display:flex;gap:8px}
+/* Cancel badge */
+.cancel-badge{padding:2px 8px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.3px}
+.cancel-badge.easy{background:#E8F5E9;color:#2E7D32}
+.cancel-badge.hard{background:#FFF3E0;color:#E65100}
+/* + taxes */
+.price-tax{font-size:9px;color:var(--text-mid);text-align:center;margin-top:1px}
+/* Estimate detail panel */
+.vc-detail-toggle{width:100%;text-align:center;font-size:11px;font-weight:600;color:var(--blue);cursor:pointer;padding:6px 0;border-top:1px dashed var(--border);margin-top:4px}
+.vc-detail-toggle:hover{color:var(--primary)}
+.vc-detail-panel{display:none;width:100%;padding:0 4px}
+.vc-detail-panel.open{display:block;animation:fadeUp .25s ease}
+.vc-ie-section{margin:8px 0}
+.vc-ie-title{font-size:11px;font-weight:700;margin-bottom:6px;padding-bottom:4px}
+.vc-ie-title.inc{color:#2E7D32}
+.vc-ie-title.exc{color:#C62828}
+.vc-ie-item{font-size:11px;color:var(--text);padding:4px 0 4px 8px;border-left:2px solid transparent;line-height:1.5}
+.vc-ie-item.inc{border-left-color:#C8E6C9}
+.vc-ie-item.exc{border-left-color:#FFCDD2}
+.vc-actions{display:flex;gap:8px;align-self:flex-end}
 .btn-sm{padding:7px 16px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'Plus Jakarta Sans',sans-serif}
 .btn-sm.compare{background:#fff;border:1.5px solid var(--border);color:var(--text)}
 .btn-sm.compare.added{background:var(--accent-wash);border-color:var(--accent);color:var(--primary)}
@@ -272,7 +290,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <body>
 
 <div class="topbar">
-  <div class="logo">Plan<span>Easy</span></div>
+  <div class="logo" onclick="goHome()" style="cursor:pointer">Plan<span>Easy</span></div>
   <div class="phase-indicator">
     <div class="phase-pill active" id="pill-p1">Phase 1 · Plan</div>
     <div class="phase-pill" id="pill-p2">Phase 2 · Compare</div>
@@ -486,7 +504,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <script>
 // ========== STATE ==========
 let state = {
-  occasion: null, subType: null,
+  occasion: null, subType: null, guestCount: null,
   selectedCats: [], currentViewCat: null,
   vendorSelections: {} // {catKey: vendorIndex}
 };
@@ -573,34 +591,35 @@ const CATS = {
   gifting:    {emoji:'🎁',name:'Gifting',desc:'Hampers, personalized, corporate'},
   emcee:      {emoji:'🎙️',name:'Emcee / Host',desc:'Event hosting, speeches, flow'},
   memoryVideo:{emoji:'🎬',name:'Tribute Video',desc:'Life journey, montage, interviews'},
+  logistics:  {emoji:'🚗',name:'Guest Logistics',desc:'Pickups, shuttles, accommodation, valet'},
 };
 
-// Categories per occasion+subtype: [catKey, recommended?]
+// Categories per occasion+subtype: [catKey, flag] — 0=optional, 1=recommended, 2=show only if 50+ guests
 const CAT_MAP = {
   'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
   'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0]],
-  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
-  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0]],
-  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['mehendi',0],['florist',0],['slp',0],['staffing',0]],
-  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['florist',0],['staffing',0]],
-  'bridalshower-mehendi':[['venue',1],['mehendi',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
-  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['slp',1],['florist',0],['staffing',0]],
-  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['staffing',0]],
+  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',2]],
+  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['florist',0],['staffing',0],['logistics',0]],
+  'bridalshower-mehendi':[['venue',1],['mehendi',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['slp',1],['florist',0],['staffing',0],['logistics',0]],
+  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['staffing',0],['logistics',0]],
   'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0]],
-  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0]],
-  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0]],
-  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1]],
+  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',2]],
+  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0]],
   'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0]],
-  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
-  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0]],
-  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0]],
+  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',2]],
   'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0]],
-  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0]],
-  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0]],
+  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',2]],
+  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
 };
 
 // ========== CONTEXT HELPERS ==========
@@ -614,6 +633,7 @@ function isBabyShower(){ return state.occasion==='babyshower'; }
 function isRetirement(){ return state.occasion==='retirement'; }
 function isTraditional(){ return ['godhbharai','valaikappu','haldi','homepuja'].includes(state.subType); }
 function isCorporate(){ return ['corporate'].includes(state.subType); }
+function is50Plus(){ return ['50–100','100–200','200+'].includes(state.guestCount); }
 function chips(arr){ return arr.map(o=>`<div class="chip sm" onclick="toggleChipMulti(this)">${o}</div>`).join(''); }
 function singleChips(arr,grp){ return arr.map(o=>`<div class="chip" onclick="selectChip(this,'${grp}')">${o}</div>`).join(''); }
 
@@ -960,7 +980,6 @@ const CQ = {
       <div class="chip-group">${chips(styles)}</div></div>
     <div class="cq-section"><div class="cq-section-title">How many guests getting mehendi?</div>
       <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 5 close family','5–15 guests','15+']:['Just me','2–5','5–15','15+'],'meh-count')}</div></div>
-    ${budgetBlock('meh','mehendi budget')}
     ${notesBlock('mehendi artists','e.g., "Organic henna only" or "Need artist for 3 hours"')}`;
   },
 
@@ -984,7 +1003,6 @@ const CQ = {
       <div class="chip-group">${chips(ceremonies)}</div></div>
     <div class="cq-section"><div class="cq-section-title">2. Puja Items / Samagri — What do you need?</div>
       <div class="chip-group">${chips(pujaOpts)}</div></div>
-    ${budgetBlock('ceremonial','ceremonial budget')}
     ${notesBlock('ceremonial vendors','e.g., "Hindi-speaking pandit" or "Short 30-min ceremony" or "Eco-friendly diyas"')}`;
   },
 
@@ -993,23 +1011,21 @@ const CQ = {
     return `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
       <div class="chip-group">${chips(['Stage / entrance floral','Table arrangements','Garlands','Bouquets','No idea — just make it pretty'])}</div></div>
     ${moodboardBlock('florists')}
-    ${budgetBlock('florist','florist budget')}
     ${notesBlock('florist vendors','e.g., "Marigold & jasmine only" or "White & green palette"')}`;
   },
   slp: () => {
     return `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
       <div class="chip-group">${chips(['Sound system (speakers + mic)','Lighting rig','Projector / screen','Full AV setup','Not sure — venue may provide'])}</div></div>
     ${eventManagerBlock()}
-    ${budgetBlock('slp','SLP budget')}
     ${notesBlock('SLP vendors','e.g., "Outdoor setup for 100 people" or "Need projector for tribute video"')}`;
   },
   staffing: () => {
-    let opts = ['Wait staff','Bartender','Security','Valet','Event coordinator'];
+    let opts = ['Wait staff','Bartender','Security','Event coordinator','Cleanup crew'];
     if(isKids()) opts = ['Wait staff','Activity coordinator','Security','Event coordinator'];
-    return simpleQ('staffing','What staff?',opts,'staffing vendors','e.g., "Need 4 waiters for 5 hours" or "Formal uniform required"');
+    return simpleQ('staffing','What staff?',opts,'staffing vendors','e.g., "Need 4 waiters for 5 hours" or "Formal uniform required"',true);
   },
-  rangoli: () => simpleQ('rangoli','Style',['Traditional powder','Floral rangoli','Modern / geometric','Sand art','Not sure — show me options'],'rangoli artists','e.g., "6ft entrance rangoli" or "Indoor-safe materials"'),
-  fireworks: () => simpleQ('fireworks','Type',['Cold sparklers (indoor-safe)','LED fireworks','Sky lanterns','Traditional crackers','Not sure — what\'s best?'],'fireworks vendors','e.g., "Indoor-safe only" or "5-minute finale show"'),
+  rangoli: () => simpleQ('rangoli','Style',['Traditional powder','Floral rangoli','Modern / geometric','Sand art','Not sure — show me options'],'rangoli artists','e.g., "6ft entrance rangoli" or "Indoor-safe materials"',true),
+  fireworks: () => simpleQ('fireworks','Type',['Cold sparklers (indoor-safe)','LED fireworks','Sky lanterns','Traditional crackers','Not sure — what\'s best?'],'fireworks vendors','e.g., "Indoor-safe only" or "5-minute finale show"',true),
   gifting: () => {
     let types;
     if(isCorporate()) types = ['Corporate hampers','Personalized / branded','Sweet boxes','Luxury hampers','Eco-friendly'];
@@ -1028,9 +1044,49 @@ const CQ = {
     if(isCorporate()) styles = ['Formal / corporate','Professional + warm','Bilingual (Hindi + English)','English only'];
     else if(isRetirement()) styles = ['Warm / emotional','Formal + personal','Fun / energetic','Bilingual (Hindi + English)'];
     else styles = ['Formal / corporate','Warm / emotional','Fun / energetic','Bilingual (Hindi + English)'];
-    return simpleQ('emcee','Style',styles,'emcee vendors','e.g., "Need to coordinate tribute speeches" or "Must handle 2-hour program"');
+    return simpleQ('emcee','Style',styles,'emcee vendors','e.g., "Need to coordinate tribute speeches" or "Must handle 2-hour program"',true);
   },
-  memoryVideo: () => simpleQ('memoryVideo','Type',['Photo montage / slideshow','Interview-based tribute','Life journey timeline','Quick highlight reel'],'video editors','e.g., "Have 200+ old photos to include" or "Need colleague interviews shot beforehand"'),
+  memoryVideo: () => simpleQ('memoryVideo','Type',['Photo montage / slideshow','Interview-based tribute','Life journey timeline','Quick highlight reel'],'video editors','e.g., "Have 200+ old photos to include" or "Need colleague interviews shot beforehand"',true),
+
+  // ──── LOGISTICS (guest transport, accommodation, valet) ────
+  logistics: () => {
+    let services = [
+      'Guest pickup & drop (airport / station)',
+      'Shuttle service (hotel ↔ venue)',
+      'VIP / special entry car',
+      'Accommodation coordination',
+      'Valet parking',
+      'Goods / equipment transport'
+    ];
+    if(isBridal()){
+      services = [
+        'Guest pickup & drop (airport / station)',
+        'Shuttle service (hotel ↔ venue)',
+        'Bridal car (decorated)',
+        'Baraat car / vehicle',
+        'VIP / luxury car for family',
+        'Shuttle for baraatis',
+        'Accommodation coordination',
+        'Valet parking',
+        'Goods / equipment transport'
+      ];
+    }
+    const vehicles = isBridal()
+      ? ['Sedan','SUV','Vintage / classic car','Decorated car','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes / Audi)','Not sure yet — show me options with pricing']
+      : ['Sedan','SUV','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes)','Not sure yet — show me options with pricing'];
+
+    return `
+    <div class="cq-section"><div class="cq-section-title">What do you need? (select all)</div>
+      <div class="chip-group">${chips(services)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How many outstation guests (approx)?</div>
+      <div class="form-hint" style="margin-bottom:8px">Helps vendors estimate fleet size and pricing</div>
+      <div class="chip-group">${singleChips(['Under 10','10–25','25–50','50–100','100+'],'log-outstation')}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Vehicle preference <span class="optional-tag">Optional</span></div>
+      <div class="chip-group">${chips(vehicles)}</div></div>
+    ${notesBlock('logistics vendors', isBridal()
+      ? 'e.g., "Need vintage car for baraat" or "20 guests arriving at IGI Terminal 3 on March 5th" or "Block 10 rooms near venue"'
+      : 'e.g., "15 guests arriving at airport on different flights" or "Need shuttle every 30 min between hotel and venue"')}`;
+  },
 };
 
 // ========== HELPERS ==========
@@ -1050,10 +1106,10 @@ function notesBlock(to, placeholder){
     <textarea placeholder="${placeholder}"></textarea>
   </div></div>`;
 }
-function simpleQ(key, title, opts, noteTo, notePH){
+function simpleQ(key, title, opts, noteTo, notePH, noBudget){
   return `<div class="cq-section"><div class="cq-section-title">${title}</div>
     <div class="chip-group">${opts.map(o=>`<div class="chip sm" onclick="toggleChipMulti(this)">${o}</div>`).join('')}</div></div>
-    ${budgetBlock(key, key+' budget')}
+    ${noBudget ? '' : budgetBlock(key, key+' budget')}
     ${notesBlock(noteTo, notePH)}`;
 }
 function eventManagerBlock(){
@@ -1091,27 +1147,66 @@ function moodboardBlock(catLabel){
 // ========== DEMO VENDOR DATA (Phase 2) ==========
 const VENDORS = {
   venue: [
-    {name:'The Garden Terrace',tags:['Top Rated','Outdoor','150 pax'],rating:'4.8',reviews:95,price:'₹35,000',priceLabel:'full day',exp:'6 yrs',events:'200+',highlights:['AC backup','Outside catering ✓','Parking 30 cars'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
-    {name:'Skyline Banquet Hall',tags:['Indoor','AC','300 pax'],rating:'4.5',reviews:67,price:'₹25,000',priceLabel:'per slot',exp:'4 yrs',events:'150+',highlights:['In-house catering','Projector incl.','Valet available'],bg:'linear-gradient(135deg,#BBDEFB,#42A5F5)'},
-    {name:'The Rustic Farmhouse',tags:['Most Unique','Outdoor','200 pax'],rating:'4.9',reviews:142,price:'₹45,000',priceLabel:'full day',exp:'8 yrs',events:'400+',highlights:['Pool area','Bonfire setup','Generator backup'],bg:'linear-gradient(135deg,#FFE0B2,#FF9800)'},
+    {name:'The Garden Terrace',tags:['Top Rated','Outdoor','150 pax'],rating:'4.8',reviews:95,price:'₹35,000',priceLabel:'full day',exp:'6 yrs',events:'200+',cancel:'easy',
+      includes:['Furniture (tables + chairs for 150)','Electricity + water','Pre-event site visit','Parking: 30 cars'],
+      excludes:['Generator backup (₹5,000 extra)','AC units for outdoor (₹8,000)','Overnight access'],
+      highlights:['AC backup','Outside catering ✓','Parking 30 cars'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
+    {name:'Skyline Banquet Hall',tags:['Indoor','AC','300 pax'],rating:'4.5',reviews:67,price:'₹25,000',priceLabel:'per slot',exp:'4 yrs',events:'150+',cancel:'easy',
+      includes:['AC hall for 6 hrs','Furniture (tables + chairs for 300)','In-house projector','Valet available'],
+      excludes:['Overtime ₹4,000/hr','Outside catering fee ₹5,000','Decoration rigging'],
+      highlights:['In-house catering','Projector incl.','Valet available'],bg:'linear-gradient(135deg,#BBDEFB,#42A5F5)'},
+    {name:'The Rustic Farmhouse',tags:['Most Unique','Outdoor','200 pax'],rating:'4.9',reviews:142,price:'₹45,000',priceLabel:'full day',exp:'8 yrs',events:'400+',cancel:'non-refundable',
+      includes:['Full day access (8 AM – midnight)','Pool area + bonfire setup','Generator backup','Parking: 50 cars'],
+      excludes:['Overnight stay (₹8,000 per room)','Cleanup deposit ₹3,000 (refundable)'],
+      highlights:['Pool area','Bonfire setup','Generator backup'],bg:'linear-gradient(135deg,#FFE0B2,#FF9800)'},
   ],
   fb: [
-    {name:'Spice Route Catering',tags:['Top Rated','North Indian','Mughlai'],rating:'4.8',reviews:127,price:'₹650',priceLabel:'per plate',exp:'5 yrs',events:'320+',highlights:['FSSAI ✓','Live counters incl.','Free tasting'],bg:'linear-gradient(135deg,#FFE0B2,#FFCC02)'},
-    {name:'Green Table Kitchen',tags:['Multi-cuisine','Vegan','Organic'],rating:'4.6',reviews:84,price:'₹550',priceLabel:'per plate',exp:'3 yrs',events:'150+',highlights:['FSSAI ✓','Organic focus','Crockery incl.'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
-    {name:'Royal Feast Caterers',tags:['Most Experienced','Bar service'],rating:'4.9',reviews:203,price:'₹900',priceLabel:'per plate',exp:'8 yrs',events:'600+',highlights:['FSSAI ✓','Bar included','8 staff incl.'],bg:'linear-gradient(135deg,#FFCDD2,#EF5350)'},
+    {name:'Spice Route Catering',tags:['Top Rated','North Indian','Mughlai'],rating:'4.8',reviews:127,price:'₹650',priceLabel:'per plate',exp:'5 yrs',events:'320+',cancel:'easy',
+      includes:['4 starters + 2 mains + 1 dessert','Crockery + cutlery','3 service staff (up to 4 hrs)','Setup + teardown'],
+      excludes:['Live counters (₹8,000 each)','Bar service','Extra staff beyond 4 hrs'],
+      highlights:['FSSAI ✓','Live counters incl.','Free tasting'],bg:'linear-gradient(135deg,#FFE0B2,#FFCC02)'},
+    {name:'Green Table Kitchen',tags:['Multi-cuisine','Vegan','Organic'],rating:'4.6',reviews:84,price:'₹550',priceLabel:'per plate',exp:'3 yrs',events:'150+',cancel:'easy',
+      includes:['3 starters + 2 mains + 1 dessert','Eco crockery (compostable)','2 service staff (up to 3 hrs)','Organic ingredients'],
+      excludes:['Non-veg options','Bar service','Extra crockery for 100+ guests'],
+      highlights:['FSSAI ✓','Organic focus','Crockery incl.'],bg:'linear-gradient(135deg,#C8E6C9,#66BB6A)'},
+    {name:'Royal Feast Caterers',tags:['Most Experienced','Bar service'],rating:'4.9',reviews:203,price:'₹900',priceLabel:'per plate',exp:'8 yrs',events:'600+',cancel:'easy',
+      includes:['6 starters + 3 mains + 2 desserts','Premium bone china crockery','8 staff + 1 supervisor (5 hrs)','2 live counters + bar setup'],
+      excludes:['Alcohol (BYO allowed)','Ice sculpture / specialty stations','Overtime beyond 5 hrs'],
+      highlights:['FSSAI ✓','Bar included','8 staff incl.'],bg:'linear-gradient(135deg,#FFCDD2,#EF5350)'},
   ],
   entertainment: [
-    {name:'DJ Aakash',tags:['Bollywood','EDM','Weddings'],rating:'4.7',reviews:88,price:'₹15,000',priceLabel:'3-hr set',exp:'6 yrs',events:'250+',highlights:['Own sound system','Light rig incl.','Takes requests'],bg:'linear-gradient(135deg,#E1BEE7,#AB47BC)'},
-    {name:'Rahul Dua Comedy',tags:['Stand-up','Clean','Corporate'],rating:'4.9',reviews:156,price:'₹25,000',priceLabel:'45-min set',exp:'5 yrs',events:'180+',highlights:['Custom material','Netflix featured','Family-safe'],bg:'linear-gradient(135deg,#FFE082,#FFB300)'},
-    {name:'The Groove Band',tags:['Live Band','Bollywood','Retro'],rating:'4.8',reviews:112,price:'₹35,000',priceLabel:'2-hr set',exp:'7 yrs',events:'300+',highlights:['5-piece band','Own equipment','Setlist flexible'],bg:'linear-gradient(135deg,#B2DFDB,#26A69A)',spaceNote:'5-piece band — needs stage area of at least 10×8 ft. Ensure your venue has enough space.'},
+    {name:'DJ Aakash',tags:['Bollywood','EDM','Weddings'],rating:'4.7',reviews:88,price:'₹15,000',priceLabel:'3-hr set',exp:'6 yrs',events:'250+',cancel:'easy',
+      includes:['3-hour DJ set','Own sound system (up to 200 pax)','Basic LED lights','Takes song requests'],
+      excludes:['Fog machine (₹2,000)','Extended lighting rig','Travel beyond 30 km'],
+      highlights:['Own sound system','Light rig incl.','Takes requests'],bg:'linear-gradient(135deg,#E1BEE7,#AB47BC)'},
+    {name:'Rahul Dua Comedy',tags:['Stand-up','Clean','Corporate'],rating:'4.9',reviews:156,price:'₹25,000',priceLabel:'45-min set',exp:'5 yrs',events:'180+',cancel:'non-refundable',
+      includes:['45-min stand-up set','Custom material for your event','Own wireless mic'],
+      excludes:['Travel + stay for outstation','Sound system (needs venue audio)','Recording rights'],
+      highlights:['Custom material','Netflix featured','Family-safe'],bg:'linear-gradient(135deg,#FFE082,#FFB300)'},
+    {name:'The Groove Band',tags:['Live Band','Bollywood','Retro'],rating:'4.8',reviews:112,price:'₹35,000',priceLabel:'2-hr set',exp:'7 yrs',events:'300+',cancel:'easy',
+      includes:['5-piece band (vocal, guitar, keys, drums, percussion)','2-hour performance','Own sound equipment','1 sound check (same day)'],
+      excludes:['Travel beyond 50 km','Accommodation for outstation','Lighting rig (needs separate AV)'],
+      highlights:['5-piece band','Own equipment','Setlist flexible'],bg:'linear-gradient(135deg,#B2DFDB,#26A69A)',spaceNote:'5-piece band — needs stage area of at least 10×8 ft. Ensure your venue has enough space.'},
   ],
   decor: [
-    {name:'Balloon Bliss Studio',tags:['Balloon Art','Theme Decor'],rating:'4.7',reviews:93,price:'₹18,000',priceLabel:'package',exp:'4 yrs',events:'280+',highlights:['Setup + teardown','Custom themes','LED signs incl.'],bg:'linear-gradient(135deg,#F8BBD0,#EC407A)'},
-    {name:'Floral Dreams Decor',tags:['Premium','Floral','Stage'],rating:'4.9',reviews:168,price:'₹45,000',priceLabel:'package',exp:'9 yrs',events:'500+',highlights:['Full venue transform','Flower walls','Site visit free'],bg:'linear-gradient(135deg,#DCEDC8,#8BC34A)'},
+    {name:'Balloon Bliss Studio',tags:['Balloon Art','Theme Decor'],rating:'4.7',reviews:93,price:'₹18,000',priceLabel:'package',exp:'4 yrs',events:'280+',cancel:'easy',
+      includes:['Entrance balloon arch','Photo backdrop','10 table centerpieces','Setup + teardown (same day)'],
+      excludes:['Fresh flowers (quoted separately)','LED neon signs (₹3,000 each)','Overtime beyond 8 hrs'],
+      highlights:['Setup + teardown','Custom themes','LED signs incl.'],bg:'linear-gradient(135deg,#F8BBD0,#EC407A)'},
+    {name:'Floral Dreams Decor',tags:['Premium','Floral','Stage'],rating:'4.9',reviews:168,price:'₹45,000',priceLabel:'package',exp:'9 yrs',events:'500+',cancel:'non-refundable',
+      includes:['Full venue transformation','Stage backdrop + flower walls','Table + aisle decor','Free site visit + planning session'],
+      excludes:['Fresh flower costs (seasonal, quoted separately)','Generator for outdoor','Next-day teardown (₹5,000)'],
+      highlights:['Full venue transform','Flower walls','Site visit free'],bg:'linear-gradient(135deg,#DCEDC8,#8BC34A)'},
   ],
   photo: [
-    {name:'PixelPerfect Studios',tags:['Candid','Cinematic','Drone'],rating:'4.8',reviews:134,price:'₹20,000',priceLabel:'4 hrs',exp:'6 yrs',events:'350+',highlights:['Same-day edit','Album incl.','Drone shots'],bg:'linear-gradient(135deg,#B3E5FC,#03A9F4)'},
-    {name:'MomentCraft Photography',tags:['Photo + Video','Budget'],rating:'4.5',reviews:76,price:'₹12,000',priceLabel:'4 hrs',exp:'3 yrs',events:'120+',highlights:['200 edited photos','Highlight reel','Quick delivery'],bg:'linear-gradient(135deg,#F0F4C3,#CDDC39)'},
+    {name:'PixelPerfect Studios',tags:['Candid','Cinematic','Drone'],rating:'4.8',reviews:134,price:'₹20,000',priceLabel:'4 hrs',exp:'6 yrs',events:'350+',cancel:'easy',
+      includes:['4 hrs coverage (1 photographer)','200 edited photos','20-page printed album','Drone shots (weather permitting)'],
+      excludes:['Second shooter (₹8,000)','Same-day slideshow edit','Raw unedited files'],
+      highlights:['Same-day edit','Album incl.','Drone shots'],bg:'linear-gradient(135deg,#B3E5FC,#03A9F4)'},
+    {name:'MomentCraft Photography',tags:['Photo + Video','Budget'],rating:'4.5',reviews:76,price:'₹12,000',priceLabel:'4 hrs',exp:'3 yrs',events:'120+',cancel:'easy',
+      includes:['4 hrs coverage (1 photographer)','150 edited photos','Highlight reel (2 min)','Google Photos album delivery'],
+      excludes:['Printed album (₹5,000 extra)','Drone shots','Pre-event shoot'],
+      highlights:['200 edited photos','Highlight reel','Quick delivery'],bg:'linear-gradient(135deg,#F0F4C3,#CDDC39)'},
   ]
 };
 
@@ -1136,6 +1231,14 @@ const COMPARE = {
 };
 
 // ========== NAVIGATION ==========
+function goHome(){
+  // Reset state
+  state.occasion = null; state.subType = null; state.guestCount = null;
+  state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
+  // Clear selections visually
+  document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked').forEach(el => el.classList.remove('selected','checked'));
+  goTo(1);
+}
 function goTo(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
@@ -1181,13 +1284,18 @@ function buildCatList(){
   const key = state.occasion+'-'+(state.subType||'adult');
   const cats = CAT_MAP[key] || CAT_MAP['birthday-adult'];
   let h='';
-  cats.forEach(([catKey,rec])=>{
+  cats.forEach(([catKey,flag])=>{
+    // flag 2 = only show if 50+ guests
+    if(flag===2 && !is50Plus()) return;
+    const rec = flag===1;
     const c=CATS[catKey];
     const isSpecial = ['ceremonial','rangoli','fireworks','emcee','memoryVideo'].includes(catKey);
+    const isLogistics = catKey==='logistics';
     h+=`<div class="cat-item${rec?' checked':''}" onclick="toggleCat(this)" data-cat="${catKey}">
       <div class="cat-check">✓</div><span class="cat-emoji">${c.emoji}</span>
       <div class="cat-info"><div class="cat-name">${c.name}</div><div class="cat-desc">${c.desc}</div></div>
       ${rec?'<div class="rec-badge">Recommended</div>':''}
+      ${isLogistics&&!rec?'<div class="special-badge">50+ guests</div>':''}
       ${isSpecial&&!rec?'<div class="special-badge">Occasion-specific</div>':''}
     </div>`;
   });
@@ -1239,7 +1347,7 @@ function buildReview(){
 
 // ========== SCREEN 7: DASHBOARD ==========
 function buildDashboard(){
-  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,mehendi:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1};
+  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,mehendi:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2};
   let h='', totalQuotes=0;
   state.selectedCats.forEach(catKey=>{
     const c=CATS[catKey];
@@ -1287,19 +1395,28 @@ function viewVendors(catKey){
     </div></div>`;
   vendors.forEach((v,i)=>{
     const isSelected = state.vendorSelections[catKey]===i;
+    const cancelBadge = v.cancel==='easy'
+      ? '<span class="cancel-badge easy">Cancel easy</span>'
+      : v.cancel==='non-refundable' ? '<span class="cancel-badge hard">Non-refundable</span>' : '';
     h+=`<div class="vc${isSelected?' selected-vendor':''}" id="vc-${catKey}-${i}">
       <div class="vc-top">
         <div class="vc-photos" style="background:${v.bg}">${c.emoji}<div class="pc">${8+i*4} photos</div></div>
         <div class="vc-info">
           <div class="vc-name">${v.name}</div>
-          <div class="vc-tags">${v.tags.map((t,j)=>`<span class="vc-tag${j===0?' gold':''}">${t}</span>`).join('')}</div>
+          <div class="vc-tags">${v.tags.map((t,j)=>`<span class="vc-tag${j===0?' gold':''}">${t}</span>`).join('')}${cancelBadge}</div>
           <div class="vc-rating"><span class="stars">★ ${v.rating}</span><span class="cnt">(${v.reviews} reviews)</span></div>
         </div>
-        <div class="vc-price"><div class="price-amt">${v.price}</div><div class="price-lbl">${v.priceLabel}</div></div>
+        <div class="vc-price"><div class="price-amt">${v.price}</div><div class="price-lbl">${v.priceLabel}</div><div class="price-tax">+ taxes</div></div>
       </div>
       <div class="vc-bottom">
         ${v.spaceNote?`<div class="vc-space-note"><span class="sn-icon">📐</span>${v.spaceNote}</div>`:''}
         <div class="vc-highlights"><span>📅 ${v.exp}</span><span>🎉 ${v.events} events</span>${v.highlights.slice(0,2).map(h=>`<span>✅ ${h}</span>`).join('')}</div>
+        <div class="vc-detail-toggle" onclick="toggleVendorDetail(this)">View estimate details ▾</div>
+        <div class="vc-detail-panel">
+          ${v.includes?`<div class="vc-ie-section"><div class="vc-ie-title inc">✅ Includes</div>${v.includes.map(x=>`<div class="vc-ie-item inc">${x}</div>`).join('')}</div>`:''}
+          ${v.excludes?`<div class="vc-ie-section"><div class="vc-ie-title exc">❌ Excludes</div>${v.excludes.map(x=>`<div class="vc-ie-item exc">${x}</div>`).join('')}</div>`:''}
+          ${!v.includes&&!v.excludes?'<div style="padding:12px;color:var(--text-mid);font-size:12px">Estimate details will be available once the vendor responds to your brief.</div>':''}
+        </div>
         <div class="vc-actions">
           <button class="btn-sm${isSelected?' selected-btn':' select-vendor'}" onclick="selectVendor('${catKey}',${i})">${isSelected?'✓ Selected':'Select'}</button>
         </div>
@@ -1341,6 +1458,7 @@ function sortVendors(el){
 function selectChip(el, group){
   el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
+  if(group==='guests') state.guestCount = el.textContent.trim();
 }
 function toggleChipMulti(el){ el.classList.toggle('selected'); }
 function toggleEM(el){ el.classList.toggle('checked'); }
@@ -1353,6 +1471,11 @@ function toggleMoodboard(el, sectionId){
   el.classList.toggle('checked');
   const sec = document.getElementById(sectionId);
   if(sec) sec.classList.toggle('visible', el.classList.contains('checked'));
+}
+function toggleVendorDetail(el){
+  const panel = el.nextElementSibling;
+  const isOpen = panel.classList.toggle('open');
+  el.textContent = isOpen ? 'Hide estimate details ▴' : 'View estimate details ▾';
 }
 function addMbLink(btn){
   const input = document.createElement('input');
