@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Plan Easy — Prototype v2</title>
+<title>PlanEzee — Prototype v2</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -42,6 +42,32 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .sh-step{display:inline-block;padding:4px 14px;border-radius:100px;background:var(--accent-wash);border:1px solid var(--accent-soft);font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
 .sh h2{font-family:'Sora',sans-serif;font-size:26px;font-weight:700;color:var(--primary);letter-spacing:-.5px;margin-bottom:6px}
 .sh p{color:var(--text-mid);font-size:14px;max-width:500px;margin:0 auto}
+
+/* Fork cards (Screen 0) */
+.fork-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:520px;margin:0 auto}
+.fork-card{width:100%;background:#fff;border:2.5px solid var(--border);border-radius:20px;padding:36px 28px;cursor:pointer;transition:all .3s;position:relative;overflow:hidden}
+.fork-card:hover{border-color:var(--accent);box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.fork-card .fork-emoji{font-size:40px;margin-bottom:12px;display:block}
+.fork-card .fork-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--primary);margin-bottom:6px}
+.fork-card .fork-sub{font-size:13px;color:var(--text-mid);line-height:1.5}
+.fork-card .fork-arrow{position:absolute;right:24px;top:50%;transform:translateY(-50%);font-size:20px;color:var(--text-light);transition:all .3s}
+.fork-card:hover .fork-arrow{color:var(--accent);transform:translateY(-50%) translateX(4px)}
+.fork-or{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:1px}
+
+/* Service grid (Screen S1) */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.svc-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:16px 12px;text-align:center;cursor:pointer;transition:all .25s;position:relative}
+.svc-card:hover{border-color:var(--accent-soft);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.svc-card.selected{border-color:var(--accent);background:var(--accent-wash);box-shadow:var(--gold-glow)}
+.svc-card .svc-e{font-size:26px;display:block;margin-bottom:6px}
+.svc-card .svc-n{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)}
+.svc-card .ck{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--primary);display:none;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+.svc-card.selected .ck{display:flex}
+.svc-section-label{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.8px;margin:18px 0 8px;padding-left:2px}
+.svc-section-label:first-child{margin-top:0}
+.switch-link{text-align:center;margin-top:20px;font-size:12px;color:var(--text-mid)}
+.switch-link a{color:var(--accent);cursor:pointer;font-weight:600;text-decoration:none}
+.switch-link a:hover{text-decoration:underline}
 
 /* Occasion cards */
 .occ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
@@ -128,6 +154,16 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 /* Conditional sub-section */
 .cond-section{margin-top:12px;padding:14px;background:var(--accent-wash);border:1px solid var(--accent-soft);border-radius:12px;display:none}
 .cond-section.visible{display:block;animation:fadeUp .25s ease}
+
+/* Quantity steppers */
+.qty-list{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.qty-row{display:flex;align-items:center;justify-content:space-between;background:#FAFAFA;border:1px solid var(--border);border-radius:10px;padding:8px 14px;animation:fadeUp .2s ease}
+.qty-row .qty-label{font-size:13px;font-weight:500;color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.qty-stepper{display:flex;align-items:center;gap:0;border:1.5px solid var(--border-strong);border-radius:8px;overflow:hidden;flex-shrink:0}
+.qty-stepper button{width:32px;height:32px;border:none;background:var(--card);color:var(--text);font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.qty-stepper button:hover{background:var(--accent-wash)}
+.qty-stepper button:active{background:var(--accent-soft)}
+.qty-stepper .qty-val{width:36px;text-align:center;font-size:14px;font-weight:700;color:var(--primary);border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);height:32px;line-height:32px;background:#fff}
 .cond-section .cq-section-title{color:var(--primary)}
 
 /* Help callout */
@@ -278,6 +314,8 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 /* Responsive */
 @media(max-width:600px){
   .screen-wrap{padding:24px 12px 120px}
+  .fork-card{padding:28px 20px}.fork-card .fork-title{font-size:17px}.fork-card .fork-arrow{right:16px}
+  .svc-grid{grid-template-columns:1fr 1fr 1fr}
   .occ-grid{grid-template-columns:1fr 1fr 1fr}
   .form-row,.form-row-3{grid-template-columns:1fr}
   .vc-top{flex-direction:column}.vc-photos{width:100%;height:140px}
@@ -290,7 +328,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <body>
 
 <div class="topbar">
-  <div class="logo" onclick="goHome()" style="cursor:pointer">Plan<span>Easy</span></div>
+  <div class="logo" onclick="goHome()" style="cursor:pointer">Plan<span>Ezee</span></div>
   <div class="phase-indicator">
     <div class="phase-pill active" id="pill-p1">Phase 1 · Plan</div>
     <div class="phase-pill" id="pill-p2">Phase 2 · Compare</div>
@@ -300,8 +338,31 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <div class="screen-wrap">
 
+<!-- ==================== SCREEN 0: THE FORK ==================== -->
+<div class="screen active" id="s0">
+  <div class="sh">
+    <h2>How can we help you?</h2>
+    <p>Choose your path — both get you to the best vendors.</p>
+  </div>
+  <div class="fork-wrap">
+    <div class="fork-card" onclick="pickPath('occasion')">
+      <span class="fork-emoji">🎉</span>
+      <div class="fork-title">Plan an event</div>
+      <div class="fork-sub">First time planning? We'll guide you through everything — from venue to vendors.</div>
+      <span class="fork-arrow">→</span>
+    </div>
+    <div class="fork-or">or</div>
+    <div class="fork-card" onclick="pickPath('service')">
+      <span class="fork-emoji">🎯</span>
+      <div class="fork-title">Find a service</div>
+      <div class="fork-sub">Know what you need? Go straight to it — caterer, photographer, musician, anything.</div>
+      <span class="fork-arrow">→</span>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== SCREEN 1: OCCASION ==================== -->
-<div class="screen active" id="s1">
+<div class="screen" id="s1">
   <div class="sh">
     <div class="sh-step">Step 1 of 5</div>
     <h2>What are you celebrating?</h2>
@@ -316,7 +377,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="occ-card" onclick="pickOcc(this,'other')"><div class="ck">✓</div><span class="oe">✨</span><div class="on">Other</div></div>
   </div>
 
-  <div class="btn-row"><div></div><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
+  <div class="btn-row"><button class="btn btn-secondary" onclick="goTo(0)">← Back</button><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
 </div>
 
 <!-- ==================== SCREEN 2: DETAILS ==================== -->
@@ -365,19 +426,6 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <div class="chip" onclick="selectChip(this,'guests')">50–100</div>
       <div class="chip" onclick="selectChip(this,'guests')">100–200</div>
       <div class="chip" onclick="selectChip(this,'guests')">200+</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="form-label">Overall budget comfort <span class="optional-tag">Optional</span></label>
-    <div class="form-hint">Helps us match the right tier of vendors. You can set per-category budgets in the next step.</div>
-    <div class="chip-group">
-      <div class="chip" onclick="selectChip(this,'budget')">No budget yet</div>
-      <div class="chip" onclick="selectChip(this,'budget')">Under ₹50K</div>
-      <div class="chip" onclick="selectChip(this,'budget')">₹50K – 1L</div>
-      <div class="chip" onclick="selectChip(this,'budget')">₹1L – 3L</div>
-      <div class="chip" onclick="selectChip(this,'budget')">₹3L – 5L</div>
-      <div class="chip" onclick="selectChip(this,'budget')">₹5L+</div>
     </div>
   </div>
 
@@ -492,6 +540,147 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 </div>
 
+<!-- ==================== SERVICE PATH: SCREEN 20 — PICK A SERVICE ==================== -->
+<div class="screen" id="s20">
+  <div class="sh">
+    <div class="sh-step" id="svc-step1">Step 1 of 4</div>
+    <h2>What do you need?</h2>
+    <p>Pick one — we'll ask the right questions to match you with the best vendor.</p>
+  </div>
+  <div class="svc-section-label">Most searched</div>
+  <div class="svc-grid" id="svcGrid1">
+    <div class="svc-card" onclick="pickService(this,'fb')"><div class="ck">✓</div><span class="svc-e">🍽️</span><div class="svc-n">Caterer</div></div>
+    <div class="svc-card" onclick="pickService(this,'photo')"><div class="ck">✓</div><span class="svc-e">📸</span><div class="svc-n">Photographer</div></div>
+    <div class="svc-card" onclick="pickService(this,'venue')"><div class="ck">✓</div><span class="svc-e">📍</span><div class="svc-n">Venue</div></div>
+    <div class="svc-card" onclick="pickService(this,'entertainment')"><div class="ck">✓</div><span class="svc-e">🎵</span><div class="svc-n">Musician / DJ</div></div>
+  </div>
+  <div class="svc-section-label">Event enhancement</div>
+  <div class="svc-grid" id="svcGrid2">
+    <div class="svc-card" onclick="pickService(this,'decor')"><div class="ck">✓</div><span class="svc-e">🎨</span><div class="svc-n">Decorator</div></div>
+    <div class="svc-card" onclick="pickService(this,'florist')"><div class="ck">✓</div><span class="svc-e">💐</span><div class="svc-n">Florist</div></div>
+    <div class="svc-card" onclick="pickService(this,'emcee')"><div class="ck">✓</div><span class="svc-e">🎤</span><div class="svc-n">Emcee / Host</div></div>
+    <div class="svc-card" onclick="pickService(this,'slp')"><div class="ck">✓</div><span class="svc-e">🔊</span><div class="svc-n">Sound & AV</div></div>
+  </div>
+  <div class="svc-section-label">Personal services</div>
+  <div class="svc-grid" id="svcGrid3">
+    <div class="svc-card" onclick="pickService(this,'mehendi')"><div class="ck">✓</div><span class="svc-e">✋</span><div class="svc-n">Mehendi Artist</div></div>
+    <div class="svc-card" onclick="pickService(this,'ceremonial')"><div class="ck">✓</div><span class="svc-e">🙏</span><div class="svc-n">Pandit / Priest</div></div>
+    <div class="svc-card" onclick="pickService(this,'makeup')"><div class="ck">✓</div><span class="svc-e">💄</span><div class="svc-n">Makeup & Styling</div></div>
+  </div>
+  <div class="svc-section-label">Operations</div>
+  <div class="svc-grid" id="svcGrid4">
+    <div class="svc-card" onclick="pickService(this,'staffing')"><div class="ck">✓</div><span class="svc-e">👥</span><div class="svc-n">Staffing</div></div>
+    <div class="svc-card" onclick="pickService(this,'logistics')"><div class="ck">✓</div><span class="svc-e">🚗</span><div class="svc-n">Logistics</div></div>
+  </div>
+  <div class="svc-section-label">Extras</div>
+  <div class="svc-grid" id="svcGrid5">
+    <div class="svc-card" onclick="pickService(this,'returnGifts')"><div class="ck">✓</div><span class="svc-e">🎁</span><div class="svc-n">Return Gifts</div></div>
+    <div class="svc-card" onclick="pickService(this,'gifting')"><div class="ck">✓</div><span class="svc-e">🎁</span><div class="svc-n">Gifting</div></div>
+    <div class="svc-card" onclick="pickService(this,'fireworks')"><div class="ck">✓</div><span class="svc-e">🎆</span><div class="svc-n">Fireworks</div></div>
+    <div class="svc-card" onclick="pickService(this,'rangoli')"><div class="ck">✓</div><span class="svc-e">🌀</span><div class="svc-n">Rangoli</div></div>
+  </div>
+  <div class="switch-link">Not sure what you need? <a onclick="pickPath('occasion')">Plan a full event instead →</a></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
+    <button class="btn btn-primary" onclick="goTo(21)">Continue →</button>
+  </div>
+</div>
+
+<!-- ==================== SERVICE PATH: SCREEN 21 — CONTEXT + DETAILS ==================== -->
+<div class="screen" id="s21">
+  <div class="sh">
+    <div class="sh-step">Step 2 of 4</div>
+    <h2>A little context</h2>
+    <p>Helps us ask the right questions and match you with the right vendor.</p>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">What's this for?</label>
+    <div class="chip-group" id="svcContextChips">
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="wedding">Wedding function</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="birthday">Birthday / Anniversary</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="babyshower">Baby shower / Naming</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="corporate">Corporate / Office</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="festival">Festival / Puja</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="houseparty">House party / Get-together</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="personal">Personal / Professional use</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="other">Other</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">When?</label>
+    <div class="form-row-3">
+      <input type="date">
+      <select><option value="">Time of day</option><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–8pm)</option><option>Night (8pm+)</option></select>
+      <select><option value="">Est. duration</option><option>1–2 hours</option><option>2–3 hours</option><option>3–5 hours</option><option>5–8 hours</option><option>Full day</option><option>Not sure</option></select>
+    </div>
+    <div style="margin-top:8px">
+      <div class="chip sm" onclick="this.classList.toggle('selected')" style="font-size:11px">📅 Date is flexible — show me available options</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Where?</label>
+    <div class="form-hint">Just pincode — no full address needed.</div>
+    <div class="form-row">
+      <input type="text" placeholder="City">
+      <input type="text" placeholder="Pincode" maxlength="6">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">How many people?</label>
+    <div class="chip-group">
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">Just me / 1–5</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">Under 15</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">15–30</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">30–50</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">50–100</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">100–200</div>
+      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">200+</div>
+    </div>
+  </div>
+
+  <div class="switch-link">Realized you need more than one vendor? <a onclick="pickPath('occasion')">Switch to event planner →</a></div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(20)">← Back</button>
+    <button class="btn btn-primary" onclick="buildServiceQuestions();goTo(22)">Continue →</button>
+  </div>
+</div>
+
+<!-- ==================== SERVICE PATH: SCREEN 22 — SERVICE QUESTIONS ==================== -->
+<div class="screen" id="s22">
+  <div class="sh">
+    <div class="sh-step">Step 3 of 4</div>
+    <h2>Tell us what you need</h2>
+    <p>The more detail, the better the quotes. Skip anything you're unsure about.</p>
+  </div>
+  <div id="svcQuestionContent">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(21)">← Back</button>
+    <button class="btn btn-primary" onclick="buildServiceReview();goTo(23)">Review & Submit →</button>
+  </div>
+</div>
+
+<!-- ==================== SERVICE PATH: SCREEN 23 — REVIEW ==================== -->
+<div class="screen" id="s23">
+  <div class="sh">
+    <div class="sh-step">Step 4 of 4</div>
+    <h2>Review your request</h2>
+    <p>Vendors will see this when quoting.</p>
+  </div>
+  <div id="svcReviewContent">
+    <!-- Populated dynamically -->
+  </div>
+  <div class="btn-row">
+    <button class="btn btn-secondary" onclick="goTo(22)">← Back</button>
+    <button class="btn btn-green" onclick="goTo(6)">✓ Submit & Get Quotes</button>
+  </div>
+</div>
+
 </div><!-- end screen-wrap -->
 
 <!-- Running total bar (Phase 2) -->
@@ -504,9 +693,12 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <script>
 // ========== STATE ==========
 let state = {
+  path: null, // 'occasion' or 'service'
   occasion: null, subType: null, guestCount: null,
   selectedCats: [], currentViewCat: null,
-  vendorSelections: {} // {catKey: vendorIndex}
+  vendorSelections: {}, // {catKey: vendorIndex}
+  serviceKey: null, // which single service picked (service path)
+  serviceContext: null // 'wedding','birthday','babyshower','corporate','festival','houseparty','personal','other'
 };
 
 // ========== OCCASION CONFIG ==========
@@ -592,34 +784,35 @@ const CATS = {
   emcee:      {emoji:'🎙️',name:'Emcee / Host',desc:'Event hosting, speeches, flow'},
   memoryVideo:{emoji:'🎬',name:'Tribute Video',desc:'Life journey, montage, interviews'},
   logistics:  {emoji:'🚗',name:'Guest Logistics',desc:'Pickups, shuttles, accommodation, valet'},
+  makeup:     {emoji:'💄',name:'Makeup & Styling',desc:'Bridal, party, portfolio looks'},
 };
 
 // Categories per occasion+subtype: [catKey, flag] — 0=optional, 1=recommended, 2=show only if 50+ guests
 const CAT_MAP = {
   'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
   'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',2]],
-  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',0]],
+  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
   'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
   'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['florist',0],['staffing',0],['logistics',0]],
   'bridalshower-mehendi':[['venue',1],['mehendi',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
   'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['slp',1],['florist',0],['staffing',0],['logistics',0]],
   'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['staffing',0],['logistics',0]],
   'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0]],
-  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',2]],
+  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',0]],
   'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0]],
   'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0]],
   'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
-  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
   'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0]],
-  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',2]],
-  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',2]],
+  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',0]],
+  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
 };
 
 // ========== CONTEXT HELPERS ==========
@@ -633,9 +826,27 @@ function isBabyShower(){ return state.occasion==='babyshower'; }
 function isRetirement(){ return state.occasion==='retirement'; }
 function isTraditional(){ return ['godhbharai','valaikappu','haldi','homepuja'].includes(state.subType); }
 function isCorporate(){ return ['corporate'].includes(state.subType); }
+function isPersonal(){ return state.serviceContext==='personal'; }
 function is50Plus(){ return ['50–100','100–200','200+'].includes(state.guestCount); }
 function chips(arr){ return arr.map(o=>`<div class="chip sm" onclick="toggleChipMulti(this)">${o}</div>`).join(''); }
 function singleChips(arr,grp){ return arr.map(o=>`<div class="chip" onclick="selectChip(this,'${grp}')">${o}</div>`).join(''); }
+
+// Map service context → occasion/subType so CQ templates "just work"
+function applyServiceContext(){
+  const map = {
+    'wedding':    { occasion:'bridalshower', subType:'modern' },
+    'birthday':   { occasion:'birthday',     subType:'adult' },
+    'babyshower': { occasion:'babyshower',   subType:'modern' },
+    'corporate':  { occasion:'diwali',       subType:'corporate' },
+    'festival':   { occasion:'diwali',       subType:'party' },
+    'houseparty': { occasion:'birthday',     subType:'adult' },
+    'personal':   { occasion:null,           subType:null },
+    'other':      { occasion:'other',        subType:'other' }
+  };
+  const ctx = map[state.serviceContext] || map['other'];
+  state.occasion = ctx.occasion;
+  state.subType = ctx.subType;
+}
 
 // ========== CATEGORY QUESTION TEMPLATES (CONTEXT-AWARE) ==========
 const CQ = {
@@ -645,9 +856,22 @@ const CQ = {
     let spaceTypes = ['Home','Apartment hall','Terrace / Rooftop','Office space','Other'];
     if(isCorporate()) spaceTypes = ['Office / conference room','Company cafeteria','Coworking space','Other'];
     if(isDiwali() && state.subType==='homepuja') spaceTypes = ['Home','Apartment','Temple','Other'];
-    let venueTypes = ['Indoor','Outdoor','Rooftop','Poolside','No preference'];
-    if(isKids()) venueTypes = ['Indoor (play area)','Outdoor (garden / park)','Indoor party hall','Rooftop','No preference'];
-    if(isBridal()) venueTypes = ['Indoor','Outdoor','Resort / spa','Rooftop','Farmhouse','No preference'];
+
+    // Venue type chips (context-aware)
+    let venueTypeChips, settingChips;
+    if(isBridal()){
+      venueTypeChips = ['Banquet hall','Marriage lawn / garden','Farmhouse','Hotel (3–5 star)','Resort','Heritage property / palace','Beach venue','Villa / bungalow','Rooftop','Club / lounge','Kalyana mandapam','Not sure yet'];
+      settingChips = ['Indoor','Outdoor','Both / no preference'];
+    } else if(isCorporate()){
+      venueTypeChips = ['Banquet hall','Hotel (3–5 star)','Convention center','Rooftop','Restaurant / bar','Resort','Club / lounge','Not sure yet'];
+      settingChips = ['Indoor','Outdoor','Both / no preference'];
+    } else if(isKids()){
+      venueTypeChips = ['Banquet hall','Restaurant / bar','Play area / activity zone','Farmhouse','Rooftop','Hotel (3–5 star)','Villa / bungalow','Community / function hall','Not sure yet'];
+      settingChips = ['Indoor','Outdoor','Both / no preference'];
+    } else {
+      venueTypeChips = ['Banquet hall','Farmhouse','Restaurant / bar','Rooftop','Hotel (3–5 star)','Resort','Club / lounge','Villa / bungalow','Community / function hall','Marriage lawn / garden','Convention center','Not sure yet'];
+      settingChips = ['Indoor','Outdoor','Poolside','Both / no preference'];
+    }
     return `
     <div class="cq-section"><div class="cq-section-title">Do you have a space or need one?</div>
       <div class="chip-group" data-field="venue-status">
@@ -662,10 +886,16 @@ const CQ = {
         <input type="text" placeholder="Approx capacity (people)" style="max-width:220px">
       </div></div>
     <div class="cond-section" id="cond-venue-need">
-      <div class="cq-section-title">Venue preference</div>
-      <div class="chip-group">${chips(venueTypes)}</div></div>
+      <div class="cq-section-title">What type of venue?</div>
+      <div class="chip-group" style="margin-bottom:16px">${chips(venueTypeChips)}</div>
+      <div class="cq-section-title">Setting preference</div>
+      <div class="chip-group" style="margin-bottom:16px">${chips(settingChips)}</div>
+      <div class="cq-section-title">Food arrangement</div>
+      <div class="form-hint" style="margin-bottom:8px">Many venues in India offer in-house catering. This helps us find the right match.</div>
+      <div class="chip-group">${singleChips(['Venue with in-house food','Venue only — I\'ll arrange food separately','Open to either'],'venue-food')}</div>
+    </div>
     ${budgetBlock('venue','venue budget')}
-    ${notesBlock('venue vendors','e.g., "Must allow outside catering" or "Need wheelchair access"')}`;
+    ${notesBlock('venue vendors','e.g., "Need wheelchair access" or "Must have parking for 50+ cars"')}`;
   },
 
   // ──── FOOD & BEVERAGE (adapts by age + occasion) ────
@@ -932,6 +1162,21 @@ const CQ = {
 
   // ──── PHOTOGRAPHY (minor adaptations) ────
   photo: () => {
+    // Personal / Professional use — entirely different questions
+    if(isPersonal()){
+      return `
+      <div class="cq-section"><div class="cq-section-title">What kind of shoot?</div>
+        <div class="chip-group">${chips(['Portrait / Headshots','Family portrait','Maternity shoot','Newborn / baby','Product photography','Content creation / Reels','Pre-wedding couple shoot','Portfolio / Modelling','Food / restaurant shoot','Real estate / interiors','Other'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Location</div>
+        <div class="chip-group">${singleChips(['Studio (theirs)','My home','Outdoor location','Specific venue','Flexible'],'photo-loc')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Duration</div>
+        <div class="chip-group">${singleChips(['1 hour','2 hours','Half day (4 hrs)','Full day','Not sure'],'photo-dur')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Deliverables</div>
+        <div class="chip-group">${chips(['Digital edited photos','Raw unedited files','Short reel / video','Photo album','Prints','Same-day delivery'])}</div></div>
+      ${budgetBlock('photo','photography budget')}
+      ${notesBlock('photographers','e.g., "Need white background headshots for LinkedIn" or "Outdoor golden-hour couple shoot in Lodhi Garden"')}`;
+    }
+
     let services = ['Photography','Videography','Photobooth','Drone shots'];
     if(isKids()) services = ['Photography','Videography','Photobooth','Instant prints'];
     if(isBridal()) services = ['Photography','Videography','Photobooth','Drone shots','Pre-event shoot'];
@@ -972,6 +1217,16 @@ const CQ = {
 
   // ──── MEHENDI (context-aware) ────
   mehendi: () => {
+    if(isPersonal()){
+      return `
+      <div class="cq-section"><div class="cq-section-title">Style</div>
+        <div class="chip-group">${chips(['Arabic','Minimalist / Modern','Traditional / Rajasthani','Bridal (full hands & feet)','Glitter mehendi','White henna'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">How many people?</div>
+        <div class="chip-group">${singleChips(['Just me','2–3','4–10','10+'],'meh-count')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Where?</div>
+        <div class="chip-group">${singleChips(['At my home','At a salon / studio','At a venue','Flexible'],'meh-loc')}</div></div>
+      ${notesBlock('mehendi artists','e.g., "Organic henna only" or "Need for a photo shoot" or "Karwa Chauth mehendi for 2"')}`;
+    }
     let styles = ['Traditional / Rajasthani','Arabic','Minimalist / Modern'];
     if(isBridal()) styles.push('Bridal (full hands & feet)');
     if(isTeen()) styles = ['Minimalist / Modern','Arabic','Glitter mehendi','Traditional'];
@@ -985,6 +1240,16 @@ const CQ = {
 
   // ──── CEREMONIAL (pandit + puja items combined, ceremony-aware) ────
   ceremonial: () => {
+    if(isPersonal()){
+      return `
+      <div class="cq-section"><div class="cq-section-title">What ceremony?</div>
+        <div class="chip-group">${chips(['Griha Pravesh','Satyanarayan Puja','Sunderkand','Navagraha Shanti','Vastu Puja','Ganesh Puja','Rudrabhishek','Mundan','Naming ceremony','Other (describe in notes)'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Where?</div>
+        <div class="chip-group">${singleChips(['At my home','At a temple','At a venue','Flexible'],'cer-loc')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Do you need puja samagri?</div>
+        <div class="chip-group">${singleChips(['Yes — pandit to bring everything','Just the pandit — I have samagri','Both options — let me compare'],'cer-samagri')}</div></div>
+      ${notesBlock('ceremonial vendors','e.g., "Hindi-speaking pandit" or "30-min ceremony" or "Need for a specific muhurat time"')}`;
+    }
     let ceremonies;
     if(isDiwali()) ceremonies = ['Lakshmi-Ganesh Puja','Satyanarayan Katha','Griha Shanti','Other (describe in notes)'];
     else if(isBabyShower()) ceremonies = ['Godh Bharai ceremony','Annaprashan / Naming','Valaikappu','Other (describe in notes)'];
@@ -1020,9 +1285,14 @@ const CQ = {
     ${notesBlock('SLP vendors','e.g., "Outdoor setup for 100 people" or "Need projector for tribute video"')}`;
   },
   staffing: () => {
-    let opts = ['Wait staff','Bartender','Security','Event coordinator','Cleanup crew'];
+    let opts = ['Wait staff','Bartender','Security','Valet drivers','Event coordinator','Cleanup crew'];
     if(isKids()) opts = ['Wait staff','Activity coordinator','Security','Event coordinator'];
-    return simpleQ('staffing','What staff?',opts,'staffing vendors','e.g., "Need 4 waiters for 5 hours" or "Formal uniform required"',true);
+    return `
+    <div class="cq-section"><div class="cq-section-title">What staff do you need? — select type & quantity</div>
+      <div class="form-hint" style="margin-bottom:8px">Click a role, then set how many you need</div>
+      <div class="chip-group">${opts.map(o=>`<div class="chip sm" onclick="toggleQtyChip(this,'staff-roles')">${o}</div>`).join('')}</div>
+      <div class="qty-list" id="qty-staff-roles"></div></div>
+    ${notesBlock('staffing vendors','e.g., "Formal uniform required" or "Need Hindi + English speakers"')}`;
   },
   rangoli: () => simpleQ('rangoli','Style',['Traditional powder','Floral rangoli','Modern / geometric','Sand art','Not sure — show me options'],'rangoli artists','e.g., "6ft entrance rangoli" or "Indoor-safe materials"',true),
   fireworks: () => simpleQ('fireworks','Type',['Cold sparklers (indoor-safe)','LED fireworks','Sky lanterns','Traditional crackers','Not sure — what\'s best?'],'fireworks vendors','e.g., "Indoor-safe only" or "5-minute finale show"',true),
@@ -1072,8 +1342,8 @@ const CQ = {
       ];
     }
     const vehicles = isBridal()
-      ? ['Sedan','SUV','Vintage / classic car','Decorated car','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes / Audi)','Not sure yet — show me options with pricing']
-      : ['Sedan','SUV','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes)','Not sure yet — show me options with pricing'];
+      ? ['Sedan','SUV','Vintage / classic car','Decorated car','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes / Audi)']
+      : ['Sedan','SUV','Tempo traveller','Mini bus / coach','Luxury (BMW / Mercedes)'];
 
     return `
     <div class="cq-section"><div class="cq-section-title">What do you need? (select all)</div>
@@ -1081,11 +1351,45 @@ const CQ = {
     <div class="cq-section"><div class="cq-section-title">How many outstation guests (approx)?</div>
       <div class="form-hint" style="margin-bottom:8px">Helps vendors estimate fleet size and pricing</div>
       <div class="chip-group">${singleChips(['Under 10','10–25','25–50','50–100','100+'],'log-outstation')}</div></div>
-    <div class="cq-section"><div class="cq-section-title">Vehicle preference <span class="optional-tag">Optional</span></div>
-      <div class="chip-group">${chips(vehicles)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Vehicles needed — select type & quantity</div>
+      <div class="form-hint" style="margin-bottom:8px">Click a vehicle type, then set how many you need</div>
+      <div class="chip-group">${vehicles.map(v=>`<div class="chip sm" onclick="toggleQtyChip(this,'log-vehicles')">${v}</div>`).join('')}</div>
+      <div class="chip sm" onclick="addNotSureVehicle(this)" style="margin-top:8px;display:inline-block">Not sure yet — show me options with pricing</div>
+      <div class="qty-list" id="qty-log-vehicles"></div></div>
     ${notesBlock('logistics vendors', isBridal()
       ? 'e.g., "Need vintage car for baraat" or "20 guests arriving at IGI Terminal 3 on March 5th" or "Block 10 rooms near venue"'
       : 'e.g., "15 guests arriving at airport on different flights" or "Need shuttle every 30 min between hotel and venue"')}`;
+  },
+
+  // ──── MAKEUP & STYLING ────
+  makeup: () => {
+    if(isPersonal()){
+      return `
+      <div class="cq-section"><div class="cq-section-title">What's the occasion?</div>
+        <div class="chip-group">${chips(['Bridal trial / preview','Party look','Portfolio / modelling shoot','Content creation','Maternity shoot','Professional headshot','Festive / puja look','Other'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Services needed</div>
+        <div class="chip-group">${chips(['Makeup','Hair styling','Draping / saree draping','Full look (makeup + hair + styling)','Nail art'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">How many people?</div>
+        <div class="chip-group">${singleChips(['Just me','2–3','4–6','7+'],'mu-count')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Where?</div>
+        <div class="chip-group">${singleChips(['At my home','At their salon / studio','At a venue','Flexible'],'mu-loc')}</div></div>
+      ${budgetBlock('makeup','makeup budget')}
+      ${notesBlock('makeup artists','e.g., "Need airbrush makeup for a photo shoot" or "Natural glam look for an interview"')}`;
+    }
+    let types = ['Party / glam','Bridal','Engagement look','Reception look'];
+    if(isBridal()) types = ['Bridal makeup','Engagement look','Reception look','Mehendi / Haldi look','Sangeet look'];
+    else if(isDiwali()) types = ['Festive / traditional look','Party glam','Subtle / natural'];
+    else types = ['Party / glam','Subtle / natural','Theme-based look','No preference'];
+
+    return `
+    <div class="cq-section"><div class="cq-section-title">What look?</div>
+      <div class="chip-group">${chips(types)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">Services needed</div>
+      <div class="chip-group">${chips(['Makeup','Hair styling','Draping / saree draping','Full look (makeup + hair + styling)','Nail art'])}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How many people getting styled?</div>
+      <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 2–3 family','Bride + 5+','Bride + bridesmaids (10+)']:['Just me','2–3','4–6','7+'],'mu-count')}</div></div>
+    ${budgetBlock('makeup','makeup budget')}
+    ${notesBlock('makeup artists', isBridal()?'e.g., "Airbrush only" or "Need trial session before event"':'e.g., "Prefer HD makeup" or "Need artist for 4 hours on-site"')}`;
   },
 };
 
@@ -1232,21 +1536,35 @@ const COMPARE = {
 
 // ========== NAVIGATION ==========
 function goHome(){
-  // Reset state
-  state.occasion = null; state.subType = null; state.guestCount = null;
+  // Reset all state
+  state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
+  state.serviceKey = null; state.serviceContext = null;
   // Clear selections visually
-  document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked').forEach(el => el.classList.remove('selected','checked'));
-  goTo(1);
+  document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected').forEach(el => el.classList.remove('selected','checked'));
+  goTo(0);
 }
 function goTo(n){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  let pct = n<=5 ? ((n-1)/4)*100 : 100;
+
+  // Progress bar logic — dual path
+  let pct = 0;
+  if(state.path==='service'){
+    // Service path: s20=step1, s21=step2, s22=step3, s23=step4
+    if(n===20) pct=0; else if(n===21) pct=33; else if(n===22) pct=66; else if(n===23) pct=100;
+    else if(n>=6) pct=100;
+  } else {
+    // Occasion path: s1-s5
+    if(n>=1 && n<=5) pct = ((n-1)/4)*100;
+    else if(n>=6) pct=100;
+    else pct=0; // s0
+  }
   document.getElementById('progressFill').style.width = pct+'%';
+
   const p1=document.getElementById('pill-p1'),p2=document.getElementById('pill-p2');
-  if(n<=5){p1.className='phase-pill active';p2.className='phase-pill';}
+  if(n<6){p1.className='phase-pill active';p2.className='phase-pill';}
   else{p1.className='phase-pill done';p2.className='phase-pill active';}
   // Show running total in phase 2
   document.getElementById('runningTotal').classList.toggle('visible', n>=7 && n<=9);
@@ -1254,6 +1572,66 @@ function goTo(n){
   if(n===3) buildCatList();
   if(n===5) buildReview();
   if(n===7) buildDashboard();
+}
+
+// ========== SCREEN 0: THE FORK ==========
+function pickPath(path){
+  state.path = path;
+  if(path==='occasion') goTo(1);
+  else goTo(20);
+}
+
+// ========== SERVICE PATH: SCREEN 20 — PICK SERVICE ==========
+function pickService(el, key){
+  // Single select
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.serviceKey = key;
+}
+
+// ========== SERVICE PATH: SCREEN 22 — BUILD QUESTIONS ==========
+function buildServiceQuestions(){
+  // Apply context mapping so CQ templates get the right occasion/subType
+  applyServiceContext();
+
+  const catKey = state.serviceKey;
+  if(!catKey) return;
+  // Set selectedCats for downstream (review, dashboard)
+  state.selectedCats = [catKey];
+  const c = CATS[catKey];
+  if(!c) return;
+  const qFn = CQ[catKey];
+  const body = qFn ? qFn() : simpleQ(catKey, c.name+' details',['Option A','Option B'], c.name+' vendors','Any specific requirements?');
+
+  // Single card, auto-expanded (no accordion toggle needed)
+  document.getElementById('svcQuestionContent').innerHTML = `
+    <div class="cq-card open" id="cq-svc-${catKey}">
+      <div class="cq-header">
+        <span class="cq-emoji">${c.emoji}</span><span class="cq-title">${c.name}</span>
+      </div>
+      <div class="cq-body">${body}</div>
+    </div>`;
+}
+
+// ========== SERVICE PATH: SCREEN 23 — BUILD REVIEW ==========
+function buildServiceReview(){
+  const catKey = state.serviceKey;
+  const c = CATS[catKey];
+  const ctxLabels = {
+    'wedding':'Wedding function','birthday':'Birthday / Anniversary','babyshower':'Baby shower',
+    'corporate':'Corporate / Office','festival':'Festival / Puja','houseparty':'House party / Get-together',
+    'personal':'Personal / Professional use','other':'Other'
+  };
+  const ctxLabel = ctxLabels[state.serviceContext] || 'Event';
+  let h = `<div class="review-card"><div class="rc-h"><h3>📋 Request Summary</h3><span class="edit-link" onclick="goTo(21)">Edit</span></div>
+    <div class="rc-b">
+      <div class="rr"><span class="rl">Service</span><span class="rv">${c?.emoji||'✨'} ${c?.name||'Service'}</span></div>
+      <div class="rr"><span class="rl">Context</span><span class="rv">${ctxLabel}</span></div>
+      <div class="rr"><span class="rl">Guests</span><span class="rv">${state.guestCount||'—'}</span></div>
+    </div></div>`;
+  h += `<div class="review-card"><div class="rc-h"><h3>${c?.emoji} ${c?.name} Details</h3><span class="edit-link" onclick="goTo(22)">Edit</span></div>
+    <div class="rc-b"><div class="rr"><span class="rl">Status</span><span class="rv" style="color:var(--green)">✓ Details provided</span></div></div></div>`;
+  document.getElementById('svcReviewContent').innerHTML = h;
 }
 
 // ========== SCREEN 1: OCCASION ==========
@@ -1290,12 +1668,10 @@ function buildCatList(){
     const rec = flag===1;
     const c=CATS[catKey];
     const isSpecial = ['ceremonial','rangoli','fireworks','emcee','memoryVideo'].includes(catKey);
-    const isLogistics = catKey==='logistics';
     h+=`<div class="cat-item${rec?' checked':''}" onclick="toggleCat(this)" data-cat="${catKey}">
       <div class="cat-check">✓</div><span class="cat-emoji">${c.emoji}</span>
       <div class="cat-info"><div class="cat-name">${c.name}</div><div class="cat-desc">${c.desc}</div></div>
       ${rec?'<div class="rec-badge">Recommended</div>':''}
-      ${isLogistics&&!rec?'<div class="special-badge">50+ guests</div>':''}
       ${isSpecial&&!rec?'<div class="special-badge">Occasion-specific</div>':''}
     </div>`;
   });
@@ -1461,6 +1837,39 @@ function selectChip(el, group){
   if(group==='guests') state.guestCount = el.textContent.trim();
 }
 function toggleChipMulti(el){ el.classList.toggle('selected'); }
+
+// ── Quantity stepper chips (for logistics vehicles + staffing roles) ──
+function toggleQtyChip(el, listId){
+  el.classList.toggle('selected');
+  const label = el.textContent.trim();
+  const list = document.getElementById('qty-'+listId);
+  if(!list) return;
+  if(el.classList.contains('selected')){
+    const row = document.createElement('div');
+    row.className = 'qty-row';
+    row.dataset.label = label;
+    row.innerHTML = `<span class="qty-label">${label}</span>
+      <div class="qty-stepper">
+        <button onclick="qtyStep(this,-1)">−</button>
+        <span class="qty-val">1</span>
+        <button onclick="qtyStep(this,1)">+</button>
+      </div>`;
+    list.appendChild(row);
+  } else {
+    const existing = list.querySelector(`.qty-row[data-label="${label}"]`);
+    if(existing) existing.remove();
+  }
+}
+function qtyStep(btn, delta){
+  const valEl = btn.parentNode.querySelector('.qty-val');
+  let v = parseInt(valEl.textContent) + delta;
+  if(v < 1) v = 1;
+  if(v > 50) v = 50;
+  valEl.textContent = v;
+}
+function addNotSureVehicle(el){
+  el.classList.toggle('selected');
+}
 function toggleEM(el){ el.classList.toggle('checked'); }
 function toggleEntType(el, typeId){
   el.classList.toggle('selected');
