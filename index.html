@@ -372,11 +372,14 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="occ-card" onclick="pickOcc(this,'birthday')"><div class="ck">✓</div><span class="oe">🎂</span><div class="on">Birthday</div></div>
     <div class="occ-card" onclick="pickOcc(this,'babyshower')"><div class="ck">✓</div><span class="oe">🍼</span><div class="on">Baby Shower</div></div>
     <div class="occ-card" onclick="pickOcc(this,'bridalshower')"><div class="ck">✓</div><span class="oe">💍</span><div class="on">Bridal Shower</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'cultural')"><div class="ck">✓</div><span class="oe">🙏</span><div class="on">Cultural & Religious</div></div>
     <div class="occ-card" onclick="pickOcc(this,'diwali')"><div class="ck">✓</div><span class="oe">🪔</span><div class="on">Diwali Night</div></div>
+    <div class="occ-card" onclick="pickOcc(this,'holi')"><div class="ck">✓</div><span class="oe">🎨</span><div class="on">Holi</div></div>
     <div class="occ-card" onclick="pickOcc(this,'retirement')"><div class="ck">✓</div><span class="oe">🎖️</span><div class="on">Retirement</div></div>
     <div class="occ-card" onclick="pickOcc(this,'other')"><div class="ck">✓</div><span class="oe">✨</span><div class="on">Other</div></div>
   </div>
 
+  <div class="switch-link">Already know what you need? <a onclick="pickPath('service')">Find a specific service →</a></div>
   <div class="btn-row"><button class="btn btn-secondary" onclick="goTo(0)">← Back</button><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
 </div>
 
@@ -392,6 +395,25 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   <div class="subtype-section" id="subtypeSection" style="margin-bottom:24px">
     <h3 id="subtypeTitle">What kind?</h3>
     <div class="chip-group" id="subtypeChips"></div>
+  </div>
+
+  <!-- Cultural ceremony deep-dive (hidden unless cultural occasion) -->
+  <div id="culturalDeepDive" style="display:none;margin-bottom:24px">
+    <div class="form-group" id="ceremonyTypeSection">
+      <label class="form-label" id="ceremonyTypeTitle">Which ceremony?</label>
+      <div class="chip-group" id="ceremonyTypeChips"></div>
+    </div>
+    <div class="form-group" id="crossPollinateSection" style="margin-top:16px">
+      <label class="form-label">Is this ceremony part of a larger celebration?</label>
+      <div class="form-hint" style="margin-bottom:8px">This helps us recommend the right mix of vendors</div>
+      <div class="chip-group" id="crossPollinateChips">
+        <div class="chip" onclick="selectChip(this,'cross-poll');state.crossPollinate='birthday'" data-val="birthday">Part of a Birthday</div>
+        <div class="chip" onclick="selectChip(this,'cross-poll');state.crossPollinate='housewarming'" data-val="housewarming">Part of a Housewarming</div>
+        <div class="chip" onclick="selectChip(this,'cross-poll');state.crossPollinate='wedding'" data-val="wedding">Part of a Wedding function</div>
+        <div class="chip" onclick="selectChip(this,'cross-poll');state.crossPollinate='babyshower'" data-val="babyshower">Part of a Baby event</div>
+        <div class="chip" onclick="selectChip(this,'cross-poll');state.crossPollinate=null" data-val="none">No — this is the main event</div>
+      </div>
+    </div>
   </div>
 
   <div class="form-group">
@@ -563,12 +585,12 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
   <div class="svc-section-label">Personal services</div>
   <div class="svc-grid" id="svcGrid3">
-    <div class="svc-card" onclick="pickService(this,'mehendi')"><div class="ck">✓</div><span class="svc-e">✋</span><div class="svc-n">Mehendi Artist</div></div>
+    <div class="svc-card" onclick="pickService(this,'styling')"><div class="ck">✓</div><span class="svc-e">💄</span><div class="svc-n">Personal Styling</div></div>
     <div class="svc-card" onclick="pickService(this,'ceremonial')"><div class="ck">✓</div><span class="svc-e">🙏</span><div class="svc-n">Pandit / Priest</div></div>
-    <div class="svc-card" onclick="pickService(this,'makeup')"><div class="ck">✓</div><span class="svc-e">💄</span><div class="svc-n">Makeup & Styling</div></div>
   </div>
-  <div class="svc-section-label">Operations</div>
+  <div class="svc-section-label">Planning & Operations</div>
   <div class="svc-grid" id="svcGrid4">
+    <div class="svc-card" onclick="pickService(this,'eventManager')"><div class="ck">✓</div><span class="svc-e">📋</span><div class="svc-n">Event Manager</div></div>
     <div class="svc-card" onclick="pickService(this,'staffing')"><div class="ck">✓</div><span class="svc-e">👥</span><div class="svc-n">Staffing</div></div>
     <div class="svc-card" onclick="pickService(this,'logistics')"><div class="ck">✓</div><span class="svc-e">🚗</span><div class="svc-n">Logistics</div></div>
   </div>
@@ -600,8 +622,10 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="wedding">Wedding function</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="birthday">Birthday / Anniversary</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="babyshower">Baby shower / Naming</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="cultural">Cultural / Religious ceremony</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="corporate">Corporate / Office</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="festival">Festival / Puja</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="festival">Diwali / Festival</div>
+      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="holi">Holi</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="houseparty">House party / Get-together</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="personal">Personal / Professional use</div>
       <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="other">Other</div>
@@ -734,6 +758,16 @@ const OCC = {
     ],
     subTypeTitle:'What kind of celebration?'
   },
+  cultural: {
+    label:'Cultural & Religious', emoji:'🙏',
+    subTypes:[
+      {id:'puja',label:'Puja / Havan'},
+      {id:'sanskar',label:'Life Ceremony (Sanskar)'},
+      {id:'festival',label:'Festival Ceremony'},
+      {id:'memorial',label:'Memorial / Remembrance'},
+    ],
+    subTypeTitle:'What kind of ceremony?'
+  },
   diwali: {
     label:'Diwali Night', emoji:'🪔',
     subTypes:[
@@ -744,6 +778,17 @@ const OCC = {
       {id:'cardnight',label:'Card Party / Teen Patti'},
     ],
     subTypeTitle:'What type of Diwali celebration?'
+  },
+  holi: {
+    label:'Holi', emoji:'🎨',
+    subTypes:[
+      {id:'colorparty',label:'Color Party'},
+      {id:'raindance',label:'Rain Dance / Pool Party'},
+      {id:'organic',label:'Organic / Eco Holi'},
+      {id:'corporate',label:'Corporate Holi'},
+      {id:'community',label:'Community Celebration'},
+    ],
+    subTypeTitle:'What kind of Holi celebration?'
   },
   retirement: {
     label:'Retirement', emoji:'🎖️',
@@ -776,43 +821,60 @@ const CATS = {
   slp:        {emoji:'🔊',name:'Sound / Light / AV',desc:'Speakers, lights, projector'},
   returnGifts:{emoji:'🎁',name:'Return Gifts',desc:'Custom, eco, edible'},
   staffing:   {emoji:'👥',name:'Staffing',desc:'Waiters, bartenders, security'},
-  mehendi:    {emoji:'✍️',name:'Mehendi Artist',desc:'Bridal, Arabic, minimal'},
+  styling:    {emoji:'💄',name:'Personal Styling',desc:'Mehendi, makeup, saree draping, wardrobe'},
   ceremonial: {emoji:'🙏',name:'Ceremonial',desc:'Pandit, puja items, religious ceremonies'},
-  rangoli:    {emoji:'🎨',name:'Rangoli Artist',desc:'Traditional, floral, modern'},
+  rangoli:    {emoji:'🌀',name:'Rangoli Artist',desc:'Traditional, floral, modern'},
   fireworks:  {emoji:'🎆',name:'Fireworks / Light Show',desc:'Sparklers, LED, sky lanterns'},
   gifting:    {emoji:'🎁',name:'Gifting',desc:'Hampers, personalized, corporate'},
   emcee:      {emoji:'🎙️',name:'Emcee / Host',desc:'Event hosting, speeches, flow'},
   memoryVideo:{emoji:'🎬',name:'Tribute Video',desc:'Life journey, montage, interviews'},
   logistics:  {emoji:'🚗',name:'Guest Logistics',desc:'Pickups, shuttles, accommodation, valet'},
-  makeup:     {emoji:'💄',name:'Makeup & Styling',desc:'Bridal, party, portfolio looks'},
+  eventManager:{emoji:'📋',name:'Event Manager',desc:'Planning, coordination, day-of management'},
 };
 
-// Categories per occasion+subtype: [catKey, flag] — 0=optional, 1=recommended, 2=show only if 50+ guests
+// Categories per occasion+subtype: [catKey, flag] — 0=optional, 1=recommended
 const CAT_MAP = {
-  'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0]],
-  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['mehendi',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',0]],
-  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['mehendi',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['florist',0],['staffing',0],['logistics',0]],
-  'bridalshower-mehendi':[['venue',1],['mehendi',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['mehendi',0],['slp',1],['florist',0],['staffing',0],['logistics',0]],
-  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['staffing',0],['logistics',0]],
-  'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0]],
-  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',0]],
-  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0]],
-  'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0]],
-  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['mehendi',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0]],
-  'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0]],
-  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',0]],
-  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',0]],
+  // ── Birthday ──
+  'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0]],
+  'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0]],
+  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',0],['eventManager',0]],
+  // ── Baby Shower ──
+  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['styling',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  // ── Bridal Shower ──
+  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['styling',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'bridalshower-mehendi':[['venue',1],['styling',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['styling',1],['slp',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['gifting',0],['staffing',0],['logistics',0],['eventManager',0]],
+  // ── Cultural & Religious ──
+  'cultural-puja':    [['ceremonial',1],['florist',1],['fb',0],['decor',0],['photo',0],['venue',0],['rangoli',0],['eventManager',0]],
+  'cultural-sanskar':  [['ceremonial',1],['venue',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['returnGifts',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'cultural-festival': [['ceremonial',1],['decor',1],['fb',1],['florist',1],['rangoli',0],['fireworks',0],['photo',0],['venue',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'cultural-memorial': [['ceremonial',1],['fb',1],['venue',0],['florist',0],['photo',0],['logistics',0],['eventManager',0]],
+  // ── Diwali ──
+  'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0],['eventManager',0]],
+  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['styling',0],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0],['eventManager',0]],
+  'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0],['eventManager',0]],
+  // ── Holi ──
+  'holi-colorparty':  [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'holi-raindance':   [['venue',1],['fb',1],['entertainment',1],['slp',1],['photo',1],['decor',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'holi-organic':     [['venue',1],['fb',1],['entertainment',0],['decor',1],['photo',0],['returnGifts',0],['eventManager',0]],
+  'holi-corporate':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'holi-community':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['slp',1],['photo',1],['staffing',1],['logistics',0],['eventManager',0]],
+  // ── Retirement ──
+  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  // ── Other ──
+  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0],['eventManager',0]],
+  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
 };
 
 // ========== CONTEXT HELPERS ==========
@@ -821,10 +883,13 @@ function isKids(){ return ['1st','kids'].includes(getAge()); }
 function isTeen(){ return getAge()==='teen'; }
 function isAdult(){ return !isKids() && !isTeen(); }
 function isDiwali(){ return state.occasion==='diwali'; }
+function isHoli(){ return state.occasion==='holi'; }
 function isBridal(){ return state.occasion==='bridalshower'; }
 function isBabyShower(){ return state.occasion==='babyshower'; }
 function isRetirement(){ return state.occasion==='retirement'; }
-function isTraditional(){ return ['godhbharai','valaikappu','haldi','homepuja'].includes(state.subType); }
+function isCultural(){ return state.occasion==='cultural'; }
+function isMemorial(){ return state.occasion==='cultural' && state.subType==='memorial'; }
+function isTraditional(){ return ['godhbharai','valaikappu','haldi','homepuja','puja','sanskar','festival','memorial'].includes(state.subType); }
 function isCorporate(){ return ['corporate'].includes(state.subType); }
 function isPersonal(){ return state.serviceContext==='personal'; }
 function is50Plus(){ return ['50–100','100–200','200+'].includes(state.guestCount); }
@@ -839,6 +904,8 @@ function applyServiceContext(){
     'babyshower': { occasion:'babyshower',   subType:'modern' },
     'corporate':  { occasion:'diwali',       subType:'corporate' },
     'festival':   { occasion:'diwali',       subType:'party' },
+    'cultural':   { occasion:'cultural',     subType:'puja' },
+    'holi':       { occasion:'holi',         subType:'colorparty' },
     'houseparty': { occasion:'birthday',     subType:'adult' },
     'personal':   { occasion:null,           subType:null },
     'other':      { occasion:'other',        subType:'other' }
@@ -856,6 +923,7 @@ const CQ = {
     let spaceTypes = ['Home','Apartment hall','Terrace / Rooftop','Office space','Other'];
     if(isCorporate()) spaceTypes = ['Office / conference room','Company cafeteria','Coworking space','Other'];
     if(isDiwali() && state.subType==='homepuja') spaceTypes = ['Home','Apartment','Temple','Other'];
+    if(isCultural()) spaceTypes = ['Home','Temple / mandir','Apartment hall','Community hall','Other'];
 
     // Venue type chips (context-aware)
     let venueTypeChips, settingChips;
@@ -867,6 +935,12 @@ const CQ = {
       settingChips = ['Indoor','Outdoor','Both / no preference'];
     } else if(isKids()){
       venueTypeChips = ['Banquet hall','Restaurant / bar','Play area / activity zone','Farmhouse','Rooftop','Hotel (3–5 star)','Villa / bungalow','Community / function hall','Not sure yet'];
+      settingChips = ['Indoor','Outdoor','Both / no preference'];
+    } else if(isHoli()){
+      venueTypeChips = ['Farmhouse','Club / resort with pool','Open ground / lawn','Rooftop','Community / function hall','Villa / bungalow','Not sure yet'];
+      settingChips = ['Outdoor','Poolside','Indoor (dry Holi)','Both / no preference'];
+    } else if(isCultural()){
+      venueTypeChips = ['Community / function hall','Banquet hall','Temple hall','Farmhouse','Hotel (3–5 star)','Kalyana mandapam','Marriage lawn / garden','Not sure yet'];
       settingChips = ['Indoor','Outdoor','Both / no preference'];
     } else {
       venueTypeChips = ['Banquet hall','Farmhouse','Restaurant / bar','Rooftop','Hotel (3–5 star)','Resort','Club / lounge','Villa / bungalow','Community / function hall','Marriage lawn / garden','Convention center','Not sure yet'];
@@ -926,6 +1000,14 @@ const CQ = {
       services = ['Buffet','Sit-down','Live counters','Cocktail / canape style'];
       cuisines = ['North Indian','South Indian','Mughlai','Continental','Chinese / Indo-Chinese','Multi-cuisine'];
       extras = ['Custom cake','Dessert table','Bar / cocktails','Mocktails only','Chai / coffee station','Mithai / sweets'];
+    } else if(isHoli()){
+      services = ['Stalls / street food','Live counters','Buffet','Private chef'];
+      cuisines = ['North Indian','Street food (chaat, golgappa)','Rajasthani','Multi-cuisine'];
+      extras = ['Thandai station','Gujiya / mithai','Lassi station','Mocktails / bhaang (mock)','Ice cream / kulfi','Chaat live counter'];
+    } else if(isCultural()){
+      services = isMemorial() ? ['Sit-down','Buffet'] : ['Buffet','Sit-down','Live counters','Private chef'];
+      cuisines = isMemorial() ? ['Vegetarian (satvik)','North Indian','South Indian','Multi-cuisine'] : ['North Indian','South Indian','Gujarati','Rajasthani','Bengali','Multi-cuisine'];
+      extras = isMemorial() ? ['Prasad / bhog','Chai / coffee station','Fruit / dry fruit'] : ['Prasad / bhog arrangement','Mithai / sweets','Chai / coffee station','Fruit / dry fruit counter','Custom cake','Dessert table'];
     } else {
       services = ['Buffet','Sit-down','Live counters','Stalls / street food','Private chef'];
       cuisines = ['North Indian','South Indian','Mughlai','Chinese / Indo-Chinese','Continental','Street food','Multi-cuisine'];
@@ -934,7 +1016,8 @@ const CQ = {
     // Dietary — always shown
     let dietary = ['Vegetarian','Non-veg','Jain','Vegan'];
     // No non-veg for traditional religious ceremonies
-    if(isTraditional() && (isDiwali() || isBabyShower())) dietary = ['Vegetarian','Jain','Vegan','Non-veg for some dishes'];
+    if(isTraditional() && (isDiwali() || isBabyShower() || isCultural())) dietary = ['Vegetarian','Jain','Vegan','Non-veg for some dishes'];
+    if(isMemorial()) dietary = ['Vegetarian (satvik)','Vegetarian','Jain','Vegan'];
 
     return `
     <div class="cq-section"><div class="cq-section-title">Service type</div>
@@ -1028,6 +1111,24 @@ const CQ = {
         {label:'Live musician (soft / acoustic)',id:'liveband',genres:['Acoustic / unplugged','Classical fusion','Sufi / qawwali','Ghazal','Bollywood covers','Mix of everything']},
         {label:'Emcee / Host',id:'emcee'}
       ]; vibeQ = false; langQ = false;
+    } else if(isHoli()){
+      types = [
+        {label:'DJ',id:'dj',genres:['Bollywood','Punjabi','EDM / House','Retro / 80s–90s','Mix of everything']},
+        {label:'Dhol player',id:'dhol'},
+        {label:'Folk performers / dancers',id:'folk'},
+        {label:'Rain dance / foam party setup',id:'raindance'},
+        {label:'Games coordinator',id:'games'},
+        {label:'Emcee / Host',id:'emcee'}
+      ]; vibeQ = true;
+    } else if(isCultural() && !isMemorial()){
+      types = [
+        {label:'Bhajan / kirtan group',id:'bhajan'},
+        {label:'Classical musician',id:'classical'},
+        {label:'Folk performers',id:'folk'},
+        {label:'Dhol / shehnai player',id:'dhol'},
+        {label:'Emcee / Host',id:'emcee'},
+        {label:'DJ (for after-ceremony celebration)',id:'dj',genres:djGenres}
+      ]; vibeQ = false;
     } else {
       types = [
         {label:'DJ',id:'dj',genres:djGenres},
@@ -1136,6 +1237,18 @@ const CQ = {
         <div class="chip-group">${singleChips(bsStyle,'decor-scale')}</div></div>`;
       scaleQ = false;
       musthaves = ['Balloon arch','Photo backdrop','Entrance decor','Table centerpieces','Baby name / letter standee','Cradle decor','Fairy lights'];
+    } else if(isHoli()){
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Holi style</div>
+        <div class="chip-group">${singleChips(['Colorful / vibrant','Boho / festival','Pool party','Minimal / eco','Grand / community-scale','Not sure yet'],'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = ['Color station setup','Photo backdrop / selfie corner','Entrance arch','Stage setup','Seating area decor','Water / foam zone setup','Fairy lights / LED','Rain dance area setup'];
+    } else if(isCultural()){
+      themeSection = `<div class="cq-section"><div class="cq-section-title">Ceremony style</div>
+        <div class="chip-group">${singleChips(['Traditional / ethnic','Modern fusion','Grand / elaborate','Simple & elegant','Not sure yet'],'decor-scale')}</div></div>`;
+      scaleQ = false;
+      musthaves = isMemorial()
+        ? ['Flower arrangements','Photo display / tribute corner','Entrance decor','Seating area','White drapes / fabric']
+        : ['Mandap / ceremony area','Flower arrangements','Entrance decor','Rangoli','Fairy lights / diyas','Toran / door hangings','Stage setup','Seating area'];
     } else {
       // Adult birthday default
       musthaves = ['Balloon arch','Photo backdrop','Stage setup','Entrance decor','Table centerpieces','LED / Neon sign','Flower wall','Fairy lights'];
@@ -1215,27 +1328,64 @@ const CQ = {
     return simpleQ('returnGifts','Preference',opts,'return gift vendors','e.g., "Budget ₹200 per gift" or "Eco-friendly only"');
   },
 
-  // ──── MEHENDI (context-aware) ────
-  mehendi: () => {
+  // ──── PERSONAL STYLING (mehendi, makeup, saree draping, wardrobe — unified) ────
+  styling: () => {
     if(isPersonal()){
       return `
-      <div class="cq-section"><div class="cq-section-title">Style</div>
-        <div class="chip-group">${chips(['Arabic','Minimalist / Modern','Traditional / Rajasthani','Bridal (full hands & feet)','Glitter mehendi','White henna'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What services do you need?</div>
+        <div class="chip-group">${chips(['Mehendi','Makeup','Hair styling','Saree / lehenga draping','Wardrobe assistance','Full look (all of the above)','Nail art'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What's the occasion?</div>
+        <div class="chip-group">${chips(['Bridal trial / preview','Party look','Portfolio / modelling shoot','Content creation','Maternity shoot','Professional headshot','Festive / puja look','Karwa Chauth','Other'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Mehendi style (if needed)</div>
+        <div class="chip-group">${chips(['Arabic','Minimalist / Modern','Traditional / Rajasthani','Bridal (full hands & feet)','Glitter mehendi','White henna','Not needed'])}</div></div>
       <div class="cq-section"><div class="cq-section-title">How many people?</div>
-        <div class="chip-group">${singleChips(['Just me','2–3','4–10','10+'],'meh-count')}</div></div>
+        <div class="chip-group">${singleChips(['Just me','2–3','4–6','7–15','15+'],'sty-count')}</div></div>
       <div class="cq-section"><div class="cq-section-title">Where?</div>
-        <div class="chip-group">${singleChips(['At my home','At a salon / studio','At a venue','Flexible'],'meh-loc')}</div></div>
-      ${notesBlock('mehendi artists','e.g., "Organic henna only" or "Need for a photo shoot" or "Karwa Chauth mehendi for 2"')}`;
+        <div class="chip-group">${singleChips(['At my home','At their salon / studio','At a venue','Flexible'],'sty-loc')}</div></div>
+      ${notesBlock('styling vendors','e.g., "Organic henna only" or "Airbrush makeup for photo shoot" or "Need saree draping for 5 aunties"')}`;
     }
-    let styles = ['Traditional / Rajasthani','Arabic','Minimalist / Modern'];
-    if(isBridal()) styles.push('Bridal (full hands & feet)');
-    if(isTeen()) styles = ['Minimalist / Modern','Arabic','Glitter mehendi','Traditional'];
-    return `
-    <div class="cq-section"><div class="cq-section-title">Style</div>
-      <div class="chip-group">${chips(styles)}</div></div>
-    <div class="cq-section"><div class="cq-section-title">How many guests getting mehendi?</div>
-      <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 5 close family','5–15 guests','15+']:['Just me','2–5','5–15','15+'],'meh-count')}</div></div>
-    ${notesBlock('mehendi artists','e.g., "Organic henna only" or "Need artist for 3 hours"')}`;
+
+    // Event context: determine what sub-services to show
+    let services, mehStyles, looks;
+    if(isBridal()){
+      services = ['Bridal makeup','Hair styling','Mehendi (bridal full)','Saree / lehenga draping','Nail art','Full bridal package'];
+      mehStyles = ['Traditional / Rajasthani','Arabic','Bridal (full hands & feet)','Minimalist / Modern'];
+      looks = ['Bridal look','Engagement look','Reception look','Mehendi / Haldi look','Sangeet look'];
+    } else if(isDiwali()){
+      services = ['Makeup','Hair styling','Mehendi','Saree draping','Full festive look'];
+      mehStyles = ['Arabic','Traditional','Minimalist / Modern'];
+      looks = ['Festive / traditional look','Party glam','Subtle / natural'];
+    } else if(isHoli()){
+      services = ['Pre-Holi makeup','Hair styling','Wardrobe assistance'];
+      mehStyles = null; // no mehendi for holi
+      looks = ['Color-proof look','Casual glam','Theme-based'];
+    } else if(isBabyShower()){
+      services = ['Makeup','Hair styling','Mehendi','Saree draping','Full look'];
+      mehStyles = ['Arabic','Minimalist / Modern','Traditional'];
+      looks = ['Subtle / elegant','Glam','Traditional'];
+    } else if(isTeen()){
+      services = ['Makeup','Hair styling','Mehendi (glitter/minimal)'];
+      mehStyles = ['Minimalist / Modern','Arabic','Glitter mehendi'];
+      looks = ['Natural / subtle','Party glam','Theme-based'];
+    } else {
+      services = ['Makeup','Hair styling','Mehendi','Saree / lehenga draping','Wardrobe assistance','Full look'];
+      mehStyles = ['Arabic','Traditional / Rajasthani','Minimalist / Modern'];
+      looks = ['Party / glam','Subtle / natural','Theme-based look','No preference'];
+    }
+
+    let html = `
+    <div class="cq-section"><div class="cq-section-title">What services do you need?</div>
+      <div class="chip-group">${chips(services)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">What look?</div>
+      <div class="chip-group">${chips(looks)}</div></div>`;
+    if(mehStyles){
+      html += `<div class="cq-section"><div class="cq-section-title">Mehendi style (if applicable)</div>
+        <div class="chip-group">${chips([...mehStyles,'Not needed'])}</div></div>`;
+    }
+    html += `<div class="cq-section"><div class="cq-section-title">How many people getting styled?</div>
+      <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 2–3 family','Bride + 5+','Bride + bridesmaids (10+)']:['Just me','2–3','4–6','7–15','15+'],'sty-count')}</div></div>
+    ${notesBlock('styling vendors', isBridal()?'e.g., "Airbrush only" or "Need trial session before event" or "Organic henna"':'e.g., "Prefer HD makeup" or "Need artist for 4 hours on-site" or "Organic henna only"')}`;
+    return html;
   },
 
   // ──── CEREMONIAL (pandit + puja items combined, ceremony-aware) ────
@@ -1250,6 +1400,43 @@ const CQ = {
         <div class="chip-group">${singleChips(['Yes — pandit to bring everything','Just the pandit — I have samagri','Both options — let me compare'],'cer-samagri')}</div></div>
       ${notesBlock('ceremonial vendors','e.g., "Hindi-speaking pandit" or "30-min ceremony" or "Need for a specific muhurat time"')}`;
     }
+
+    // Cultural occasion: user already picked ceremony in s2, tailor deeply
+    if(isCultural()){
+      const detail = state.ceremonyDetail || '';
+      let locationOpts = ['At my home','At a temple','At a venue / hall','Outdoors','Flexible'];
+      let samagriOpts = ['Yes — pandit to bring everything','Just the pandit — I have samagri','Both options — let me compare'];
+      let languageOpts = ['Hindi','Sanskrit','Tamil','Telugu','Bengali','Marathi','Gujarati','Kannada','Malayalam','No preference'];
+      let extras = '';
+
+      if(isMemorial()){
+        locationOpts = ['At my home','At a temple / ghat','At a venue / hall','Riverside / water body','Flexible'];
+        extras = `<div class="cq-section"><div class="cq-section-title">Additional services needed?</div>
+          <div class="chip-group">${chips(['Flowers & garlands','Pind Daan items','Havan samagri','Food / bhandara arrangement','None — just the pandit'])}</div></div>`;
+      } else if(state.subType==='sanskar'){
+        extras = `<div class="cq-section"><div class="cq-section-title">Additional ceremony items?</div>
+          <div class="chip-group">${chips(['Complete samagri kit','Havan items','Flowers & garlands','Prasad arrangement','Decorations','Photography (ceremony-focused)'])}</div></div>`;
+      } else if(state.subType==='festival'){
+        extras = `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
+          <div class="chip-group">${chips(['Complete puja kit','Pandal / setup','Idol / murti','Decorations','Flowers & garlands','Prasad / bhog arrangement'])}</div></div>`;
+      } else {
+        extras = `<div class="cq-section"><div class="cq-section-title">Puja items / samagri</div>
+          <div class="chip-group">${chips(['Complete puja kit','Diyas & candles','Flowers & garlands','Idols / murtis','Havan samagri','Custom samagri kit'])}</div></div>`;
+      }
+
+      return `
+      ${detail ? `<div class="cq-section"><div class="cq-section-title">Ceremony selected</div>
+        <div class="chip-group"><div class="chip sm selected">${detail}</div></div></div>` : ''}
+      <div class="cq-section"><div class="cq-section-title">Where will the ceremony happen?</div>
+        <div class="chip-group">${singleChips(locationOpts,'cer-loc')}</div></div>
+      ${extras}
+      <div class="cq-section"><div class="cq-section-title">Pandit language preference</div>
+        <div class="chip-group">${singleChips(languageOpts,'cer-lang')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Samagri arrangement</div>
+        <div class="chip-group">${singleChips(samagriOpts,'cer-samagri')}</div></div>
+      ${notesBlock('ceremonial vendors','e.g., "Need muhurat-specific timing" or "Ceremony should be 30–45 min" or "Need tent / shamiana for outdoor setup"')}`;
+    }
+
     let ceremonies;
     if(isDiwali()) ceremonies = ['Lakshmi-Ganesh Puja','Satyanarayan Katha','Griha Shanti','Other (describe in notes)'];
     else if(isBabyShower()) ceremonies = ['Godh Bharai ceremony','Annaprashan / Naming','Valaikappu','Other (describe in notes)'];
@@ -1361,35 +1548,24 @@ const CQ = {
       : 'e.g., "15 guests arriving at airport on different flights" or "Need shuttle every 30 min between hotel and venue"')}`;
   },
 
-  // ──── MAKEUP & STYLING ────
-  makeup: () => {
-    if(isPersonal()){
-      return `
-      <div class="cq-section"><div class="cq-section-title">What's the occasion?</div>
-        <div class="chip-group">${chips(['Bridal trial / preview','Party look','Portfolio / modelling shoot','Content creation','Maternity shoot','Professional headshot','Festive / puja look','Other'])}</div></div>
-      <div class="cq-section"><div class="cq-section-title">Services needed</div>
-        <div class="chip-group">${chips(['Makeup','Hair styling','Draping / saree draping','Full look (makeup + hair + styling)','Nail art'])}</div></div>
-      <div class="cq-section"><div class="cq-section-title">How many people?</div>
-        <div class="chip-group">${singleChips(['Just me','2–3','4–6','7+'],'mu-count')}</div></div>
-      <div class="cq-section"><div class="cq-section-title">Where?</div>
-        <div class="chip-group">${singleChips(['At my home','At their salon / studio','At a venue','Flexible'],'mu-loc')}</div></div>
-      ${budgetBlock('makeup','makeup budget')}
-      ${notesBlock('makeup artists','e.g., "Need airbrush makeup for a photo shoot" or "Natural glam look for an interview"')}`;
-    }
-    let types = ['Party / glam','Bridal','Engagement look','Reception look'];
-    if(isBridal()) types = ['Bridal makeup','Engagement look','Reception look','Mehendi / Haldi look','Sangeet look'];
-    else if(isDiwali()) types = ['Festive / traditional look','Party glam','Subtle / natural'];
-    else types = ['Party / glam','Subtle / natural','Theme-based look','No preference'];
+  // ──── EVENT MANAGER ────
+  eventManager: () => {
+    let scopes = ['Full event planning (end to end)','Day-of coordination only','Specific tasks (vendor management, guest coordination)','Venue sourcing & booking','Budget management'];
+    if(isBridal()) scopes = ['Full wedding planning','Day-of coordination','Vendor management','Guest management & RSVP','Destination wedding planning','Budget management'];
+    else if(isCorporate()) scopes = ['Full event planning','Day-of coordination','Vendor management','Corporate event series management','Budget management'];
+    else if(isCultural()) scopes = ['Full ceremony planning','Day-of coordination','Vendor management (pandit, caterer, etc.)','Guest coordination','Budget management'];
+
+    let timeline = ['Already planned — need day-of support','1–2 weeks away','1–3 months away','3+ months away','Just exploring'];
 
     return `
-    <div class="cq-section"><div class="cq-section-title">What look?</div>
-      <div class="chip-group">${chips(types)}</div></div>
-    <div class="cq-section"><div class="cq-section-title">Services needed</div>
-      <div class="chip-group">${chips(['Makeup','Hair styling','Draping / saree draping','Full look (makeup + hair + styling)','Nail art'])}</div></div>
-    <div class="cq-section"><div class="cq-section-title">How many people getting styled?</div>
-      <div class="chip-group">${singleChips(isBridal()?['Bride only','Bride + 2–3 family','Bride + 5+','Bride + bridesmaids (10+)']:['Just me','2–3','4–6','7+'],'mu-count')}</div></div>
-    ${budgetBlock('makeup','makeup budget')}
-    ${notesBlock('makeup artists', isBridal()?'e.g., "Airbrush only" or "Need trial session before event"':'e.g., "Prefer HD makeup" or "Need artist for 4 hours on-site"')}`;
+    <div class="cq-section"><div class="cq-section-title">What do you need help with?</div>
+      <div class="chip-group">${chips(scopes)}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How far away is the event?</div>
+      <div class="chip-group">${singleChips(timeline,'em-timeline')}</div></div>
+    <div class="cq-section"><div class="cq-section-title">How many events / functions?</div>
+      <div class="form-hint" style="margin-bottom:8px">e.g., a wedding may have mehendi + sangeet + ceremony + reception</div>
+      <div class="chip-group">${singleChips(['Just 1 event','2–3 functions','4–5 functions','6+ (multi-day)'],'em-functions')}</div></div>
+    ${notesBlock('event managers','e.g., "Need someone who has managed 200+ guest weddings" or "Looking for someone who speaks Tamil & English"')}`;
   },
 };
 
@@ -1540,8 +1716,10 @@ function goHome(){
   state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
   state.serviceKey = null; state.serviceContext = null;
+  state.crossPollinate = null; state.ceremonyDetail = null;
   // Clear selections visually
   document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected').forEach(el => el.classList.remove('selected','checked'));
+  document.getElementById('culturalDeepDive').style.display='none';
   goTo(0);
 }
 function goTo(n){
@@ -1619,7 +1797,8 @@ function buildServiceReview(){
   const c = CATS[catKey];
   const ctxLabels = {
     'wedding':'Wedding function','birthday':'Birthday / Anniversary','babyshower':'Baby shower',
-    'corporate':'Corporate / Office','festival':'Festival / Puja','houseparty':'House party / Get-together',
+    'corporate':'Corporate / Office','festival':'Diwali / Festival','cultural':'Cultural / Religious ceremony',
+    'holi':'Holi','houseparty':'House party / Get-together',
     'personal':'Personal / Professional use','other':'Other'
   };
   const ctxLabel = ctxLabels[state.serviceContext] || 'Event';
@@ -1640,6 +1819,9 @@ function pickOcc(el, occ){
   el.classList.add('selected');
   state.occasion = occ;
   state.subType = null; // reset subtype on occasion change
+  state.crossPollinate = null; state.ceremonyDetail = null;
+  // Hide cultural deep-dive by default
+  document.getElementById('culturalDeepDive').style.display='none';
   // Pre-populate subtypes for Screen 2
   const cfg = OCC[occ];
   const sec = document.getElementById('subtypeSection');
@@ -1655,19 +1837,83 @@ function pickSubType(el, id){
   el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
   state.subType = id;
+  state.ceremonyDetail = null;
+  state.crossPollinate = null;
+
+  // Cultural deep-dive: show ceremony-specific options
+  const dd = document.getElementById('culturalDeepDive');
+  if(state.occasion === 'cultural'){
+    dd.style.display = 'block';
+    const CEREMONY_OPTIONS = {
+      'puja': {
+        title:'Which puja or havan?',
+        options:['Satyanarayan Puja','Griha Pravesh','Vastu Puja','Navagraha Shanti','Rudrabhishek','Sunderkand Path','Akhand Ramayan','Ganesh Puja','Lakshmi Puja','Durga Puja','Other (describe in notes)']
+      },
+      'sanskar': {
+        title:'Which life ceremony?',
+        options:['Mundan (first haircut)','Naming ceremony (Namkaran)','Annaprashan (first rice)','Thread ceremony (Upanayana/Janeu)','Ear piercing (Karnavedha)','Engagement (Roka / Sagai / Ring)','Other (describe in notes)']
+      },
+      'festival': {
+        title:'Which festival ceremony?',
+        options:['Diwali Puja (Lakshmi-Ganesh)','Ganesh Chaturthi','Navratri / Durga Puja / Garba','Janmashtami','Maha Shivratri','Ram Navami','Onam','Pongal / Makar Sankranti','Chhath Puja','Other (describe in notes)']
+      },
+      'memorial': {
+        title:'Which ceremony?',
+        options:['Shradh / Tarpan','Tehrvi (13th day)','Barsi (annual remembrance)','Chautha / Prayer meeting','Antim Sanskar (funeral rites)','Other (describe in notes)']
+      }
+    };
+    const cfg = CEREMONY_OPTIONS[id] || CEREMONY_OPTIONS['puja'];
+    document.getElementById('ceremonyTypeTitle').textContent = cfg.title;
+    document.getElementById('ceremonyTypeChips').innerHTML = cfg.options.map(o=>
+      `<div class="chip sm" onclick="pickCeremonyDetail(this,'${o}')">${o}</div>`
+    ).join('');
+    // Show cross-pollination for non-memorial
+    document.getElementById('crossPollinateSection').style.display = (id==='memorial')?'none':'block';
+  } else {
+    dd.style.display = 'none';
+  }
+}
+function pickCeremonyDetail(el, val){
+  el.closest('.chip-group').querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.ceremonyDetail = val;
 }
 
 // ========== SCREEN 3: DYNAMIC CATEGORIES ==========
 function buildCatList(){
   const key = state.occasion+'-'+(state.subType||'adult');
-  const cats = CAT_MAP[key] || CAT_MAP['birthday-adult'];
+  let cats = CAT_MAP[key] || CAT_MAP['birthday-adult'];
+
+  // Cross-pollination: merge cultural ceremony categories with parent celebration
+  if(state.occasion==='cultural' && state.crossPollinate){
+    const crossMap = {
+      'birthday': 'birthday-adult',
+      'housewarming': 'other-housewarming',
+      'wedding': 'bridalshower-modern',
+      'babyshower': 'babyshower-modern'
+    };
+    const parentKey = crossMap[state.crossPollinate];
+    if(parentKey && CAT_MAP[parentKey]){
+      const parentCats = CAT_MAP[parentKey];
+      // Start with ceremony cats, then add unique parent cats
+      const merged = [...cats];
+      const existingKeys = new Set(merged.map(([k])=>k));
+      parentCats.forEach(([catKey,flag])=>{
+        if(!existingKeys.has(catKey)){
+          merged.push([catKey,flag]);
+          existingKeys.add(catKey);
+        }
+      });
+      cats = merged;
+    }
+  }
+
   let h='';
   cats.forEach(([catKey,flag])=>{
-    // flag 2 = only show if 50+ guests
-    if(flag===2 && !is50Plus()) return;
     const rec = flag===1;
     const c=CATS[catKey];
-    const isSpecial = ['ceremonial','rangoli','fireworks','emcee','memoryVideo'].includes(catKey);
+    if(!c) return;
+    const isSpecial = ['ceremonial','rangoli','fireworks','emcee','memoryVideo','styling'].includes(catKey);
     h+=`<div class="cat-item${rec?' checked':''}" onclick="toggleCat(this)" data-cat="${catKey}">
       <div class="cat-check">✓</div><span class="cat-emoji">${c.emoji}</span>
       <div class="cat-info"><div class="cat-name">${c.name}</div><div class="cat-desc">${c.desc}</div></div>
@@ -1708,13 +1954,23 @@ function buildCatQuestions(){
 function buildReview(){
   const occ = OCC[state.occasion];
   const st = occ?.subTypes?.find(s=>s.id===state.subType);
+  let extraRows = '';
+  if(state.occasion==='cultural'){
+    if(state.ceremonyDetail) extraRows += `<div class="rr"><span class="rl">Ceremony</span><span class="rv">${state.ceremonyDetail}</span></div>`;
+    if(state.crossPollinate){
+      const crossLabels = {birthday:'Birthday',housewarming:'Housewarming',wedding:'Wedding function',babyshower:'Baby event'};
+      extraRows += `<div class="rr"><span class="rl">Part of</span><span class="rv">${crossLabels[state.crossPollinate]||'—'}</span></div>`;
+    }
+  }
   let h=`<div class="review-card"><div class="rc-h"><h3>📋 Event Basics</h3><span class="edit-link" onclick="goTo(1)">Edit</span></div>
     <div class="rc-b">
       <div class="rr"><span class="rl">Occasion</span><span class="rv">${occ?.emoji||'✨'} ${occ?.label||'Event'}${st?' — '+st.label:''}</span></div>
+      ${extraRows}
       <div class="rr"><span class="rl">Categories</span><span class="rv">${state.selectedCats.length} selected</span></div>
     </div></div>`;
   state.selectedCats.forEach(catKey=>{
     const c=CATS[catKey];
+    if(!c) return;
     h+=`<div class="review-card"><div class="rc-h"><h3>${c.emoji} ${c.name}</h3><span class="edit-link" onclick="goTo(4)">Edit</span></div>
       <div class="rc-b"><div class="rr"><span class="rl">Status</span><span class="rv" style="color:var(--green)">✓ Details provided</span></div></div></div>`;
   });
@@ -1723,7 +1979,7 @@ function buildReview(){
 
 // ========== SCREEN 7: DASHBOARD ==========
 function buildDashboard(){
-  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,mehendi:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2};
+  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,styling:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2,eventManager:2};
   let h='', totalQuotes=0;
   state.selectedCats.forEach(catKey=>{
     const c=CATS[catKey];
