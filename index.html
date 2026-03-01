@@ -731,6 +731,47 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .mira-inline-body{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:12px}
 .mira-inline-body strong{color:var(--primary);font-weight:700}
 
+/* ── Vendor Marketplace Listing ── */
+.mp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.mp-header h3{font-family:'Sora',sans-serif;font-size:18px;margin:0}
+.mp-count{font-size:12px;color:var(--text-mid)}
+.mp-filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.mp-filter{padding:7px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;background:#fff;color:var(--text-mid);transition:all .2s}
+.mp-filter.active{border-color:var(--accent);background:var(--accent-wash);color:var(--primary)}
+.mp-grid{display:flex;flex-direction:column;gap:14px}
+.mp-card{border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;background:#fff;transition:all .2s;position:relative}
+.mp-card.selected{border-color:var(--accent);box-shadow:var(--gold-glow)}
+.mp-card-check{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;border:2px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;z-index:2;transition:all .2s;cursor:pointer}
+.mp-card.selected .mp-card-check{background:var(--accent);border-color:var(--accent);color:var(--primary)}
+.mp-photos{display:flex;height:140px;overflow:hidden;cursor:pointer}
+.mp-photos .mp-img{flex:1;background:linear-gradient(135deg,#f0e6d2,#e8d5b8);display:flex;align-items:center;justify-content:center;font-size:28px;border-right:1px solid rgba(255,255,255,.3);position:relative}
+.mp-photos .mp-img:last-child{border-right:none}
+.mp-photos .mp-img-overlay{position:absolute;bottom:0;left:0;right:0;padding:4px 8px;background:linear-gradient(transparent,rgba(0,0,0,.5));color:#fff;font-size:10px;text-align:right}
+.mp-body{padding:14px}
+.mp-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.mp-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.mp-rating{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:var(--primary)}
+.mp-rating span{color:var(--accent)}
+.mp-meta{display:flex;gap:12px;font-size:11px;color:var(--text-mid);margin-bottom:8px;flex-wrap:wrap}
+.mp-meta-item{display:flex;align-items:center;gap:3px}
+.mp-price-range{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.mp-tags{display:flex;gap:4px;flex-wrap:wrap}
+.mp-tag{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:600;background:#F5F5F5;color:var(--text-mid)}
+.mp-tag.verified{background:#E8F5E9;color:#2E7D32}
+.mp-tag.top{background:#FFF3E0;color:#E65100}
+.mp-tag.fast{background:#E3F2FD;color:#1565C0}
+.mp-select-bar{position:sticky;bottom:64px;left:0;right:0;background:var(--primary);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-radius:var(--radius);margin-top:16px;z-index:10;box-shadow:0 -4px 20px rgba(0,0,0,.1)}
+.mp-select-bar .mp-sel-count{font-size:13px;font-weight:600}
+.mp-select-bar .mp-sel-btn{padding:10px 20px;background:var(--accent);color:var(--primary);border:none;border-radius:10px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+
+/* Browse review cards */
+.br-vendor-card{display:flex;align-items:center;gap:12px;padding:12px;border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px}
+.br-vendor-emoji{font-size:24px}
+.br-vendor-info{flex:1}
+.br-vendor-name{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.br-vendor-price{font-size:11px;color:var(--text-mid)}
+.br-vendor-remove{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:none;font-size:14px;cursor:pointer;color:var(--text-light)}
+
 /* Responsive */
 @media(max-width:600px){
   .screen-wrap{padding:24px 12px 120px}
@@ -774,25 +815,31 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <!-- ==================== SCREEN 0: THE FORK ==================== -->
 <div class="screen active" id="s0">
   <div class="sh">
-    <h2>Where are you in the journey?</h2>
-    <p>Whether you're dreaming or doing — we've got you covered.</p>
+    <h2>What brings you here?</h2>
+    <p>Whether you're dreaming, doing, or browsing — we've got you covered.</p>
   </div>
   <div class="fork-wrap">
     <div class="fork-card" onclick="pickMode('planning')">
       <span class="fork-emoji">🔍</span>
       <div class="fork-title">I'm exploring</div>
-      <div class="fork-sub">No date yet? No problem. We'll show you what goes into your event — categories, budgets, timelines, and more.</div>
+      <div class="fork-sub">No date yet? No problem. See what goes into your event — categories, budgets, timelines, and more.</div>
       <span class="fork-arrow">→</span>
     </div>
     <div class="fork-or">or</div>
     <div class="fork-card" onclick="pickMode('execution')">
       <span class="fork-emoji">🚀</span>
       <div class="fork-title">I'm ready to plan</div>
-      <div class="fork-sub">Have a date in mind? Let's get you matched with the right vendors and start collecting quotes.</div>
+      <div class="fork-sub">Have a date? Let's get you matched with vendors and start collecting quotes.</div>
+      <span class="fork-arrow">→</span>
+    </div>
+    <div class="fork-or">or</div>
+    <div class="fork-card" onclick="pickMode('browse')">
+      <span class="fork-emoji">🛒</span>
+      <div class="fork-title">Browse vendors</div>
+      <div class="fork-sub">Know what you need? Explore vendors by category — see profiles, pricing, and reviews before you commit.</div>
       <span class="fork-arrow">→</span>
     </div>
   </div>
-  <div class="switch-link" style="margin-top:24px">Already know the exact service you need? <a onclick="pickPath('service')">Find a vendor directly →</a></div>
 </div>
 
 <!-- ==================== SCREEN 1: OCCASION ==================== -->
@@ -813,7 +860,6 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="occ-card" onclick="pickOcc(this,'other')"><div class="ck">✓</div><span class="oe">✨</span><div class="on">Other</div></div>
   </div>
 
-  <div class="switch-link">Already know what you need? <a onclick="pickPath('service')">Find a specific service →</a></div>
   <div class="btn-row"><button class="btn btn-secondary" onclick="goTo(0)">← Back</button><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
 </div>
 
@@ -1181,146 +1227,139 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 </div>
 
-<!-- ==================== SERVICE PATH: SCREEN 20 — PICK A SERVICE ==================== -->
+<!-- ==================== BROWSE: SCREEN 20 — PICK A CATEGORY ==================== -->
 <div class="screen" id="s20">
   <div class="sh">
-    <div class="sh-step" id="svc-step1">Step 1 of 4</div>
-    <h2>What do you need?</h2>
-    <p>Pick one — we'll ask the right questions to match you with the best vendor.</p>
+    <div class="sh-step" id="browse-step1">Step 1 of 4</div>
+    <h2>What are you looking for?</h2>
+    <p>Pick a category — we'll show you all available vendors with pricing, reviews, and portfolios.</p>
   </div>
   <div class="svc-section-label">Most searched</div>
   <div class="svc-grid" id="svcGrid1">
-    <div class="svc-card" onclick="pickService(this,'fb')"><div class="ck">✓</div><span class="svc-e">🍽️</span><div class="svc-n">Caterer</div></div>
-    <div class="svc-card" onclick="pickService(this,'photo')"><div class="ck">✓</div><span class="svc-e">📸</span><div class="svc-n">Photographer</div></div>
-    <div class="svc-card" onclick="pickService(this,'venue')"><div class="ck">✓</div><span class="svc-e">📍</span><div class="svc-n">Venue</div></div>
-    <div class="svc-card" onclick="pickService(this,'entertainment')"><div class="ck">✓</div><span class="svc-e">🎵</span><div class="svc-n">Musician / DJ</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'fb')"><div class="ck">✓</div><span class="svc-e">🍽️</span><div class="svc-n">Caterer</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'photo')"><div class="ck">✓</div><span class="svc-e">📸</span><div class="svc-n">Photographer</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'venue')"><div class="ck">✓</div><span class="svc-e">📍</span><div class="svc-n">Venue</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'entertainment')"><div class="ck">✓</div><span class="svc-e">🎵</span><div class="svc-n">Musician / DJ</div></div>
   </div>
   <div class="svc-section-label">Event enhancement</div>
   <div class="svc-grid" id="svcGrid2">
-    <div class="svc-card" onclick="pickService(this,'decor')"><div class="ck">✓</div><span class="svc-e">🎨</span><div class="svc-n">Decorator</div></div>
-    <div class="svc-card" onclick="pickService(this,'florist')"><div class="ck">✓</div><span class="svc-e">💐</span><div class="svc-n">Florist</div></div>
-    <div class="svc-card" onclick="pickService(this,'emcee')"><div class="ck">✓</div><span class="svc-e">🎤</span><div class="svc-n">Emcee / Host</div></div>
-    <div class="svc-card" onclick="pickService(this,'slp')"><div class="ck">✓</div><span class="svc-e">🔊</span><div class="svc-n">Sound & AV</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'decor')"><div class="ck">✓</div><span class="svc-e">🎨</span><div class="svc-n">Decorator</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'florist')"><div class="ck">✓</div><span class="svc-e">💐</span><div class="svc-n">Florist</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'emcee')"><div class="ck">✓</div><span class="svc-e">🎤</span><div class="svc-n">Emcee / Host</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'slp')"><div class="ck">✓</div><span class="svc-e">🔊</span><div class="svc-n">Sound & AV</div></div>
   </div>
   <div class="svc-section-label">Personal services</div>
   <div class="svc-grid" id="svcGrid3">
-    <div class="svc-card" onclick="pickService(this,'styling')"><div class="ck">✓</div><span class="svc-e">💄</span><div class="svc-n">Personal Styling</div></div>
-    <div class="svc-card" onclick="pickService(this,'ceremonial')"><div class="ck">✓</div><span class="svc-e">🙏</span><div class="svc-n">Pandit / Priest</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'styling')"><div class="ck">✓</div><span class="svc-e">💄</span><div class="svc-n">Personal Styling</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'ceremonial')"><div class="ck">✓</div><span class="svc-e">🙏</span><div class="svc-n">Pandit / Priest</div></div>
   </div>
   <div class="svc-section-label">Planning & Operations</div>
   <div class="svc-grid" id="svcGrid4">
-    <div class="svc-card" onclick="pickService(this,'eventManager')"><div class="ck">✓</div><span class="svc-e">📋</span><div class="svc-n">Event Manager</div></div>
-    <div class="svc-card" onclick="pickService(this,'staffing')"><div class="ck">✓</div><span class="svc-e">👥</span><div class="svc-n">Staffing</div></div>
-    <div class="svc-card" onclick="pickService(this,'logistics')"><div class="ck">✓</div><span class="svc-e">🚗</span><div class="svc-n">Logistics</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'eventManager')"><div class="ck">✓</div><span class="svc-e">📋</span><div class="svc-n">Event Manager</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'logistics')"><div class="ck">✓</div><span class="svc-e">🚗</span><div class="svc-n">Logistics</div></div>
   </div>
   <div class="svc-section-label">Extras</div>
   <div class="svc-grid" id="svcGrid5">
-    <div class="svc-card" onclick="pickService(this,'returnGifts')"><div class="ck">✓</div><span class="svc-e">🎁</span><div class="svc-n">Return Gifts</div></div>
-    <div class="svc-card" onclick="pickService(this,'gifting')"><div class="ck">✓</div><span class="svc-e">🎁</span><div class="svc-n">Gifting</div></div>
-    <div class="svc-card" onclick="pickService(this,'fireworks')"><div class="ck">✓</div><span class="svc-e">🎆</span><div class="svc-n">Fireworks</div></div>
-    <div class="svc-card" onclick="pickService(this,'rangoli')"><div class="ck">✓</div><span class="svc-e">🌀</span><div class="svc-n">Rangoli</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'returnGifts')"><div class="ck">✓</div><span class="svc-e">🎁</span><div class="svc-n">Return Gifts</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'fireworks')"><div class="ck">✓</div><span class="svc-e">🎆</span><div class="svc-n">Fireworks</div></div>
+    <div class="svc-card" onclick="pickBrowseCat(this,'rangoli')"><div class="ck">✓</div><span class="svc-e">🌀</span><div class="svc-n">Rangoli</div></div>
   </div>
-  <div class="switch-link">Not sure what you need? <a onclick="pickPath('occasion')">Plan a full event instead →</a></div>
+  <div class="switch-link">Not sure what you need? <a onclick="pickMode('planning')">Explore what goes into your event →</a></div>
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
-    <button class="btn btn-primary" onclick="goTo(21)">Continue →</button>
+    <button class="btn btn-primary" id="browseCatBtn" onclick="goTo(21)" style="opacity:.4;pointer-events:none">Browse vendors →</button>
   </div>
 </div>
 
-<!-- ==================== SERVICE PATH: SCREEN 21 — CONTEXT + DETAILS ==================== -->
+<!-- ==================== BROWSE: SCREEN 21 — VENDOR MARKETPLACE ==================== -->
 <div class="screen" id="s21">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(20)" style="padding:8px 16px;font-size:12px">← Change category</button></div>
+  <div id="marketplaceContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== BROWSE: SCREEN 22 — EVENT DETAILS (LIGHT FORM) ==================== -->
+<div class="screen" id="s22">
   <div class="sh">
-    <div class="sh-step">Step 2 of 4</div>
-    <h2>A little context</h2>
-    <p>Helps us ask the right questions and match you with the right vendor.</p>
+    <div class="sh-step">Step 3 of 4</div>
+    <h2>Tell us about your event</h2>
+    <p>So we can send your shortlisted vendors the right details and get you accurate quotes.</p>
+  </div>
+
+  <div id="browseSelectedSummary" style="margin-bottom:20px">
+    <!-- Shows which vendors are selected -->
   </div>
 
   <div class="form-group">
-    <label class="form-label">What's this for?</label>
-    <div class="chip-group" id="svcContextChips">
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="wedding">Wedding function</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="birthday">Birthday / Anniversary</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="babyshower">Baby shower / Naming</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="cultural">Cultural / Religious ceremony</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="corporate">Corporate / Office</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="festival">Diwali / Festival</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="holi">Holi</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="houseparty">House party / Get-together</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="personal">Personal / Professional use</div>
-      <div class="chip" onclick="selectChip(this,'svc-context');state.serviceContext=this.dataset.val" data-val="other">Other</div>
+    <label class="form-label">What's the occasion?</label>
+    <div class="chip-group" id="browseOccChips">
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="birthday">Birthday</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="wedding">Wedding function</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="babyshower">Baby Shower</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="corporate">Corporate</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="cultural">Cultural / Religious</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="festival">Festival / Diwali</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="houseparty">House party</div>
+      <div class="chip" onclick="selectChip(this,'browse-occ');state.browseOcc=this.dataset.val" data-val="other">Other</div>
     </div>
   </div>
 
   <div class="form-group">
     <label class="form-label">When?</label>
-    <div class="form-row-3">
-      <input type="date">
-      <select><option value="">Time of day</option><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–8pm)</option><option>Night (8pm+)</option></select>
-      <select><option value="">Est. duration</option><option>1–2 hours</option><option>2–3 hours</option><option>3–5 hours</option><option>5–8 hours</option><option>Full day</option><option>Not sure</option></select>
+    <div class="form-row">
+      <input type="date" id="browseDate">
+      <select id="browseTime"><option value="">Time of day</option><option>Morning</option><option>Afternoon</option><option>Evening</option><option>Night</option></select>
     </div>
     <div style="margin-top:8px">
-      <div class="chip sm" onclick="this.classList.toggle('selected')" style="font-size:11px">📅 Date is flexible — show me available options</div>
+      <div class="chip sm" onclick="this.classList.toggle('selected')" style="font-size:11px">📅 Date is flexible</div>
     </div>
   </div>
 
   <div class="form-group">
     <label class="form-label">Where?</label>
-    <div class="form-hint">Just pincode — no full address needed.</div>
     <div class="form-row">
-      <input type="text" placeholder="City">
-      <input type="text" placeholder="Pincode" maxlength="6">
+      <select id="browseCity">
+        <option value="">Select city</option>
+        <option value="mumbai">Mumbai</option><option value="delhi">Delhi NCR</option><option value="bangalore">Bangalore</option>
+        <option value="hyderabad">Hyderabad</option><option value="chennai">Chennai</option><option value="kolkata">Kolkata</option>
+        <option value="pune">Pune</option><option value="jaipur">Jaipur</option><option value="ahmedabad">Ahmedabad</option>
+        <option value="tier2">Other city</option>
+      </select>
+      <input type="text" placeholder="Pincode (optional)" maxlength="6" id="browsePincode">
     </div>
   </div>
 
   <div class="form-group">
-    <label class="form-label">How many people?</label>
+    <label class="form-label">How many guests?</label>
     <div class="chip-group">
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">Just me / 1–5</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">Under 15</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">15–30</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">30–50</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">50–100</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">100–200</div>
-      <div class="chip" onclick="selectChip(this,'svc-guests');state.guestCount=this.textContent">200+</div>
+      <div class="chip" onclick="selectChip(this,'browse-guests');state.browseGuests=this.textContent">Under 30</div>
+      <div class="chip" onclick="selectChip(this,'browse-guests');state.browseGuests=this.textContent">30–50</div>
+      <div class="chip" onclick="selectChip(this,'browse-guests');state.browseGuests=this.textContent">50–100</div>
+      <div class="chip" onclick="selectChip(this,'browse-guests');state.browseGuests=this.textContent">100–200</div>
+      <div class="chip" onclick="selectChip(this,'browse-guests');state.browseGuests=this.textContent">200+</div>
     </div>
   </div>
 
-  <div class="switch-link">Realized you need more than one vendor? <a onclick="pickPath('occasion')">Switch to event planner →</a></div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(20)">← Back</button>
-    <button class="btn btn-primary" onclick="buildServiceQuestions();goTo(22)">Continue →</button>
+    <button class="btn btn-secondary" onclick="goTo(21)">← Back to vendors</button>
+    <button class="btn btn-primary" onclick="buildBrowseReview();goTo(23)">Review & Send →</button>
   </div>
 </div>
 
-<!-- ==================== SERVICE PATH: SCREEN 22 — SERVICE QUESTIONS ==================== -->
-<div class="screen" id="s22">
-  <div class="sh">
-    <div class="sh-step">Step 3 of 4</div>
-    <h2>Tell us what you need</h2>
-    <p>The more detail, the better the quotes. Skip anything you're unsure about.</p>
-  </div>
-  <div id="svcQuestionContent">
-    <!-- Populated dynamically -->
-  </div>
-  <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(21)">← Back</button>
-    <button class="btn btn-primary" onclick="buildServiceReview();goTo(23)">Review & Submit →</button>
-  </div>
-</div>
-
-<!-- ==================== SERVICE PATH: SCREEN 23 — REVIEW ==================== -->
+<!-- ==================== BROWSE: SCREEN 23 — REVIEW & SEND RFQ ==================== -->
 <div class="screen" id="s23">
   <div class="sh">
     <div class="sh-step">Step 4 of 4</div>
     <h2>Review your request</h2>
-    <p>Vendors will see this when quoting.</p>
+    <p>We'll send your event details to your selected vendors and collect their quotes.</p>
   </div>
-  <div id="svcReviewContent">
+  <div id="browseReviewContent">
     <!-- Populated dynamically -->
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(22)">← Back</button>
-    <button class="btn btn-green" onclick="submitRequest()">✓ Submit & Get Quotes</button>
+    <button class="btn btn-secondary" onclick="goTo(22)">← Edit details</button>
+    <button class="btn btn-green" onclick="submitBrowseRequest()">✓ Send Request for Quotes</button>
   </div>
 </div>
 
@@ -2593,11 +2632,9 @@ function goTo(n){
   // Progress bar logic — triple path
   let pct = 0;
   if(state.mode==='planning'){
-    // Planning path: s1=step1, s2=step2, s10=step3 (dashboard)
     if(n===1) pct=0; else if(n===2) pct=50; else if(n===10) pct=100;
     else pct=0;
-  } else if(state.path==='service'){
-    // Service path: s20=step1, s21=step2, s22=step3, s23=step4
+  } else if(state.mode==='browse' || state.path==='browse'){
     if(n===20) pct=0; else if(n===21) pct=33; else if(n===22) pct=66; else if(n===23) pct=100;
     else if(n>=6) pct=100;
   } else {
@@ -2617,6 +2654,11 @@ function goTo(n){
   if(state.mode==='planning'){
     p1.textContent='Phase 1 · Explore'; p2.textContent='';
     p1.className='phase-pill active'; p2.style.display='none';
+  } else if(state.mode==='browse'){
+    p1.textContent='Phase 1 · Browse'; p2.textContent='Phase 2 · Request';
+    p2.style.display='';
+    if(n<=21){p1.className='phase-pill active';p2.className='phase-pill';}
+    else{p1.className='phase-pill done';p2.className='phase-pill active';}
   } else {
     p1.textContent='Phase 1 · Plan'; p2.textContent='Phase 2 · Compare';
     p2.style.display='';
@@ -2630,6 +2672,7 @@ function goTo(n){
   if(n===9) buildCompare();
   if(n===10) buildPlanningDashboard();
   if(n===11) buildProfileScreen();
+  if(n===21 && (state.mode==='browse' || state.path==='browse')) buildMarketplace();
   if(n===30) buildVendorProfile();
   if(n===32) buildChat();
   if(n===33) buildMsgInbox();
@@ -2659,67 +2702,259 @@ function goTo(n){
 function pickMode(mode){
   state.mode = mode;
   state.path = 'occasion';
-  goTo(1);
+  if(mode === 'browse'){
+    state.path = 'browse';
+    state.browseSelected = [];
+    goTo(20);
+  } else {
+    goTo(1);
+  }
 }
 function pickPath(path){
   state.path = path;
-  state.mode = 'execution'; // Find a Service is always execution
-  if(path==='occasion') goTo(1);
-  else goTo(20);
+  if(path==='browse'){ state.mode='browse'; goTo(20); }
+  else { state.mode='execution'; goTo(1); }
 }
 
-// ========== SERVICE PATH: SCREEN 20 — PICK SERVICE ==========
-function pickService(el, key){
-  // Single select
+// ========== BROWSE FLOW ==========
+let browseState = { cat: null, selected: [], sortBy: 'rating' };
+
+// Extended vendor marketplace data — more vendors for browse feel
+const BROWSE_VENDORS = {
+  photo: [
+    {name:'Priya Captures',stars:4.8,reviews:127,city:'Mumbai',price:'₹18,000 – ₹35,000',priceNum:18000,responseTime:'~2 hours',events:89,yrs:6,badges:['verified','top','fast'],tags:['Candid','Traditional','Pre-event'],bio:'Award-winning photographer specializing in candid event photography. Known for storytelling through images.'},
+    {name:'SnapStory Studio',stars:4.6,reviews:84,city:'Mumbai',price:'₹15,000 – ₹28,000',priceNum:15000,responseTime:'~4 hours',events:62,yrs:4,badges:['verified'],tags:['Candid','Drone','Photo+Video'],bio:'Full-service visual storytelling studio. Photography, videography, and drone coverage under one roof.'},
+    {name:'Frame & Focus Co.',stars:4.9,reviews:212,city:'Mumbai',price:'₹28,000 – ₹55,000',priceNum:28000,responseTime:'~1 hour',events:180,yrs:9,badges:['verified','top','fast'],tags:['Premium','Albums','Pre-event'],bio:'Mumbai\'s premier event photography team. Premium albums, same-day edits, and dedicated post-production.'},
+    {name:'LensCraft India',stars:4.4,reviews:56,city:'Mumbai',price:'₹12,000 – ₹22,000',priceNum:12000,responseTime:'~6 hours',events:38,yrs:2,badges:['verified'],tags:['Budget','Candid','Digital'],bio:'Affordable professional photography without compromising on quality. All-digital delivery in 7 days.'},
+    {name:'Golden Hour Studios',stars:4.7,reviews:143,city:'Mumbai',price:'₹22,000 – ₹40,000',priceNum:22000,responseTime:'~3 hours',events:110,yrs:7,badges:['verified','top'],tags:['Cinematic','Video','Highlight Reel'],bio:'Cinematic photography and videography. Every event gets a highlight reel that goes viral.'},
+  ],
+  entertainment: [
+    {name:'DJ Rohan',stars:4.7,reviews:95,city:'Mumbai',price:'₹15,000 – ₹30,000',priceNum:15000,responseTime:'~1 hour',events:150,yrs:8,badges:['verified','top'],tags:['Bollywood','EDM','Weddings'],bio:'High-energy DJ with 8 years of experience. Expert in Bollywood, EDM, and seamless genre mixing.'},
+    {name:'The Beat Factory',stars:4.5,reviews:68,city:'Mumbai',price:'₹20,000 – ₹45,000',priceNum:20000,responseTime:'~2 hours',events:90,yrs:5,badges:['verified'],tags:['Live Band','Acoustic','Sangeet'],bio:'Live band with DJ combo. Perfect for sangeet nights and multi-genre events.'},
+    {name:'SoundWave Events',stars:4.3,reviews:42,city:'Mumbai',price:'₹10,000 – ₹18,000',priceNum:10000,responseTime:'~3 hours',events:55,yrs:3,badges:['verified','fast'],tags:['Budget','House Party','Corporate'],bio:'Affordable DJ services with professional sound. Great for house parties and small corporate events.'},
+    {name:'DJ Anika',stars:4.8,reviews:110,city:'Mumbai',price:'₹25,000 – ₹50,000',priceNum:25000,responseTime:'~2 hours',events:130,yrs:6,badges:['verified','top','fast'],tags:['Premium','Clubs','Destination'],bio:'One of Mumbai\'s top female DJs. Known for reading crowds perfectly and creating unforgettable nights.'},
+  ],
+  fb: [
+    {name:'Taste Buds Catering',stars:4.5,reviews:203,city:'Mumbai',price:'₹600 – ₹1,200/plate',priceNum:600,responseTime:'~4 hours',events:340,yrs:12,badges:['verified','top'],tags:['Multi-cuisine','Buffet','Live Counters'],bio:'12 years of catering excellence. Multi-cuisine buffets, live counters, and impeccable service.'},
+    {name:'Spice Route Kitchen',stars:4.7,reviews:156,city:'Mumbai',price:'₹800 – ₹1,500/plate',priceNum:800,responseTime:'~3 hours',events:220,yrs:8,badges:['verified','top','fast'],tags:['Fusion','Fine Dining','Themed'],bio:'Innovative fusion menus that wow guests. Specializing in themed food experiences and molecular gastronomy.'},
+    {name:'Annapurna Caterers',stars:4.3,reviews:89,city:'Mumbai',price:'₹400 – ₹800/plate',priceNum:400,responseTime:'~5 hours',events:180,yrs:15,badges:['verified'],tags:['Vegetarian','North Indian','Budget'],bio:'Pure vegetarian catering with 15 years of trust. Specializing in North Indian and Gujarati cuisines.'},
+    {name:'Royal Feast Co.',stars:4.8,reviews:178,city:'Mumbai',price:'₹1,000 – ₹2,500/plate',priceNum:1000,responseTime:'~2 hours',events:150,yrs:10,badges:['verified','top'],tags:['Premium','Plated','International'],bio:'Premium plated dining experiences. International cuisines, molecular gastronomy, and Michelin-trained chefs.'},
+  ],
+  venue: [
+    {name:'The Garden Terrace',stars:4.9,reviews:156,city:'Mumbai',price:'₹50,000 – ₹2,00,000',priceNum:50000,responseTime:'~3 hours',events:200,yrs:10,badges:['verified','top'],tags:['Outdoor','Garden','Premium'],bio:'Lush garden venue with indoor and outdoor spaces. Capacity up to 500 guests with valet parking.'},
+    {name:'The Rustic Farmhouse',stars:4.6,reviews:98,city:'Mumbai',price:'₹45,000 – ₹1,20,000',priceNum:45000,responseTime:'~4 hours',events:120,yrs:6,badges:['verified'],tags:['Rustic','Farmhouse','Intimate'],bio:'Charming farmhouse setting on the outskirts of Mumbai. Perfect for intimate celebrations up to 200 guests.'},
+    {name:'Sky Lounge Mumbai',stars:4.8,reviews:134,city:'Mumbai',price:'₹80,000 – ₹3,00,000',priceNum:80000,responseTime:'~2 hours',events:95,yrs:4,badges:['verified','top','fast'],tags:['Rooftop','City View','Luxury'],bio:'Stunning rooftop venue with panoramic city views. Modern luxury with in-house bar and DJ booth.'},
+    {name:'Heritage Hall',stars:4.4,reviews:67,city:'Mumbai',price:'₹30,000 – ₹80,000',priceNum:30000,responseTime:'~6 hours',events:250,yrs:20,badges:['verified'],tags:['Banquet','Traditional','Large'],bio:'Classic banquet hall with 20 years of hosting weddings and celebrations. Capacity up to 800 guests.'},
+  ],
+  decor: [
+    {name:'Decor Dreams',stars:4.6,reviews:78,city:'Mumbai',price:'₹25,000 – ₹1,50,000',priceNum:25000,responseTime:'~6 hours',events:120,yrs:5,badges:['verified'],tags:['Floral','Theme','Balloon'],bio:'Creative decoration studio specializing in themed events, floral installations, and balloon art.'},
+    {name:'Bloom & Drape',stars:4.8,reviews:145,city:'Mumbai',price:'₹40,000 – ₹2,50,000',priceNum:40000,responseTime:'~3 hours',events:180,yrs:8,badges:['verified','top'],tags:['Premium','Floral Walls','Luxury'],bio:'High-end event decor with signature floral walls, draping, and lighting installations.'},
+    {name:'Party Pop Decor',stars:4.3,reviews:52,city:'Mumbai',price:'₹10,000 – ₹40,000',priceNum:10000,responseTime:'~4 hours',events:90,yrs:3,badges:['verified','fast'],tags:['Budget','Balloon','Kids'],bio:'Fun and affordable decor for birthdays and kids\' parties. Balloon arches, backdrops, and themed setups.'},
+  ],
+  florist: [
+    {name:'Petal & Stem',stars:4.7,reviews:92,city:'Mumbai',price:'₹15,000 – ₹80,000',priceNum:15000,responseTime:'~3 hours',events:110,yrs:6,badges:['verified','top'],tags:['Premium','Imported','Bridal'],bio:'Luxury floral design using imported and seasonal flowers. Bridal bouquets, mandap decor, and centerpieces.'},
+    {name:'Fresh Blooms Mumbai',stars:4.4,reviews:63,city:'Mumbai',price:'₹8,000 – ₹35,000',priceNum:8000,responseTime:'~4 hours',events:75,yrs:4,badges:['verified'],tags:['Budget','Local','Table Decor'],bio:'Fresh flower arrangements using locally sourced blooms. Affordable elegance for any occasion.'},
+    {name:'The Flower Studio',stars:4.9,reviews:168,city:'Mumbai',price:'₹30,000 – ₹1,50,000',priceNum:30000,responseTime:'~2 hours',events:200,yrs:10,badges:['verified','top','fast'],tags:['Luxury','Installation','Destination'],bio:'India\'s top floral designers. Known for large-scale installations, destination events, and celebrity weddings.'},
+  ],
+};
+
+function pickBrowseCat(el, key){
   document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  state.serviceKey = key;
+  browseState.cat = key;
+  browseState.selected = [];
+  const btn = document.getElementById('browseCatBtn');
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
 }
 
-// ========== SERVICE PATH: SCREEN 22 — BUILD QUESTIONS ==========
-function buildServiceQuestions(){
-  // Apply context mapping so CQ templates get the right occasion/subType
-  applyServiceContext();
-
-  const catKey = state.serviceKey;
+function buildMarketplace(){
+  const catKey = browseState.cat;
   if(!catKey) return;
-  // Set selectedCats for downstream (review, dashboard)
-  state.selectedCats = [catKey];
-  const c = CATS[catKey];
-  if(!c) return;
-  const qFn = CQ[catKey];
-  const body = qFn ? qFn() : simpleQ(catKey, c.name+' details',['Option A','Option B'], c.name+' vendors','Any specific requirements?');
+  const cat = CATS[catKey];
+  const vendors = BROWSE_VENDORS[catKey] || [];
 
-  // Single card, auto-expanded (no accordion toggle needed)
-  document.getElementById('svcQuestionContent').innerHTML = `
-    <div class="cq-card open" id="cq-svc-${catKey}">
-      <div class="cq-header">
-        <span class="cq-emoji">${c.emoji}</span><span class="cq-title">${c.name}</span>
+  if(vendors.length === 0){
+    document.getElementById('marketplaceContent').innerHTML = `
+      <div class="mp-header"><h3>${cat?.emoji||'✨'} ${cat?.name||'Vendors'}</h3></div>
+      <div style="text-align:center;padding:40px 20px;color:var(--text-mid)">
+        <div style="font-size:40px;margin-bottom:12px">🚧</div>
+        <div style="font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px">Coming soon!</div>
+        <div style="font-size:12px">We're onboarding vendors in this category. Check back soon or <a onclick="pickMode('execution')" style="color:var(--accent);cursor:pointer">plan your event</a> and we'll find them for you.</div>
+      </div>`;
+    return;
+  }
+
+  // Sort vendors
+  let sorted = [...vendors];
+  if(browseState.sortBy === 'price') sorted.sort((a,b) => a.priceNum - b.priceNum);
+  else if(browseState.sortBy === 'rating') sorted.sort((a,b) => b.stars - a.stars);
+  else if(browseState.sortBy === 'experience') sorted.sort((a,b) => b.yrs - a.yrs);
+  else if(browseState.sortBy === 'reviews') sorted.sort((a,b) => b.reviews - a.reviews);
+
+  const photoEmojis = ['📸','🎬','✨','🌟','💫'];
+
+  let cards = sorted.map((v,i) => {
+    const sel = browseState.selected.includes(v.name);
+    const badgeHtml = v.badges.map(b => {
+      if(b==='verified') return '<span class="mp-tag verified">✓ Verified</span>';
+      if(b==='top') return '<span class="mp-tag top">⭐ Top Rated</span>';
+      if(b==='fast') return '<span class="mp-tag fast">⚡ Fast Response</span>';
+      return '';
+    }).join('');
+    const tagHtml = v.tags.map(t => `<span class="mp-tag">${t}</span>`).join('');
+
+    return `<div class="mp-card ${sel?'selected':''}" id="mp-${i}">
+      <div class="mp-card-check" onclick="toggleBrowseVendor('${v.name}',${i})">${sel?'✓':''}</div>
+      <div class="mp-photos" onclick="browseViewProfile('${catKey}',${i})">
+        <div class="mp-img">${photoEmojis[i%5]}</div>
+        <div class="mp-img">${photoEmojis[(i+1)%5]}</div>
+        <div class="mp-img">${photoEmojis[(i+2)%5]}<div class="mp-img-overlay">+${3+i} photos</div></div>
       </div>
-      <div class="cq-body">${body}</div>
+      <div class="mp-body" onclick="browseViewProfile('${catKey}',${i})">
+        <div class="mp-top">
+          <div class="mp-name">${v.name}</div>
+          <div class="mp-rating"><span>★</span> ${v.stars} <span style="color:var(--text-light);font-weight:400">(${v.reviews})</span></div>
+        </div>
+        <div class="mp-meta">
+          <span class="mp-meta-item">📍 ${v.city}</span>
+          <span class="mp-meta-item">📅 ${v.events} events</span>
+          <span class="mp-meta-item">🕐 ${v.yrs} yrs exp</span>
+          <span class="mp-meta-item">⚡ ${v.responseTime}</span>
+        </div>
+        <div class="mp-price-range">💰 ${v.price}</div>
+        <div style="font-size:12px;color:var(--text-mid);margin-bottom:8px;line-height:1.5">${v.bio}</div>
+        <div class="mp-tags">${badgeHtml}${tagHtml}</div>
+      </div>
     </div>`;
+  }).join('');
+
+  const selCount = browseState.selected.length;
+  const stickyBar = selCount > 0 ? `
+    <div class="mp-select-bar">
+      <span class="mp-sel-count">${selCount} vendor${selCount>1?'s':''} selected</span>
+      <button class="mp-sel-btn" onclick="goTo(22);buildBrowseEventForm()">Continue with selected →</button>
+    </div>` : '';
+
+  document.getElementById('marketplaceContent').innerHTML = `
+    <div class="mp-header">
+      <div>
+        <h3>${cat?.emoji||'✨'} ${cat?.name||'Vendors'}</h3>
+        <div class="mp-count">${vendors.length} vendors available in Mumbai</div>
+      </div>
+    </div>
+    <div class="mp-filters">
+      <div class="mp-filter ${browseState.sortBy==='rating'?'active':''}" onclick="browseSort('rating')">⭐ Top Rated</div>
+      <div class="mp-filter ${browseState.sortBy==='price'?'active':''}" onclick="browseSort('price')">💰 Price: Low → High</div>
+      <div class="mp-filter ${browseState.sortBy==='experience'?'active':''}" onclick="browseSort('experience')">📅 Most Experienced</div>
+      <div class="mp-filter ${browseState.sortBy==='reviews'?'active':''}" onclick="browseSort('reviews')">💬 Most Reviewed</div>
+    </div>
+    <div class="mp-grid">${cards}</div>
+    ${stickyBar}`;
 }
 
-// ========== SERVICE PATH: SCREEN 23 — BUILD REVIEW ==========
-function buildServiceReview(){
-  const catKey = state.serviceKey;
-  const c = CATS[catKey];
-  const ctxLabels = {
-    'wedding':'Wedding function','birthday':'Birthday / Anniversary','babyshower':'Baby shower',
-    'corporate':'Corporate / Office','festival':'Diwali / Festival','cultural':'Cultural / Religious ceremony',
-    'holi':'Holi','houseparty':'House party / Get-together',
-    'personal':'Personal / Professional use','other':'Other'
-  };
-  const ctxLabel = ctxLabels[state.serviceContext] || 'Event';
-  let h = `<div class="review-card"><div class="rc-h"><h3>📋 Request Summary</h3><span class="edit-link" onclick="goTo(21)">Edit</span></div>
+function browseSort(by){
+  browseState.sortBy = by;
+  buildMarketplace();
+}
+
+function toggleBrowseVendor(name, idx){
+  const i = browseState.selected.indexOf(name);
+  if(i >= 0) browseState.selected.splice(i, 1);
+  else browseState.selected.push(name);
+  buildMarketplace();
+}
+
+function browseViewProfile(catKey, idx){
+  const v = BROWSE_VENDORS[catKey]?.[idx];
+  if(!v) return;
+  // Reuse existing vendor profile page (s30) by mapping browse vendor to DEMO_VENDORS format
+  if(!DEMO_VENDORS[catKey]) DEMO_VENDORS[catKey] = [];
+  const existing = DEMO_VENDORS[catKey].find(d => d.name === v.name);
+  if(!existing){
+    DEMO_VENDORS[catKey].push({
+      name: v.name, stars: v.stars, reviews: v.reviews, city: v.city, price: v.price,
+      responseTime: v.responseTime, events: v.events, yrs: v.yrs, badges: v.badges,
+      includes: [{text:'See full package after quote',inc:true}],
+      reviewData: [{name:'Verified User', date:'Feb 2026', stars: v.stars, text: 'Excellent service, highly recommended!'}]
+    });
+  }
+  vendorProfileFrom = 21;
+  currentVendorProfile = {catKey, vendorIdx: DEMO_VENDORS[catKey].findIndex(d => d.name === v.name), data: DEMO_VENDORS[catKey].find(d => d.name === v.name)};
+  goTo(30);
+}
+
+function buildBrowseEventForm(){
+  const catKey = browseState.cat;
+  const cat = CATS[catKey];
+  const selVendors = BROWSE_VENDORS[catKey]?.filter(v => browseState.selected.includes(v.name)) || [];
+
+  document.getElementById('browseSelectedSummary').innerHTML = `
+    <div style="font-size:12px;color:var(--text-mid);margin-bottom:8px;font-weight:600">YOUR SHORTLISTED VENDORS</div>
+    ${selVendors.map(v => `
+      <div class="br-vendor-card">
+        <div class="br-vendor-emoji">${cat?.emoji||'✨'}</div>
+        <div class="br-vendor-info">
+          <div class="br-vendor-name">${v.name}</div>
+          <div class="br-vendor-price">★ ${v.stars} · ${v.price}</div>
+        </div>
+      </div>
+    `).join('')}
+    <div style="font-size:11px;color:var(--text-light);margin-top:8px">These vendors will receive your event details and respond with availability and final pricing.</div>
+  `;
+}
+
+function buildBrowseReview(){
+  const catKey = browseState.cat;
+  const cat = CATS[catKey];
+  const selVendors = BROWSE_VENDORS[catKey]?.filter(v => browseState.selected.includes(v.name)) || [];
+  const cityLabels = {mumbai:'Mumbai',delhi:'Delhi NCR',bangalore:'Bangalore',hyderabad:'Hyderabad',chennai:'Chennai',kolkata:'Kolkata',pune:'Pune',jaipur:'Jaipur',ahmedabad:'Ahmedabad',tier2:'Other city'};
+
+  let h = `<div class="review-card"><div class="rc-h"><h3>🛒 Selected Vendors</h3><span class="edit-link" onclick="goTo(21)">Change</span></div>
     <div class="rc-b">
-      <div class="rr"><span class="rl">Service</span><span class="rv">${c?.emoji||'✨'} ${c?.name||'Service'}</span></div>
-      <div class="rr"><span class="rl">Context</span><span class="rv">${ctxLabel}</span></div>
-      <div class="rr"><span class="rl">Guests</span><span class="rv">${state.guestCount||'—'}</span></div>
+      ${selVendors.map(v => `<div class="rr"><span class="rl">${cat?.emoji} ${v.name}</span><span class="rv">${v.price}</span></div>`).join('')}
     </div></div>`;
-  h += `<div class="review-card"><div class="rc-h"><h3>${c?.emoji} ${c?.name} Details</h3><span class="edit-link" onclick="goTo(22)">Edit</span></div>
-    <div class="rc-b"><div class="rr"><span class="rl">Status</span><span class="rv" style="color:var(--green)">✓ Details provided</span></div></div></div>`;
-  document.getElementById('svcReviewContent').innerHTML = h;
+
+  h += `<div class="review-card"><div class="rc-h"><h3>📋 Event Details</h3><span class="edit-link" onclick="goTo(22)">Edit</span></div>
+    <div class="rc-b">
+      <div class="rr"><span class="rl">Occasion</span><span class="rv">${state.browseOcc || '—'}</span></div>
+      <div class="rr"><span class="rl">Date</span><span class="rv">${document.getElementById('browseDate')?.value || 'Flexible'}</span></div>
+      <div class="rr"><span class="rl">City</span><span class="rv">${cityLabels[document.getElementById('browseCity')?.value] || '—'}</span></div>
+      <div class="rr"><span class="rl">Guests</span><span class="rv">${state.browseGuests || '—'}</span></div>
+    </div></div>`;
+
+  h += `<div style="padding:14px;background:#FFF8E1;border:1.5px solid #FFE082;border-radius:var(--radius);margin-top:12px">
+    <div style="font-size:13px;color:var(--primary);line-height:1.6">
+      <strong>What happens next?</strong><br>
+      We'll send your event details to ${selVendors.length} vendor${selVendors.length>1?'s':''}. They'll respond with:
+      <br>✅ <strong>Available</strong> — final quote with exact pricing for your event
+      <br>❌ <strong>Not available</strong> — you'll still see their profile and price range for future reference
+    </div>
+  </div>`;
+
+  document.getElementById('browseReviewContent').innerHTML = h;
+}
+
+function submitBrowseRequest(){
+  const catKey = browseState.cat;
+  const selVendors = BROWSE_VENDORS[catKey]?.filter(v => browseState.selected.includes(v.name)) || [];
+
+  if(!auth.isLoggedIn){
+    auth.pendingAction = { type:'browse-submit' };
+    triggerAuth('browse-submit', 'Almost there!', 'Create your account so vendors can send you quotes.');
+    return;
+  }
+
+  showToast(`✨ Request sent to ${selVendors.length} vendor${selVendors.length>1?'s':''}! Quotes incoming...`);
+  // Simulate going to matching screen, then to dashboard
+  goTo(6);
+  setTimeout(()=>{
+    // Set up state so dashboard works
+    state.selectedCats = [catKey];
+    state.mode = 'execution';
+    state.path = 'occasion';
+    goTo(7);
+  }, 3500);
 }
 
 // ========== SCREEN 1: OCCASION ==========
@@ -3556,10 +3791,11 @@ function postAuthAction(){
   if(!auth.pendingAction) return;
   const a = auth.pendingAction;
   if(a.type === 'save-plan'){
-    // Show confirmation toast, stay on s10
     showToast('✅ Plan saved! Check "My Events" anytime.');
   } else if(a.type === 'message'){
     openChatWithVendor(a.vendorIdx || 0, a.catKey || 'photo');
+  } else if(a.type === 'browse-submit'){
+    submitBrowseRequest();
   }
   auth.pendingAction = null;
 }
