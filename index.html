@@ -311,6 +311,426 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .cv-price{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:var(--primary);margin-top:3px}
 .cv-select{margin-top:8px}
 
+/* ===== PLANNING MODE ===== */
+
+/* Planning dashboard summary bar */
+.plan-summary{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:28px}
+.plan-chip{padding:6px 14px;border-radius:100px;background:var(--accent-wash);border:1px solid var(--accent-soft);font-size:12px;font-weight:600;color:var(--primary);display:flex;align-items:center;gap:5px}
+.plan-chip .pc-icon{font-size:14px}
+
+/* Budget table */
+.budget-table-wrap{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+.budget-table-wrap .bt-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.bt{width:100%;border-collapse:collapse}
+.bt th{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:10px 14px;background:#FAFAFA;border-bottom:1px solid var(--border)}
+.bt th.tier{text-align:right}
+.bt td{padding:10px 14px;border-bottom:1px solid #F5F5F5;font-size:13px;color:var(--text)}
+.bt td.cat-col{font-weight:600;display:flex;align-items:center;gap:8px}
+.bt td.cat-col .bt-emoji{font-size:16px}
+.bt td.price-col{text-align:right;font-family:'Sora',sans-serif;font-weight:600;font-size:13px}
+.bt td.price-col.budget{color:#2E7D32}
+.bt td.price-col.mid{color:var(--primary)}
+.bt td.price-col.premium{color:#C62828}
+.bt tr.total-row{background:var(--accent-wash)}
+.bt tr.total-row td{font-weight:700;border-bottom:none;padding:14px}
+.bt tr.total-row td.cat-col{font-family:'Sora',sans-serif;font-size:14px}
+.bt tr.total-row td.price-col{font-size:14px}
+.bt tr.optional-row{opacity:.6}
+.bt tr.optional-row td{font-style:italic;font-size:12px}
+
+/* Total highlight */
+.plan-total{text-align:center;margin-bottom:28px}
+.plan-total .pt-range{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--primary);margin-bottom:4px}
+.plan-total .pt-label{font-size:12px;color:var(--text-mid)}
+
+/* Category needs grid */
+.plan-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:24px}
+.plan-cat{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:12px 10px;text-align:center;transition:all .2s}
+.plan-cat.must{border-color:var(--accent);background:var(--accent-wash)}
+.plan-cat.nice{border-color:var(--border);opacity:.8}
+.plan-cat .pc-e{font-size:22px;display:block;margin-bottom:4px}
+.plan-cat .pc-n{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--primary)}
+.plan-cat .pc-tag{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:4px;padding:2px 6px;border-radius:4px;display:inline-block}
+.plan-cat.must .pc-tag{background:var(--accent);color:var(--primary)}
+.plan-cat.nice .pc-tag{background:#F5F5F5;color:var(--text-mid)}
+
+/* Planning timeline */
+.plan-timeline{margin-bottom:24px}
+.tl-phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)}
+.tl-phase:last-child{border-bottom:none}
+.tl-marker{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:60px}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--accent-soft);margin-bottom:4px}
+.tl-time{font-family:'Sora',sans-serif;font-size:9px;font-weight:700;color:var(--text-mid);text-align:center;line-height:1.3;text-transform:uppercase}
+.tl-content{flex:1}
+.tl-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.tl-items{font-size:12px;color:var(--text-mid);line-height:1.6}
+
+/* Pro tips */
+.plan-tips{background:#F0F7FF;border:1px solid #BBDEFB;border-radius:var(--radius);padding:16px 18px;margin-bottom:28px}
+.plan-tips .tips-title{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#1565C0;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.plan-tips .tip-item{font-size:12px;color:#1565C0;line-height:1.6;padding:4px 0 4px 16px;position:relative}
+.plan-tips .tip-item::before{content:'💡';position:absolute;left:0;top:4px;font-size:10px}
+
+/* Plan CTA */
+.plan-cta{text-align:center;padding:28px 20px;background:#fff;border:2px solid var(--accent);border-radius:var(--radius);margin-top:20px}
+.plan-cta h3{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.plan-cta p{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+
+/* Budget input special */
+.budget-input-wrap{display:flex;align-items:center;gap:8px;margin-top:10px}
+.budget-input-wrap .currency{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--primary)}
+.budget-input-wrap input{flex:1}
+
+/* Section divider for planning screens */
+.plan-section{margin-bottom:28px}
+.plan-section-title{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.plan-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Percentage bar */
+.pct-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:4px}
+.pct-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.pct-fill.budget{background:#34A853}
+.pct-fill.mid{background:var(--accent)}
+.pct-fill.premium{background:#EA4335}
+
+/* ===== BOTTOM NAV BAR ===== */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:6px 0 env(safe-area-inset-bottom,8px);z-index:200;display:none}
+.bottom-nav.visible{display:flex}
+.bnav-item{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;cursor:pointer;position:relative;transition:all .2s}
+.bnav-item .bnav-icon{font-size:20px;opacity:.5;transition:opacity .2s}
+.bnav-item .bnav-label{font-family:'Sora',sans-serif;font-size:9px;font-weight:600;color:var(--text-light);transition:color .2s}
+.bnav-item.active .bnav-icon{opacity:1}
+.bnav-item.active .bnav-label{color:var(--primary)}
+.bnav-badge{position:absolute;top:2px;right:6px;background:var(--red);color:#fff;font-size:8px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* ===== AUTH MODAL ===== */
+.auth-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.auth-overlay.visible{opacity:1;pointer-events:all}
+.auth-sheet{background:#fff;border-radius:24px 24px 0 0;padding:32px 24px env(safe-area-inset-bottom,24px);width:100%;max-width:480px;transform:translateY(100%);transition:transform .4s ease}
+.auth-overlay.visible .auth-sheet{transform:translateY(0)}
+.auth-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:#F5F5F5;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid)}
+.auth-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.auth-sub{font-size:13px;color:var(--text-mid);margin-bottom:24px}
+.auth-social{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.auth-social-btn{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--primary);transition:all .2s}
+.auth-social-btn:hover{border-color:var(--accent);background:var(--accent-wash)}
+.auth-social-btn .as-icon{font-size:20px;width:24px;text-align:center}
+.auth-divider{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-size:11px;color:var(--text-light);font-weight:600}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.auth-phone-row{display:flex;gap:8px;margin-bottom:16px}
+.auth-phone-row .country-code{padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;background:#FAFAFA;font-size:14px;font-weight:600;color:var(--primary);width:70px;text-align:center}
+.auth-phone-row input{flex:1;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;outline:none;transition:border-color .2s}
+.auth-phone-row input:focus{border-color:var(--accent)}
+.auth-otp-row{display:flex;gap:8px;margin-bottom:16px;justify-content:center}
+.auth-otp-row input{width:48px;height:56px;text-align:center;font-family:'Sora',sans-serif;font-size:22px;font-weight:700;border:1.5px solid var(--border);border-radius:12px;outline:none;transition:border-color .2s}
+.auth-otp-row input:focus{border-color:var(--accent);box-shadow:var(--gold-glow)}
+.auth-terms{font-size:11px;color:var(--text-light);text-align:center;line-height:1.5;margin-top:12px}
+.auth-terms a{color:var(--primary);text-decoration:underline}
+
+/* ===== VENDOR PROFILE ===== */
+.vp-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:160px 160px;gap:4px;border-radius:var(--radius);overflow:hidden;margin-bottom:24px}
+.vp-gallery .vp-img{background:linear-gradient(135deg,#F5F5F5,#E0E0E0);position:relative}
+.vp-gallery .vp-img:first-child{grid-row:1/3}
+.vp-gallery .vp-img .vp-img-label{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:600;padding:4px 10px;border-radius:8px}
+.vp-header{margin-bottom:20px}
+.vp-name{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.vp-meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px;color:var(--text-mid);margin-bottom:8px}
+.vp-meta .vp-stars{color:var(--accent);font-weight:700}
+.vp-badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.vp-badge{padding:4px 10px;border-radius:8px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.vp-badge.verified{background:var(--green-wash);color:var(--green)}
+.vp-badge.top{background:var(--accent-wash);color:var(--primary)}
+.vp-badge.fast{background:#E3F2FD;color:#1565C0}
+.vp-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.vp-stat{text-align:center;padding:16px 8px;background:#FAFAFA;border-radius:12px}
+.vp-stat .vs-val{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--primary)}
+.vp-stat .vs-label{font-size:10px;color:var(--text-mid);font-weight:600;margin-top:2px}
+.vp-section{margin-bottom:24px}
+.vp-section-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.vp-includes{display:flex;flex-direction:column;gap:8px}
+.vp-inc-item{display:flex;align-items:center;gap:10px;font-size:13px}
+.vp-inc-item .inc-icon{font-size:16px;width:20px;text-align:center}
+.vp-inc-item.included{color:var(--primary)}
+.vp-inc-item.addon{color:var(--text-mid)}
+.vp-inc-item .addon-price{margin-left:auto;font-weight:600;color:var(--primary);font-size:12px}
+.vp-reviews{display:flex;flex-direction:column;gap:12px}
+.vp-review{background:#FAFAFA;border-radius:12px;padding:16px}
+.vp-review .vr-header{display:flex;justify-content:space-between;margin-bottom:6px}
+.vp-review .vr-name{font-weight:700;font-size:13px;color:var(--primary)}
+.vp-review .vr-date{font-size:11px;color:var(--text-light)}
+.vp-review .vr-stars{color:var(--accent);font-size:12px;margin-bottom:4px}
+.vp-review .vr-text{font-size:12px;color:var(--text-mid);line-height:1.5}
+.vp-actions{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--border);padding:16px 0;display:flex;gap:10px;margin-top:20px}
+.vp-actions .btn{flex:1}
+
+/* ===== CHAT / MESSAGES ===== */
+.chat-header{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);margin-bottom:16px}
+.chat-avatar{width:40px;height:40px;border-radius:50%;background:var(--accent-wash);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.chat-vendor-info{flex:1}
+.chat-vendor-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.chat-vendor-cat{font-size:11px;color:var(--text-mid)}
+.chat-response-time{font-size:10px;color:var(--green);font-weight:600}
+.chat-body{display:flex;flex-direction:column;gap:12px;padding-bottom:80px;min-height:300px}
+.chat-msg{max-width:80%;padding:12px 16px;border-radius:16px;font-size:13px;line-height:1.5;position:relative}
+.chat-msg.user{align-self:flex-end;background:var(--accent);color:var(--primary);border-bottom-right-radius:4px}
+.chat-msg.vendor{align-self:flex-start;background:#F5F5F5;color:var(--primary);border-bottom-left-radius:4px}
+.chat-msg .msg-time{font-size:9px;color:var(--text-light);margin-top:4px;text-align:right}
+.chat-msg.vendor .msg-time{text-align:left}
+.chat-event-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-bottom:4px;font-size:12px}
+.chat-event-card .ec-title{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.chat-event-card .ec-row{display:flex;justify-content:space-between;padding:3px 0}
+.chat-event-card .ec-label{color:var(--text-mid)}
+.chat-event-card .ec-val{font-weight:600;color:var(--primary)}
+.chat-input-bar{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--border);padding:12px 0;display:flex;gap:8px;align-items:center}
+.chat-input-bar input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:24px;font-size:13px;outline:none;transition:border-color .2s}
+.chat-input-bar input:focus{border-color:var(--accent)}
+.chat-input-bar .chat-send{width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:transform .15s}
+.chat-input-bar .chat-send:active{transform:scale(.9)}
+.chat-input-bar .chat-attach{width:36px;height:36px;border-radius:50%;background:#F5F5F5;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+
+/* Message inbox */
+.msg-list{display:flex;flex-direction:column}
+.msg-item{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s}
+.msg-item:hover{background:#FAFAFA;margin:0 -8px;padding:16px 8px}
+.msg-item:last-child{border-bottom:none}
+.msg-avatar{width:48px;height:48px;border-radius:50%;background:var(--accent-wash);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.msg-content{flex:1;min-width:0}
+.msg-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+.msg-name{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.msg-time-label{font-size:10px;color:var(--text-light)}
+.msg-cat{font-size:10px;color:var(--text-mid);margin-bottom:2px}
+.msg-preview{font-size:12px;color:var(--text-mid);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-status{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:24px}
+.msg-unread{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+
+/* ===== QUOTE CARD ===== */
+.quote-card{background:#fff;border:2px solid var(--accent);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+.quote-card .qc-header{background:var(--accent-wash);padding:16px 18px;display:flex;align-items:center;gap:10px}
+.quote-card .qc-header .qc-icon{font-size:20px}
+.quote-card .qc-header .qc-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.quote-card .qc-header .qc-vendor{font-size:12px;color:var(--text-mid)}
+.quote-lines{padding:16px 18px}
+.ql-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #F5F5F5;font-size:13px}
+.ql-item:last-child{border-bottom:none}
+.ql-item .ql-name{color:var(--text)}
+.ql-item .ql-price{font-family:'Sora',sans-serif;font-weight:600;color:var(--primary)}
+.ql-item .ql-included{font-size:11px;color:var(--green);font-weight:600}
+.ql-total{display:flex;justify-content:space-between;padding:14px 18px;background:#FAFAFA;border-top:2px solid var(--border);font-family:'Sora',sans-serif;font-weight:700;font-size:15px;color:var(--primary)}
+.quote-terms{padding:14px 18px;font-size:12px;color:var(--text-mid);border-top:1px solid var(--border)}
+.quote-terms .qt-label{font-weight:700;color:var(--primary);margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+.quote-actions{display:flex;flex-direction:column;gap:10px;padding:18px}
+.quote-actions .qa-primary{padding:16px;border-radius:12px;background:var(--accent);border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);text-align:center;transition:all .2s}
+.quote-actions .qa-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg)}
+.quote-actions .qa-secondary{padding:14px;border-radius:12px;background:#fff;border:1.5px solid var(--border);cursor:pointer;font-size:13px;font-weight:600;color:var(--text-mid);text-align:center;transition:all .2s}
+.quote-actions .qa-secondary:hover{border-color:var(--primary);color:var(--primary)}
+.quote-actions .qa-row{display:flex;gap:10px}
+.quote-actions .qa-row button{flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-mid);transition:all .2s}
+
+/* ===== PAYMENT ===== */
+.pay-amount{text-align:center;margin-bottom:24px}
+.pay-amount .pa-label{font-size:12px;color:var(--text-mid);margin-bottom:4px}
+.pay-amount .pa-val{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:var(--primary)}
+.pay-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.pay-method{display:flex;align-items:center;gap:14px;padding:16px;border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .2s}
+.pay-method.selected{border-color:var(--accent);background:var(--accent-wash);box-shadow:var(--gold-glow)}
+.pay-method .pm-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.pay-method.selected .pm-radio{border-color:var(--accent);background:var(--accent)}
+.pay-method.selected .pm-radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.pay-method .pm-icon{font-size:22px;width:28px;text-align:center}
+.pay-method .pm-info{flex:1}
+.pay-method .pm-name{font-weight:700;font-size:14px;color:var(--primary)}
+.pay-method .pm-desc{font-size:11px;color:var(--text-mid)}
+.pay-trust{display:flex;align-items:center;gap:10px;padding:16px;background:var(--green-wash);border-radius:12px;margin-bottom:24px;font-size:12px;color:#2E7D32}
+.pay-trust .pt-icon{font-size:20px}
+.pay-remaining{text-align:center;font-size:12px;color:var(--text-mid);padding:12px;background:#FAFAFA;border-radius:10px;margin-top:16px}
+
+/* ===== CONFIRMATION ===== */
+.confirm-card{text-align:center;background:#fff;border:2px solid var(--green);border-radius:var(--radius);padding:32px 24px;margin-bottom:24px}
+.confirm-card .cc-icon{font-size:48px;margin-bottom:12px}
+.confirm-card .cc-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.confirm-card .cc-sub{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.confirm-details{text-align:left;background:#FAFAFA;border-radius:12px;padding:16px;font-size:13px}
+.confirm-details .cd-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #EBEBEB}
+.confirm-details .cd-row:last-child{border-bottom:none}
+.confirm-details .cd-label{color:var(--text-mid)}
+.confirm-details .cd-val{font-weight:600;color:var(--primary)}
+.confirm-next{background:#F0F7FF;border:1px solid #BBDEFB;border-radius:var(--radius);padding:18px;margin-bottom:24px}
+.confirm-next .cn-title{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#1565C0;margin-bottom:10px}
+.confirm-next .cn-step{display:flex;align-items:center;gap:10px;font-size:12px;color:#1565C0;padding:4px 0}
+.confirm-next .cn-num{width:22px;height:22px;border-radius:50%;background:#BBDEFB;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:10px;flex-shrink:0}
+
+/* ===== MY EVENTS ===== */
+.events-section-label{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;margin-top:24px}
+.event-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;cursor:pointer;transition:all .2s}
+.event-card:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.event-card .ev-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.event-card .ev-title{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary)}
+.event-card .ev-date{font-size:11px;color:var(--text-mid)}
+.event-card .ev-meta{font-size:12px;color:var(--text-mid);margin-bottom:12px}
+.event-card .ev-vendors{display:flex;flex-direction:column;gap:6px}
+.ev-vendor-row{display:flex;align-items:center;gap:10px;font-size:12px}
+.ev-vendor-row .evr-emoji{font-size:16px;width:20px;text-align:center}
+.ev-vendor-row .evr-name{flex:1;font-weight:600;color:var(--primary)}
+.ev-vendor-row .evr-status{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700}
+.evr-status.booked{background:var(--green-wash);color:var(--green)}
+.evr-status.talking{background:#E3F2FD;color:#1565C0}
+.evr-status.browsing{background:#F5F5F5;color:var(--text-mid)}
+.evr-status.paid{background:var(--accent-wash);color:var(--primary)}
+.event-card .ev-budget{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:12px}
+.event-card .ev-budget .evb-label{color:var(--text-mid)}
+.event-card .ev-budget .evb-val{font-family:'Sora',sans-serif;font-weight:700;color:var(--primary)}
+.saved-plan-card{background:#fff;border:1.5px dashed var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px}
+.saved-plan-card .sp-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);margin-bottom:4px}
+.saved-plan-card .sp-meta{font-size:12px;color:var(--text-mid);margin-bottom:4px}
+.saved-plan-card .sp-range{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px}
+
+/* ===== REVIEW/RATING ===== */
+.rating-card{text-align:center;background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:32px 24px;margin-bottom:20px}
+.rating-card .rc-emoji{font-size:48px;margin-bottom:8px}
+.rating-card .rc-title{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:8px}
+.rating-card .rc-vendor{font-size:13px;color:var(--text-mid);margin-bottom:16px}
+.star-row{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
+.star-row .star{font-size:36px;cursor:pointer;opacity:.25;transition:all .2s}
+.star-row .star.active{opacity:1;transform:scale(1.1)}
+.review-textarea{width:100%;min-height:100px;padding:14px;border:1.5px solid var(--border);border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;resize:vertical;outline:none;transition:border-color .2s}
+.review-textarea:focus{border-color:var(--accent)}
+.review-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.review-tag{padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s}
+.review-tag.selected{border-color:var(--accent);background:var(--accent-wash);color:var(--primary)}
+.release-box{background:var(--accent-wash);border:1.5px solid var(--accent);border-radius:12px;padding:16px;margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.release-box .rb-title{font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)}
+.release-box .rb-sub{font-size:11px;color:var(--text-mid)}
+
+/* ===== PAY DIRECT CONFIRM ===== */
+.direct-pay-card{background:#FAFAFA;border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:20px}
+.direct-pay-card .dp-icon{font-size:32px;margin-bottom:8px}
+.direct-pay-card .dp-text{font-size:13px;color:var(--text-mid);line-height:1.6}
+
+/* Vendor payment cards in My Events */
+.ev-vendor-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px;transition:all .2s}
+.ev-vendor-card.has-quote{border-color:var(--accent)}
+.ev-vendor-card.fully-paid{border-color:var(--green);background:linear-gradient(135deg,#F0FFF0,#fff)}
+.evc-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.evc-emoji{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:#F5F5F5;border-radius:10px;flex-shrink:0}
+.evc-info{flex:1;min-width:0}
+.evc-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.evc-cat{font-size:11px;color:var(--text-mid);margin-top:2px}
+.evc-status{font-size:11px;font-weight:600;padding:4px 8px;border-radius:6px;display:inline-block;margin-top:4px}
+.evc-status.booked{background:#E8F5E9;color:#2E7D32}
+.evc-status.quote-accepted{background:var(--accent-wash);color:#8B6914}
+.evc-status.quote-received{background:#E3F2FD;color:#1565C0}
+.evc-status.talking{background:#F5F5F5;color:var(--text-mid)}
+.evc-quote{background:#FAFAFA;border-radius:10px;padding:14px;margin-bottom:12px}
+.evc-quote-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.evc-quote-label{font-size:12px;color:var(--text-mid)}
+.evc-quote-val{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
+.evc-quote-detail{font-size:11px;color:var(--text-light);margin-top:2px}
+.evc-quote-terms{font-size:11px;color:var(--text-mid);padding-top:8px;margin-top:8px;border-top:1px solid var(--border)}
+.evc-payment{margin-bottom:8px}
+.evc-pay-progress{display:flex;gap:4px;margin-bottom:8px}
+.evc-pay-bar{height:6px;border-radius:3px;flex:1}
+.evc-pay-bar.paid{background:var(--green)}
+.evc-pay-bar.remaining{background:var(--border)}
+.evc-pay-split{display:flex;justify-content:space-between;font-size:11px;margin-bottom:10px}
+.evc-pay-split .paid{color:var(--green);font-weight:600}
+.evc-pay-split .remaining{color:var(--text-mid)}
+.evc-actions{display:flex;gap:8px;flex-wrap:wrap}
+.evc-actions .btn-sm{padding:8px 14px;font-size:12px;border-radius:8px}
+
+/* Profile screen */
+.profile-screen{max-width:440px;margin:0 auto}
+.profile-header{text-align:center;margin-bottom:32px}
+.profile-header .ph-icon{font-size:40px;margin-bottom:12px}
+.profile-header .ph-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:700;color:var(--primary);margin-bottom:6px}
+.profile-header .ph-sub{font-size:14px;color:var(--text-mid);line-height:1.5}
+.profile-field{margin-bottom:20px}
+.profile-field label{display:block;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+.profile-field input,.profile-field select{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;background:#fff;color:var(--primary);-webkit-appearance:none;appearance:none}
+.profile-field input:focus,.profile-field select:focus{border-color:var(--accent);box-shadow:var(--gold-glow)}
+.profile-field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:40px}
+.profile-phone-row{display:flex;gap:8px}
+.profile-phone-row .p-code{padding:14px;border:1.5px solid var(--border);border-radius:12px;background:#FAFAFA;font-size:14px;font-weight:600;color:var(--primary);width:70px;text-align:center;flex-shrink:0}
+.profile-phone-row input{flex:1}
+.profile-otp-section{margin-top:12px;padding:16px;background:var(--accent-wash);border-radius:12px;border:1.5px solid var(--accent)}
+.profile-otp-section .otp-label{font-size:12px;color:var(--text-mid);margin-bottom:10px;text-align:center}
+.profile-otp-row{display:flex;gap:8px;justify-content:center;margin-bottom:12px}
+.profile-otp-row input{width:48px;height:56px;text-align:center;font-family:'Sora',sans-serif;font-size:22px;font-weight:700;border:1.5px solid var(--border);border-radius:12px;outline:none;transition:border-color .2s;background:#fff}
+.profile-otp-row input:focus{border-color:var(--accent);box-shadow:var(--gold-glow)}
+.profile-otp-row input.verified{border-color:var(--green);background:#F0FFF0}
+.profile-verified{display:flex;align-items:center;gap:8px;color:var(--green);font-size:13px;font-weight:600;justify-content:center}
+.profile-divider{display:flex;align-items:center;gap:12px;margin:24px 0;font-size:11px;color:var(--text-light);font-weight:600}
+.profile-divider::before,.profile-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.profile-google-btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;background:#fff;cursor:pointer;font-size:14px;font-weight:600;color:var(--primary);transition:all .2s;width:100%}
+.profile-google-btn:hover{border-color:var(--accent);background:var(--accent-wash)}
+.profile-trust{display:flex;align-items:center;gap:10px;padding:14px 16px;background:#FAFAFA;border-radius:12px;margin-top:24px;font-size:12px;color:var(--text-mid)}
+.profile-trust span{font-size:16px}
+
+/* ── Mira AI Agent ── */
+.mira-fab{position:fixed;bottom:80px;right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#FFCC02,#FFB300);border:none;box-shadow:0 4px 20px rgba(255,204,2,.4);cursor:pointer;z-index:200;display:none;align-items:center;justify-content:center;font-size:24px;transition:all .3s;animation:miraPulse 3s ease infinite}
+.mira-fab.visible{display:flex}
+.mira-fab:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(255,204,2,.5)}
+.mira-fab .fab-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;background:#EF5350;color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+@keyframes miraPulse{0%,100%{box-shadow:0 4px 20px rgba(255,204,2,.4)}50%{box-shadow:0 4px 28px rgba(255,204,2,.6)}}
+
+.mira-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.mira-overlay.visible{opacity:1;pointer-events:all}
+.mira-sheet{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:480px;height:85vh;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .4s ease}
+.mira-overlay.visible .mira-sheet{transform:translateY(0)}
+
+.mira-header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mira-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#FFCC02,#FFB300);display:flex;align-items:center;justify-content:center;font-size:20px}
+.mira-hdr-info{flex:1}
+.mira-hdr-name{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary)}
+.mira-hdr-status{font-size:11px;color:var(--green);font-weight:600}
+.mira-close{width:32px;height:32px;border-radius:50%;background:#F5F5F5;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid)}
+
+.mira-body{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+
+.mira-msg{max-width:88%;animation:fadeUp .3s ease}
+.mira-msg.agent{align-self:flex-start}
+.mira-msg.user{align-self:flex-end}
+.mira-bubble{padding:14px 16px;border-radius:16px;font-size:13px;line-height:1.6;color:var(--primary)}
+.mira-msg.agent .mira-bubble{background:linear-gradient(135deg,#FFF8E1,#FFF3CD);border:1px solid #FFE082;border-bottom-left-radius:4px}
+.mira-msg.user .mira-bubble{background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+.mira-msg .mira-time{font-size:10px;color:var(--text-light);margin-top:4px;padding:0 4px}
+.mira-msg.user .mira-time{text-align:right}
+
+/* Mira structured cards inside bubbles */
+.mira-card{background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:14px;margin-top:10px;font-size:12px}
+.mira-card-title{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.mira-card-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f5f5f5}
+.mira-card-row:last-child{border-bottom:none}
+.mira-card-row .mcr-label{color:var(--text-mid)}
+.mira-card-row .mcr-val{font-weight:600;color:var(--primary)}
+.mira-card-row .mcr-val.green{color:var(--green)}
+.mira-card-row .mcr-val.red{color:#d32f2f}
+.mira-card-row .mcr-val.amber{color:#E65100}
+.mira-gap-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#FFF3E0;border-radius:8px;margin-bottom:6px;font-size:12px;color:#E65100;font-weight:600;cursor:pointer}
+.mira-gap-item:hover{background:#FFE0B2}
+.mira-timeline-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
+.mira-timeline-item:last-child{border-bottom:none}
+.mira-tl-time{font-family:'Sora',sans-serif;font-weight:700;color:var(--primary);width:65px;flex-shrink:0}
+.mira-tl-event{color:var(--text-mid)}
+.mira-tl-vendor{font-weight:600;color:var(--primary)}
+
+.mira-chips{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0}
+.mira-chip{padding:8px 14px;background:#fff;border:1.5px solid var(--border);border-radius:20px;font-size:12px;font-weight:600;color:var(--primary);cursor:pointer;transition:all .2s;white-space:nowrap}
+.mira-chip:hover{border-color:var(--accent);background:var(--accent-wash)}
+
+.mira-input-bar{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-shrink:0;background:#fff;border-radius:0 0 0 0}
+.mira-input{flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:24px;font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
+.mira-input:focus{border-color:var(--accent)}
+.mira-send{width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;color:var(--primary);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;transition:all .2s}
+.mira-send:hover{background:#FFB300}
+
+/* Mira inline card for dashboards */
+.mira-inline{background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:1.5px solid #FFE082;border-radius:var(--radius);padding:16px;margin-bottom:16px}
+.mira-inline-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.mira-inline-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#FFCC02,#FFB300);display:flex;align-items:center;justify-content:center;font-size:14px}
+.mira-inline-name{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)}
+.mira-inline-body{font-size:13px;color:var(--text-mid);line-height:1.6;margin-bottom:12px}
+.mira-inline-body strong{color:var(--primary);font-weight:700}
+
 /* Responsive */
 @media(max-width:600px){
   .screen-wrap{padding:24px 12px 120px}
@@ -322,6 +742,13 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   .vc-price{text-align:left;min-width:auto;margin-top:6px}
   .topbar{padding:10px 14px}.logo{font-size:17px}
   .running-total{flex-wrap:wrap;gap:12px;padding:10px 16px}
+  .vp-gallery{grid-template-columns:1fr 1fr;grid-template-rows:120px 120px}
+  .vp-gallery .vp-img:first-child{grid-row:1/3}
+  .vp-stats{grid-template-columns:repeat(3,1fr);gap:8px}
+  .vp-stat{padding:12px 4px}
+  .auth-sheet{padding:24px 16px}
+  .chat-msg{max-width:85%}
+  .screen-wrap{padding:24px 12px 140px}
 }
 </style>
 </head>
@@ -329,9 +756,15 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <div class="topbar">
   <div class="logo" onclick="goHome()" style="cursor:pointer">Plan<span>Ezee</span></div>
-  <div class="phase-indicator">
-    <div class="phase-pill active" id="pill-p1">Phase 1 · Plan</div>
-    <div class="phase-pill" id="pill-p2">Phase 2 · Compare</div>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="phase-indicator">
+      <div class="phase-pill active" id="pill-p1">Phase 1 · Plan</div>
+      <div class="phase-pill" id="pill-p2">Phase 2 · Compare</div>
+    </div>
+    <div id="topbarMsgIcon" style="display:none;cursor:pointer;position:relative" onclick="goTo(33)">
+      <span style="font-size:20px">💬</span>
+      <span id="topbarMsgBadge" class="bnav-badge" style="display:none;top:-4px;right:-6px">2</span>
+    </div>
   </div>
 </div>
 <div class="progress-wrap"><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
@@ -341,32 +774,33 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <!-- ==================== SCREEN 0: THE FORK ==================== -->
 <div class="screen active" id="s0">
   <div class="sh">
-    <h2>How can we help you?</h2>
-    <p>Choose your path — both get you to the best vendors.</p>
+    <h2>Where are you in the journey?</h2>
+    <p>Whether you're dreaming or doing — we've got you covered.</p>
   </div>
   <div class="fork-wrap">
-    <div class="fork-card" onclick="pickPath('occasion')">
-      <span class="fork-emoji">🎉</span>
-      <div class="fork-title">Plan an event</div>
-      <div class="fork-sub">First time planning? We'll guide you through everything — from venue to vendors.</div>
+    <div class="fork-card" onclick="pickMode('planning')">
+      <span class="fork-emoji">🔍</span>
+      <div class="fork-title">I'm exploring</div>
+      <div class="fork-sub">No date yet? No problem. We'll show you what goes into your event — categories, budgets, timelines, and more.</div>
       <span class="fork-arrow">→</span>
     </div>
     <div class="fork-or">or</div>
-    <div class="fork-card" onclick="pickPath('service')">
-      <span class="fork-emoji">🎯</span>
-      <div class="fork-title">Find a service</div>
-      <div class="fork-sub">Know what you need? Go straight to it — caterer, photographer, musician, anything.</div>
+    <div class="fork-card" onclick="pickMode('execution')">
+      <span class="fork-emoji">🚀</span>
+      <div class="fork-title">I'm ready to plan</div>
+      <div class="fork-sub">Have a date in mind? Let's get you matched with the right vendors and start collecting quotes.</div>
       <span class="fork-arrow">→</span>
     </div>
   </div>
+  <div class="switch-link" style="margin-top:24px">Already know the exact service you need? <a onclick="pickPath('service')">Find a vendor directly →</a></div>
 </div>
 
 <!-- ==================== SCREEN 1: OCCASION ==================== -->
 <div class="screen" id="s1">
   <div class="sh">
-    <div class="sh-step">Step 1 of 5</div>
+    <div class="sh-step" id="s1Step">Step 1 of 5</div>
     <h2>What are you celebrating?</h2>
-    <p>Pick your occasion — we'll customize everything that follows.</p>
+    <p id="s1Subtitle">Pick your occasion — we'll customize everything that follows.</p>
   </div>
   <div class="occ-grid">
     <div class="occ-card" onclick="pickOcc(this,'birthday')"><div class="ck">✓</div><span class="oe">🎂</span><div class="on">Birthday</div></div>
@@ -422,38 +856,223 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="form-hint" style="margin-top:4px">Helps vendors personalize their quote. You can skip this.</div>
   </div>
 
-  <div class="form-group">
-    <label class="form-label">When?</label>
-    <div class="form-row-3">
-      <input type="date">
-      <select><option value="">Time of day</option><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–8pm)</option><option>Night (8pm+)</option></select>
-      <select><option value="">Est. duration</option><option>2–3 hours</option><option>3–5 hours</option><option>5–8 hours</option><option>Full day</option><option>Not sure</option></select>
+  <!-- ===== EXECUTION-ONLY FIELDS ===== -->
+  <div id="executionFields">
+    <div class="form-group">
+      <label class="form-label">When?</label>
+      <div class="form-row-3">
+        <input type="date">
+        <select><option value="">Time of day</option><option>Morning (8am–12pm)</option><option>Afternoon (12–4pm)</option><option>Evening (4–8pm)</option><option>Night (8pm+)</option></select>
+        <select><option value="">Est. duration</option><option>2–3 hours</option><option>3–5 hours</option><option>5–8 hours</option><option>Full day</option><option>Not sure</option></select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Where?</label>
+      <div class="form-hint">Just pincode — no full address needed. Vendors use this to estimate travel cost.</div>
+      <div class="form-row">
+        <input type="text" placeholder="City">
+        <input type="text" placeholder="Pincode" maxlength="6">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">How many guests?</label>
+      <div class="chip-group">
+        <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">Under 25</div>
+        <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">25–50</div>
+        <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">50–100</div>
+        <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">100–200</div>
+        <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">200+</div>
+      </div>
     </div>
   </div>
 
-  <div class="form-group">
-    <label class="form-label">Where?</label>
-    <div class="form-hint">Just pincode — no full address needed. Vendors use this to estimate travel cost.</div>
-    <div class="form-row">
-      <input type="text" placeholder="City">
-      <input type="text" placeholder="Pincode" maxlength="6">
+  <!-- ===== PLANNING-ONLY FIELDS ===== -->
+  <div id="planningFields" style="display:none">
+    <div class="form-group">
+      <label class="form-label">How many guests are you expecting?</label>
+      <div class="form-hint">A rough range is fine — this drives venue size, food cost, and staffing.</div>
+      <div class="chip-group" id="planGuestChips">
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='Under 30'">Under 30</div>
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='30–50'">30–50</div>
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='50–100'">50–100</div>
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='100–200'">100–200</div>
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='200–500'">200–500</div>
+        <div class="chip" onclick="selectChip(this,'plan-guests');state.planGuests='500+'">500+</div>
+      </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label class="form-label">How many guests?</label>
-    <div class="chip-group">
-      <div class="chip" onclick="selectChip(this,'guests')">Under 25</div>
-      <div class="chip" onclick="selectChip(this,'guests')">25–50</div>
-      <div class="chip" onclick="selectChip(this,'guests')">50–100</div>
-      <div class="chip" onclick="selectChip(this,'guests')">100–200</div>
-      <div class="chip" onclick="selectChip(this,'guests')">200+</div>
+    <div class="form-group">
+      <label class="form-label">Which city?</label>
+      <div class="form-hint">Pricing varies significantly by city. Pick the closest match.</div>
+      <div class="chip-group" id="planCityChips">
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='mumbai'">Mumbai</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='delhi'">Delhi NCR</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='bangalore'">Bangalore</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='hyderabad'">Hyderabad</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='chennai'">Chennai</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='kolkata'">Kolkata</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='pune'">Pune</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='jaipur'">Jaipur</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='ahmedabad'">Ahmedabad</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='tier2'">Other Tier 2</div>
+        <div class="chip" onclick="selectChip(this,'plan-city');state.planCity='tier3'">Smaller City</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Do you have a budget in mind?</label>
+      <div class="chip-group">
+        <div class="chip" onclick="selectChip(this,'plan-budget-mode');state.planBudgetMode='yes';document.getElementById('planBudgetInput').style.display='block'">Yes, roughly</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget-mode');state.planBudgetMode='no';document.getElementById('planBudgetInput').style.display='none';state.planBudget=null">Help me figure it out</div>
+      </div>
+      <div id="planBudgetInput" style="display:none;margin-top:12px">
+        <div class="budget-input-wrap">
+          <span class="currency">₹</span>
+          <input type="number" placeholder="Total budget" onchange="state.planBudget=this.value">
+        </div>
+        <div class="form-hint" style="margin-top:6px">We'll show how this splits across categories.</div>
+      </div>
     </div>
   </div>
 
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(1)">← Back</button>
-    <button class="btn btn-primary" onclick="goTo(3)">Continue →</button>
+    <button class="btn btn-primary" onclick="state.mode==='planning'?goTo(10):goTo(3)">Continue →</button>
+  </div>
+</div>
+<!-- ==================== SCREEN 10: PLANNING DASHBOARD ==================== -->
+<div class="screen" id="s10">
+  <div class="sh">
+    <div class="sh-step">Your Planning Guide</div>
+    <h2 id="planTitle">Your Event at a Glance</h2>
+    <p>Here's what typically goes into your event — with estimated costs and a planning timeline.</p>
+  </div>
+
+  <!-- Summary chips -->
+  <div class="plan-summary" id="planSummary"></div>
+
+  <!-- Mira insight -->
+  <div id="miraPlanningCard"></div>
+
+  <!-- Total estimate highlight -->
+  <div class="plan-total" id="planTotal"></div>
+
+  <!-- Budget breakdown table -->
+  <div class="plan-section">
+    <div class="plan-section-title">💰 Budget Breakdown</div>
+    <div class="budget-table-wrap">
+      <table class="bt" id="budgetTable">
+        <thead>
+          <tr>
+            <th style="width:30%">Category</th>
+            <th class="tier" style="width:10%">%</th>
+            <th class="tier">Budget</th>
+            <th class="tier">Mid-range</th>
+            <th class="tier">Premium</th>
+          </tr>
+        </thead>
+        <tbody id="budgetBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- What you'll need -->
+  <div class="plan-section">
+    <div class="plan-section-title">📋 What you'll need</div>
+    <div class="plan-cats" id="planCats"></div>
+  </div>
+
+  <!-- Planning timeline -->
+  <div class="plan-section">
+    <div class="plan-section-title">📅 When to book what</div>
+    <div class="plan-timeline" id="planTimeline"></div>
+  </div>
+
+  <!-- Pro tips -->
+  <div class="plan-tips" id="planTips">
+    <div class="tips-title">💡 Pro Tips</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="plan-cta">
+    <h3>Ready to make it happen?</h3>
+    <p>Switch to execution mode to start getting real quotes from vendors.</p>
+    <button class="btn btn-primary" onclick="switchToExecution()" style="margin-right:8px">Find vendors →</button>
+    <button class="btn btn-secondary" onclick="goHome()">Start over</button>
+  </div>
+
+  <!-- Save Plan -->
+  <div style="background:#fff;border:1.5px dashed var(--border);border-radius:var(--radius);padding:24px;margin-top:16px;text-align:center">
+    <div style="font-size:24px;margin-bottom:8px">📋</div>
+    <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);margin-bottom:6px">Save this plan</div>
+    <div style="font-size:13px;color:var(--text-mid);margin-bottom:16px">Keep your budget breakdown, timeline, and checklist — come back anytime.</div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="savePlan()" style="padding:12px 20px">Save to My Plans</button>
+      <button class="btn btn-secondary" onclick="showToast('📄 PDF download coming soon!')" style="padding:12px 20px">Download PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 11: PROFILE / TELL US ABOUT YOU ==================== -->
+<div class="screen" id="s11">
+  <div class="profile-screen">
+    <div class="profile-header">
+      <div class="ph-icon" id="profileIcon">📋</div>
+      <div class="ph-title" id="profileTitle">Where should we send your quotes?</div>
+      <div class="ph-sub" id="profileSub">You've told us about your event, now tell us about you so we can send you quotes.</div>
+    </div>
+
+    <div id="profileForm">
+      <div class="profile-field">
+        <label>Your name</label>
+        <input type="text" placeholder="What should vendors call you?" id="profileName">
+      </div>
+
+      <div class="profile-field">
+        <label>Phone number</label>
+        <div class="profile-phone-row">
+          <div class="p-code">+91</div>
+          <input type="tel" placeholder="10-digit mobile number" maxlength="10" id="profilePhone">
+        </div>
+        <div id="profileOtpSection" style="display:none">
+          <div class="profile-otp-section">
+            <div class="otp-label" id="profileOtpLabel">We sent a 4-digit code to your number</div>
+            <div class="profile-otp-row" id="profileOtpRow">
+              <input type="text" maxlength="1" oninput="profileOtpNext(this,0)">
+              <input type="text" maxlength="1" oninput="profileOtpNext(this,1)">
+              <input type="text" maxlength="1" oninput="profileOtpNext(this,2)">
+              <input type="text" maxlength="1" oninput="profileOtpNext(this,3)">
+            </div>
+            <button class="btn btn-primary" style="width:100%;padding:12px" onclick="profileVerifyOTP()">Verify →</button>
+            <div style="text-align:center;margin-top:8px;font-size:12px;color:var(--text-mid)">Didn't get it? <a style="color:var(--primary);font-weight:600;cursor:pointer" onclick="profileResendOTP()">Resend OTP</a></div>
+          </div>
+        </div>
+        <div id="profilePhoneVerified" style="display:none">
+          <div class="profile-verified" style="margin-top:10px">✅ Phone verified</div>
+        </div>
+        <button class="btn btn-secondary" id="profileSendOtpBtn" style="margin-top:8px;width:100%;padding:12px" onclick="profileSendOTP()">Send OTP →</button>
+      </div>
+
+      <button class="btn btn-green" id="profileSubmitBtn" style="width:100%;padding:16px;font-size:15px" onclick="profileComplete()">✓ Submit & Get Quotes</button>
+
+      <div class="profile-divider">or</div>
+
+      <button class="profile-google-btn" onclick="profileGoogleAuth()">
+        <span style="font-size:20px;width:24px;text-align:center">G</span>
+        Continue with Google
+      </button>
+
+      <div class="profile-trust">
+        <span>🔒</span>
+        <div>Your information is only shared with vendors you choose to connect with. We never spam or share your data.</div>
+      </div>
+
+      <div style="text-align:center;margin-top:16px;font-size:11px;color:var(--text-light);line-height:1.5">
+        By continuing, you agree to our <a href="#" style="color:var(--primary)">Terms</a> and <a href="#" style="color:var(--primary)">Privacy Policy</a>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -501,7 +1120,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(4)">← Back</button>
-    <button class="btn btn-green" onclick="goTo(6)">✓ Submit & Get Quotes</button>
+    <button class="btn btn-green" onclick="submitRequest()">✓ Submit & Get Quotes</button>
   </div>
 </div>
 
@@ -530,8 +1149,8 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="dash-stat"><div class="ds-num" id="dsCats">5</div><div class="ds-label">Categories</div></div>
     <div class="dash-stat"><div class="ds-num" id="dsQuotes">16</div><div class="ds-label">Quotes</div></div>
     <div class="dash-stat"><div class="ds-num" id="dsSelected">0</div><div class="ds-label">Selected</div></div>
-    <div class="dash-stat"><div class="ds-num" id="dsTotal">—</div><div class="ds-label">Running total</div></div>
   </div>
+  <div id="miraDashboardCard"></div>
   <div class="dash-grid" id="dashGrid">
     <!-- Populated dynamically -->
   </div>
@@ -546,7 +1165,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(7)">← Dashboard</button>
-    <button class="btn btn-primary" onclick="goTo(9)">Compare Selected →</button>
+    <div></div>
   </div>
 </div>
 
@@ -701,28 +1320,191 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(22)">← Back</button>
-    <button class="btn btn-green" onclick="goTo(6)">✓ Submit & Get Quotes</button>
+    <button class="btn btn-green" onclick="submitRequest()">✓ Submit & Get Quotes</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 30: VENDOR PROFILE (EXPANDED) ==================== -->
+<div class="screen" id="s30">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack30()" style="padding:8px 16px;font-size:12px">← Back</button></div>
+  <div id="vendorProfileContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 32: CHAT THREAD ==================== -->
+<div class="screen" id="s32">
+  <div id="chatContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 33: MESSAGES INBOX ==================== -->
+<div class="screen" id="s33">
+  <div class="sh">
+    <h2>Messages</h2>
+    <p>Your conversations with vendors</p>
+  </div>
+  <div id="msgInboxContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 34: QUOTE VIEW ==================== -->
+<div class="screen" id="s34">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(32)" style="padding:8px 16px;font-size:12px">← Back to chat</button></div>
+  <div id="quoteContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 35: PAYMENT FLOW ==================== -->
+<div class="screen" id="s35">
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(34)" style="padding:8px 16px;font-size:12px">← Back to quote</button></div>
+  <div class="sh">
+    <h2>Secure Payment</h2>
+    <p>Your payment is protected by PlanEzee</p>
+  </div>
+  <div id="paymentContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 36: PAYMENT CONFIRMATION ==================== -->
+<div class="screen" id="s36">
+  <div id="payConfirmContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 37: MY EVENTS DASHBOARD ==================== -->
+<div class="screen" id="s37">
+  <div class="sh">
+    <h2>My Events</h2>
+    <p>Your bookings and saved plans in one place</p>
+  </div>
+  <div id="myEventsContent">
+    <!-- Populated dynamically -->
+  </div>
+</div>
+
+<!-- ==================== SCREEN 38: POST-EVENT REVIEW ==================== -->
+<div class="screen" id="s38">
+  <div id="reviewRatingContent">
+    <!-- Populated dynamically -->
   </div>
 </div>
 
 </div><!-- end screen-wrap -->
 
-<!-- Running total bar (Phase 2) -->
-<div class="running-total" id="runningTotal">
-  <div class="rt-item"><div class="rt-label">Selected</div><div class="rt-val" id="rtSelected">0 / 5</div></div>
-  <div class="rt-item"><div class="rt-label">Running Total</div><div class="rt-val accent" id="rtTotal">₹0</div></div>
-  <div class="rt-item"><button class="btn btn-primary" style="padding:8px 20px;font-size:12px" onclick="goTo(10)">Finalize →</button></div>
+<!-- ==================== AUTH OVERLAY (MODAL) ==================== -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-sheet">
+    <button class="auth-close" onclick="closeAuth()">✕</button>
+    <div id="authStep1">
+      <div class="auth-title" id="authTitle">Save your plan</div>
+      <div class="auth-sub" id="authSub">Create a free account to keep your budget breakdown, timeline, and checklist.</div>
+      <div class="auth-social">
+        <button class="auth-social-btn" onclick="mockAuth('google')"><span class="as-icon">G</span> Continue with Google</button>
+        <button class="auth-social-btn" onclick="showPhoneAuth()"><span class="as-icon">📱</span> Continue with Phone</button>
+      </div>
+      <div class="auth-divider">or enter phone number</div>
+      <div class="auth-phone-row">
+        <div class="country-code">+91</div>
+        <input type="tel" placeholder="Phone number" maxlength="10" id="authPhone">
+      </div>
+      <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="sendOTP()">Send OTP →</button>
+      <div class="auth-terms">By continuing, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a></div>
+    </div>
+    <div id="authStep2" style="display:none">
+      <div class="auth-title">Enter verification code</div>
+      <div class="auth-sub" id="authOtpSub">We sent a 4-digit code to +91 98XXXXX890</div>
+      <div class="auth-otp-row">
+        <input type="text" maxlength="1" oninput="otpNext(this,0)">
+        <input type="text" maxlength="1" oninput="otpNext(this,1)">
+        <input type="text" maxlength="1" oninput="otpNext(this,2)">
+        <input type="text" maxlength="1" oninput="otpNext(this,3)">
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="verifyOTP()">Verify & Continue →</button>
+      <div style="text-align:center;margin-top:12px;font-size:12px;color:var(--text-mid)">Didn't get it? <a style="color:var(--primary);font-weight:600;cursor:pointer">Resend OTP</a></div>
+    </div>
+    <div id="authStep3" style="display:none">
+      <div class="auth-title">One last thing</div>
+      <div class="auth-sub">What should we call you?</div>
+      <input type="text" placeholder="Your name" id="authName" style="width:100%;padding:14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;margin-bottom:16px;outline:none">
+      <button class="btn btn-primary" style="width:100%" onclick="completeAuth()">Done →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== BOTTOM NAV BAR ==================== -->
+<div class="bottom-nav" id="bottomNav">
+  <div class="bnav-item active" onclick="bnav('home')">
+    <span class="bnav-icon">🏠</span>
+    <span class="bnav-label">Home</span>
+  </div>
+  <div class="bnav-item" onclick="bnav('explore')">
+    <span class="bnav-icon">🔍</span>
+    <span class="bnav-label">Explore</span>
+  </div>
+  <div class="bnav-item" onclick="bnav('messages')">
+    <span class="bnav-icon">💬</span>
+    <span class="bnav-label">Messages</span>
+    <span class="bnav-badge" id="bnavMsgBadge" style="display:none">2</span>
+  </div>
+  <div class="bnav-item" onclick="bnav('events')">
+    <span class="bnav-icon">📋</span>
+    <span class="bnav-label">My Events</span>
+  </div>
+  <div class="bnav-item" onclick="bnav('profile')">
+    <span class="bnav-icon">👤</span>
+    <span class="bnav-label">Profile</span>
+  </div>
+</div>
+
+<!-- ==================== MIRA AI AGENT ==================== -->
+<button class="mira-fab" id="miraFab" onclick="openMira()">
+  ✨
+  <span class="fab-badge" id="miraFabBadge" style="display:none">1</span>
+</button>
+
+<div class="mira-overlay" id="miraOverlay">
+  <div class="mira-sheet">
+    <div class="mira-header">
+      <div class="mira-avatar">✨</div>
+      <div class="mira-hdr-info">
+        <div class="mira-hdr-name">Mira</div>
+        <div class="mira-hdr-status">● Your event assistant</div>
+      </div>
+      <button class="mira-close" onclick="closeMira()">✕</button>
+    </div>
+    <div class="mira-body" id="miraBody">
+      <!-- Messages populated dynamically -->
+    </div>
+    <div id="miraChipsBar" style="padding:8px 16px;border-top:1px solid var(--border);background:#FAFAFA;flex-shrink:0">
+      <div class="mira-chips" id="miraChips">
+        <!-- Suggested chips populated dynamically -->
+      </div>
+    </div>
+    <div class="mira-input-bar">
+      <input class="mira-input" id="miraInput" type="text" placeholder="Ask Mira anything about your event..." onkeydown="if(event.key==='Enter')sendMiraMsg()">
+      <button class="mira-send" onclick="sendMiraMsg()">→</button>
+    </div>
+  </div>
 </div>
 
 <script>
 // ========== STATE ==========
 let state = {
+  mode: null, // 'planning' or 'execution'
   path: null, // 'occasion' or 'service'
   occasion: null, subType: null, guestCount: null,
   selectedCats: [], currentViewCat: null,
-  vendorSelections: {}, // {catKey: vendorIndex}
+  vendorSelections: {}, // {catKey: [vendorIdx, vendorIdx, ...]}
   serviceKey: null, // which single service picked (service path)
-  serviceContext: null // 'wedding','birthday','babyshower','corporate','festival','houseparty','personal','other'
+  serviceContext: null, // 'wedding','birthday','babyshower','corporate','festival','houseparty','personal','other'
+  // Planning mode
+  planGuests: null, planCity: null, planBudget: null, planBudgetMode: null,
 };
 
 // ========== OCCASION CONFIG ==========
@@ -878,6 +1660,87 @@ const CAT_MAP = {
 };
 
 // ========== CONTEXT HELPERS ==========
+
+// ========== PLANNING MODE: BUDGET ENGINE ==========
+// Base prices: [budget, mid, premium] for Tier 1 city, ~100 guests
+const BUDGET_BASE = {
+  venue:        [30000, 100000, 300000],
+  fb:           [30000, 75000, 150000],
+  entertainment:[10000, 30000, 80000],
+  decor:        [15000, 50000, 150000],
+  photo:        [15000, 40000, 80000],
+  florist:      [8000, 20000, 50000],
+  slp:          [8000, 20000, 50000],
+  returnGifts:  [5000, 15000, 40000],
+  staffing:     [5000, 15000, 35000],
+  styling:      [8000, 20000, 50000],
+  ceremonial:   [5000, 15000, 30000],
+  rangoli:      [3000, 8000, 20000],
+  fireworks:    [10000, 25000, 60000],
+  gifting:      [8000, 25000, 60000],
+  emcee:        [8000, 20000, 50000],
+  memoryVideo:  [10000, 25000, 50000],
+  logistics:    [5000, 15000, 40000],
+  eventManager: [10000, 25000, 60000],
+};
+
+// How each category scales with guest count
+// 'fixed' = photographer doesn't charge more for 200 guests (mostly)
+// 'guest' = caterer charges per plate — scales linearly
+// 'partial' = venue costs more but not linearly
+const SCALE_TYPE = {
+  venue:'partial', fb:'guest', entertainment:'fixed', decor:'partial',
+  photo:'fixed', florist:'partial', slp:'fixed', returnGifts:'guest',
+  staffing:'guest', styling:'fixed', ceremonial:'fixed', rangoli:'fixed',
+  fireworks:'fixed', gifting:'guest', emcee:'fixed', memoryVideo:'fixed',
+  logistics:'guest', eventManager:'fixed',
+};
+
+// Guest count multipliers (base = 50-100 guests = 1.0)
+const GUEST_MULT = {
+  fixed:   {'Under 30':0.7,'30–50':0.8,'50–100':1.0,'100–200':1.3,'200–500':1.8,'500+':2.5},
+  partial: {'Under 30':0.4,'30–50':0.6,'50–100':1.0,'100–200':1.6,'200–500':2.8,'500+':4.5},
+  guest:   {'Under 30':0.3,'30–50':0.5,'50–100':1.0,'100–200':1.8,'200–500':3.5,'500+':6.0},
+};
+
+// City tier multipliers
+const CITY_TIER = {
+  mumbai:1.0, delhi:1.0, bangalore:0.95, hyderabad:0.85, chennai:0.85,
+  kolkata:0.8, pune:0.85, jaipur:0.75, ahmedabad:0.75, tier2:0.7, tier3:0.5,
+};
+
+// Planning timeline: when to book each category (months before event)
+const TIMELINE_MAP = {
+  early:    { label:'4–6 months before', cats:['venue','eventManager'] },
+  mid:      { label:'2–4 months before', cats:['photo','fb','entertainment','ceremonial','emcee'] },
+  late:     { label:'1–2 months before', cats:['decor','styling','florist','slp','memoryVideo','logistics'] },
+  lastMin:  { label:'2–4 weeks before',  cats:['returnGifts','gifting','rangoli','fireworks','staffing'] },
+};
+
+// For small events (under 50 guests), compress timeline
+const TIMELINE_SMALL = {
+  early:    { label:'2–3 months before', cats:['venue','eventManager'] },
+  mid:      { label:'1–2 months before', cats:['photo','fb','entertainment','ceremonial','emcee'] },
+  late:     { label:'2–4 weeks before',  cats:['decor','styling','florist','slp','memoryVideo','logistics'] },
+  lastMin:  { label:'1 week before',     cats:['returnGifts','gifting','rangoli','fireworks','staffing'] },
+};
+
+function calcBudget(catKey, guests, city) {
+  const base = BUDGET_BASE[catKey];
+  if (!base) return [0,0,0];
+  const scaleType = SCALE_TYPE[catKey] || 'fixed';
+  const gMult = (GUEST_MULT[scaleType] || {})[guests] || 1.0;
+  const cMult = CITY_TIER[city] || 0.7;
+  return base.map(b => Math.round(b * gMult * cMult / 1000) * 1000); // round to nearest 1000
+}
+
+function formatINR(n) {
+  if (n >= 100000) return '₹' + (n/100000).toFixed(1).replace(/\.0$/,'') + 'L';
+  if (n >= 1000) return '₹' + (n/1000).toFixed(0) + 'K';
+  return '₹' + n;
+}
+
+// ========== CONTEXT HELPERS (original) ==========
 function getAge(){ return state.subType || 'adult'; }
 function isKids(){ return ['1st','kids'].includes(getAge()); }
 function isTeen(){ return getAge()==='teen'; }
@@ -1690,36 +2553,19 @@ const VENDORS = {
   ]
 };
 
-// ========== COMPARE DATA ==========
-const COMPARE = {
-  fb: {
-    headers:['Spice Route','Green Table','Royal Feast'],
-    prices:['₹650/plate','₹550/plate','₹900/plate'],
-    rows:[
-      ['Est. Total (75 pax)','₹48,750','₹41,250','₹67,500',[1,0,0]],
-      ['Rating','★ 4.8 (127)','★ 4.6 (84)','★ 4.9 (203)',[0,0,1]],
-      ['Experience','5 years','3 years','8 years',[0,0,1]],
-      ['Events Done','320+','150+','600+',[0,0,1]],
-      ['Cuisine Match','North Indian, Mughlai ✓','Multi-cuisine','North Indian, Chinese ✓',[1,0,1]],
-      ['Live Counters','Included','₹5K extra','Included',[1,0,1]],
-      ['Bar Service','₹8K extra','Not available','Included',[0,0,1]],
-      ['Tasting Session','Free','Free','₹2K (adjustable)',[1,1,0]],
-      ['Staff Included','Yes (6 pax)','Yes (4 pax)','Yes (8 pax)',[1,0,1]],
-      ['FSSAI Licensed','✅','✅','✅',[1,1,1]],
-    ]
-  }
-};
-
 // ========== NAVIGATION ==========
 function goHome(){
   // Reset all state
-  state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
+  state.mode = null; state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
   state.serviceKey = null; state.serviceContext = null;
   state.crossPollinate = null; state.ceremonyDetail = null;
+  state.planGuests = null; state.planCity = null; state.planBudget = null; state.planBudgetMode = null;
   // Clear selections visually
   document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected').forEach(el => el.classList.remove('selected','checked'));
   document.getElementById('culturalDeepDive').style.display='none';
+  document.getElementById('executionFields').style.display='';
+  document.getElementById('planningFields').style.display='none';
   goTo(0);
 }
 function goTo(n){
@@ -1727,9 +2573,30 @@ function goTo(n){
   document.getElementById('s'+n).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
 
-  // Progress bar logic — dual path
+  // Show/hide fields in s2 based on mode
+  if(n===1){
+    const isPlanning = state.mode === 'planning';
+    document.getElementById('s1Step').textContent = isPlanning ? 'Step 1 of 3' : 'Step 1 of 5';
+    document.getElementById('s1Subtitle').textContent = isPlanning
+      ? 'Pick your occasion — we\'ll show you budgets, timelines, and what you\'ll need.'
+      : 'Pick your occasion — we\'ll customize everything that follows.';
+  }
+  if(n===2){
+    const isPlanning = state.mode === 'planning';
+    document.getElementById('executionFields').style.display = isPlanning ? 'none' : '';
+    document.getElementById('planningFields').style.display = isPlanning ? '' : 'none';
+    // Update step label
+    const stepEl = document.querySelector('#s2 .sh-step');
+    if(stepEl) stepEl.textContent = isPlanning ? 'Step 2 of 3' : 'Step 2 of 5';
+  }
+
+  // Progress bar logic — triple path
   let pct = 0;
-  if(state.path==='service'){
+  if(state.mode==='planning'){
+    // Planning path: s1=step1, s2=step2, s10=step3 (dashboard)
+    if(n===1) pct=0; else if(n===2) pct=50; else if(n===10) pct=100;
+    else pct=0;
+  } else if(state.path==='service'){
     // Service path: s20=step1, s21=step2, s22=step3, s23=step4
     if(n===20) pct=0; else if(n===21) pct=33; else if(n===22) pct=66; else if(n===23) pct=100;
     else if(n>=6) pct=100;
@@ -1741,20 +2608,62 @@ function goTo(n){
   }
   document.getElementById('progressFill').style.width = pct+'%';
 
+  // Hide progress bar for profile, matching, and post-compare screens
+  const hideProgress = n === 11 || n === 6 || n >= 30;
+  document.querySelector('.progress-wrap').style.display = hideProgress ? 'none' : '';
+  document.querySelector('.phase-indicator').style.display = hideProgress ? 'none' : '';
+
   const p1=document.getElementById('pill-p1'),p2=document.getElementById('pill-p2');
-  if(n<6){p1.className='phase-pill active';p2.className='phase-pill';}
-  else{p1.className='phase-pill done';p2.className='phase-pill active';}
-  // Show running total in phase 2
-  document.getElementById('runningTotal').classList.toggle('visible', n>=7 && n<=9);
+  if(state.mode==='planning'){
+    p1.textContent='Phase 1 · Explore'; p2.textContent='';
+    p1.className='phase-pill active'; p2.style.display='none';
+  } else {
+    p1.textContent='Phase 1 · Plan'; p2.textContent='Phase 2 · Compare';
+    p2.style.display='';
+    if(n<6){p1.className='phase-pill active';p2.className='phase-pill';}
+    else{p1.className='phase-pill done';p2.className='phase-pill active';}
+  }
   // Build dynamic content
   if(n===3) buildCatList();
   if(n===5) buildReview();
   if(n===7) buildDashboard();
+  if(n===9) buildCompare();
+  if(n===10) buildPlanningDashboard();
+  if(n===11) buildProfileScreen();
+  if(n===30) buildVendorProfile();
+  if(n===32) buildChat();
+  if(n===33) buildMsgInbox();
+  if(n===34) buildQuoteView();
+  if(n===35) buildPaymentFlow();
+  if(n===36) buildPayConfirm();
+  if(n===37) buildMyEvents();
+  if(n===38) buildReviewRating();
+
+  // Auto-highlight bottom nav for post-compare screens
+  if(n >= 30){
+    const tabMap = {32:'messages',33:'messages',34:'messages',35:'messages',36:'events',37:'events',38:'events'};
+    const activeTab = tabMap[n];
+    if(activeTab){
+      document.querySelectorAll('.bnav-item').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('onclick') === `bnav('${activeTab}')`);
+      });
+    }
+  }
+
+  // Show Mira FAB on event management screens
+  const miraScreens = [7,8,9,10,37,32,33,34,35,36,38];
+  document.getElementById('miraFab').classList.toggle('visible', miraScreens.includes(n));
 }
 
-// ========== SCREEN 0: THE FORK ==========
+// ========== SCREEN 0: MODE & PATH SELECTION ==========
+function pickMode(mode){
+  state.mode = mode;
+  state.path = 'occasion';
+  goTo(1);
+}
 function pickPath(path){
   state.path = path;
+  state.mode = 'execution'; // Find a Service is always execution
   if(path==='occasion') goTo(1);
   else goTo(20);
 }
@@ -1979,30 +2888,32 @@ function buildReview(){
 
 // ========== SCREEN 7: DASHBOARD ==========
 function buildDashboard(){
-  const quoteCounts = {venue:3,fb:4,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,styling:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2,eventManager:2};
-  let h='', totalQuotes=0;
+  const quoteCounts = {venue:3,fb:3,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,styling:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2,eventManager:2};
+  let h='', totalQuotes=0, totalSelected=0;
   state.selectedCats.forEach(catKey=>{
     const c=CATS[catKey];
     const qc = quoteCounts[catKey]||1;
     totalQuotes += qc;
     const hasV = VENDORS[catKey];
-    const selected = state.vendorSelections[catKey] !== undefined;
-    h+=`<div class="dash-cat${selected?' has-selection':''}" onclick="viewVendors('${catKey}')">
+    const selArr = state.vendorSelections[catKey] || [];
+    const selCount = selArr.length;
+    totalSelected += selCount;
+    h+=`<div class="dash-cat${selCount>0?' has-selection':''}" onclick="viewVendors('${catKey}')">
       <span class="dc-emoji">${c.emoji}</span>
       <div class="dc-info">
         <div class="dc-name">${c.name}</div>
         <div class="dc-meta">${qc} vendor${qc>1?'s':''} quoted</div>
-        ${selected?`<div class="dc-selected">✓ ${VENDORS[catKey]?.[state.vendorSelections[catKey]]?.name||'Selected'}</div>`:''}
+        ${selCount>0?`<div class="dc-selected">✓ ${selCount} selected</div>`:''}
       </div>
       <div class="dc-quotes"><span class="quote-badge${hasV?' ready':' pending'}">${hasV?qc+' quotes':'View'}</span></div>
       <span class="dc-arrow">›</span>
     </div>`;
   });
   document.getElementById('dashGrid').innerHTML = h;
+  document.getElementById('miraDashboardCard').innerHTML = buildMiraInlineCard('dashboard');
   document.getElementById('dsCats').textContent = state.selectedCats.length;
   document.getElementById('dsQuotes').textContent = totalQuotes;
-  document.getElementById('dsSelected').textContent = Object.keys(state.vendorSelections).length;
-  updateRunningTotal();
+  document.getElementById('dsSelected').textContent = totalSelected;
 }
 
 // ========== SCREEN 8: VENDOR LIST ==========
@@ -2019,14 +2930,20 @@ function viewVendors(catKey){
       </div>`;
     goTo(8); return;
   }
+  const selArr = state.vendorSelections[catKey] || [];
   let h=`<div class="vl-header"><h3>${c.emoji} ${c.name} — ${vendors.length} Quotes</h3>
+    <p style="font-size:12px;color:var(--text-mid);margin-top:4px">Select vendors to compare side-by-side</p>
     <div class="vendor-sort">
       <div class="sort-chip active" onclick="sortVendors(this)">Price ↑</div>
       <div class="sort-chip" onclick="sortVendors(this)">Rating</div>
       <div class="sort-chip" onclick="sortVendors(this)">Experience</div>
-    </div></div>`;
+    </div></div>
+    <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:1px solid #FFE082;border-radius:10px;margin-bottom:12px;cursor:pointer;font-size:12px" onclick="openMira();setTimeout(()=>handleMiraChip('📊 Compare ${c.name} quotes'),500)">
+      <span style="font-size:16px">✨</span>
+      <span style="color:var(--primary)"><strong>Mira</strong> can help you decide — tap to ask</span>
+    </div>`;
   vendors.forEach((v,i)=>{
-    const isSelected = state.vendorSelections[catKey]===i;
+    const isSelected = selArr.includes(i);
     const cancelBadge = v.cancel==='easy'
       ? '<span class="cancel-badge easy">Cancel easy</span>'
       : v.cancel==='non-refundable' ? '<span class="cancel-badge hard">Non-refundable</span>' : '';
@@ -2034,7 +2951,7 @@ function viewVendors(catKey){
       <div class="vc-top">
         <div class="vc-photos" style="background:${v.bg}">${c.emoji}<div class="pc">${8+i*4} photos</div></div>
         <div class="vc-info">
-          <div class="vc-name">${v.name}</div>
+          <div class="vc-name" style="cursor:pointer;color:var(--primary)" onclick="event.stopPropagation();openVendorProfile('${catKey}',${i},8)">${v.name}</div>
           <div class="vc-tags">${v.tags.map((t,j)=>`<span class="vc-tag${j===0?' gold':''}">${t}</span>`).join('')}${cancelBadge}</div>
           <div class="vc-rating"><span class="stars">★ ${v.rating}</span><span class="cnt">(${v.reviews} reviews)</span></div>
         </div>
@@ -2047,43 +2964,175 @@ function viewVendors(catKey){
         <div class="vc-detail-panel">
           ${v.includes?`<div class="vc-ie-section"><div class="vc-ie-title inc">✅ Includes</div>${v.includes.map(x=>`<div class="vc-ie-item inc">${x}</div>`).join('')}</div>`:''}
           ${v.excludes?`<div class="vc-ie-section"><div class="vc-ie-title exc">❌ Excludes</div>${v.excludes.map(x=>`<div class="vc-ie-item exc">${x}</div>`).join('')}</div>`:''}
-          ${!v.includes&&!v.excludes?'<div style="padding:12px;color:var(--text-mid);font-size:12px">Estimate details will be available once the vendor responds to your brief.</div>':''}
         </div>
         <div class="vc-actions">
           <button class="btn-sm${isSelected?' selected-btn':' select-vendor'}" onclick="selectVendor('${catKey}',${i})">${isSelected?'✓ Selected':'Select'}</button>
+          <button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="event.stopPropagation();openVendorProfile('${catKey}',${i},8)">View Profile</button>
         </div>
       </div>
     </div>`;
   });
+
+  // Compare bar at bottom if 2+ selected
+  if(selArr.length >= 2){
+    h += `<div style="position:sticky;bottom:0;background:#fff;padding:16px;border-top:1.5px solid var(--border);margin:16px -20px -20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(0,0,0,.08)">
+      <div style="font-size:13px;font-weight:600;color:var(--primary)">${selArr.length} vendors selected</div>
+      <button class="btn btn-primary" style="padding:10px 24px;font-size:13px" onclick="goTo(9)">Compare Side-by-Side →</button>
+    </div>`;
+  }
+
   document.getElementById('vendorListContent').innerHTML = h;
   goTo(8);
 }
 
 function selectVendor(catKey, idx){
-  if(state.vendorSelections[catKey]===idx) delete state.vendorSelections[catKey];
-  else state.vendorSelections[catKey]=idx;
+  if(!state.vendorSelections[catKey]) state.vendorSelections[catKey] = [];
+  const arr = state.vendorSelections[catKey];
+  const pos = arr.indexOf(idx);
+  if(pos >= 0) arr.splice(pos, 1);
+  else arr.push(idx);
+  if(arr.length === 0) delete state.vendorSelections[catKey];
   viewVendors(catKey); // refresh
-  updateRunningTotal();
-}
-
-function updateRunningTotal(){
-  const sel = Object.keys(state.vendorSelections).length;
-  document.getElementById('rtSelected').textContent = sel+' / '+state.selectedCats.length;
-  document.getElementById('dsSelected').textContent = sel;
-  // Simple price sum for demo
-  let total = 0;
-  Object.entries(state.vendorSelections).forEach(([cat,idx])=>{
-    const v = VENDORS[cat]?.[idx];
-    if(v) total += parseInt(v.price.replace(/[₹,]/g,''))||0;
-  });
-  const totalStr = total > 0 ? '₹'+total.toLocaleString('en-IN') : '—';
-  document.getElementById('rtTotal').textContent = totalStr;
-  document.getElementById('dsTotal').textContent = totalStr;
 }
 
 function sortVendors(el){
   el.parentElement.querySelectorAll('.sort-chip').forEach(c=>c.classList.remove('active'));
   el.classList.add('active');
+}
+
+// ========== SCREEN 9: COMPARE VIEW ==========
+function buildCompare(){
+  const catKey = state.currentViewCat;
+  const c = CATS[catKey];
+  const vendors = VENDORS[catKey];
+  const selArr = state.vendorSelections[catKey] || [];
+
+  if(selArr.length < 2){
+    document.getElementById('compareContent').innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-mid)">
+        <div style="font-size:36px;margin-bottom:12px">⚖️</div>
+        <p>Select at least 2 vendors to compare.</p>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="goTo(8)">← Back to vendor list</button>
+      </div>`;
+    return;
+  }
+
+  const selected = selArr.map(i => vendors[i]);
+  const colWidth = Math.floor(100 / (selected.length + 1));
+
+  // Build comparison rows
+  const rows = [
+    {label: 'Price', key: 'price', render: v => `<span style="font-family:'Sora',sans-serif;font-weight:700;font-size:15px">${v.price}</span><div style="font-size:11px;color:var(--text-mid)">${v.priceLabel}</div>`},
+    {label: 'Rating', key: 'rating', render: v => `<span style="font-weight:700">★ ${v.rating}</span> <span style="font-size:11px;color:var(--text-mid)">(${v.reviews} reviews)</span>`, best: vs => vs.reduce((a,b) => parseFloat(a.rating)>=parseFloat(b.rating)?a:b)},
+    {label: 'Experience', key: 'exp', render: v => `<span style="font-weight:600">${v.exp}</span>`, best: vs => vs.reduce((a,b) => parseInt(a.exp)>=parseInt(b.exp)?a:b)},
+    {label: 'Events Done', key: 'events', render: v => `<span style="font-weight:600">${v.events}</span>`, best: vs => vs.reduce((a,b) => parseInt(a.events)>=parseInt(b.events)?a:b)},
+    {label: 'Cancellation', key: 'cancel', render: v => v.cancel==='easy'?'<span style="color:var(--green);font-weight:600">✅ Free cancellation</span>':'<span style="color:#d32f2f;font-weight:600">⚠️ Non-refundable</span>'},
+    {label: 'Response Time', key: 'responseTime', render: v => {
+      const dv = Object.values(DEMO_VENDORS).flat().find(d => d.name === v.name);
+      return dv ? dv.responseTime : '~4 hours';
+    }},
+  ];
+
+  // Includes comparison
+  const allIncludes = new Set();
+  selected.forEach(v => (v.includes||[]).forEach(x => allIncludes.add(x)));
+
+  const allExcludes = new Set();
+  selected.forEach(v => (v.excludes||[]).forEach(x => allExcludes.add(x)));
+
+  let html = `
+    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:4px">${c.emoji} Compare ${c.name}</div>
+    <div style="font-size:13px;color:var(--text-mid);margin-bottom:24px">${selected.length} vendors selected · Scroll right to see all columns</div>
+
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:0 20px">
+    <table style="width:100%;min-width:${selected.length > 2 ? '600' : '400'}px;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="border-bottom:2px solid var(--border)">
+          <th style="text-align:left;padding:12px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-mid);width:28%;position:sticky;left:0;background:#FAFAFA;z-index:1"></th>
+          ${selected.map(v => `
+            <th style="text-align:center;padding:12px 8px;min-width:140px">
+              <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">${v.name}</div>
+              <div style="display:flex;gap:4px;justify-content:center;margin-top:6px;flex-wrap:wrap">
+                ${v.tags.slice(0,2).map(t=>`<span style="font-size:10px;padding:2px 6px;background:var(--accent-wash);border-radius:4px;color:var(--primary);font-weight:600">${t}</span>`).join('')}
+              </div>
+            </th>
+          `).join('')}
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(row => {
+          const bestV = row.best ? row.best(selected) : null;
+          return `<tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px 8px;font-weight:600;color:var(--text-mid);font-size:12px;position:sticky;left:0;background:#fff;z-index:1">${row.label}</td>
+            ${selected.map(v => {
+              const isBest = bestV && v === bestV;
+              return `<td style="text-align:center;padding:12px 8px;${isBest?'background:var(--accent-wash);':''}font-size:13px">${row.render(v)}</td>`;
+            }).join('')}
+          </tr>`;
+        }).join('')}
+
+        <!-- Includes section header -->
+        <tr><td colspan="${selected.length+1}" style="padding:16px 8px 8px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border)">✅ What's Included</td></tr>
+        ${[...allIncludes].map(item => `
+          <tr style="border-bottom:1px solid #f0f0f0">
+            <td style="padding:10px 8px;font-size:12px;color:var(--text-mid);position:sticky;left:0;background:#fff;z-index:1">${item}</td>
+            ${selected.map(v => {
+              const has = (v.includes||[]).includes(item);
+              return `<td style="text-align:center;padding:10px 8px;font-size:13px">${has?'<span style="color:var(--green);font-weight:700">✅</span>':'<span style="color:var(--text-light)">—</span>'}</td>`;
+            }).join('')}
+          </tr>
+        `).join('')}
+
+        <!-- Excludes section header -->
+        <tr><td colspan="${selected.length+1}" style="padding:16px 8px 8px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#d32f2f;text-transform:uppercase;letter-spacing:.8px;border-bottom:1px solid var(--border)">💰 Paid Extras / Not Included</td></tr>
+        ${[...allExcludes].map(item => `
+          <tr style="border-bottom:1px solid #f0f0f0">
+            <td style="padding:10px 8px;font-size:12px;color:var(--text-mid);position:sticky;left:0;background:#fff;z-index:1">${item}</td>
+            ${selected.map(v => {
+              const has = (v.excludes||[]).includes(item);
+              return `<td style="text-align:center;padding:10px 8px;font-size:13px">${has?'<span style="color:#d32f2f">⚠️ Extra</span>':'<span style="color:var(--green);font-size:11px">Included ✓</span>'}</td>`;
+            }).join('')}
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    </div>
+
+    <!-- Vendor highlights -->
+    <div style="margin-top:24px">
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Quick Highlights</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        ${selected.map(v => `
+          <div style="background:#FAFAFA;border-radius:var(--radius);padding:16px;border:1.5px solid var(--border)">
+            <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:8px">${v.name}</div>
+            ${v.highlights.map(h => `<div style="font-size:12px;color:var(--text-mid);margin-bottom:4px">✅ ${h}</div>`).join('')}
+            ${v.spaceNote ? `<div style="font-size:11px;color:var(--accent);margin-top:6px">📐 ${v.spaceNote}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Action -->
+    <div style="margin-top:24px;padding:20px;background:var(--accent-wash);border-radius:var(--radius);text-align:center">
+      <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);margin-bottom:6px">Ready to connect?</div>
+      <div style="font-size:13px;color:var(--text-mid);margin-bottom:16px">Message your shortlisted vendors to ask questions, negotiate, or request a detailed quote.</div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        ${selected.map((v,i) => `
+          <button class="btn btn-primary" style="padding:10px 16px;font-size:12px" onclick="messageVendorFromCompare('${catKey}',${selArr[i]})">💬 Message ${v.name.split(' ')[0]}</button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('compareContent').innerHTML = html;
+}
+
+function messageVendorFromCompare(catKey, vendorIdx){
+  if(!auth.isLoggedIn){
+    triggerAuth({type:'message', vendorIdx, catKey}, 'Message this vendor', 'Create a free account to start chatting with vendors.');
+  } else {
+    openChatWithVendor(vendorIdx, catKey);
+  }
 }
 
 // ========== INTERACTIONS ==========
@@ -2164,8 +3213,1734 @@ function handleVenueChoice(el, choice){
   if(target) target.classList.add('visible');
 }
 
-// Init
+// ========== PLANNING MODE: DASHBOARD BUILDER ==========
+function buildPlanningDashboard(){
+  const occ = OCC[state.occasion];
+  const occLabel = occ ? occ.label : 'Event';
+  const subLabel = occ ? (occ.subTypes.find(s=>s.id===state.subType)||{}).label||'' : '';
+  const guests = state.planGuests || '50–100';
+  const city = state.planCity || 'tier2';
+  const cityLabel = {mumbai:'Mumbai',delhi:'Delhi NCR',bangalore:'Bangalore',hyderabad:'Hyderabad',chennai:'Chennai',kolkata:'Kolkata',pune:'Pune',jaipur:'Jaipur',ahmedabad:'Ahmedabad',tier2:'Tier 2 City',tier3:'Smaller City'}[city]||city;
+
+  // Title
+  document.getElementById('planTitle').textContent = `Your ${occLabel} Planning Guide`;
+
+  // Summary chips
+  document.getElementById('planSummary').innerHTML = `
+    <div class="plan-chip"><span class="pc-icon">${occ?occ.emoji:'✨'}</span>${subLabel||occLabel}</div>
+    <div class="plan-chip"><span class="pc-icon">👥</span>${guests} guests</div>
+    <div class="plan-chip"><span class="pc-icon">📍</span>${cityLabel}</div>
+    ${state.planBudget?`<div class="plan-chip"><span class="pc-icon">💰</span>Budget: ₹${Number(state.planBudget).toLocaleString('en-IN')}</div>`:''}
+  `;
+
+  // Get categories from CAT_MAP
+  const mapKey = state.occasion + '-' + state.subType;
+  let cats = CAT_MAP[mapKey] || CAT_MAP['other-other'] || [];
+
+  // Cross-pollination merge (if cultural ceremony is part of larger event)
+  if(state.crossPollinate){
+    const parentKey = state.crossPollinate + '-' + (state.crossPollinate==='birthday'?'adult':state.crossPollinate==='babyshower'?'modern':state.crossPollinate==='wedding'?'modern':'other');
+    const parentCats = CAT_MAP[parentKey] || [];
+    const existing = new Set(cats.map(c=>c[0]));
+    parentCats.forEach(pc => { if(!existing.has(pc[0])) cats.push(pc); });
+  }
+
+  // Calculate budgets for all categories
+  const budgetData = cats.map(([catKey, flag]) => {
+    const c = CATS[catKey];
+    const prices = calcBudget(catKey, guests, city);
+    return { catKey, flag, cat: c, prices };
+  });
+
+  // Sort: recommended first, then optional
+  budgetData.sort((a,b) => b.flag - a.flag);
+
+  // Category grid
+  document.getElementById('planCats').innerHTML = budgetData.map(d => `
+    <div class="plan-cat ${d.flag?'must':'nice'}">
+      <span class="pc-e">${d.cat.emoji}</span>
+      <div class="pc-n">${d.cat.name}</div>
+      <span class="pc-tag">${d.flag?'Must have':'Nice to have'}</span>
+    </div>
+  `).join('');
+
+  // Budget table — 3 tiers
+  const mustHaves = budgetData.filter(d=>d.flag===1);
+  const niceToHaves = budgetData.filter(d=>d.flag===0);
+
+  let totals = [0,0,0];
+  let tbody = '';
+
+  mustHaves.forEach(d => {
+    totals[0]+=d.prices[0]; totals[1]+=d.prices[1]; totals[2]+=d.prices[2];
+    tbody += `<tr>
+      <td class="cat-col"><span class="bt-emoji">${d.cat.emoji}</span>${d.cat.name}</td>
+      <td class="price-col" style="font-size:11px;color:var(--text-mid)" data-pct>—</td>
+      <td class="price-col budget">${formatINR(d.prices[0])}</td>
+      <td class="price-col mid">${formatINR(d.prices[1])}</td>
+      <td class="price-col premium">${formatINR(d.prices[2])}</td>
+    </tr>`;
+  });
+
+  if(niceToHaves.length > 0){
+    tbody += `<tr style="background:#FAFAFA"><td colspan="5" style="font-size:11px;font-weight:700;color:var(--text-mid);padding:8px 14px">NICE TO HAVE (add if budget allows)</td></tr>`;
+    niceToHaves.forEach(d => {
+      totals[0]+=d.prices[0]; totals[1]+=d.prices[1]; totals[2]+=d.prices[2];
+      tbody += `<tr class="optional-row">
+        <td class="cat-col"><span class="bt-emoji">${d.cat.emoji}</span>${d.cat.name}</td>
+        <td class="price-col" style="font-size:11px;color:var(--text-mid)">—</td>
+        <td class="price-col budget">${formatINR(d.prices[0])}</td>
+        <td class="price-col mid">${formatINR(d.prices[1])}</td>
+        <td class="price-col premium">${formatINR(d.prices[2])}</td>
+      </tr>`;
+    });
+  }
+
+  // Total row — always a range
+  tbody += `<tr class="total-row">
+    <td class="cat-col">ESTIMATED RANGE</td>
+    <td class="price-col"></td>
+    <td class="price-col budget">${formatINR(totals[0])}</td>
+    <td class="price-col mid">${formatINR(totals[1])}</td>
+    <td class="price-col premium">${formatINR(totals[2])}</td>
+  </tr>`;
+
+  document.getElementById('budgetBody').innerHTML = tbody;
+
+  // Fill in % for must-haves
+  const pctCells = document.querySelectorAll('#budgetBody td[data-pct]');
+  pctCells.forEach((cell, i) => {
+    if(mustHaves[i] && totals[1] > 0){
+      cell.textContent = Math.round((mustHaves[i].prices[1] / totals[1]) * 100) + '%';
+    }
+  });
+
+  // Total highlight — always a range, never a single number
+  document.getElementById('planTotal').innerHTML = `
+    <div class="pt-range">${formatINR(totals[0])} – ${formatINR(totals[2])}</div>
+    <div class="pt-label">Estimated range for ${guests} guests in ${cityLabel}</div>
+    <div style="margin-top:6px;font-size:11px;color:var(--text-mid)">Actual costs depend on specific vendors, season, and customization</div>
+  `;
+
+  // If user provided budget, show fit analysis against the range
+  if(state.planBudget){
+    const b = Number(state.planBudget);
+    let fitMsg = '';
+    if(b >= totals[2]) fitMsg = '✅ Your budget is above the upper range — you have room for premium choices across categories.';
+    else if(b >= totals[1]) fitMsg = '✅ Your budget falls in the mid-to-upper range — a strong position with room for selective upgrades.';
+    else if(b >= totals[0]) fitMsg = '⚡ Your budget falls within the estimated range — prioritize must-haves and be selective with extras.';
+    else fitMsg = '⚠️ Your budget is below the estimated range. Consider adjusting guest count or focusing on fewer categories.';
+    document.getElementById('planTotal').innerHTML += `<div style="margin-top:10px;padding:10px 16px;background:var(--accent-wash);border-radius:10px;font-size:13px;font-weight:600;color:var(--primary)">${fitMsg}</div>`;
+  }
+
+  // Timeline
+  const isSmall = ['Under 30','30–50'].includes(guests);
+  const timeline = isSmall ? TIMELINE_SMALL : TIMELINE_MAP;
+  const activeCatKeys = new Set(budgetData.map(d=>d.catKey));
+
+  let tlHTML = '';
+  Object.entries(timeline).forEach(([phase, data]) => {
+    const phaseCats = data.cats.filter(c => activeCatKeys.has(c));
+    if(phaseCats.length === 0) return;
+    const catNames = phaseCats.map(c => CATS[c] ? `${CATS[c].emoji} ${CATS[c].name}` : c).join(', ');
+    tlHTML += `
+      <div class="tl-phase">
+        <div class="tl-marker">
+          <div class="tl-dot"></div>
+          <div class="tl-time">${data.label}</div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-title">${phase==='early'?'Book first — these fill up fast':phase==='mid'?'Lock in your core team':phase==='late'?'Detail and design phase':'Final touches'}</div>
+          <div class="tl-items">${catNames}</div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('planTimeline').innerHTML = tlHTML;
+
+  // Pro tips (context-aware)
+  let tips = [];
+  if(activeCatKeys.has('venue')) tips.push('Book the venue first — it determines everything else: capacity, layout, vendor access, and parking.');
+  if(activeCatKeys.has('fb')) tips.push(`For ${guests} guests, catering is typically your biggest cost. Buffet is 20–30% cheaper than plated service.`);
+  if(state.occasion==='birthday' && ['1st','kids'].includes(state.subType)) tips.push('Kids\' parties need shorter entertainment blocks (30–45 min). Book a backup indoor plan if the venue is outdoor.');
+  if(isBridal()) tips.push('Bridal events often overlap with other wedding functions. Coordinate with the wedding planner for vendor timing.');
+  if(isDiwali()) tips.push('Diwali bookings spike in October. Book venues and caterers by August for best availability.');
+  if(isHoli()) tips.push('Holi venues need washable surfaces and strong drainage. Always confirm the venue allows color and water.');
+  if(isCultural()) tips.push('Confirm the pandit\'s availability early — experienced priests are booked months ahead for auspicious dates.');
+  tips.push('Weekend rates are typically 20–40% higher than weekday rates. A Friday evening event can save significantly.');
+  tips.push('Ask vendors about their cancellation and rescheduling policies upfront — it\'s easier to negotiate before booking.');
+
+  document.getElementById('planTips').innerHTML = `
+    <div class="tips-title">💡 Pro Tips for Your ${occLabel}</div>
+    ${tips.slice(0,5).map(t => `<div class="tip-item">${t}</div>`).join('')}
+  `;
+
+  // Mira inline insight
+  document.getElementById('miraPlanningCard').innerHTML = buildMiraInlineCard('planning');
+}
+
+function switchToExecution(){
+  state.mode = 'execution';
+  state.path = 'occasion';
+  // Pre-fill guest count from planning inputs
+  if(state.planGuests) state.guestCount = state.planGuests;
+  // Go to s2 in execution mode (user already picked occasion + subtype)
+  goTo(2);
+}
+
+function resumePlanAsExecution(occasion, subType, city){
+  // Load saved plan context into state and enter execution mode
+  state.mode = 'execution';
+  state.path = 'occasion';
+  state.occasion = occasion;
+  state.subType = subType;
+  state.planCity = city;
+  // Jump to s2 (details) with occasion/subtype pre-filled
+  goTo(2);
+  showToast('📋 Loaded your saved plan — pick your details and find vendors!');
+}
+
+// ========== AUTH STATE ==========
+let auth = {
+  isLoggedIn: false,
+  name: '',
+  phone: '',
+  pendingAction: null, // {type:'save-plan'} or {type:'message', vendorIdx:0, catKey:'photo'}
+};
+
+// Demo conversations
+let conversations = [
+  {
+    vendorName:'Priya Captures', catKey:'photo', emoji:'📸', catLabel:'Photography',
+    lastMsg:'Thanks for reaching out! I\'d love to cover your event. For 100-200 guests, my package includes...', lastTime:'2 hours ago',
+    unread:true, responseSec:7200,
+    messages:[
+      {type:'user',text:'',isEventCard:true,time:'10:30 AM'},
+      {type:'user',text:'Hi! I\'m planning an Adult Birthday in Mumbai for 100-200 guests. I\'d love to discuss your photography packages.',time:'10:30 AM'},
+      {type:'vendor',text:'Thanks for reaching out! I\'d love to cover your event. For 100-200 guests, my package includes 4 hours of coverage, 200+ edited photos, and an online gallery. Would you like to see my portfolio from similar events?',time:'12:45 PM'},
+    ]
+  },
+  {
+    vendorName:'DJ Rohan', catKey:'entertainment', emoji:'🎵', catLabel:'Entertainment',
+    lastMsg:'I\'m available on your date! My rate for a birthday party with 100-200 guests would be...',lastTime:'Yesterday',
+    unread:false, responseSec:3600,
+    messages:[
+      {type:'user',text:'',isEventCard:true,time:'Yesterday'},
+      {type:'user',text:'Hey! Looking for a DJ for an adult birthday party. Can you share your availability and rates?',time:'Yesterday'},
+      {type:'vendor',text:'I\'m available on your date! My rate for a birthday party with 100-200 guests would be ₹18,000 for a 3-hour set. Includes my own sound system.',time:'Yesterday'},
+    ]
+  },
+  {
+    vendorName:'Taste Buds Catering', catKey:'fb', emoji:'🍽️', catLabel:'Food & Beverage',
+    lastMsg:'You: What\'s included in the veg menu for 150 guests?',lastTime:'Yesterday',
+    unread:false, responseSec:14400,
+    messages:[
+      {type:'user',text:'',isEventCard:true,time:'Yesterday'},
+      {type:'user',text:'What\'s included in the veg menu for 150 guests?',time:'Yesterday'},
+    ]
+  }
+];
+
+// Active bookings
+let bookings = [
+  {
+    title:'Aarav\'s 30th Birthday', emoji:'🎂', date:'22 Mar 2026', city:'Mumbai', guests:'100–200',
+    budget:'₹2.5L – ₹4L',
+    vendors:[
+      // Scenario 1: Quote accepted, advance paid, balance due on event day
+      {emoji:'📸',name:'Priya Captures',catLabel:'Photography',status:'booked',
+        quote:{amount:22000,label:'₹22,000',terms:'50% advance · 50% on event day',accepted:true},
+        payment:{advancePaid:11000,advanceLabel:'₹11,000',totalPaid:11000,totalLabel:'₹11,000',remaining:11000,remainingLabel:'₹11,000',status:'advance-paid',paidDate:'28 Feb 2026'}},
+      // Scenario 2: Quote received, accepted, advance NOT yet paid
+      {emoji:'🍽️',name:'Taste Buds Catering',catLabel:'Food & Beverage',status:'quote-accepted',
+        quote:{amount:48750,label:'₹48,750',detail:'75 plates × ₹650',terms:'50% advance · 50% after event',accepted:true},
+        payment:{advancePaid:0,totalPaid:0,remaining:48750,remainingLabel:'₹48,750',status:'advance-due'}},
+      // Scenario 3: Quote received, NOT yet accepted
+      {emoji:'🎵',name:'DJ Rohan',catLabel:'Entertainment',status:'quote-received',
+        quote:{amount:18000,label:'₹18,000',terms:'50% advance · 50% on event day',accepted:false},
+        payment:{status:'no-payment'}},
+      // Scenario 4: In talks, no quote yet
+      {emoji:'🎨',name:'Decor Dreams',catLabel:'Decor',status:'talking',
+        quote:null,
+        payment:{status:'no-payment'}},
+      // Scenario 5: Fully paid
+      {emoji:'📍',name:'The Rustic Farmhouse',catLabel:'Venue',status:'booked',
+        quote:{amount:45000,label:'₹45,000',terms:'100% advance',accepted:true},
+        payment:{advancePaid:45000,totalPaid:45000,totalLabel:'₹45,000',remaining:0,status:'fully-paid',paidDate:'25 Feb 2026'}},
+    ]
+  }
+];
+
+// Demo vendor profiles data
+const DEMO_VENDORS = {
+  photo: [
+    {name:'Priya Captures',stars:4.8,reviews:127,city:'Mumbai',price:'₹18,000 – ₹35,000',responseTime:'~2 hours',events:89,yrs:6,
+     badges:['verified','top','fast'],
+     includes:[{text:'4-hour event coverage',inc:true},{text:'200+ edited photos',inc:true},{text:'Online gallery',inc:true},{text:'2 photographers',inc:true},{text:'Video coverage',inc:false,price:'₹12,000'},{text:'Drone shots',inc:false,price:'₹8,000'},{text:'Same-day highlights',inc:false,price:'₹5,000'}],
+     reviewData:[{name:'Sneha M.',date:'Feb 2026',stars:5,text:'Priya was incredible at our baby shower! She captured every moment beautifully. The online gallery was ready in just 5 days.'},{name:'Rahul K.',date:'Jan 2026',stars:5,text:'Very professional and punctual. The edited photos were stunning — everyone loved the album.'},{name:'Anita D.',date:'Dec 2025',stars:4,text:'Great work overall. Slight delay in delivery but the quality made up for it.'}]},
+    {name:'SnapStory Studio',stars:4.6,reviews:84,city:'Mumbai',price:'₹15,000 – ₹28,000',responseTime:'~4 hours',events:62,yrs:4,
+     badges:['verified'],
+     includes:[{text:'3-hour event coverage',inc:true},{text:'150+ edited photos',inc:true},{text:'Online gallery',inc:true},{text:'1 photographer',inc:true},{text:'Extra hour',inc:false,price:'₹4,000'},{text:'Video add-on',inc:false,price:'₹10,000'}],
+     reviewData:[{name:'Pooja S.',date:'Jan 2026',stars:5,text:'Affordable and professional. The candid shots were especially great.'},{name:'Vikram R.',date:'Dec 2025',stars:4,text:'Good quality work. Could improve turnaround time slightly.'}]},
+  ],
+  entertainment: [
+    {name:'DJ Rohan',stars:4.7,reviews:95,city:'Mumbai',price:'₹15,000 – ₹30,000',responseTime:'~1 hour',events:150,yrs:8,
+     badges:['verified','top'],
+     includes:[{text:'3-hour DJ set',inc:true},{text:'Professional sound system',inc:true},{text:'LED lighting package',inc:true},{text:'MC / hosting',inc:true},{text:'Extra hour',inc:false,price:'₹5,000'},{text:'Fog machine',inc:false,price:'₹3,000'}],
+     reviewData:[{name:'Arjun P.',date:'Feb 2026',stars:5,text:'DJ Rohan made our party legendary! Great music selection and amazing energy.'},{name:'Meera K.',date:'Jan 2026',stars:5,text:'So professional. He read the crowd perfectly and kept everyone dancing.'}]},
+  ],
+  fb: [
+    {name:'Taste Buds Catering',stars:4.5,reviews:203,city:'Mumbai',price:'₹600 – ₹1,200 per plate',responseTime:'~4 hours',events:340,yrs:12,
+     badges:['verified','top'],
+     includes:[{text:'Customizable multi-cuisine menu',inc:true},{text:'Service staff (1 per 20 guests)',inc:true},{text:'Buffet setup & décor',inc:true},{text:'Crockery & cutlery',inc:true},{text:'Live counters',inc:false,price:'₹8,000 each'},{text:'Dessert station',inc:false,price:'₹6,000'},{text:'Bar service',inc:false,price:'₹15,000'}],
+     reviewData:[{name:'Sunita R.',date:'Feb 2026',stars:5,text:'The food was the highlight of our party! Every guest complimented the paneer tikka and biryani.'},{name:'Deepak M.',date:'Jan 2026',stars:4,text:'Great food, slightly late on setup but recovered well.'}]},
+  ],
+  venue: [
+    {name:'The Garden Terrace',stars:4.9,reviews:156,city:'Mumbai',price:'₹50,000 – ₹2,00,000',responseTime:'~3 hours',events:200,yrs:10,
+     badges:['verified','top'],
+     includes:[{text:'Indoor + outdoor space',inc:true},{text:'Basic furniture',inc:true},{text:'Parking (50 cars)',inc:true},{text:'Generator backup',inc:true},{text:'In-house catering',inc:false,price:'Separate quote'},{text:'DJ booth setup',inc:false,price:'₹5,000'}],
+     reviewData:[{name:'Priya T.',date:'Feb 2026',stars:5,text:'Stunning venue! The outdoor terrace was perfect for our Diwali party.'},{name:'Karan S.',date:'Jan 2026',stars:5,text:'Beautiful space, excellent management, and very responsive staff.'}]},
+  ],
+  decor: [
+    {name:'Decor Dreams',stars:4.6,reviews:78,city:'Mumbai',price:'₹25,000 – ₹1,50,000',responseTime:'~6 hours',events:120,yrs:5,
+     badges:['verified'],
+     includes:[{text:'Theme consultation',inc:true},{text:'Entrance décor',inc:true},{text:'Stage backdrop',inc:true},{text:'Table centerpieces',inc:true},{text:'Balloon installation',inc:false,price:'₹8,000'},{text:'Flower walls',inc:false,price:'₹15,000'}],
+     reviewData:[{name:'Nisha A.',date:'Feb 2026',stars:5,text:'They transformed the space completely! The fairy-light canopy was magical.'}]},
+  ],
+};
+
+// ========== AUTH FUNCTIONS ==========
+function triggerAuth(action, title, sub){
+  auth.pendingAction = action;
+  document.getElementById('authTitle').textContent = title || 'Create your account';
+  document.getElementById('authSub').textContent = sub || 'Sign up to save your progress and message vendors.';
+  document.getElementById('authStep1').style.display = '';
+  document.getElementById('authStep2').style.display = 'none';
+  document.getElementById('authStep3').style.display = 'none';
+  document.getElementById('authOverlay').classList.add('visible');
+}
+function closeAuth(){
+  document.getElementById('authOverlay').classList.remove('visible');
+}
+function sendOTP(){
+  document.getElementById('authStep1').style.display = 'none';
+  document.getElementById('authStep2').style.display = '';
+  const phone = document.getElementById('authPhone').value || '98XXXXX890';
+  document.getElementById('authOtpSub').textContent = 'We sent a 4-digit code to +91 ' + phone;
+}
+function otpNext(el,idx){
+  if(el.value.length === 1){
+    const inputs = document.querySelectorAll('.auth-otp-row input');
+    if(idx < 3) inputs[idx+1].focus();
+  }
+}
+function verifyOTP(){
+  document.getElementById('authStep2').style.display = 'none';
+  document.getElementById('authStep3').style.display = '';
+}
+function mockAuth(provider){
+  // Simulate Google/social auth
+  auth.isLoggedIn = true;
+  auth.name = 'Girish';
+  closeAuth();
+  postAuthAction();
+}
+function completeAuth(){
+  auth.isLoggedIn = true;
+  auth.name = document.getElementById('authName').value || 'User';
+  auth.phone = document.getElementById('authPhone').value || '';
+  closeAuth();
+  postAuthAction();
+}
+function postAuthAction(){
+  showLoggedInUI();
+  if(!auth.pendingAction) return;
+  const a = auth.pendingAction;
+  if(a.type === 'save-plan'){
+    // Show confirmation toast, stay on s10
+    showToast('✅ Plan saved! Check "My Events" anytime.');
+  } else if(a.type === 'message'){
+    openChatWithVendor(a.vendorIdx || 0, a.catKey || 'photo');
+  }
+  auth.pendingAction = null;
+}
+function showLoggedInUI(){
+  document.getElementById('bottomNav').classList.add('visible');
+  document.getElementById('topbarMsgIcon').style.display = '';
+  document.getElementById('topbarMsgBadge').style.display = '';
+  document.getElementById('bnavMsgBadge').style.display = '';
+}
+function showToast(msg){
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;padding:12px 24px;border-radius:12px;font-size:13px;font-weight:600;z-index:500;animation:fadeUp .4s ease;box-shadow:0 8px 30px rgba(0,0,0,.15)';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(), 3000);
+}
+
+// ========== BOTTOM NAV ==========
+function bnav(tab){
+  document.querySelectorAll('.bnav-item').forEach((el,i)=>{
+    el.classList.toggle('active', el.getAttribute('onclick')===`bnav('${tab}')`);
+  });
+  if(tab==='home') goTo(0);
+  else if(tab==='explore') goTo(20);
+  else if(tab==='messages') goTo(33);
+  else if(tab==='events') goTo(37);
+  else if(tab==='profile') showToast('👤 Profile settings coming soon!');
+}
+
+// ========== SAVED PLANS DATA ==========
+let savedPlans = [
+  {
+    id: 'sp-1',
+    occasion: 'babyshower', subType: 'couple',
+    label: '🍼 Baby Shower exploration',
+    city: 'bangalore', cityLabel: 'Bangalore',
+    guests: '50–100', budgetRange: '₹80K – ₹5L',
+    savedDate: '18 Feb 2026',
+    cats: ['decor','photo','fb','entertainment']
+  }
+];
+
+// ========== PROFILE SCREEN STATE ==========
+let profileContext = 'quotes'; // 'quotes' or 'save'
+let profilePhoneVerified = false;
+
+function buildProfileScreen(){
+  const isQuotes = profileContext === 'quotes';
+  const icon = isQuotes ? '📋' : '💾';
+  const title = isQuotes ? 'Where should we send your quotes?' : 'Save your plan';
+  const sub = isQuotes
+    ? "You've told us about your event, now tell us about you so we can send you quotes."
+    : "Create a free account to keep your budget breakdown, timeline, and checklist — come back anytime.";
+  const btnText = isQuotes ? '✓ Submit & Get Quotes' : '💾 Save to My Plans';
+
+  document.getElementById('profileIcon').textContent = icon;
+  document.getElementById('profileTitle').textContent = title;
+  document.getElementById('profileSub').textContent = sub;
+  document.getElementById('profileSubmitBtn').textContent = btnText;
+
+  // Reset OTP state
+  profilePhoneVerified = false;
+  document.getElementById('profileOtpSection').style.display = 'none';
+  document.getElementById('profilePhoneVerified').style.display = 'none';
+  document.getElementById('profileSendOtpBtn').style.display = '';
+  document.getElementById('profilePhone').value = '';
+  document.getElementById('profileName').value = '';
+  document.querySelectorAll('#profileOtpRow input').forEach(i => i.value = '');
+}
+
+function profileSendOTP(){
+  const phone = document.getElementById('profilePhone').value;
+  if(!phone || phone.length < 10){
+    showToast('⚠️ Please enter a valid 10-digit number');
+    return;
+  }
+  document.getElementById('profileSendOtpBtn').style.display = 'none';
+  document.getElementById('profileOtpSection').style.display = '';
+  document.getElementById('profileOtpLabel').textContent = 'We sent a 4-digit code to +91 ' + phone;
+  // Focus first OTP input
+  document.querySelectorAll('#profileOtpRow input')[0].focus();
+}
+
+function profileOtpNext(el, idx){
+  if(el.value.length === 1){
+    const inputs = document.querySelectorAll('#profileOtpRow input');
+    if(idx < 3) inputs[idx+1].focus();
+  }
+}
+
+function profileVerifyOTP(){
+  // Simulate verification
+  profilePhoneVerified = true;
+  document.getElementById('profileOtpSection').style.display = 'none';
+  document.getElementById('profilePhoneVerified').style.display = '';
+  // Mark inputs as verified
+  document.querySelectorAll('#profileOtpRow input').forEach(i => {
+    i.classList.add('verified');
+  });
+  showToast('✅ Phone verified!');
+}
+
+function profileResendOTP(){
+  showToast('📱 OTP resent!');
+  document.querySelectorAll('#profileOtpRow input').forEach(i => i.value = '');
+  document.querySelectorAll('#profileOtpRow input')[0].focus();
+}
+
+function profileGoogleAuth(){
+  // Simulate Google OAuth — auto-fills name, skips OTP
+  auth.isLoggedIn = true;
+  auth.name = 'Girish';
+  auth.phone = '';
+  showLoggedInUI();
+
+  if(profileContext === 'quotes'){
+    goTo(6);
+    showToast('✅ Signed in with Google — matching you with vendors!');
+  } else {
+    doSavePlan();
+    showSavePlanConfirmation();
+  }
+}
+
+function profileComplete(){
+  const name = document.getElementById('profileName').value || 'User';
+  const phone = document.getElementById('profilePhone').value || '';
+
+  // Auth bypassed for demo — fields shown but not required
+  auth.isLoggedIn = true;
+  auth.name = name;
+  auth.phone = phone;
+  showLoggedInUI();
+
+  if(profileContext === 'quotes'){
+    goTo(6);
+  } else {
+    doSavePlan();
+    showSavePlanConfirmation();
+  }
+}
+
+// ========== SUBMIT REQUEST (from s5 or s23) ==========
+function submitRequest(){
+  if(auth.isLoggedIn){
+    goTo(6);
+  } else {
+    profileContext = 'quotes';
+    goTo(11);
+  }
+}
+
+// ========== SAVE PLAN (PLANNING MODE) ==========
+function savePlan(){
+  if(!auth.isLoggedIn){
+    profileContext = 'save';
+    goTo(11);
+  } else {
+    doSavePlan();
+    showSavePlanConfirmation();
+  }
+}
+
+function doSavePlan(){
+  // Build a saved plan entry from current planning state
+  const occ = OCC[state.occasion];
+  const cityLabels = {mumbai:'Mumbai',delhi:'Delhi NCR',bangalore:'Bangalore',hyderabad:'Hyderabad',chennai:'Chennai',kolkata:'Kolkata',pune:'Pune',jaipur:'Jaipur',ahmedabad:'Ahmedabad',tier2:'Metro / Tier 2',tier3:'Smaller city'};
+  const guestLabels = {'30-50':'30–50','50-100':'50–100','100-200':'100–200','200-500':'200–500','500+':'500+'};
+
+  const newPlan = {
+    id: 'sp-' + Date.now(),
+    occasion: state.occasion,
+    subType: state.subType,
+    label: (occ ? occ.emoji + ' ' + occ.label : '🎉 Event') + ' plan',
+    city: state.planCity || 'mumbai',
+    cityLabel: cityLabels[state.planCity] || 'Mumbai',
+    guests: guestLabels[state.planGuests] || '50–100',
+    budgetRange: document.querySelector('.br-line')?.textContent || '₹1L – ₹5L',
+    savedDate: new Date().toLocaleDateString('en-IN', {day:'numeric',month:'short',year:'numeric'}),
+    cats: Object.keys(state.selectedCats || {})
+  };
+
+  // Check if plan for same occasion already exists and update, else add
+  const existingIdx = savedPlans.findIndex(p => p.occasion === state.occasion && p.subType === state.subType);
+  if(existingIdx >= 0){
+    savedPlans[existingIdx] = newPlan;
+  } else {
+    savedPlans.unshift(newPlan);
+  }
+}
+
+function showSavePlanConfirmation(){
+  const occ = OCC[state.occasion];
+  const label = occ ? occ.label : 'Event';
+
+  // Navigate to a confirmation view — reuse s37 with a toast and scroll to saved plans
+  goTo(37);
+  showToast('✅ Plan saved to My Plans!');
+}
+
+// ========== VENDOR PROFILE ==========
+let currentVendorProfile = null;
+let vendorProfileFrom = 8; // which screen to go back to
+
+function goBack30(){
+  goTo(vendorProfileFrom);
+}
+
+function openVendorProfile(catKey, vendorIdx, fromScreen){
+  vendorProfileFrom = fromScreen || 8;
+  const vendors = DEMO_VENDORS[catKey];
+  if(!vendors || !vendors[vendorIdx]) return;
+  currentVendorProfile = {catKey, vendorIdx, data: vendors[vendorIdx]};
+  goTo(30);
+}
+
+function buildVendorProfile(){
+  const v = currentVendorProfile.data;
+  const catKey = currentVendorProfile.catKey;
+  const catLabel = CAT_MAP[catKey] ? CAT_MAP[catKey][0] : catKey;
+  const emoji = CAT_MAP[catKey] ? CAT_MAP[catKey][1] : '📋';
+
+  document.getElementById('vendorProfileContent').innerHTML = `
+    <div class="vp-gallery">
+      <div class="vp-img" style="background:linear-gradient(135deg,#E8D5B7,#C4A882)"><div class="vp-img-label">📷 ${v.events}+ events</div></div>
+      <div class="vp-img" style="background:linear-gradient(135deg,#D5C4A1,#B8A88A)"></div>
+      <div class="vp-img" style="background:linear-gradient(135deg,#C9B896,#A69478)"></div>
+      <div class="vp-img" style="background:linear-gradient(135deg,#BCA98A,#9D8B70)"><div class="vp-img-label">+12 photos</div></div>
+    </div>
+
+    <div class="vp-header">
+      <div class="vp-name">${v.name}</div>
+      <div class="vp-meta">
+        <span class="vp-stars">★ ${v.stars}</span>
+        <span>(${v.reviews} reviews)</span>
+        <span>· ${v.city}</span>
+      </div>
+      <div class="vp-badges">
+        ${v.badges.includes('verified') ? '<span class="vp-badge verified">✓ Verified</span>':''}
+        ${v.badges.includes('top') ? '<span class="vp-badge top">⭐ Top Rated</span>':''}
+        ${v.badges.includes('fast') ? '<span class="vp-badge fast">⚡ Fast Responder</span>':''}
+      </div>
+    </div>
+
+    <div class="vp-stats">
+      <div class="vp-stat"><div class="vs-val">${v.price.split('–')[0].trim()}</div><div class="vs-label">Starting at</div></div>
+      <div class="vp-stat"><div class="vs-val">${v.events}+</div><div class="vs-label">Events done</div></div>
+      <div class="vp-stat"><div class="vs-val">${v.yrs} yrs</div><div class="vs-label">Experience</div></div>
+    </div>
+
+    <div class="vp-section">
+      <div class="vp-section-title">${emoji} What's included</div>
+      <div class="vp-includes">
+        ${v.includes.map(i => `
+          <div class="vp-inc-item ${i.inc ? 'included' : 'addon'}">
+            <span class="inc-icon">${i.inc ? '✓' : '+'}</span>
+            <span>${i.text}</span>
+            ${i.price ? `<span class="addon-price">${i.price}</span>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="vp-section">
+      <div class="vp-section-title">💬 Reviews</div>
+      <div class="vp-reviews">
+        ${v.reviewData.map(r => `
+          <div class="vp-review">
+            <div class="vr-header">
+              <span class="vr-name">${r.name}</span>
+              <span class="vr-date">${r.date}</span>
+            </div>
+            <div class="vr-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+            <div class="vr-text">"${r.text}"</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="vp-section">
+      <div style="padding:16px;background:#FAFAFA;border-radius:12px;display:flex;align-items:center;gap:12px">
+        <span style="font-size:20px">⏱</span>
+        <div>
+          <div style="font-weight:700;font-size:13px;color:var(--primary)">Usually responds in ${v.responseTime}</div>
+          <div style="font-size:11px;color:var(--text-mid)">Response time based on last 30 days</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vp-actions">
+      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
+    </div>
+  `;
+}
+
+// ========== CHAT FUNCTIONS ==========
+let currentConvoIdx = 0;
+
+function tryMessageVendor(vendorIdx, catKey){
+  if(!auth.isLoggedIn){
+    triggerAuth(
+      {type:'message', vendorIdx, catKey},
+      'Message this vendor',
+      'Create a free account so the vendor knows who to reply to.'
+    );
+  } else {
+    openChatWithVendor(vendorIdx, catKey);
+  }
+}
+
+function openChatWithVendor(vendorIdx, catKey){
+  // Check if conversation already exists
+  const vendors = DEMO_VENDORS[catKey];
+  if(!vendors || !vendors[vendorIdx]) return;
+  const v = vendors[vendorIdx];
+  let convoIdx = conversations.findIndex(c => c.vendorName === v.name);
+  if(convoIdx === -1){
+    // Create new conversation
+    const occ = OCC[state.occasion];
+    const occLabel = occ ? occ.label : 'event';
+    const subLabel = state.subType || '';
+    const guests = state.guestCount || state.planGuests || '50-100';
+    const city = state.planCity || 'Mumbai';
+    conversations.unshift({
+      vendorName: v.name, catKey, emoji: CAT_MAP[catKey]?CAT_MAP[catKey][1]:'📋', catLabel: CAT_MAP[catKey]?CAT_MAP[catKey][0]:catKey,
+      lastMsg: `Hi! I'm planning ${occLabel} in ${city} for ${guests} guests.`,
+      lastTime: 'Just now', unread: false, responseSec: 7200,
+      messages:[
+        {type:'user', text:'', isEventCard:true, time:'Just now'},
+        {type:'user', text:`Hi! I'm planning a ${subLabel ? subLabel+' ':''}${occLabel} in ${city} for ${guests} guests. I'd love to discuss your ${CAT_MAP[catKey]?CAT_MAP[catKey][0].toLowerCase():'services'} packages.`, time:'Just now'},
+      ]
+    });
+    convoIdx = 0;
+  }
+  currentConvoIdx = convoIdx;
+  goTo(32);
+}
+
+function buildChat(){
+  const c = conversations[currentConvoIdx];
+  if(!c) return;
+  const occ = OCC[state.occasion];
+  const occLabel = occ ? occ.label : 'Event';
+  const guests = state.guestCount || state.planGuests || '50-100';
+  const city = state.planCity || 'Mumbai';
+
+  document.getElementById('chatContent').innerHTML = `
+    <div style="margin-bottom:8px"><button class="btn btn-secondary" onclick="goTo(33)" style="padding:8px 16px;font-size:12px">← Messages</button></div>
+    <div class="chat-header">
+      <div class="chat-avatar">${c.emoji}</div>
+      <div class="chat-vendor-info">
+        <div class="chat-vendor-name">${c.vendorName}</div>
+        <div class="chat-vendor-cat">${c.catLabel}</div>
+      </div>
+      <div class="chat-response-time">⚡ Responds in ~${Math.round(c.responseSec/3600)}h</div>
+    </div>
+
+    <div class="chat-body">
+      ${c.messages.map(m => {
+        if(m.isEventCard){
+          return `
+          <div class="chat-msg user" style="max-width:85%">
+            <div class="chat-event-card">
+              <div class="ec-title">📋 Event Brief</div>
+              <div class="ec-row"><span class="ec-label">Occasion</span><span class="ec-val">${occLabel}</span></div>
+              <div class="ec-row"><span class="ec-label">Guests</span><span class="ec-val">${guests}</span></div>
+              <div class="ec-row"><span class="ec-label">City</span><span class="ec-val">${city}</span></div>
+              <div class="ec-row"><span class="ec-label">Service</span><span class="ec-val">${c.catLabel}</span></div>
+            </div>
+            <div class="msg-time">${m.time}</div>
+          </div>`;
+        }
+        return `
+          <div class="chat-msg ${m.type}">
+            ${m.text}
+            <div class="msg-time">${m.time}</div>
+          </div>`;
+      }).join('')}
+
+      ${currentConvoIdx === 0 ? `
+      <div style="text-align:center;margin:16px 0">
+        <div style="display:inline-block;background:var(--accent-wash);border:1.5px solid var(--accent);border-radius:12px;padding:12px 20px;cursor:pointer" onclick="goTo(34)">
+          <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">📋 Priya sent a quote</div>
+          <div style="font-size:11px;color:var(--text-mid)">₹22,000 · Tap to view</div>
+        </div>
+      </div>` : ''}
+    </div>
+
+    <div class="chat-input-bar">
+      <button class="chat-attach">📎</button>
+      <input type="text" placeholder="Type a message..." id="chatInput" onkeydown="if(event.key==='Enter')sendChatMsg()">
+      <button class="chat-send" onclick="sendChatMsg()">→</button>
+    </div>
+  `;
+}
+
+function sendChatMsg(){
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  conversations[currentConvoIdx].messages.push({type:'user', text, time:'Just now'});
+  conversations[currentConvoIdx].lastMsg = 'You: '+text;
+  conversations[currentConvoIdx].lastTime = 'Just now';
+  input.value = '';
+  buildChat();
+  // Scroll to bottom
+  setTimeout(()=>{
+    const body = document.querySelector('.chat-body');
+    if(body) body.scrollTop = body.scrollHeight;
+  },100);
+}
+
+// ========== MESSAGES INBOX ==========
+function buildMsgInbox(){
+  const el = document.getElementById('msgInboxContent');
+  if(conversations.length === 0){
+    el.innerHTML = `
+      <div style="text-align:center;padding:60px 20px">
+        <div style="font-size:48px;margin-bottom:16px">💬</div>
+        <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--primary);margin-bottom:8px">No messages yet</div>
+        <div style="font-size:13px;color:var(--text-mid);margin-bottom:24px">Browse vendors and send your first message to get quotes and availability.</div>
+        <button class="btn btn-primary" onclick="goTo(0)">Browse vendors →</button>
+      </div>`;
+    return;
+  }
+  el.innerHTML = `
+    <div class="msg-list">
+      ${conversations.map((c,i) => `
+        <div class="msg-item" onclick="currentConvoIdx=${i};goTo(32)">
+          <div class="msg-avatar">${c.emoji}</div>
+          <div class="msg-content">
+            <div class="msg-top">
+              <span class="msg-name">${c.vendorName}</span>
+              <span class="msg-time-label">${c.lastTime}</span>
+            </div>
+            <div class="msg-cat">${c.catLabel}</div>
+            <div class="msg-preview">${c.lastMsg}</div>
+          </div>
+          <div class="msg-status">${c.unread ? '<div class="msg-unread"></div>' : '<span style="font-size:10px;color:var(--text-light)">✓✓</span>'}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ========== QUOTE VIEW ==========
+function buildQuoteView(){
+  document.getElementById('quoteContent').innerHTML = `
+    <div class="quote-card">
+      <div class="qc-header">
+        <span class="qc-icon">📋</span>
+        <div>
+          <div class="qc-title">Quote from Priya Captures</div>
+          <div class="qc-vendor">Photography · Adult Birthday</div>
+        </div>
+      </div>
+      <div class="quote-lines">
+        <div class="ql-item"><span class="ql-name">4-hour event coverage</span><span class="ql-price">₹18,000</span></div>
+        <div class="ql-item"><span class="ql-name">200+ edited photos</span><span class="ql-included">Included</span></div>
+        <div class="ql-item"><span class="ql-name">Online gallery</span><span class="ql-included">Included</span></div>
+        <div class="ql-item"><span class="ql-name">Extra hour</span><span class="ql-price">₹4,000</span></div>
+        <div class="ql-item"><span class="ql-name">Travel (within Mumbai)</span><span class="ql-included">Included</span></div>
+      </div>
+      <div class="ql-total"><span>Total</span><span>₹22,000</span></div>
+      <div class="quote-terms">
+        <div class="qt-label">Payment terms</div>
+        <div>50% advance (₹11,000) · 50% on event day</div>
+        <div style="margin-top:6px;font-size:11px;color:var(--text-light)">Valid until: 15 Mar 2026</div>
+      </div>
+      <div class="quote-actions">
+        <button class="qa-primary" onclick="goTo(35)">💳 Pay via PlanEzee — Secure & Protected</button>
+        <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
+        <div class="qa-row">
+          <button onclick="goTo(32)">💬 Negotiate</button>
+          <button onclick="goTo(32)">✗ Decline</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding:14px;background:#FAFAFA;border-radius:12px;font-size:12px;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:16px">🛡️</span>
+      <div>
+        <div style="font-weight:700;color:var(--primary);margin-bottom:4px">Why pay through PlanEzee?</div>
+        <div>Your payment is held securely until the service is complete. Full refund if the vendor cancels. No fees for you — we earn from vendors.</div>
+      </div>
+    </div>
+  `;
+}
+
+function payDirect(){
+  document.getElementById('quoteContent').innerHTML = `
+    <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="buildQuoteView()" style="padding:8px 16px;font-size:12px">← Back to quote</button></div>
+    <div class="direct-pay-card">
+      <div class="dp-icon">🤝</div>
+      <div class="dp-text">
+        <strong>You'll arrange payment with the vendor outside PlanEzee.</strong><br><br>
+        We won't be able to offer payment protection for this booking. The vendor will contact you directly to arrange payment via UPI, cash, or bank transfer.<br><br>
+        Your booking will still be tracked here for reviews and coordination.
+      </div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:12px" onclick="confirmDirectPay()">Confirm — I'll pay directly</button>
+    <button class="btn btn-secondary" style="width:100%" onclick="buildQuoteView()">← Back to payment options</button>
+  `;
+}
+
+function confirmDirectPay(){
+  document.getElementById('quoteContent').innerHTML = `
+    <div class="confirm-card" style="border-color:var(--accent)">
+      <div class="cc-icon">🤝</div>
+      <div class="cc-title">Booking confirmed!</div>
+      <div class="cc-sub">You'll pay Priya Captures directly. We've notified them.</div>
+      <div class="confirm-details">
+        <div class="cd-row"><span class="cd-label">Vendor</span><span class="cd-val">Priya Captures</span></div>
+        <div class="cd-row"><span class="cd-label">Service</span><span class="cd-val">Photography</span></div>
+        <div class="cd-row"><span class="cd-label">Amount</span><span class="cd-val">₹22,000</span></div>
+        <div class="cd-row"><span class="cd-label">Payment</span><span class="cd-val">Pay vendor directly</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(32)">💬 Message vendor</button>
+      <button class="btn btn-primary" onclick="goTo(37)">View My Events →</button>
+    </div>
+  `;
+}
+
+// ========== PAYMENT FLOW ==========
+function buildPaymentFlow(){
+  document.getElementById('paymentContent').innerHTML = `
+    <div class="pay-amount">
+      <div class="pa-label">Advance payment (50%)</div>
+      <div class="pa-val">₹11,000</div>
+    </div>
+
+    <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Choose payment method</div>
+
+    <div class="pay-methods">
+      <div class="pay-method selected" onclick="selectPayMethod(this)">
+        <div class="pm-radio"></div>
+        <div class="pm-icon">📱</div>
+        <div class="pm-info">
+          <div class="pm-name">UPI</div>
+          <div class="pm-desc">Google Pay, PhonePe, Paytm, BHIM</div>
+        </div>
+      </div>
+      <div class="pay-method" onclick="selectPayMethod(this)">
+        <div class="pm-radio"></div>
+        <div class="pm-icon">💳</div>
+        <div class="pm-info">
+          <div class="pm-name">Credit / Debit Card</div>
+          <div class="pm-desc">Visa, Mastercard, Rupay</div>
+        </div>
+      </div>
+      <div class="pay-method" onclick="selectPayMethod(this)">
+        <div class="pm-radio"></div>
+        <div class="pm-icon">🏦</div>
+        <div class="pm-info">
+          <div class="pm-name">Net Banking</div>
+          <div class="pm-desc">All major banks</div>
+        </div>
+      </div>
+      <div class="pay-method" onclick="selectPayMethod(this)">
+        <div class="pm-radio"></div>
+        <div class="pm-icon">📅</div>
+        <div class="pm-info">
+          <div class="pm-name">EMI</div>
+          <div class="pm-desc">Available on orders above ₹3,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-trust">
+      <span class="pt-icon">🔒</span>
+      <div>
+        <strong>Payment secured by PlanEzee</strong><br>
+        Funds held until service day. Full refund if vendor cancels.
+      </div>
+    </div>
+
+    <button class="btn btn-primary" style="width:100%;padding:16px;font-size:15px" onclick="processPayment()">Pay ₹11,000 →</button>
+
+    <div class="pay-remaining">
+      Remaining ₹11,000 due on event day
+    </div>
+  `;
+}
+
+function selectPayMethod(el){
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function processPayment(){
+  // Show loading then confirmation
+  document.getElementById('paymentContent').innerHTML = `
+    <div style="text-align:center;padding:60px 20px">
+      <div style="font-size:48px;margin-bottom:20px">💳</div>
+      <h2 style="font-family:'Sora',sans-serif;font-size:20px;color:var(--primary);margin-bottom:8px">Processing payment…</h2>
+      <p style="color:var(--text-mid);font-size:13px">Please wait while we securely process your payment.</p>
+      <div style="width:200px;height:4px;background:var(--border);border-radius:2px;margin:24px auto;overflow:hidden">
+        <div style="width:100%;height:100%;background:var(--accent);border-radius:2px;animation:loading 1.5s ease infinite"></div>
+      </div>
+    </div>
+  `;
+  setTimeout(()=> goTo(36), 2000);
+}
+
+// ========== PAYMENT CONFIRMATION ==========
+function buildPayConfirm(){
+  document.getElementById('payConfirmContent').innerHTML = `
+    <div class="confirm-card">
+      <div class="cc-icon">✅</div>
+      <div class="cc-title">Payment confirmed!</div>
+      <div class="cc-sub">₹11,000 paid securely via PlanEzee</div>
+      <div class="confirm-details">
+        <div class="cd-row"><span class="cd-label">Vendor</span><span class="cd-val">Priya Captures</span></div>
+        <div class="cd-row"><span class="cd-label">Service</span><span class="cd-val">Photography</span></div>
+        <div class="cd-row"><span class="cd-label">Event</span><span class="cd-val">Adult Birthday · 22 Mar 2026</span></div>
+        <div class="cd-row"><span class="cd-label">Paid</span><span class="cd-val">₹11,000 (advance)</span></div>
+        <div class="cd-row"><span class="cd-label">Remaining</span><span class="cd-val">₹11,000 on event day</span></div>
+      </div>
+    </div>
+
+    <div class="confirm-next">
+      <div class="cn-title">What happens next</div>
+      <div class="cn-step"><span class="cn-num">1</span> Vendor is notified ✓</div>
+      <div class="cn-step"><span class="cn-num">2</span> You'll confirm after the event</div>
+      <div class="cn-step"><span class="cn-num">3</span> Vendor gets paid within 48 hours</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="goTo(32)">💬 Message vendor</button>
+      <button class="btn btn-primary" onclick="goTo(37)">View My Events →</button>
+    </div>
+  `;
+}
+
+// ========== MY EVENTS DASHBOARD ==========
+function buildMyEvents(){
+  const occ = OCC[state.occasion];
+  const occLabel = occ ? occ.label : 'Birthday';
+
+  const savedPlansHtml = savedPlans.length > 0
+    ? savedPlans.map(p => `
+      <div class="saved-plan-card">
+        <div class="sp-title">${p.label}</div>
+        <div class="sp-meta">${p.cityLabel} · ${p.guests} guests · Saved ${p.savedDate}</div>
+        <div class="sp-range">Est. range: ${p.budgetRange}</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+          ${(p.cats||[]).map(c => {
+            const cat = CATS[c];
+            return cat ? `<span style="font-size:11px;padding:4px 8px;background:#F5F5F5;border-radius:6px">${cat.emoji} ${cat.label}</span>` : '';
+          }).join('')}
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-primary" style="padding:8px 16px;font-size:12px" onclick="resumePlanAsExecution('${p.occasion}','${p.subType}','${p.city}')">Find vendors for this →</button>
+          <button class="btn btn-secondary" style="padding:8px 16px;font-size:12px" onclick="goTo(0)">Edit plan</button>
+        </div>
+      </div>
+    `).join('')
+    : `<div style="text-align:center;padding:24px;color:var(--text-light);font-size:13px">No saved plans yet. Try <a style="color:var(--primary);font-weight:600;cursor:pointer" onclick="goTo(0)">Planning Mode</a> to explore budgets and timelines.</div>`;
+
+  // Calculate totals per booking
+  function buildBookingCard(b){
+    const totalQuoted = b.vendors.reduce((s,v) => s + (v.quote ? v.quote.amount : 0), 0);
+    const totalPaid = b.vendors.reduce((s,v) => s + (v.payment ? v.payment.totalPaid||0 : 0), 0);
+
+    return `
+      <div class="event-card" style="padding:0;overflow:hidden">
+        <div style="padding:20px 20px 12px">
+          <div class="ev-header">
+            <span class="ev-title">${b.emoji} ${b.title}</span>
+            <span class="ev-date">${b.date}</span>
+          </div>
+          <div class="ev-meta">${b.city} · ${b.guests} guests</div>
+
+          <!-- Budget summary -->
+          <div style="display:flex;gap:16px;margin-top:12px;padding:12px 16px;background:#FAFAFA;border-radius:10px;font-size:12px">
+            <div><span style="color:var(--text-mid)">Budget </span><span style="font-family:'Sora',sans-serif;font-weight:700;color:var(--primary)">${b.budget}</span></div>
+            <div><span style="color:var(--text-mid)">Paid </span><span style="font-family:'Sora',sans-serif;font-weight:700;color:var(--green)">₹${totalPaid.toLocaleString('en-IN')}</span></div>
+            <div><span style="color:var(--text-mid)">Quoted </span><span style="font-family:'Sora',sans-serif;font-weight:700;color:var(--primary)">₹${totalQuoted.toLocaleString('en-IN')}</span></div>
+          </div>
+        </div>
+
+        <!-- Vendor cards -->
+        <div style="padding:0 20px 20px">
+          ${b.vendors.map((v,vi) => buildVendorPaymentCard(v, vi)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function buildVendorPaymentCard(v, idx){
+    const ps = v.payment?.status || 'no-payment';
+    const hasQuote = v.quote !== null;
+    const cardClass = ps === 'fully-paid' ? 'fully-paid' : hasQuote ? 'has-quote' : '';
+
+    // Status badge
+    let statusHtml = '';
+    if(ps === 'fully-paid') statusHtml = '<span class="evc-status booked">✅ Paid in full</span>';
+    else if(ps === 'advance-paid') statusHtml = '<span class="evc-status booked">✅ Advance paid</span>';
+    else if(v.status === 'quote-accepted') statusHtml = '<span class="evc-status quote-accepted">📋 Quote accepted</span>';
+    else if(v.status === 'quote-received') statusHtml = '<span class="evc-status quote-received">📩 Quote received</span>';
+    else if(v.status === 'booked') statusHtml = '<span class="evc-status booked">✅ Booked</span>';
+    else statusHtml = '<span class="evc-status talking">💬 In talks</span>';
+
+    // Quote section
+    let quoteHtml = '';
+    if(hasQuote){
+      quoteHtml = `
+        <div class="evc-quote">
+          <div class="evc-quote-row">
+            <span class="evc-quote-label">Quoted amount</span>
+            <span class="evc-quote-val">${v.quote.label}</span>
+          </div>
+          ${v.quote.detail ? `<div class="evc-quote-detail">${v.quote.detail}</div>` : ''}
+          <div class="evc-quote-terms">💳 ${v.quote.terms}</div>
+        </div>`;
+    }
+
+    // Payment progress + actions
+    let paymentHtml = '';
+    if(ps === 'fully-paid'){
+      paymentHtml = `
+        <div class="evc-payment">
+          <div class="evc-pay-progress"><div class="evc-pay-bar paid" style="flex:1"></div></div>
+          <div class="evc-pay-split">
+            <span class="paid">✅ ₹${v.payment.totalPaid.toLocaleString('en-IN')} paid on ${v.payment.paidDate}</span>
+          </div>
+        </div>`;
+    } else if(ps === 'advance-paid'){
+      const paidPct = Math.round((v.payment.advancePaid / v.quote.amount) * 100);
+      paymentHtml = `
+        <div class="evc-payment">
+          <div class="evc-pay-progress">
+            <div class="evc-pay-bar paid" style="flex:${paidPct}"></div>
+            <div class="evc-pay-bar remaining" style="flex:${100-paidPct}"></div>
+          </div>
+          <div class="evc-pay-split">
+            <span class="paid">✅ ${v.payment.advanceLabel} paid</span>
+            <span class="remaining">${v.payment.remainingLabel} due on event day</span>
+          </div>
+          <div class="evc-actions">
+            <button class="btn-sm btn-primary" onclick="goTo(35)">Pay remaining ${v.payment.remainingLabel} →</button>
+            <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Message</button>
+          </div>
+        </div>`;
+    } else if(ps === 'advance-due' && hasQuote && v.quote.accepted){
+      const advance = Math.round(v.quote.amount / 2);
+      paymentHtml = `
+        <div class="evc-payment">
+          <div class="evc-pay-progress"><div class="evc-pay-bar remaining" style="flex:1"></div></div>
+          <div class="evc-pay-split">
+            <span class="remaining">No payment yet</span>
+          </div>
+          <div class="evc-actions">
+            <button class="btn-sm btn-primary" onclick="goTo(35)">Pay ₹${advance.toLocaleString('en-IN')} advance →</button>
+            <button class="btn-sm btn-secondary" onclick="goTo(35)">Pay full ₹${v.quote.amount.toLocaleString('en-IN')} →</button>
+            <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Message</button>
+          </div>
+        </div>`;
+    } else if(v.status === 'quote-received' && hasQuote && !v.quote.accepted){
+      paymentHtml = `
+        <div class="evc-actions">
+          <button class="btn-sm btn-primary" onclick="goTo(34)">Review Quote →</button>
+          <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Negotiate</button>
+        </div>`;
+    } else {
+      // No quote — just message
+      paymentHtml = `
+        <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;font-style:italic">No quote submitted yet</div>
+        <div class="evc-actions">
+          <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Message vendor</button>
+        </div>`;
+    }
+
+    return `
+      <div class="ev-vendor-card ${cardClass}">
+        <div class="evc-top">
+          <div class="evc-emoji">${v.emoji}</div>
+          <div class="evc-info">
+            <div class="evc-name">${v.name}</div>
+            <div class="evc-cat">${v.catLabel || ''}</div>
+            ${statusHtml}
+          </div>
+        </div>
+        ${quoteHtml}
+        ${paymentHtml}
+      </div>
+    `;
+  }
+
+  document.getElementById('myEventsContent').innerHTML = `
+    <div class="events-section-label">Active Events</div>
+    ${buildMiraInlineCard('myevents')}
+    ${bookings.map(b => buildBookingCard(b)).join('')}
+
+    <div class="events-section-label" style="margin-top:24px">
+      <span>My Plans</span>
+      <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:8px">(${savedPlans.length})</span>
+    </div>
+    ${savedPlansHtml}
+
+    <div style="margin-top:24px">
+      <div class="events-section-label">Past Events</div>
+      <div class="event-card" onclick="goTo(38)">
+        <div class="ev-header">
+          <span class="ev-title">🎂 Mom's 60th Birthday</span>
+          <span class="ev-date">15 Jan 2026</span>
+        </div>
+        <div class="ev-meta">Mumbai · 50–100 guests · Completed</div>
+        <div class="ev-vendor-card fully-paid" style="margin-top:10px">
+          <div class="evc-top">
+            <div class="evc-emoji">📸</div>
+            <div class="evc-info">
+              <div class="evc-name">Priya Captures</div>
+              <div class="evc-cat">Photography</div>
+              <span class="evc-status booked">✅ Paid in full</span>
+            </div>
+          </div>
+          <div class="evc-payment">
+            <div class="evc-pay-progress"><div class="evc-pay-bar paid" style="flex:1"></div></div>
+            <div class="evc-pay-split"><span class="paid">✅ ₹22,000 paid</span></div>
+          </div>
+          <div style="font-size:12px;color:var(--accent);font-weight:600;cursor:pointer">⭐ Leave a review →</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ========== POST-EVENT REVIEW ==========
+let reviewStars = 0;
+function buildReviewRating(){
+  document.getElementById('reviewRatingContent').innerHTML = `
+    <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(37)" style="padding:8px 16px;font-size:12px">← My Events</button></div>
+
+    <div class="rating-card">
+      <div class="rc-emoji">📸</div>
+      <div class="rc-title">How was Priya Captures?</div>
+      <div class="rc-vendor">Photography · Mom's 60th Birthday</div>
+      <div class="star-row">
+        <span class="star" onclick="setStars(1)">⭐</span>
+        <span class="star" onclick="setStars(2)">⭐</span>
+        <span class="star" onclick="setStars(3)">⭐</span>
+        <span class="star" onclick="setStars(4)">⭐</span>
+        <span class="star" onclick="setStars(5)">⭐</span>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">What stood out?</div>
+      <div class="review-tags">
+        <div class="review-tag" onclick="this.classList.toggle('selected')">📷 Great photos</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">⏰ Punctual</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">💬 Good communication</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">💰 Good value</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">🎨 Creative</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">📦 Fast delivery</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Write a review (optional)</div>
+      <textarea class="review-textarea" placeholder="Share your experience to help other planners..."></textarea>
+    </div>
+
+    <div class="release-box">
+      <div class="rb-title">💰 Release payment of ₹11,000</div>
+      <div class="rb-sub">By submitting this review, you confirm the service was completed satisfactorily. The remaining payment will be released to the vendor within 48 hours.</div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">
+      <button class="btn btn-green" style="width:100%;padding:16px" onclick="submitReview()">Submit Review & Release Payment →</button>
+      <button class="btn btn-secondary" style="width:100%" onclick="showToast('We\\'ll look into this. A support ticket has been created.')">🚩 I have an issue — open dispute</button>
+    </div>
+
+    <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text-light)">Auto-release in 48 hours if no action taken</div>
+  `;
+}
+
+function setStars(n){
+  reviewStars = n;
+  document.querySelectorAll('.star-row .star').forEach((s,i)=>{
+    s.classList.toggle('active', i < n);
+  });
+}
+
+function submitReview(){
+  showToast('⭐ Review submitted! Payment will be released within 48 hours.');
+  setTimeout(()=>goTo(37), 1500);
+}
 buildCatList();
+
+// ========== MIRA AI AGENT ==========
+let miraMessages = [];
+let miraReady = false;
+
+function openMira(){
+  document.getElementById('miraOverlay').classList.add('visible');
+  document.getElementById('miraFabBadge').style.display = 'none';
+  if(!miraReady){
+    miraReady = true;
+    initMiraWelcome();
+  }
+  setTimeout(()=>document.getElementById('miraInput').focus(), 400);
+}
+
+function closeMira(){
+  document.getElementById('miraOverlay').classList.remove('visible');
+}
+
+function showMiraFab(){
+  document.getElementById('miraFab').classList.add('visible');
+}
+
+function initMiraWelcome(){
+  const eventName = bookings[0]?.title || 'your event';
+  const vendorCount = bookings[0]?.vendors?.length || 0;
+  const userName = auth.name || 'there';
+
+  addMiraMsg('agent', `Hi ${userName}! I'm <strong>Mira</strong>, your event assistant for <strong>${eventName}</strong>. 🎉
+
+I'm tracking ${vendorCount} vendors across your event. I can help you understand your quotes, find what's missing, and plan your timeline.
+
+What would you like to know?`);
+
+  setMiraChips(['📋 Event summary', '💰 Payment status', '⚠️ What\'s missing?', '📊 Compare quotes', '🕐 Event timeline', '💡 What should I do next?']);
+}
+
+function setMiraChips(chips){
+  document.getElementById('miraChips').innerHTML = chips.map(c =>
+    `<div class="mira-chip" onclick="handleMiraChip('${c.replace(/'/g,"\\'")}')">${c}</div>`
+  ).join('');
+}
+
+function handleMiraChip(text){
+  addMiraMsg('user', text.replace(/^[^\s]+ /,''));
+  processMiraQuery(text.toLowerCase());
+}
+
+function sendMiraMsg(){
+  const input = document.getElementById('miraInput');
+  const text = input.value.trim();
+  if(!text) return;
+  input.value = '';
+  addMiraMsg('user', text);
+  setTimeout(()=> processMiraQuery(text.toLowerCase()), 600);
+}
+
+function addMiraMsg(type, html){
+  const now = new Date();
+  const time = now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
+  miraMessages.push({type, html, time});
+  renderMiraMessages();
+}
+
+function renderMiraMessages(){
+  const body = document.getElementById('miraBody');
+  body.innerHTML = miraMessages.map(m => `
+    <div class="mira-msg ${m.type}">
+      <div class="mira-bubble">${m.html}</div>
+      <div class="mira-time">${m.type==='agent'?'✨ Mira · ':''} ${m.time}</div>
+    </div>
+  `).join('');
+  body.scrollTop = body.scrollHeight;
+}
+
+// ── Core Intelligence Engine ──
+function processMiraQuery(q){
+  const b = bookings[0];
+  if(!b){ addMiraMsg('agent','I don\'t have any active events to analyze yet. Start planning an event and I\'ll be ready to help!'); return; }
+
+  // ── EVENT SUMMARY ──
+  if(q.includes('summary') || q.includes('overview') || q.includes('how\'s my event') || q.includes('event look')){
+    const booked = b.vendors.filter(v=>v.payment?.status==='fully-paid'||v.payment?.status==='advance-paid').length;
+    const quoted = b.vendors.filter(v=>v.quote).length;
+    const totalPaid = b.vendors.reduce((s,v)=>s+(v.payment?.totalPaid||0),0);
+    const totalQuoted = b.vendors.reduce((s,v)=>s+(v.quote?.amount||0),0);
+
+    addMiraMsg('agent', `Here's your event at a glance:
+
+<div class="mira-card">
+  <div class="mira-card-title">📋 ${b.emoji} ${b.title}</div>
+  <div class="mira-card-row"><span class="mcr-label">Date</span><span class="mcr-val">${b.date}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Location</span><span class="mcr-val">${b.city}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Guests</span><span class="mcr-val">${b.guests}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Budget</span><span class="mcr-val">${b.budget}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Vendors</span><span class="mcr-val">${booked} booked · ${quoted} quoted · ${b.vendors.length} total</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Total quoted</span><span class="mcr-val">₹${totalQuoted.toLocaleString('en-IN')}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Paid so far</span><span class="mcr-val green">₹${totalPaid.toLocaleString('en-IN')}</span></div>
+</div>
+
+${booked < b.vendors.length ? `⚠️ You still have ${b.vendors.length - booked} vendors not fully confirmed. Want me to break down what's pending?` : '✅ All vendors confirmed!'}`);
+
+    setMiraChips(['💰 Payment details', '⚠️ What\'s missing?', '🕐 Event timeline']);
+    return;
+  }
+
+  // ── PAYMENT STATUS ──
+  if(q.includes('payment') || q.includes('paid') || q.includes('pending') || q.includes('how much') || q.includes('spent') || q.includes('remaining') || q.includes('due')){
+    const totalPaid = b.vendors.reduce((s,v)=>s+(v.payment?.totalPaid||0),0);
+    const totalQuoted = b.vendors.reduce((s,v)=>s+(v.quote?.amount||0),0);
+    const totalRemaining = totalQuoted - totalPaid;
+
+    let vendorRows = b.vendors.map(v => {
+      const ps = v.payment?.status || 'no-payment';
+      let statusHtml = '';
+      if(ps==='fully-paid') statusHtml = `<span class="mcr-val green">✅ ₹${v.payment.totalPaid.toLocaleString('en-IN')} paid</span>`;
+      else if(ps==='advance-paid') statusHtml = `<span class="mcr-val amber">₹${v.payment.advanceLabel} paid · ₹${v.payment.remainingLabel} due</span>`;
+      else if(ps==='advance-due' && v.quote) statusHtml = `<span class="mcr-val red">₹${v.quote.label} — not paid yet</span>`;
+      else if(v.quote) statusHtml = `<span class="mcr-val">₹${v.quote.label} quoted · awaiting acceptance</span>`;
+      else statusHtml = `<span class="mcr-val" style="color:var(--text-light)">No quote yet</span>`;
+      return `<div class="mira-card-row"><span class="mcr-label">${v.emoji} ${v.name}</span>${statusHtml}</div>`;
+    }).join('');
+
+    addMiraMsg('agent', `Here's your payment breakdown:
+
+<div class="mira-card">
+  <div class="mira-card-title">💰 Payment Summary</div>
+  <div class="mira-card-row"><span class="mcr-label">Total quoted</span><span class="mcr-val">₹${totalQuoted.toLocaleString('en-IN')}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Paid so far</span><span class="mcr-val green">₹${totalPaid.toLocaleString('en-IN')}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Remaining</span><span class="mcr-val${totalRemaining>0?' red':''}">₹${totalRemaining.toLocaleString('en-IN')}</span></div>
+</div>
+
+<div class="mira-card">
+  <div class="mira-card-title">Per Vendor</div>
+  ${vendorRows}
+</div>
+
+${totalRemaining > 0 ? `\n💡 You have <strong>₹${totalRemaining.toLocaleString('en-IN')}</strong> in pending payments. The most urgent is <strong>${b.vendors.find(v=>v.payment?.status==='advance-due')?.name || 'Taste Buds Catering'}</strong> — their quote has been accepted but no advance paid yet.` : '✅ All payments are up to date!'}`);
+
+    setMiraChips(['📋 Event summary', '⚠️ What\'s missing?', '💡 What should I do next?']);
+    return;
+  }
+
+  // ── WHAT'S MISSING / GAPS ──
+  if(q.includes('missing') || q.includes('gap') || q.includes('need') || q.includes('haven\'t') || q.includes('don\'t have') || q.includes('what else') || q.includes('who else')){
+    // Simulate gap analysis based on event type
+    const bookedCats = b.vendors.map(v => v.catLabel);
+    const allCats = ['Photography','Food & Beverage','Entertainment','Decor','Venue','Logistics','Return Gifts','Emcee / Host','Memory Video'];
+    const missing = allCats.filter(c => !bookedCats.includes(c));
+
+    let gapHtml = missing.map(c => {
+      const reasons = {
+        'Logistics': '🚗 With 100-200 guests in Mumbai, airport pickups and hotel shuttles are a big help.',
+        'Return Gifts': '🎁 70% of birthday events with 100+ guests include return gifts. Guests love a personal touch.',
+        'Emcee / Host': '🎤 An emcee keeps the energy flowing — manages transitions between food, games, speeches, and cake.',
+        'Memory Video': '📹 A 2-minute highlights reel is the most shared content after any event. Highly recommended.'
+      };
+      return `<div class="mira-gap-item" onclick="closeMira();goTo(20)">${c} ${reasons[c] ? '<br><span style="font-weight:400;font-size:11px;color:var(--text-mid)">' + reasons[c] + '</span>' : ''}</div>`;
+    }).join('');
+
+    addMiraMsg('agent', `Looking at your event (<strong>${b.title}</strong>, ${b.guests} guests in ${b.city}), I've identified some gaps:
+
+<div class="mira-card">
+  <div class="mira-card-title">⚠️ Categories You Might Need</div>
+  ${gapHtml}
+</div>
+
+You have <strong>${bookedCats.length}</strong> of ${allCats.length} common categories covered. The ones I flagged above are typical for birthday events with your guest count.
+
+Tap any category above to start searching for vendors, or ask me for more details on any of them.`);
+
+    setMiraChips(['🚗 Tell me about logistics', '🎁 Do I need return gifts?', '📋 Event summary', '💰 Payment status']);
+    return;
+  }
+
+  // ── COMPARE QUOTES ──
+  if(q.includes('compare') || q.includes('cheapest') || q.includes('expensive') || q.includes('best') || q.includes('quotes') || q.includes('which vendor')){
+    const quotedVendors = b.vendors.filter(v => v.quote);
+    let rows = quotedVendors.map(v => {
+      const value = v.payment?.status === 'fully-paid' ? '✅ Paid' : v.quote.accepted ? '📋 Accepted' : '📩 Pending';
+      return `<div class="mira-card-row"><span class="mcr-label">${v.emoji} ${v.name}<br><span style="font-size:10px;color:var(--text-light)">${v.catLabel}</span></span><span class="mcr-val">${v.quote.label}<br><span style="font-size:10px;font-weight:400">${value}</span></span></div>`;
+    }).join('');
+
+    const cheapest = quotedVendors.reduce((a,b) => a.quote.amount < b.quote.amount ? a : b);
+    const priciest = quotedVendors.reduce((a,b) => a.quote.amount > b.quote.amount ? a : b);
+    const total = quotedVendors.reduce((s,v) => s + v.quote.amount, 0);
+
+    addMiraMsg('agent', `Here are all your received quotes:
+
+<div class="mira-card">
+  <div class="mira-card-title">📊 Quote Comparison</div>
+  ${rows}
+  <div class="mira-card-row" style="border-top:2px solid var(--border);margin-top:4px;padding-top:10px"><span class="mcr-label"><strong>Total quoted</strong></span><span class="mcr-val"><strong>₹${total.toLocaleString('en-IN')}</strong></span></div>
+</div>
+
+💡 Quick insights:
+• <strong>Lowest quote:</strong> ${cheapest.emoji} ${cheapest.name} at ${cheapest.quote.label}
+• <strong>Highest quote:</strong> ${priciest.emoji} ${priciest.name} at ${priciest.quote.label}
+• <strong>${b.vendors.find(v=>!v.quote)?.name || 'Decor Dreams'}</strong> hasn't sent a quote yet — want me to draft a follow-up message?`);
+
+    setMiraChips(['📋 Event summary', '💰 Payment status', '💬 Draft follow-up message', '⚠️ What\'s missing?']);
+    return;
+  }
+
+  // ── TIMELINE ──
+  if(q.includes('timeline') || q.includes('schedule') || q.includes('day of') || q.includes('event day') || q.includes('when should')){
+    addMiraMsg('agent', `Here's a suggested timeline for <strong>${b.title}</strong> based on your booked vendors:
+
+<div class="mira-card">
+  <div class="mira-card-title">🕐 Event Day Timeline — ${b.date}</div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">9:00 AM</span><span class="mira-tl-event">📍 <span class="mira-tl-vendor">The Rustic Farmhouse</span> — Venue opens, begin setup access</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">10:00 AM</span><span class="mira-tl-event">🎨 <span class="mira-tl-vendor">Decor Dreams</span> — Decor team arrives for setup (allow 3-4 hrs)</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">12:00 PM</span><span class="mira-tl-event">🍽️ <span class="mira-tl-vendor">Taste Buds Catering</span> — Kitchen setup + food prep begins</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">2:00 PM</span><span class="mira-tl-event">📸 <span class="mira-tl-vendor">Priya Captures</span> — Photographer arrives for pre-event shots</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">3:00 PM</span><span class="mira-tl-event">🎵 <span class="mira-tl-vendor">DJ Rohan</span> — Sound check and equipment setup</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">4:00 PM</span><span class="mira-tl-event">🚪 Venue ready — final walkthrough</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">5:00 PM</span><span class="mira-tl-event">🎉 <strong>Guests arrive!</strong> — Welcome drinks + mingling</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">5:30 PM</span><span class="mira-tl-event">📸 Group photos + candids</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">6:30 PM</span><span class="mira-tl-event">🍽️ Dinner service begins + live counters open</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">7:30 PM</span><span class="mira-tl-event">🎂 <strong>Cake cutting ceremony</strong></span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">8:00 PM</span><span class="mira-tl-event">🎵 DJ set begins + dance floor opens</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">10:00 PM</span><span class="mira-tl-event">🎵 Last song + thank you speech</span></div>
+  <div class="mira-timeline-item"><span class="mira-tl-time">10:30 PM</span><span class="mira-tl-event">👋 Guest departure + venue cleanup begins</span></div>
+</div>
+
+💡 <strong>Tips:</strong>
+• Ask your photographer to arrive 1 hour before guests for setup shots
+• Confirm with DJ Rohan if he needs a separate power outlet for his sound system
+• Caterers typically need 2-3 hours of kitchen access before service`);
+
+    setMiraChips(['📋 Event summary', '💰 Payment status', '⚠️ What\'s missing?']);
+    return;
+  }
+
+  // ── WHAT SHOULD I DO NEXT ──
+  if(q.includes('next') || q.includes('what should') || q.includes('priority') || q.includes('to do') || q.includes('advice') || q.includes('suggest')){
+    addMiraMsg('agent', `Based on where your event stands, here's what I'd prioritize:
+
+<div class="mira-card">
+  <div class="mira-card-title">💡 Your Next Steps — Priority Order</div>
+  <div class="mira-card-row"><span class="mcr-label">1️⃣ Pay caterer advance</span><span class="mcr-val red">₹24,375 due</span></div>
+  <div class="mira-card-row"><span class="mcr-label">2️⃣ Accept or negotiate DJ quote</span><span class="mcr-val amber">₹18,000 pending</span></div>
+  <div class="mira-card-row"><span class="mcr-label">3️⃣ Follow up with Decor Dreams</span><span class="mcr-val">No quote yet</span></div>
+  <div class="mira-card-row"><span class="mcr-label">4️⃣ Book logistics / transport</span><span class="mcr-val" style="color:var(--text-light)">Not started</span></div>
+  <div class="mira-card-row"><span class="mcr-label">5️⃣ Consider return gifts</span><span class="mcr-val" style="color:var(--text-light)">Optional</span></div>
+</div>
+
+🔴 <strong>Most urgent:</strong> Taste Buds Catering's quote has been accepted but no advance paid. They may not hold your date without the advance — I'd recommend paying the ₹24,375 today.
+
+Want me to help with any of these?`);
+
+    setMiraChips(['💰 Pay caterer advance', '💬 Message DJ Rohan', '🚗 Find logistics vendors', '📋 Event summary']);
+    return;
+  }
+
+  // ── SPECIFIC VENDOR QUERIES ──
+  if(q.includes('priya') || q.includes('photographer') || q.includes('photo')){
+    const v = b.vendors.find(v=>v.name.includes('Priya'));
+    addMiraMsg('agent', `Here's everything about <strong>Priya Captures</strong>:
+
+<div class="mira-card">
+  <div class="mira-card-title">📸 Priya Captures — Photography</div>
+  <div class="mira-card-row"><span class="mcr-label">Quote</span><span class="mcr-val">${v.quote.label}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Terms</span><span class="mcr-val">${v.quote.terms}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Status</span><span class="mcr-val green">Advance paid (${v.payment.advanceLabel})</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Remaining</span><span class="mcr-val amber">${v.payment.remainingLabel} due on event day</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Response time</span><span class="mcr-val">~2 hours</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Rating</span><span class="mcr-val">★ 4.8 (127 reviews)</span></div>
+</div>
+
+✅ Priya is confirmed and advance is paid. Remaining ₹11,000 is due on event day. I'd suggest messaging her a week before to confirm arrival time and any special shots you want.`);
+    setMiraChips(['💬 Message Priya', '📊 Compare all quotes', '💰 Payment status']);
+    return;
+  }
+
+  if(q.includes('caterer') || q.includes('catering') || q.includes('taste buds') || q.includes('food')){
+    const v = b.vendors.find(v=>v.name.includes('Taste'));
+    addMiraMsg('agent', `Here's the status on <strong>Taste Buds Catering</strong>:
+
+<div class="mira-card">
+  <div class="mira-card-title">🍽️ Taste Buds Catering — Food & Beverage</div>
+  <div class="mira-card-row"><span class="mcr-label">Quote</span><span class="mcr-val">${v.quote.label}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Breakdown</span><span class="mcr-val">${v.quote.detail}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Terms</span><span class="mcr-val">${v.quote.terms}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Status</span><span class="mcr-val red">Quote accepted — no payment yet</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Advance due</span><span class="mcr-val red">₹24,375</span></div>
+</div>
+
+⚠️ <strong>Action needed:</strong> The quote is accepted but no advance has been paid. I'd strongly recommend paying the ₹24,375 advance soon — caterers book up fast for March weekends in Mumbai.`);
+    setMiraChips(['💰 Pay advance now', '💬 Message caterer', '📋 Event summary']);
+    return;
+  }
+
+  if(q.includes('dj') || q.includes('rohan') || q.includes('entertainment') || q.includes('music')){
+    const v = b.vendors.find(v=>v.name.includes('DJ'));
+    addMiraMsg('agent', `Here's where things stand with <strong>DJ Rohan</strong>:
+
+<div class="mira-card">
+  <div class="mira-card-title">🎵 DJ Rohan — Entertainment</div>
+  <div class="mira-card-row"><span class="mcr-label">Quote</span><span class="mcr-val">${v.quote.label}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Terms</span><span class="mcr-val">${v.quote.terms}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Status</span><span class="mcr-val amber">Quote received — not yet accepted</span></div>
+</div>
+
+💡 DJ Rohan quoted ₹18,000 for a 3-hour set including his own sound system. That's competitive for Mumbai. His rating is ★ 4.7 with 95 reviews.
+
+Would you like to accept this quote, or should I help you negotiate? Some things you could ask about: extending to 4 hours, adding a fog machine, or requesting a specific setlist.`);
+    setMiraChips(['✅ Accept this quote', '💬 Negotiate with DJ', '📊 Compare all quotes']);
+    return;
+  }
+
+  if(q.includes('decor') || q.includes('decoration') || q.includes('dream')){
+    addMiraMsg('agent', `<strong>Decor Dreams</strong> is still in the conversation stage:
+
+<div class="mira-card">
+  <div class="mira-card-title">🎨 Decor Dreams — Decoration</div>
+  <div class="mira-card-row"><span class="mcr-label">Status</span><span class="mcr-val amber">💬 In talks — no quote yet</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Response time</span><span class="mcr-val">~6 hours</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Rating</span><span class="mcr-val">★ 4.6 (78 reviews)</span></div>
+</div>
+
+They haven't submitted a formal quote yet. Would you like me to draft a follow-up message asking for their quote? I'll include your event details so they can price accurately.`);
+    setMiraChips(['💬 Draft follow-up', '⚠️ What\'s missing?', '📋 Event summary']);
+    return;
+  }
+
+  // ── LOGISTICS / SPECIFIC CATEGORIES ──
+  if(q.includes('logistics') || q.includes('transport') || q.includes('pickup') || q.includes('shuttle')){
+    addMiraMsg('agent', `You don't have a logistics vendor booked yet. For an event with <strong>${b.guests} guests</strong> in <strong>${b.city}</strong>, here's what I'd recommend:
+
+<div class="mira-card">
+  <div class="mira-card-title">🚗 Logistics Recommendation</div>
+  <div class="mira-card-row"><span class="mcr-label">Airport pickups</span><span class="mcr-val">For outstation guests</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Hotel shuttle</span><span class="mcr-val">If guests are at multiple hotels</span></div>
+  <div class="mira-card-row"><span class="mcr-label">VIP car</span><span class="mcr-val">For family / special guests</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Typical budget</span><span class="mcr-val">₹8,000 – ₹25,000</span></div>
+</div>
+
+Would you like me to start a vendor search for logistics? I'll match you with transport providers in Mumbai.`);
+    setMiraChips(['🔍 Find logistics vendors', '📋 Event summary', '💡 What should I do next?']);
+    return;
+  }
+
+  if(q.includes('return gift') || q.includes('gift') || q.includes('favour') || q.includes('favor')){
+    addMiraMsg('agent', `Return gifts are optional but very common for birthday events with 100+ guests. Here's what works well:
+
+<div class="mira-card">
+  <div class="mira-card-title">🎁 Return Gift Ideas for Birthdays</div>
+  <div class="mira-card-row"><span class="mcr-label">Personalized items</span><span class="mcr-val">₹150–300/guest</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Sweets/chocolates box</span><span class="mcr-val">₹100–250/guest</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Custom hampers</span><span class="mcr-val">₹300–500/guest</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Your est. total (150 guests)</span><span class="mcr-val">₹15,000 – ₹45,000</span></div>
+</div>
+
+Want me to find return gift vendors in Mumbai?`);
+    setMiraChips(['🔍 Find gift vendors', '📋 Event summary', '💡 What should I do next?']);
+    return;
+  }
+
+  // ── DRAFT MESSAGE ──
+  if(q.includes('draft') || q.includes('message') || q.includes('follow up') || q.includes('follow-up')){
+    addMiraMsg('agent', `Here's a follow-up message I've drafted for <strong>Decor Dreams</strong>:
+
+<div class="mira-card" style="background:#F5F5F5;border-style:dashed">
+  <div style="font-size:12px;color:var(--text-mid);margin-bottom:4px">Draft message:</div>
+  <div style="font-size:13px;color:var(--primary);line-height:1.6">"Hi! Following up on our conversation about decor for Aarav's 30th Birthday (22 Mar, Mumbai, 100-200 guests). Would love to get your quote so we can finalize our vendors. Could you share your availability and a package estimate? Thanks!"</div>
+</div>
+
+You can edit this before sending. Want me to open the chat with Decor Dreams so you can send it?`);
+    setMiraChips(['💬 Open chat & send', '✏️ Edit message', '📋 Event summary']);
+    return;
+  }
+
+  // ── BUDGET CHECK ──
+  if(q.includes('budget') || q.includes('over budget') || q.includes('afford') || q.includes('within')){
+    const totalQuoted = b.vendors.reduce((s,v)=>s+(v.quote?.amount||0),0);
+    addMiraMsg('agent', `Let's check your budget:
+
+<div class="mira-card">
+  <div class="mira-card-title">💰 Budget Check</div>
+  <div class="mira-card-row"><span class="mcr-label">Your budget</span><span class="mcr-val">${b.budget}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Total quoted (so far)</span><span class="mcr-val">₹${totalQuoted.toLocaleString('en-IN')}</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Categories unquoted</span><span class="mcr-val amber">1 (Decor Dreams)</span></div>
+</div>
+
+Your quoted total of <strong>₹${totalQuoted.toLocaleString('en-IN')}</strong> is within your budget range. However, you're still waiting on a decor quote, which typically runs ₹18,000–₹45,000 for this guest count. Even at the high end, you should be within range.
+
+Also note: if you add logistics and return gifts, budget another ₹20,000–₹50,000 on top.`);
+    setMiraChips(['⚠️ What\'s missing?', '📊 Compare quotes', '💡 What should I do next?']);
+    return;
+  }
+
+  // ── CONTACT INFO ──
+  if(q.includes('contact') || q.includes('phone') || q.includes('email') || q.includes('number') || q.includes('call')){
+    const paidVendors = b.vendors.filter(v=>v.payment?.status==='fully-paid'||v.payment?.status==='advance-paid');
+    const unpaidVendors = b.vendors.filter(v=>v.payment?.status!=='fully-paid'&&v.payment?.status!=='advance-paid');
+
+    let contactHtml = paidVendors.map(v =>
+      `<div class="mira-card-row"><span class="mcr-label">${v.emoji} ${v.name}</span><span class="mcr-val">📞 +91 98XXX XXXXX</span></div>`
+    ).join('');
+
+    let lockedHtml = unpaidVendors.length > 0 ? `<div style="font-size:11px;color:var(--text-mid);padding:8px 0;border-top:1px solid #f5f5f5;margin-top:4px">🔒 Contact info for ${unpaidVendors.map(v=>v.name).join(', ')} will be available after payment.</div>` : '';
+
+    addMiraMsg('agent', `Here's vendor contact info for your booked vendors:
+
+<div class="mira-card">
+  <div class="mira-card-title">📞 Vendor Contacts</div>
+  ${contactHtml}
+  ${lockedHtml}
+</div>
+
+Contact details are shared once a quote is accepted and payment is made. For vendors still in the quote stage, all communication happens through the PlanEasy chat.`);
+    setMiraChips(['📋 Event summary', '💰 Payment status', '💬 Message a vendor']);
+    return;
+  }
+
+  // ── FALLBACK ──
+  addMiraMsg('agent', `I understand you're asking about "${q}". Let me help you with what I know about your event.
+
+I can help with:
+• <strong>Event summary</strong> — overview of your event and vendors
+• <strong>Payment status</strong> — what's paid, what's pending
+• <strong>What's missing</strong> — categories you might still need
+• <strong>Compare quotes</strong> — side-by-side vendor comparison
+• <strong>Event timeline</strong> — suggested day-of schedule
+• <strong>Specific vendors</strong> — ask about any vendor by name
+
+What would you like to know?`);
+  setMiraChips(['📋 Event summary', '💰 Payment status', '⚠️ What\'s missing?', '📊 Compare quotes', '🕐 Event timeline']);
+}
+
+// ── Mira Integration Points ──
+function buildMiraInlineCard(screen){
+  const b = bookings[0];
+  if(!b) return '';
+
+  if(screen === 'dashboard'){
+    // Gap analysis for quotes dashboard
+    const bookedCats = new Set(Object.keys(state.vendorSelections));
+    const totalCats = state.selectedCats?.length || 5;
+    const gaps = totalCats - bookedCats.size;
+
+    return `<div class="mira-inline" onclick="openMira()">
+      <div class="mira-inline-header">
+        <div class="mira-inline-avatar">✨</div>
+        <div class="mira-inline-name">Mira</div>
+      </div>
+      <div class="mira-inline-body">You've got <strong>${totalCats} categories</strong> in your plan. ${gaps > 0 ? `I noticed you haven't selected vendors for <strong>${gaps} of them</strong> yet.` : 'All categories have vendors selected!'} Tap here to ask me anything about your quotes or event.</div>
+      <div class="mira-chips">
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('⚠️ What\\'s missing?'),500)">⚠️ What's missing?</div>
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('💡 What should I do next?'),500)">💡 What's next?</div>
+      </div>
+    </div>`;
+  }
+
+  if(screen === 'myevents'){
+    const totalPaid = b.vendors.reduce((s,v) => s + (v.payment?.totalPaid||0), 0);
+    const pending = b.vendors.filter(v=>v.payment?.status==='advance-due').length;
+
+    return `<div class="mira-inline" onclick="openMira()">
+      <div class="mira-inline-header">
+        <div class="mira-inline-avatar">✨</div>
+        <div class="mira-inline-name">Mira</div>
+      </div>
+      <div class="mira-inline-body">${pending > 0 ? `You have <strong>${pending} pending payment${pending>1?'s':''}</strong> and a few categories without vendors. I'd recommend paying the caterer advance first — ` : 'Your event is shaping up nicely! '}Tap here for a full breakdown.</div>
+      <div class="mira-chips">
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('💡 What should I do next?'),500)">💡 What should I do next?</div>
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('🕐 Event timeline'),500)">🕐 Timeline</div>
+      </div>
+    </div>`;
+  }
+
+  if(screen === 'planning'){
+    return `<div class="mira-inline" onclick="openMira()">
+      <div class="mira-inline-header">
+        <div class="mira-inline-avatar">✨</div>
+        <div class="mira-inline-name">Mira</div>
+      </div>
+      <div class="mira-inline-body">Your budget plan looks great! Want help understanding which categories matter most for your event, or what to expect from vendors?</div>
+      <div class="mira-chips">
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('⚠️ What categories do I need?'),500)">What do I need?</div>
+        <div class="mira-chip" onclick="event.stopPropagation();openMira();setTimeout(()=>handleMiraChip('💡 What should I do next?'),500)">💡 What's next?</div>
+      </div>
+    </div>`;
+  }
+
+  return '';
+}
 </script>
 </body>
 </html>
