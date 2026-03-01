@@ -137,14 +137,12 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .cq-section{margin-bottom:20px}.cq-section:last-child{margin-bottom:0}
 .cq-section-title{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
 
-/* Budget toggle */
-.budget-toggle{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.budget-toggle label{font-size:13px;color:var(--text);font-weight:500;cursor:pointer}
+/* Budget range chips use existing chip styles */
 .toggle-switch{width:42px;height:24px;border-radius:12px;background:var(--border);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
 .toggle-switch.on{background:var(--accent)}
 .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.15);transition:transform .2s}
 .toggle-switch.on::after{transform:translateX(18px)}
-.budget-fields{display:none;margin-top:8px}.budget-fields.visible{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* (budget-fields removed — now using chips) */
 
 /* Notes */
 .notes-wrap{background:#FAFAFA;border:1px dashed var(--border-strong);border-radius:12px;padding:14px}
@@ -319,22 +317,22 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .plan-chip .pc-icon{font-size:14px}
 
 /* Budget table */
-.budget-table-wrap{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:20px}
+.budget-table-wrap{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius);overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px}
 .budget-table-wrap .bt-title{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary);padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.bt{width:100%;border-collapse:collapse}
+.bt{width:100%;min-width:580px;border-collapse:collapse}
 .bt th{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:10px 14px;background:#FAFAFA;border-bottom:1px solid var(--border)}
 .bt th.tier{text-align:right}
 .bt td{padding:10px 14px;border-bottom:1px solid #F5F5F5;font-size:13px;color:var(--text)}
 .bt td.cat-col{font-weight:600;display:flex;align-items:center;gap:8px}
 .bt td.cat-col .bt-emoji{font-size:16px}
-.bt td.price-col{text-align:right;font-family:'Sora',sans-serif;font-weight:600;font-size:13px}
+.bt td.price-col{text-align:right;font-family:'Sora',sans-serif;font-weight:600;font-size:11px;white-space:nowrap}
 .bt td.price-col.budget{color:#2E7D32}
 .bt td.price-col.mid{color:var(--primary)}
 .bt td.price-col.premium{color:#C62828}
 .bt tr.total-row{background:var(--accent-wash)}
 .bt tr.total-row td{font-weight:700;border-bottom:none;padding:14px}
 .bt tr.total-row td.cat-col{font-family:'Sora',sans-serif;font-size:14px}
-.bt tr.total-row td.price-col{font-size:14px}
+.bt tr.total-row td.price-col{font-size:12px}
 .bt tr.optional-row{opacity:.6}
 .bt tr.optional-row td{font-style:italic;font-size:12px}
 
@@ -376,10 +374,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .plan-cta h3{font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:6px}
 .plan-cta p{font-size:13px;color:var(--text-mid);margin-bottom:16px}
 
-/* Budget input special */
-.budget-input-wrap{display:flex;align-items:center;gap:8px;margin-top:10px}
-.budget-input-wrap .currency{font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--primary)}
-.budget-input-wrap input{flex:1}
+/* (budget-input-wrap removed — now using chips) */
 
 /* Section divider for planning screens */
 .plan-section{margin-bottom:28px}
@@ -932,6 +927,18 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
         <div class="chip" onclick="selectChip(this,'guests');state.guestCount=this.textContent">200+</div>
       </div>
     </div>
+
+    <div class="form-group">
+      <label class="form-label">What's your overall budget?</label>
+      <div class="form-hint">Helps vendors tailor their quotes to your range.</div>
+      <div class="chip-group">
+        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='under-1L';state.execBudgetLabel='Under ₹1 lakh'">Under ₹1 lakh</div>
+        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='1L-3L';state.execBudgetLabel='₹1 – ₹3 lakhs'">₹1 – ₹3 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='3L-5L';state.execBudgetLabel='₹3 – ₹5 lakhs'">₹3 – ₹5 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='5L-10L';state.execBudgetLabel='₹5 – ₹10 lakhs'">₹5 – ₹10 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='10L+';state.execBudgetLabel='₹10 lakhs+'">₹10 lakhs+</div>
+      </div>
+    </div>
   </div>
 
   <!-- ===== PLANNING-ONLY FIELDS ===== -->
@@ -968,17 +975,14 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     </div>
 
     <div class="form-group">
-      <label class="form-label">Do you have a budget in mind?</label>
+      <label class="form-label">What's your overall budget for this event?</label>
+      <div class="form-hint">Pick a range — this helps us show relevant options and match the right vendors.</div>
       <div class="chip-group">
-        <div class="chip" onclick="selectChip(this,'plan-budget-mode');state.planBudgetMode='yes';document.getElementById('planBudgetInput').style.display='block'">Yes, roughly</div>
-        <div class="chip" onclick="selectChip(this,'plan-budget-mode');state.planBudgetMode='no';document.getElementById('planBudgetInput').style.display='none';state.planBudget=null">Help me figure it out</div>
-      </div>
-      <div id="planBudgetInput" style="display:none;margin-top:12px">
-        <div class="budget-input-wrap">
-          <span class="currency">₹</span>
-          <input type="number" placeholder="Total budget" onchange="state.planBudget=this.value">
-        </div>
-        <div class="form-hint" style="margin-top:6px">We'll show how this splits across categories.</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='under-1L';state.planBudgetLabel='Under ₹1 lakh'">Under ₹1 lakh</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='1L-3L';state.planBudgetLabel='₹1 – ₹3 lakhs'">₹1 – ₹3 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='3L-5L';state.planBudgetLabel='₹3 – ₹5 lakhs'">₹3 – ₹5 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='5L-10L';state.planBudgetLabel='₹5 – ₹10 lakhs'">₹5 – ₹10 lakhs</div>
+        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='10L+';state.planBudgetLabel='₹10 lakhs+'">₹10 lakhs+</div>
       </div>
     </div>
   </div>
@@ -1012,8 +1016,8 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <table class="bt" id="budgetTable">
         <thead>
           <tr>
-            <th style="width:30%">Category</th>
-            <th class="tier" style="width:10%">%</th>
+            <th style="width:25%">Category</th>
+            <th class="tier" style="width:8%">%</th>
             <th class="tier">Budget</th>
             <th class="tier">Mid-range</th>
             <th class="tier">Premium</th>
@@ -1543,7 +1547,7 @@ let state = {
   serviceKey: null, // which single service picked (service path)
   serviceContext: null, // 'wedding','birthday','babyshower','corporate','festival','houseparty','personal','other'
   // Planning mode
-  planGuests: null, planCity: null, planBudget: null, planBudgetMode: null,
+  planGuests: null, planCity: null, planBudget: null, planBudgetLabel: null,
 };
 
 // ========== OCCASION CONFIG ==========
@@ -1766,17 +1770,28 @@ const TIMELINE_SMALL = {
 
 function calcBudget(catKey, guests, city) {
   const base = BUDGET_BASE[catKey];
-  if (!base) return [0,0,0];
+  if (!base) return [[0,0],[0,0],[0,0]];
   const scaleType = SCALE_TYPE[catKey] || 'fixed';
   const gMult = (GUEST_MULT[scaleType] || {})[guests] || 1.0;
   const cMult = CITY_TIER[city] || 0.7;
-  return base.map(b => Math.round(b * gMult * cMult / 1000) * 1000); // round to nearest 1000
+  // Return [low, mid, high] as range pairs: [[lowMin,lowMax],[midMin,midMax],[highMin,highMax]]
+  return base.map(b => {
+    const center = b * gMult * cMult;
+    const lo = Math.round((center * 0.85) / 1000) * 1000;
+    const hi = Math.round((center * 1.15) / 1000) * 1000;
+    return [lo, hi];
+  });
 }
 
 function formatINR(n) {
   if (n >= 100000) return '₹' + (n/100000).toFixed(1).replace(/\.0$/,'') + 'L';
   if (n >= 1000) return '₹' + (n/1000).toFixed(0) + 'K';
   return '₹' + n;
+}
+
+function formatRange(pair) {
+  if(!pair || pair[0]===pair[1]) return formatINR(pair[0]||0);
+  return formatINR(pair[0]) + ' – ' + formatINR(pair[1]);
 }
 
 // ========== CONTEXT HELPERS (original) ==========
@@ -2473,13 +2488,29 @@ const CQ = {
 
 // ========== HELPERS ==========
 function budgetBlock(key, label){
+  // Derive ranges from BUDGET_BASE [low, mid, high]
+  const RANGE_MAP = {
+    venue:        ['Under ₹50K', '₹50K – ₹1.5L', '₹1.5 lakh+'],
+    fb:           ['Under ₹500/plate', '₹500 – ₹1,000/plate', '₹1,000+/plate'],
+    ent:          ['Under ₹15K', '₹15K – ₹40K', '₹40,000+'],
+    entertainment:['Under ₹15K', '₹15K – ₹40K', '₹40,000+'],
+    decor:        ['Under ₹25K', '₹25K – ₹75K', '₹75,000+'],
+    photo:        ['Under ₹20K', '₹20K – ₹50K', '₹50,000+'],
+    florist:      ['Under ₹15K', '₹15K – ₹35K', '₹35,000+'],
+    slp:          ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
+    gift:         ['Under ₹200/person', '₹200 – ₹500/person', '₹500+/person'],
+    returnGifts:  ['Under ₹200/person', '₹200 – ₹500/person', '₹500+/person'],
+    styling:      ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
+    ceremonial:   ['Under ₹10K', '₹10K – ₹20K', '₹20,000+'],
+    emcee:        ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
+    logistics:    ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
+    eventManager: ['Under ₹15K', '₹15K – ₹35K', '₹35,000+'],
+  };
+  const ranges = RANGE_MAP[key] || ['Under ₹15K', '₹15K – ₹40K', '₹40,000+'];
   return `<div class="cq-section">
-    <div class="budget-toggle">
-      <div class="toggle-switch" onclick="toggleBudget(this,'budget-${key}')"></div>
-      <label>I have a ${label} in mind</label>
-    </div>
-    <div class="budget-fields" id="budget-${key}">
-      <input type="text" placeholder="Min (₹)"><input type="text" placeholder="Max (₹)">
+    <div class="cq-section-title">What's your ${label.replace('I have a ','').replace(' in mind','')} range?</div>
+    <div class="chip-group">
+      ${ranges.map(r => `<div class="chip sm" onclick="selectChip(this,'budget-${key}')">${r}</div>`).join('')}
     </div></div>`;
 }
 function notesBlock(to, placeholder){
@@ -2599,7 +2630,7 @@ function goHome(){
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
   state.serviceKey = null; state.serviceContext = null;
   state.crossPollinate = null; state.ceremonyDetail = null;
-  state.planGuests = null; state.planCity = null; state.planBudget = null; state.planBudgetMode = null;
+  state.planGuests = null; state.planCity = null; state.planBudget = null; state.planBudgetLabel = null;
   // Clear selections visually
   document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected').forEach(el => el.classList.remove('selected','checked'));
   document.getElementById('culturalDeepDive').style.display='none';
@@ -3111,6 +3142,7 @@ function buildReview(){
       <div class="rr"><span class="rl">Occasion</span><span class="rv">${occ?.emoji||'✨'} ${occ?.label||'Event'}${st?' — '+st.label:''}</span></div>
       ${extraRows}
       <div class="rr"><span class="rl">Categories</span><span class="rv">${state.selectedCats.length} selected</span></div>
+      ${state.execBudgetLabel ? `<div class="rr"><span class="rl">Budget</span><span class="rv">💰 ${state.execBudgetLabel}</span></div>` : ''}
     </div></div>`;
   state.selectedCats.forEach(catKey=>{
     const c=CATS[catKey];
@@ -3437,10 +3469,7 @@ function toggleCQ(header){
   const card = header.closest('.cq-card');
   card.classList.toggle('open');
 }
-function toggleBudget(sw, fieldsId){
-  sw.classList.toggle('on');
-  document.getElementById(fieldsId).classList.toggle('visible');
-}
+function toggleBudget(){} // legacy stub — budget now uses range chips
 function handleVenueChoice(el, choice){
   selectChip(el, 'venue-status');
   document.querySelectorAll('[id^="cond-venue-"]').forEach(s=>s.classList.remove('visible'));
@@ -3465,7 +3494,7 @@ function buildPlanningDashboard(){
     <div class="plan-chip"><span class="pc-icon">${occ?occ.emoji:'✨'}</span>${subLabel||occLabel}</div>
     <div class="plan-chip"><span class="pc-icon">👥</span>${guests} guests</div>
     <div class="plan-chip"><span class="pc-icon">📍</span>${cityLabel}</div>
-    ${state.planBudget?`<div class="plan-chip"><span class="pc-icon">💰</span>Budget: ₹${Number(state.planBudget).toLocaleString('en-IN')}</div>`:''}
+    ${state.planBudget?`<div class="plan-chip"><span class="pc-icon">💰</span>${state.planBudgetLabel||state.planBudget}</div>`:''}
   `;
 
   // Get categories from CAT_MAP
@@ -3499,72 +3528,80 @@ function buildPlanningDashboard(){
     </div>
   `).join('');
 
-  // Budget table — 3 tiers
+  // Budget table — 3 tiers, all ranges
   const mustHaves = budgetData.filter(d=>d.flag===1);
   const niceToHaves = budgetData.filter(d=>d.flag===0);
 
-  let totals = [0,0,0];
+  let totals = [[0,0],[0,0],[0,0]];
   let tbody = '';
 
   mustHaves.forEach(d => {
-    totals[0]+=d.prices[0]; totals[1]+=d.prices[1]; totals[2]+=d.prices[2];
+    totals[0][0]+=d.prices[0][0]; totals[0][1]+=d.prices[0][1];
+    totals[1][0]+=d.prices[1][0]; totals[1][1]+=d.prices[1][1];
+    totals[2][0]+=d.prices[2][0]; totals[2][1]+=d.prices[2][1];
     tbody += `<tr>
       <td class="cat-col"><span class="bt-emoji">${d.cat.emoji}</span>${d.cat.name}</td>
       <td class="price-col" style="font-size:11px;color:var(--text-mid)" data-pct>—</td>
-      <td class="price-col budget">${formatINR(d.prices[0])}</td>
-      <td class="price-col mid">${formatINR(d.prices[1])}</td>
-      <td class="price-col premium">${formatINR(d.prices[2])}</td>
+      <td class="price-col budget">${formatRange(d.prices[0])}</td>
+      <td class="price-col mid">${formatRange(d.prices[1])}</td>
+      <td class="price-col premium">${formatRange(d.prices[2])}</td>
     </tr>`;
   });
 
   if(niceToHaves.length > 0){
     tbody += `<tr style="background:#FAFAFA"><td colspan="5" style="font-size:11px;font-weight:700;color:var(--text-mid);padding:8px 14px">NICE TO HAVE (add if budget allows)</td></tr>`;
     niceToHaves.forEach(d => {
-      totals[0]+=d.prices[0]; totals[1]+=d.prices[1]; totals[2]+=d.prices[2];
+      totals[0][0]+=d.prices[0][0]; totals[0][1]+=d.prices[0][1];
+      totals[1][0]+=d.prices[1][0]; totals[1][1]+=d.prices[1][1];
+      totals[2][0]+=d.prices[2][0]; totals[2][1]+=d.prices[2][1];
       tbody += `<tr class="optional-row">
         <td class="cat-col"><span class="bt-emoji">${d.cat.emoji}</span>${d.cat.name}</td>
         <td class="price-col" style="font-size:11px;color:var(--text-mid)">—</td>
-        <td class="price-col budget">${formatINR(d.prices[0])}</td>
-        <td class="price-col mid">${formatINR(d.prices[1])}</td>
-        <td class="price-col premium">${formatINR(d.prices[2])}</td>
+        <td class="price-col budget">${formatRange(d.prices[0])}</td>
+        <td class="price-col mid">${formatRange(d.prices[1])}</td>
+        <td class="price-col premium">${formatRange(d.prices[2])}</td>
       </tr>`;
     });
   }
 
-  // Total row — always a range
+  // Total row — ranges
   tbody += `<tr class="total-row">
     <td class="cat-col">ESTIMATED RANGE</td>
     <td class="price-col"></td>
-    <td class="price-col budget">${formatINR(totals[0])}</td>
-    <td class="price-col mid">${formatINR(totals[1])}</td>
-    <td class="price-col premium">${formatINR(totals[2])}</td>
+    <td class="price-col budget">${formatRange(totals[0])}</td>
+    <td class="price-col mid">${formatRange(totals[1])}</td>
+    <td class="price-col premium">${formatRange(totals[2])}</td>
   </tr>`;
 
   document.getElementById('budgetBody').innerHTML = tbody;
 
-  // Fill in % for must-haves
+  // Fill in % ranges for must-haves
   const pctCells = document.querySelectorAll('#budgetBody td[data-pct]');
   pctCells.forEach((cell, i) => {
-    if(mustHaves[i] && totals[1] > 0){
-      cell.textContent = Math.round((mustHaves[i].prices[1] / totals[1]) * 100) + '%';
+    if(mustHaves[i] && totals[1][1] > 0){
+      const pctLo = Math.round((mustHaves[i].prices[1][0] / totals[1][1]) * 100);
+      const pctHi = Math.round((mustHaves[i].prices[1][1] / totals[1][0]) * 100);
+      cell.textContent = pctLo === pctHi ? pctLo + '%' : pctLo + '–' + pctHi + '%';
     }
   });
 
-  // Total highlight — always a range, never a single number
+  // Total highlight — full range from lowest budget to highest premium
   document.getElementById('planTotal').innerHTML = `
-    <div class="pt-range">${formatINR(totals[0])} – ${formatINR(totals[2])}</div>
+    <div class="pt-range">${formatINR(totals[0][0])} – ${formatINR(totals[2][1])}</div>
     <div class="pt-label">Estimated range for ${guests} guests in ${cityLabel}</div>
     <div style="margin-top:6px;font-size:11px;color:var(--text-mid)">Actual costs depend on specific vendors, season, and customization</div>
   `;
 
-  // If user provided budget, show fit analysis against the range
+  // If user provided budget range, show fit analysis
   if(state.planBudget){
-    const b = Number(state.planBudget);
+    // Map range keys to approximate midpoint values for comparison
+    const budgetMidpoints = {'under-1L':75000, '1L-3L':200000, '3L-5L':400000, '5L-10L':750000, '10L+':1500000};
+    const b = budgetMidpoints[state.planBudget] || 0;
     let fitMsg = '';
-    if(b >= totals[2]) fitMsg = '✅ Your budget is above the upper range — you have room for premium choices across categories.';
-    else if(b >= totals[1]) fitMsg = '✅ Your budget falls in the mid-to-upper range — a strong position with room for selective upgrades.';
-    else if(b >= totals[0]) fitMsg = '⚡ Your budget falls within the estimated range — prioritize must-haves and be selective with extras.';
-    else fitMsg = '⚠️ Your budget is below the estimated range. Consider adjusting guest count or focusing on fewer categories.';
+    if(b >= totals[2][1]) fitMsg = '✅ Your budget range is above our upper estimate — you have room for premium choices across categories.';
+    else if(b >= totals[1][0]) fitMsg = '✅ Your budget range fits well in the mid-to-upper estimate — a strong position with room for selective upgrades.';
+    else if(b >= totals[0][0]) fitMsg = '⚡ Your budget range falls within the estimated range — prioritize must-haves and be selective with extras.';
+    else fitMsg = '⚠️ Your budget range is below our estimate for this setup. Consider adjusting guest count or focusing on fewer categories.';
     document.getElementById('planTotal').innerHTML += `<div style="margin-top:10px;padding:10px 16px;background:var(--accent-wash);border-radius:10px;font-size:13px;font-weight:600;color:var(--primary)">${fitMsg}</div>`;
   }
 
