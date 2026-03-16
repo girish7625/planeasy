@@ -773,6 +773,34 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 /* ── Category Pills (horizontal scroll) ── */
 .cat-pills-wrap{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 0 12px;margin-bottom:4px;scrollbar-width:none}
 .cat-pills-wrap::-webkit-scrollbar{display:none}
+
+/* Browse search bar */
+
+/* Category dependency nudges */
+.dep-nudge{background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:1.5px solid #FFE082;border-radius:14px;padding:14px 16px;margin-bottom:10px;font-size:12px;color:var(--primary);line-height:1.6;animation:fadeUp .3s ease;display:flex;gap:10px;align-items:flex-start}
+.dep-nudge-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.dep-nudge strong{font-family:'Sora',sans-serif;display:block;margin-bottom:2px;font-size:13px}
+.dep-nudge-action{margin-top:6px;font-size:11px;color:var(--accent);font-weight:700;cursor:pointer}
+.dep-nudge.warn{background:linear-gradient(135deg,#FFF3E0,#FFF8E1);border-color:#FFB74D}
+.dep-nudge.info{background:linear-gradient(135deg,#E3F2FD,#EDE7F6);border-color:#90CAF9}
+
+/* Browse search bar */
+.browse-search-wrap{margin-bottom:16px;position:relative}
+.browse-search-bar{display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:4px 14px;transition:border-color .2s,box-shadow .2s}
+.browse-search-bar:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,204,2,.15)}
+.bsb-icon{font-size:16px;flex-shrink:0;opacity:.5}
+.browse-search-bar input{flex:1;border:none;outline:none;font-size:14px;padding:10px 0;background:transparent;font-family:inherit;color:var(--primary)}
+.browse-search-bar input::placeholder{color:var(--text-light)}
+.bsb-clear{width:28px;height:28px;border-radius:50%;border:none;background:var(--border);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-mid);flex-shrink:0;transition:background .2s}
+.bsb-clear:hover{background:var(--text-light);color:#fff}
+.browse-search-hints{display:none;margin-top:10px}
+.browse-search-hints.visible{display:block;animation:fadeUp .2s ease}
+.bsh-label{font-size:11px;color:var(--text-light);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.bsh-chips{display:flex;flex-wrap:wrap;gap:6px}
+.bsh-chip{padding:6px 12px;border-radius:100px;background:var(--accent-wash);border:1px solid var(--accent-soft);font-size:12px;font-weight:600;color:var(--primary);cursor:pointer;transition:all .2s;white-space:nowrap}
+.bsh-chip:hover{background:var(--accent);border-color:var(--accent)}
+.browse-search-results-label{font-size:12px;color:var(--text-mid);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.browse-search-results-label a{color:var(--accent);font-weight:600;cursor:pointer}
 .cat-pill{flex-shrink:0;padding:8px 16px;border:1.5px solid var(--border);border-radius:20px;font-family:'Sora',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:#fff;color:var(--text-mid);transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:5px}
 .cat-pill.active{border-color:var(--accent);background:var(--accent-wash);color:var(--primary)}
 .cat-pill .cp-emoji{font-size:14px}
@@ -830,7 +858,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .v-cat-card .ck{position:absolute;top:6px;right:6px;width:18px;height:18px;border-radius:50%;background:var(--accent);color:var(--primary);display:none;align-items:center;justify-content:center;font-size:10px;font-weight:800}
 .v-cat-card.selected .ck{display:flex}
 
-.v-import-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.v-import-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .v-import-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:20px 16px;text-align:center;cursor:pointer;transition:all .25s}
 .v-import-card:hover{border-color:var(--accent-soft);box-shadow:var(--shadow)}
 .v-import-card.selected{border-color:var(--accent);background:var(--accent-wash)}
@@ -1022,9 +1050,42 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   .auth-sheet{padding:24px 16px}
   .chat-msg{max-width:85%}
   .screen-wrap{padding:24px 12px 140px}
-  .v-import-cards{grid-template-columns:1fr 1fr}
+  .v-import-cards{grid-template-columns:1fr 1fr 1fr}
   .v-cat-grid{grid-template-columns:repeat(3,1fr)}
   .v-dashboard-cards{grid-template-columns:1fr 1fr}
+  /* User dashboard mobile fixes */
+  .dash-stats{gap:8px;justify-content:space-between}
+  .dash-stat{min-width:0;flex:1;padding:10px 8px}
+  .ds-num{font-size:18px}
+  .ds-label{font-size:9px}
+  .dash-cat{padding:14px 12px;gap:10px}
+  .dc-name{font-size:13px}
+  .dc-quotes{flex-shrink:0}
+  .quote-badge{font-size:10px;padding:3px 8px}
+  /* Vendor dashboard mobile fixes */
+  .vd-stats{gap:8px}
+  .vd-stat{padding:12px 10px}
+  .vd-stat-num{font-size:18px}
+  .vd-stat-label{font-size:10px}
+  .vd-lead-card{padding:12px}
+  .vd-lead-meta{gap:6px;font-size:11px}
+  .vd-detail-header{padding:20px 16px}
+  .vd-detail-event{font-size:16px}
+  .vd-detail-pills{gap:4px}
+  .vd-detail-pill{font-size:10px;padding:3px 8px}
+  .vd-quote-builder{padding:16px}
+  .vd-quote-row input{padding:8px 10px;font-size:12px}
+  .vd-cal-cell{font-size:11px}
+  .vd-analytics-card{padding:12px}
+  .vd-funnel-label{font-size:10px;min-width:65px}
+  .vd-benchmark{font-size:11px}
+  .vd-benchmark-vals{gap:8px}
+  .vd-response-bar{padding:10px;gap:8px}
+  .vd-response-text{font-size:12px}
+  .vd-header .vd-greeting{font-size:18px}
+  /* Planning dashboard mobile */
+  .plan-stats{grid-template-columns:1fr 1fr !important}
+  .plan-chip{font-size:11px;padding:4px 10px}
 }
 </style>
 </head>
@@ -1099,6 +1160,17 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <div class="fork-sub">Know what you need? Explore vendors by category — see profiles, pricing, and reviews before you commit.</div>
       <span class="fork-arrow">→</span>
     </div>
+    <div class="fork-or">or</div>
+    <div class="fork-card" onclick="pickMode('invite')" style="border-color:var(--accent-soft);background:linear-gradient(135deg,#FFFBEB,#FFF8E1)">
+      <span class="fork-emoji">🎨</span>
+      <div class="fork-title">Design your invite</div>
+      <div class="fork-sub">Create stunning invitations with AI in 60 seconds. Free. Download for WhatsApp, Instagram, Email, or Print.</div>
+      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
+        <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--accent);color:var(--primary)">Phase 1 · Standalone web app</span>
+        <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:#F5F5F5;color:var(--text-light)">Phase 2 · Integrated in main product</span>
+      </div>
+      <span class="fork-arrow">→</span>
+    </div>
   </div>
   <div class="switch-link" style="margin-top:24px"><a onclick="goTo(100)">← Are you a vendor? List your business instead</a></div>
 </div>
@@ -1108,6 +1180,9 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <h2>What are you celebrating?</h2>
     <p id="s1Subtitle">Pick your occasion — we'll customize everything that follows.</p>
   </div>
+
+  <div id="s1HowItWorks" style="display:none"></div>
+
   <div class="occ-grid">
     <div class="occ-card" onclick="pickOcc(this,'birthday')"><div class="ck">✓</div><span class="oe">🎂</span><div class="on">Birthday</div></div>
     <div class="occ-card" onclick="pickOcc(this,'babyshower')"><div class="ck">✓</div><span class="oe">🍼</span><div class="on">Baby Shower</div></div>
@@ -1118,8 +1193,6 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div class="occ-card" onclick="pickOcc(this,'retirement')"><div class="ck">✓</div><span class="oe">🎖️</span><div class="on">Retirement</div></div>
     <div class="occ-card" onclick="pickOcc(this,'other')"><div class="ck">✓</div><span class="oe">✨</span><div class="on">Other</div></div>
   </div>
-
-  <div id="s1HowItWorks" style="display:none"></div>
 
   <div class="btn-row"><button class="btn btn-secondary" onclick="goTo(0)">← Back</button><button class="btn btn-primary" onclick="goTo(2)">Continue →</button></div>
 </div>
@@ -1195,14 +1268,12 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     </div>
 
     <div class="form-group">
-      <label class="form-label">What's your overall budget?</label>
-      <div class="form-hint">Helps vendors tailor their quotes to your range.</div>
-      <div class="chip-group">
-        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='under-1L';state.execBudgetLabel='Under ₹1 lakh'">Under ₹1 lakh</div>
-        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='1L-3L';state.execBudgetLabel='₹1 – ₹3 lakhs'">₹1 – ₹3 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='3L-5L';state.execBudgetLabel='₹3 – ₹5 lakhs'">₹3 – ₹5 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='5L-10L';state.execBudgetLabel='₹5 – ₹10 lakhs'">₹5 – ₹10 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'exec-budget');state.execBudget='10L+';state.execBudgetLabel='₹10 lakhs+'">₹10 lakhs+</div>
+      <div style="background:linear-gradient(135deg,#F0F7FF,#EEF2FF);border:1.5px solid #BFDBFE;border-radius:14px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:16px">💡</span>
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px">Budget? We'll figure it out together</div>
+          <div style="font-size:12px;color:var(--text-mid);line-height:1.6">Most people don't know their budget upfront — and that's perfectly fine. As vendors send quotes, Mira will help you compare, negotiate, and track costs across all categories.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1241,14 +1312,13 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     </div>
 
     <div class="form-group">
-      <label class="form-label">What's your overall budget for this event?</label>
-      <div class="form-hint">Pick a range — this helps us show relevant options and match the right vendors.</div>
-      <div class="chip-group">
-        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='under-1L';state.planBudgetLabel='Under ₹1 lakh'">Under ₹1 lakh</div>
-        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='1L-3L';state.planBudgetLabel='₹1 – ₹3 lakhs'">₹1 – ₹3 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='3L-5L';state.planBudgetLabel='₹3 – ₹5 lakhs'">₹3 – ₹5 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='5L-10L';state.planBudgetLabel='₹5 – ₹10 lakhs'">₹5 – ₹10 lakhs</div>
-        <div class="chip" onclick="selectChip(this,'plan-budget');state.planBudget='10L+';state.planBudgetLabel='₹10 lakhs+'">₹10 lakhs+</div>
+      <div style="background:linear-gradient(135deg,#F0F7FF,#EEF2FF);border:1.5px solid #BFDBFE;border-radius:14px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start">
+        <span style="font-size:16px">💡</span>
+        <div>
+          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px">We'll show you what things actually cost</div>
+          <div style="font-size:12px;color:var(--text-mid);line-height:1.6">On the next screen, you'll see real estimated ranges for every category based on your guest count and city. No need to guess a budget — let the numbers guide you.</div>
+          <div style="font-size:11px;color:#6366F1;font-weight:600;margin-top:6px">🔮 Coming soon: Smart budget planner with allocation tools and vendor-matched pricing</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1401,6 +1471,9 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
   <div class="cat-list" id="catList">
     <!-- Populated dynamically -->
+  </div>
+  <div id="catNudges" style="margin-top:12px">
+    <!-- Dependency nudges appear here -->
   </div>
   <div class="btn-row">
     <button class="btn btn-secondary" onclick="goTo(2)">← Back</button>
@@ -1756,7 +1829,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <!-- ==================== SCREEN 8: VENDOR LIST (dynamic per category) ==================== -->
 <div class="screen" id="s8">
-  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(7)" style="padding:8px 16px;font-size:12px">← Back to dashboard</button></div>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div id="vendorListContent">
     <!-- Populated dynamically per category -->
   </div>
@@ -1768,24 +1841,49 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <!-- ==================== SCREEN 9: COMPARE VIEW ==================== -->
 <div class="screen" id="s9">
-  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(8)" style="padding:8px 16px;font-size:12px">← Back to vendors</button></div>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div id="compareContent">
     <!-- Populated dynamically -->
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(8)">← Back</button>
+    <button class="btn btn-secondary" onclick="goBack()">← Back</button>
     <button class="btn btn-primary" onclick="goTo(7)">Confirm & Return to Dashboard</button>
   </div>
 </div>
 
 <!-- ==================== BROWSE: SCREEN 20 — VENDOR MARKETPLACE (MERGED) ==================== -->
 <div class="screen" id="s20">
-  <div style="margin-bottom:4px"><button class="btn btn-secondary" onclick="goTo(0)" style="padding:8px 16px;font-size:12px">← Back to home</button></div>
+  <div style="margin-bottom:4px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div class="sh" style="margin-bottom:12px">
     <h2>Browse Vendors</h2>
     <p>Explore profiles, pricing, and reviews. Select vendors to request quotes.</p>
   </div>
-  <div class="hiw-box" style="margin-bottom:16px">
+
+  <!-- Search Bar -->
+  <div class="browse-search-wrap">
+    <div class="browse-search-bar">
+      <span class="bsb-icon">🔍</span>
+      <input type="text" id="browseSearchInput" placeholder="Search vendors, categories, styles..." oninput="handleBrowseSearch(this.value)" onfocus="showSearchHints(true)" onblur="setTimeout(()=>showSearchHints(false),200)">
+      <button class="bsb-clear" id="browseSearchClear" onclick="clearBrowseSearch()" style="display:none">✕</button>
+    </div>
+    <div class="browse-search-hints" id="browseSearchHints">
+      <div class="bsh-label">Try searching for</div>
+      <div class="bsh-chips">
+        <span class="bsh-chip" onclick="applySearchHint('candid photographer')">candid photographer</span>
+        <span class="bsh-chip" onclick="applySearchHint('DJ')">DJ</span>
+        <span class="bsh-chip" onclick="applySearchHint('veg catering')">veg catering</span>
+        <span class="bsh-chip" onclick="applySearchHint('mehendi')">mehendi</span>
+        <span class="bsh-chip" onclick="applySearchHint('budget venue')">budget venue</span>
+        <span class="bsh-chip" onclick="applySearchHint('drone')">drone</span>
+        <span class="bsh-chip" onclick="applySearchHint('pandit')">pandit</span>
+        <span class="bsh-chip" onclick="applySearchHint('floral decor')">floral decor</span>
+        <span class="bsh-chip" onclick="applySearchHint('foil invitation')">foil invitation</span>
+        <span class="bsh-chip" onclick="applySearchHint('emcee')">emcee</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hiw-box" style="margin-bottom:16px" id="browseHIW">
     <div class="hiw-title">✨ How it works</div>
     <div class="hiw-steps">
       <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-text">Browse profiles, pricing & reviews across all categories</div></div>
@@ -1871,7 +1969,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(20)">← Back to vendors</button>
+    <button class="btn btn-secondary" onclick="goBack()">← Back</button>
     <button class="btn btn-primary" onclick="buildBrowseReview();goTo(23)">Review & Send →</button>
   </div>
 </div>
@@ -1887,14 +1985,160 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <!-- Populated dynamically -->
   </div>
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(22)">← Edit details</button>
+    <button class="btn btn-secondary" onclick="goBack()">← Back</button>
     <button class="btn btn-green" onclick="submitBrowseRequest()">✓ Send Request for Quotes</button>
   </div>
 </div>
 
 <!-- ==================== SCREEN 30: VENDOR PROFILE (EXPANDED) ==================== -->
+
+<!-- ═══════════ INVITE CREATOR SCREENS (s70–s75) ═══════════ -->
+
+<!-- SCREEN 70: INVITE LANDING -->
+<div class="screen" id="s70">
+  <div style="text-align:center;padding:20px 0 10px">
+    <div style="font-size:48px;margin-bottom:12px">🎨</div>
+    <h2 style="font-family:'Sora',sans-serif;font-size:26px;margin-bottom:8px">Design your invite<br>in 60 seconds</h2>
+    <p style="color:var(--text-mid);font-size:14px;max-width:320px;margin:0 auto 20px;line-height:1.6">AI creates beautiful invitations for any occasion. Free. No design skills needed.</p>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:24px">
+      <span style="padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700;background:#E8F5E9;color:#2E7D32">100% Free</span>
+      <span style="padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700;background:var(--accent-wash);color:var(--primary)">AI-Powered</span>
+      <span style="padding:5px 12px;border-radius:100px;font-size:11px;font-weight:700;background:#E3F2FD;color:#1565C0">No signup needed</span>
+    </div>
+    <div style="display:flex;gap:16px;justify-content:center;margin-bottom:32px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid)"><span style="width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">1</span> Enter details</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid)"><span style="width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">2</span> Pick a theme</div>
+      <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid)"><span style="width:22px;height:22px;border-radius:50%;background:var(--primary);color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center">3</span> Download & share</div>
+    </div>
+    <button class="btn btn-primary" onclick="goTo(71)" style="max-width:320px;margin:0 auto;background:var(--accent);color:var(--primary)">Create your invite →</button>
+  </div>
+  <div style="background:var(--primary);color:#fff;border-radius:16px;padding:24px;text-align:center;margin-top:32px">
+    <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px">Planning a bigger event?</div>
+    <div style="font-size:12px;opacity:.7;margin-bottom:14px">PlanEzee connects you with photographers, caterers, DJs, decorators, and 15+ vendor categories.</div>
+    <button class="btn btn-secondary" onclick="goTo(0)" style="border-color:rgba(255,255,255,.3);color:#fff;width:auto;padding:10px 20px;font-size:12px">Explore PlanEzee →</button>
+  </div>
+  <div style="text-align:center;margin-top:20px"><span class="back-link" onclick="goTo(0)">← Back to home</span></div>
+</div>
+
+<!-- SCREEN 71: EVENT DETAILS -->
+<div class="screen" id="s71">
+  <span class="back-link" onclick="goBack()">← Back</span>
+  <h2 style="font-family:'Sora',sans-serif;font-size:22px;margin-bottom:4px">Tell us about your event</h2>
+  <p style="color:var(--text-mid);font-size:13px;margin-bottom:20px">We'll use these details to create your invitation.</p>
+
+  <div class="form-group">
+    <label class="form-label">Event name *</label>
+    <input type="text" id="invName" placeholder="e.g. Priya & Rohan's Wedding Reception" oninput="checkInvStep1()" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif" class="">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Hosted by</label>
+    <input type="text" id="invHost" placeholder="e.g. The Sharma Family" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div class="form-group">
+      <label class="form-label">Date *</label>
+      <input type="date" id="invDate" oninput="checkInvStep1()" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Time</label>
+      <input type="time" id="invTime" value="18:00" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Venue / Location</label>
+    <input type="text" id="invVenue" placeholder="e.g. Royal Greens, Andheri West, Mumbai" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+  </div>
+  <div class="form-group">
+    <label class="form-label">About this event</label>
+    <textarea id="invDesc" placeholder="A short description for your guests... (optional)" rows="3" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical"></textarea>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Dress code / Special instructions</label>
+    <input type="text" id="invDress" placeholder="e.g. Traditional attire preferred" style="padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;width:100%;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+  </div>
+  <button class="btn btn-primary" id="btnInvStep1" disabled onclick="goTo(72)" style="margin-top:8px">Choose a theme →</button>
+</div>
+
+<!-- SCREEN 72: THEME SELECTION -->
+<div class="screen" id="s72">
+  <span class="back-link" onclick="goBack()">← Back to details</span>
+  <h2 style="font-family:'Sora',sans-serif;font-size:22px;margin-bottom:4px">Pick a theme</h2>
+  <p style="color:var(--text-mid);font-size:13px;margin-bottom:20px">Sets the mood. Mira will design options that match.</p>
+  <div id="invThemeGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div>
+  <button class="btn btn-primary" id="btnInvGenerate" disabled onclick="goTo(73)" style="margin-top:20px;background:var(--accent);color:var(--primary)">✨ Generate invites →</button>
+</div>
+
+<!-- SCREEN 73: AI GENERATING + RESULTS -->
+<div class="screen" id="s73">
+  <div id="invGenLoading" style="text-align:center;padding:60px 0">
+    <div style="width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px"></div>
+    <div style="display:inline-flex;align-items:center;gap:6px;background:var(--accent-wash);border:1px solid rgba(255,204,2,.3);border-radius:100px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--primary);margin-bottom:12px">✨ Mira AI</div>
+    <div id="invGenStatus" style="font-size:13px;color:var(--text-mid)">Reading your event details...</div>
+  </div>
+  <div id="invGenResults" style="display:none">
+    <span class="back-link" onclick="goTo(72)">← Change theme</span>
+    <h2 style="font-family:'Sora',sans-serif;font-size:22px;margin-bottom:4px">Pick your favourite</h2>
+    <p style="color:var(--text-mid);font-size:13px;margin-bottom:16px">Mira created 3 designs. Tap to select.</p>
+    <div id="invOptionsGrid" style="display:flex;flex-direction:column;gap:14px"></div>
+    <button class="btn btn-primary" id="btnInvPick" disabled onclick="goTo(74)" style="margin-top:20px">Use this design →</button>
+  </div>
+</div>
+
+<!-- SCREEN 74: FORMAT + DOWNLOAD -->
+<div class="screen" id="s74">
+  <span class="back-link" onclick="goBack()">← Back</span>
+  <h2 style="font-family:'Sora',sans-serif;font-size:22px;margin-bottom:4px">Where will you share this?</h2>
+  <p style="color:var(--text-mid);font-size:13px;margin-bottom:16px">We'll optimize the file for each platform.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px" id="invFormatChips">
+    <span class="chip selected" onclick="toggleInvFormat(this)" data-fmt="whatsapp">WhatsApp</span>
+    <span class="chip" onclick="toggleInvFormat(this)" data-fmt="instagram">Instagram</span>
+    <span class="chip" onclick="toggleInvFormat(this)" data-fmt="email">Email</span>
+    <span class="chip" onclick="toggleInvFormat(this)" data-fmt="print">Print</span>
+  </div>
+  <div id="invFormatInfo" style="background:var(--accent-wash);border:1px solid var(--accent-soft);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--primary);line-height:1.6;margin-bottom:20px">
+    <strong>WhatsApp:</strong> 1080×1080px JPEG · Square shows fully in chat. Under 300KB.
+  </div>
+
+  <button class="btn btn-primary" onclick="goTo(75)">Preview & download →</button>
+</div>
+
+<!-- SCREEN 75: FINAL PREVIEW -->
+<div class="screen" id="s75">
+  <span class="back-link" onclick="goBack()">← Back</span>
+  <h2 style="font-family:'Sora',sans-serif;font-size:22px;margin-bottom:4px">Your invite is ready!</h2>
+  <p style="color:var(--text-mid);font-size:13px;margin-bottom:20px">Preview, download, and share with your guests.</p>
+
+  <div id="invFinalPreview" style="border-radius:16px;overflow:hidden;border:1.5px solid var(--border);box-shadow:0 8px 40px rgba(0,0,0,.1);margin-bottom:20px"></div>
+
+  <div style="font-size:12px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Download & share</div>
+  <div id="invDownloadGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px"></div>
+
+  <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:20px;margin-top:20px">
+    <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--primary);margin-bottom:12px">RSVP tracking</div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid #f5f5f5"><span style="color:var(--text-mid)">Share link</span><span style="font-weight:700;color:#2563EB;font-size:11px">invites.planezee.com/r/abc123</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid #f5f5f5"><span style="color:var(--text-mid)">Invited</span><span style="font-weight:700">—</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px;border-bottom:1px solid #f5f5f5"><span style="color:var(--text-mid)">Attending</span><span style="font-weight:700;color:var(--green)">—</span></div>
+    <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:13px"><span style="color:var(--text-mid)">Declined</span><span style="font-weight:700;color:#D94242">—</span></div>
+    <div style="font-size:11px;color:var(--text-light);text-align:center;margin-top:8px">RSVP tracking activates when you share the link. Coming soon.</div>
+  </div>
+
+  <div style="background:var(--primary);color:#fff;border-radius:16px;padding:24px;text-align:center;margin-top:20px">
+    <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;margin-bottom:6px">Want these printed?</div>
+    <div style="font-size:12px;opacity:.7;margin-bottom:14px">Connect with professional printers on PlanEzee. Upload this design, pick paper & finish, get quotes.</div>
+    <button class="btn btn-secondary" onclick="goTo(0)" style="border-color:rgba(255,255,255,.3);color:#fff;width:auto;padding:10px 20px;font-size:12px">Find a printer →</button>
+  </div>
+
+  <div style="display:flex;gap:8px;margin-top:20px">
+    <button class="btn btn-secondary" onclick="resetInvite();goTo(70)" style="flex:1">Create another</button>
+    <button class="btn btn-secondary" onclick="goTo(0)" style="flex:1">Back to PlanEzee</button>
+  </div>
+</div>
+
+<!-- ═══════════ END INVITE CREATOR ═══════════ -->
+
 <div class="screen" id="s30">
-  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack30()" style="padding:8px 16px;font-size:12px">← Back</button></div>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div id="vendorProfileContent">
     <!-- Populated dynamically -->
   </div>
@@ -1913,6 +2157,11 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <h2>Messages</h2>
     <p>Your conversations with vendors</p>
   </div>
+  <div id="msgFilterTabs" style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+    <div class="chip selected" onclick="filterMsgs('all',this)">All</div>
+    <div class="chip" onclick="filterMsgs('unread',this)">Unread</div>
+    <div class="chip" onclick="filterMsgs('quoted',this)">Has quote</div>
+  </div>
   <div id="msgInboxContent">
     <!-- Populated dynamically -->
   </div>
@@ -1920,7 +2169,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <!-- ==================== SCREEN 34: QUOTE VIEW ==================== -->
 <div class="screen" id="s34">
-  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(32)" style="padding:8px 16px;font-size:12px">← Back to chat</button></div>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div id="quoteContent">
     <!-- Populated dynamically -->
   </div>
@@ -1928,7 +2177,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
 <!-- ==================== SCREEN 35: PAYMENT FLOW ==================== -->
 <div class="screen" id="s35">
-  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(34)" style="padding:8px 16px;font-size:12px">← Back to quote</button></div>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
   <div class="sh">
     <h2>Secure Payment</h2>
     <p>Your payment is protected by PlanEzee</p>
@@ -1949,7 +2198,15 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 <div class="screen" id="s37">
   <div class="sh">
     <h2>My Events</h2>
-    <p>Your bookings and saved plans in one place</p>
+    <p>Your bookings, payments, and saved plans</p>
+  </div>
+  <div id="myEventsCountdown" style="margin-bottom:16px">
+    <!-- Countdown populated dynamically -->
+  </div>
+  <div id="myEventsTabs" style="display:flex;gap:6px;margin-bottom:16px">
+    <div class="chip selected" onclick="filterMyEvents('active',this)">Active</div>
+    <div class="chip" onclick="filterMyEvents('plans',this)">Saved plans</div>
+    <div class="chip" onclick="filterMyEvents('saved',this)">♥ Saved vendors</div>
   </div>
   <div id="myEventsContent">
     <!-- Populated dynamically -->
@@ -2014,6 +2271,11 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <div class="v-import-title">Instagram</div>
       <div class="v-import-sub">We'll pull your photos, bio, hashtags, and style</div>
     </div>
+    <div class="v-import-card" id="viFacebook" onclick="selectImportMethod('facebook')">
+      <div class="v-import-icon">👤</div>
+      <div class="v-import-title">Facebook</div>
+      <div class="v-import-sub">We'll import your page info, photos, reviews, and services</div>
+    </div>
     <div class="v-import-card" id="viWeb" onclick="selectImportMethod('website')">
       <div class="v-import-icon">🌐</div>
       <div class="v-import-title">Website</div>
@@ -2023,6 +2285,11 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <div class="v-import-icon">📍</div>
       <div class="v-import-title">Google Business</div>
       <div class="v-import-sub">We'll import your name, address, photos, and reviews</div>
+    </div>
+    <div class="v-import-card" id="viLinkedin" onclick="selectImportMethod('linkedin')">
+      <div class="v-import-icon">💼</div>
+      <div class="v-import-title">LinkedIn</div>
+      <div class="v-import-sub">We'll pull your business description, services, and credentials</div>
     </div>
     <div class="v-import-card" id="viManual" onclick="selectImportMethod('manual')">
       <div class="v-import-icon">✍️</div>
@@ -2483,51 +2750,52 @@ const CATS = {
   memoryVideo:{emoji:'🎬',name:'Tribute Video',desc:'Life journey, montage, interviews'},
   logistics:  {emoji:'🚗',name:'Guest Logistics',desc:'Pickups, shuttles, accommodation, valet'},
   eventManager:{emoji:'📋',name:'Event Manager',desc:'Planning, coordination, day-of management'},
+  designprint: {emoji:'🎨',name:'Design & Print',desc:'Invitations — digital or printed'},
 };
 
 // Categories per occasion+subtype: [catKey, flag] — 0=optional, 1=recommended
 const CAT_MAP = {
   // ── Birthday ──
-  'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0]],
-  'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0]],
-  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'birthday-1st':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['ceremonial',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0],['designprint',0]],
+  'birthday-kids':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['eventManager',0],['designprint',0]],
+  'birthday-teen':    [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'birthday-adult':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['returnGifts',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
   // ── Baby Shower ──
-  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['styling',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'babyshower-godhbharai':[['venue',1],['ceremonial',1],['fb',1],['styling',1],['entertainment',0],['decor',1],['photo',1],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'babyshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['returnGifts',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'babyshower-valaikappu':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'babyshower-other': [['venue',1],['fb',1],['decor',1],['photo',1],['entertainment',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
   // ── Bridal Shower ──
-  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['styling',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'bridalshower-mehendi':[['venue',1],['styling',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['styling',1],['slp',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['gifting',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'bridalshower-modern':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',1],['styling',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
+  'bridalshower-haldi':[['venue',1],['ceremonial',1],['fb',1],['decor',1],['photo',1],['styling',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
+  'bridalshower-mehendi':[['venue',1],['styling',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
+  'bridalshower-sangeet':[['venue',1],['entertainment',1],['fb',1],['decor',1],['photo',1],['styling',1],['slp',1],['florist',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
+  'bridalshower-bachelorette':[['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['gifting',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
   // ── Cultural & Religious ──
-  'cultural-puja':    [['ceremonial',1],['florist',1],['fb',0],['decor',0],['photo',0],['venue',0],['rangoli',0],['eventManager',0]],
-  'cultural-sanskar':  [['ceremonial',1],['venue',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['returnGifts',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'cultural-festival': [['ceremonial',1],['decor',1],['fb',1],['florist',1],['rangoli',0],['fireworks',0],['photo',0],['venue',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'cultural-memorial': [['ceremonial',1],['fb',1],['venue',0],['florist',0],['photo',0],['logistics',0],['eventManager',0]],
+  'cultural-puja':    [['ceremonial',1],['florist',1],['fb',0],['decor',0],['photo',0],['venue',0],['rangoli',0],['eventManager',0],['designprint',0]],
+  'cultural-sanskar':  [['ceremonial',1],['venue',1],['fb',1],['decor',1],['photo',1],['styling',0],['florist',0],['returnGifts',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',1]],
+  'cultural-festival': [['ceremonial',1],['decor',1],['fb',1],['florist',1],['rangoli',0],['fireworks',0],['photo',0],['venue',0],['entertainment',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'cultural-memorial': [['ceremonial',1],['fb',1],['venue',0],['florist',0],['photo',0],['logistics',0],['eventManager',0],['designprint',0]],
   // ── Diwali ──
-  'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0],['eventManager',0]],
-  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['styling',0],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0],['eventManager',0]],
-  'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0],['eventManager',0]],
+  'diwali-homepuja':  [['ceremonial',1],['fb',1],['decor',1],['rangoli',0],['photo',0],['florist',0],['gifting',0],['eventManager',0],['designprint',0]],
+  'diwali-party':     [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['photo',1],['styling',0],['gifting',0],['rangoli',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'diwali-corporate': [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['rangoli',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'diwali-community': [['venue',1],['fb',1],['entertainment',1],['decor',1],['fireworks',1],['slp',1],['photo',1],['rangoli',0],['staffing',1],['logistics',0],['eventManager',0],['designprint',0]],
+  'diwali-cardnight': [['venue',1],['fb',1],['decor',0],['photo',0],['staffing',0],['eventManager',0],['designprint',0]],
   // ── Holi ──
-  'holi-colorparty':  [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'holi-raindance':   [['venue',1],['fb',1],['entertainment',1],['slp',1],['photo',1],['decor',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'holi-organic':     [['venue',1],['fb',1],['entertainment',0],['decor',1],['photo',0],['returnGifts',0],['eventManager',0]],
-  'holi-corporate':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'holi-community':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['slp',1],['photo',1],['staffing',1],['logistics',0],['eventManager',0]],
+  'holi-colorparty':  [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'holi-raindance':   [['venue',1],['fb',1],['entertainment',1],['slp',1],['photo',1],['decor',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'holi-organic':     [['venue',1],['fb',1],['entertainment',0],['decor',1],['photo',0],['returnGifts',0],['eventManager',0],['designprint',0]],
+  'holi-corporate':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'holi-community':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['slp',1],['photo',1],['staffing',1],['logistics',0],['eventManager',0],['designprint',0]],
   // ── Retirement ──
-  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'retirement-corporate':[['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'retirement-family': [['venue',1],['emcee',1],['memoryVideo',1],['fb',1],['entertainment',1],['decor',1],['gifting',1],['photo',1],['ceremonial',0],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
   // ── Other ──
-  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0],['eventManager',0]],
-  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
-  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0]],
+  'other-anniversary': [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['styling',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'other-housewarming':[['venue',0],['ceremonial',1],['fb',1],['decor',1],['photo',0],['florist',0],['eventManager',0],['designprint',0]],
+  'other-farewell':   [['venue',1],['fb',1],['entertainment',1],['decor',1],['photo',1],['gifting',0],['emcee',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
+  'other-other':      [['venue',1],['fb',1],['entertainment',0],['decor',0],['photo',0],['florist',0],['slp',0],['staffing',0],['logistics',0],['eventManager',0],['designprint',0]],
 };
 
 // ========== CONTEXT HELPERS ==========
@@ -2553,6 +2821,7 @@ const BUDGET_BASE = {
   memoryVideo:  [10000, 25000, 50000],
   logistics:    [5000, 15000, 40000],
   eventManager: [10000, 25000, 60000],
+  designprint:  [3000, 10000, 25000],
 };
 
 // How each category scales with guest count
@@ -3211,8 +3480,20 @@ const CQ = {
     ${notesBlock('florist vendors','e.g., "Marigold & jasmine only" or "White & green palette"')}`;
   },
   slp: () => {
+    const generatorNote = is50Plus() ? `
+    <div class="cq-section" style="margin-top:4px">
+      <div style="background:linear-gradient(135deg,#FFF3E0,#FFF8E1);border:1.5px solid #FFE082;border-radius:12px;padding:14px 16px;font-size:12px;color:var(--primary);line-height:1.7">
+        <strong style="font-family:'Sora',sans-serif;display:block;margin-bottom:4px">⚡ Important for 50+ guest events</strong>
+        Larger events with professional sound, lighting, and AV setups often need <strong>generators</strong> as backup or primary power — especially at outdoor venues, farmhouses, and lawns where venue power may not handle the load. Generator planning involves wattage calculations, cabling distances, fuel, noise placement, and electrical safety — things most hosts understandably don\u2019t think about until the day of the event.<br><br>
+        We strongly recommend hiring an <strong>event manager</strong> if you\u2019re using professional sound and lighting at this scale. They\u2019ll coordinate power requirements with your SLP vendor, arrange generators if needed, and ensure everything runs smoothly so you don\u2019t have to worry about voltage drops mid-speech or a DJ setup tripping the breaker.
+        <div style="margin-top:8px;padding-top:8px;border-top:1px solid #FFE082">
+          <span style="font-size:11px;color:#E65100;font-weight:600">💡 Tip:</span> <span style="font-size:11px;color:#795548">If you haven\u2019t already, consider adding an Event Manager from the category selection. It\u2019s one of the highest-impact decisions for a smooth event.</span>
+        </div>
+      </div>
+    </div>` : '';
     return `<div class="cq-section"><div class="cq-section-title">What do you need?</div>
       <div class="chip-group">${chips(['Sound system (speakers + mic)','Lighting rig','Projector / screen','Full AV setup','Not sure — venue may provide'])}</div></div>
+    ${generatorNote}
     ${eventManagerBlock()}
     ${notesBlock('SLP vendors','e.g., "Outdoor setup for 100 people" or "Need projector for tribute video"')}`;
   },
@@ -3312,6 +3593,113 @@ const CQ = {
       <div class="chip-group">${singleChips(['Just 1 event','2–3 functions','4–5 functions','6+ (multi-day)'],'em-functions')}</div></div>
     ${notesBlock('event managers','e.g., "Need someone who has managed 200+ guest weddings" or "Looking for someone who speaks Tamil & English"')}`;
   },
+
+  // ──── DESIGN & PRINT ────
+  designprint: () => {
+    return `
+    <div class="cq-section">
+      <div class="cq-section-title">What do you need?</div>
+      <div class="chip-group" data-field="dp-need">
+        <div class="chip" onclick="handleDPChoice(this,'diy')">🎨 Design my own invite</div>
+        <div class="chip" onclick="handleDPChoice(this,'designer')">✏️ Hire a designer</div>
+        <div class="chip" onclick="handleDPChoice(this,'printer')">🖨️ Get invitations printed</div>
+        <div class="chip" onclick="handleDPChoice(this,'both')">📦 Design + Print (both)</div>
+      </div>
+    </div>
+
+    <!-- PATH 1: DESIGN YOUR OWN -->
+    <div class="cond-section" id="cond-dp-diy">
+      <div style="text-align:center;padding:12px 0">
+        <div style="font-size:32px;margin-bottom:8px">✨</div>
+        <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);margin-bottom:4px">Create your invite with Mira AI</div>
+        <div style="font-size:12px;color:var(--text-mid);margin-bottom:16px;max-width:280px;margin-left:auto;margin-right:auto">Fill in your event details, pick a theme, and Mira generates beautiful invitation options in seconds. Free, no designer needed.</div>
+        <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;background:#E8F5E9;color:#2E7D32;font-weight:600">Free</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;background:#E3F2FD;color:#1565C0;font-weight:600">AI-powered</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;background:#FFF3E0;color:#E65100;font-weight:600">Ready in 60 seconds</span>
+        </div>
+        <a href="#" onclick="event.preventDefault();alert('Opens invites.planezee.com — standalone invite creator')" style="display:inline-block;padding:12px 28px;background:var(--primary);color:#fff;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:all .2s">Open Invite Creator →</a>
+        <div style="font-size:11px;color:var(--text-light);margin-top:8px">Download as WhatsApp, Instagram, Email, or Print-ready file</div>
+      </div>
+    </div>
+
+    <!-- PATH 2: HIRE A DESIGNER -->
+    <div class="cond-section" id="cond-dp-designer">
+      <div class="cq-section"><div class="cq-section-title">Where will you share these invitations?</div>
+        <div class="form-hint" style="margin-bottom:8px">This helps the designer know what formats and dimensions to prepare.</div>
+        <div class="chip-group">${chips(['WhatsApp','Instagram','Email','Printed cards','Video invitation','All of the above'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What style are you looking for?</div>
+        <div class="chip-group">${chips(['Traditional Indian','Modern / Minimal','Floral / Botanical','Royal / Luxury','Rustic / Eco','Calligraphy / Hand-lettered','Illustrated / Custom art','Photo-based','Not sure — want suggestions'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What pieces do you need designed?</div>
+        <div class="chip-group">${chips(['Main invitation','Save the date','RSVP card','Menu card','Ceremony schedule','Thank you card','Full stationery suite','Matching WhatsApp + print set'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Languages needed</div>
+        <div class="chip-group">${chips(['English','Hindi','Marathi','Tamil','Telugu','Gujarati','Punjabi','Bengali','Urdu','Kannada','Bilingual (2 languages)'])}</div></div>
+      ${budgetBlock('designprint','design budget')}
+      ${notesBlock('designers','e.g., "Want something that matches our wedding colors — blush pink and gold" or "Need a Rajasthani theme with camel motifs"')}
+    </div>
+
+    <!-- PATH 3: GET PRINTED -->
+    <div class="cond-section" id="cond-dp-printer">
+      <div class="cq-section"><div class="cq-section-title">What do you want to print?</div>
+        <div class="chip-group">${singleChips(['Card with envelope','Card only (no envelope)','Card + inserts (RSVP, map, etc.)','Box invitation (premium)','Other'],'dp-printtype')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">How many do you need?</div>
+        <div class="form-hint" style="margin-bottom:8px">Tip: Order 10–15% extra for last-minute additions.</div>
+        <div class="chip-group">${singleChips(['Under 50','50–100','100–200','200–500','500+','Not sure yet'],'dp-qty')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Approximate card size</div>
+        <div class="chip-group">${singleChips(['Standard (5×7 in)','Compact (4×6 in)','Square (6×6 in)','Large (6×9 in / A4)','Not sure — let the printer suggest'],'dp-size')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Print details</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Sides:</span></div>
+        <div class="chip-group" style="margin-bottom:12px">${singleChips(['Single side','Double side'],'dp-sides')}</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Colors:</span></div>
+        <div class="chip-group" style="margin-bottom:12px">${singleChips(['Single color (e.g. gold or black)','Full color (multiple colors)'],'dp-colors')}</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Any special finish?</span></div>
+        <div class="chip-group">${chips(['None — keep it simple','Gold / silver foil','Embossing / raised text','Laser cut design','Box packaging','Not sure — open to suggestions'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">When do you need them?</div>
+        <div class="chip-group">${singleChips(['Within 1 week (rush)','1–2 weeks','2–4 weeks','More than 4 weeks','No rush'],'dp-timeline')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Do you have a design ready?</div>
+        <div class="chip-group">${singleChips(['Yes — I have a design file (PDF/PNG)','I used PlanEasy invite tool','No — I need the printer to design too','Working with a separate designer'],'dp-hasdesign')}</div></div>
+      ${budgetBlock('designprint','printing budget')}
+      ${notesBlock('printers','e.g., "Need Hindi + English text" or "Want a premium feel with thick paper"')}
+    </div>
+
+    <!-- PATH 4: DESIGN + PRINT (BOTH) -->
+    <div class="cond-section" id="cond-dp-both">
+      <div style="background:var(--primary);color:#fff;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.5">
+        <strong style="font-family:'Sora',sans-serif">📦 Full service: Design + Print</strong><br>
+        We'll find vendors who can both design and print your invitations, or match you with a designer and a printer separately.
+      </div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--accent)">✏️ Design questions</div>
+      <div class="cq-section"><div class="cq-section-title">Where will you share invitations?</div>
+        <div class="chip-group">${chips(['WhatsApp','Instagram','Email','Printed cards','All of the above'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What style?</div>
+        <div class="chip-group">${chips(['Traditional Indian','Modern / Minimal','Floral / Botanical','Royal / Luxury','Rustic / Eco','Calligraphy','Illustrated','Not sure'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">What pieces?</div>
+        <div class="chip-group">${chips(['Main invitation','Save the date','RSVP card','Menu card','Full stationery suite'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Languages</div>
+        <div class="chip-group">${chips(['English','Hindi','Marathi','Tamil','Telugu','Gujarati','Punjabi','Bengali','Urdu','Bilingual'])}</div></div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent)">🖨️ Print questions</div>
+      <div class="cq-section"><div class="cq-section-title">What to print?</div>
+        <div class="chip-group">${singleChips(['Card with envelope','Card only','Card + inserts','Box invitation','Other'],'dpb-type')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">How many?</div>
+        <div class="chip-group">${singleChips(['Under 50','50–100','100–200','200–500','500+','Not sure'],'dpb-qty')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Card size</div>
+        <div class="chip-group">${singleChips(['Standard (5×7)','Compact (4×6)','Square (6×6)','Large','Not sure'],'dpb-size')}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Print details</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Sides:</span></div>
+        <div class="chip-group" style="margin-bottom:12px">${singleChips(['Single side','Double side'],'dpb-sides')}</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Colors:</span></div>
+        <div class="chip-group" style="margin-bottom:12px">${singleChips(['Single color','Full color'],'dpb-colors')}</div>
+        <div style="margin-bottom:8px"><span style="font-size:12px;color:var(--text-mid);font-weight:600">Special finish?</span></div>
+        <div class="chip-group">${chips(['None — simple','Gold / silver foil','Embossing','Laser cut','Box packaging','Not sure'])}</div></div>
+      <div class="cq-section"><div class="cq-section-title">Timeline</div>
+        <div class="chip-group">${singleChips(['Within 1 week','1–2 weeks','2–4 weeks','4+ weeks','No rush'],'dpb-timeline')}</div></div>
+
+      ${budgetBlock('designprint','design + print combined budget')}
+      ${notesBlock('design & print vendors','e.g., "Want matching digital + physical set" or "Need a premium wedding suite with box packaging"')}
+    </div>`;
+  },
 };
 
 // ========== HELPERS ==========
@@ -3333,6 +3721,7 @@ function budgetBlock(key, label){
     emcee:        ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
     logistics:    ['Under ₹10K', '₹10K – ₹25K', '₹25,000+'],
     eventManager: ['Under ₹15K', '₹15K – ₹35K', '₹35,000+'],
+    designprint:  ['Under ₹5K', '₹5K – ₹15K', '₹15,000+'],
   };
   const ranges = RANGE_MAP[key] || ['Under ₹15K', '₹15K – ₹40K', '₹40,000+'];
   return `<div class="cq-section">
@@ -3454,6 +3843,7 @@ const VENDORS = {
 // ========== NAVIGATION ==========
 function goHome(){
   // Reset all state
+  navHistory = [];
   state.mode = null; state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
   state.serviceKey = null; state.serviceContext = null;
@@ -3466,7 +3856,26 @@ function goHome(){
   document.getElementById('planningFields').style.display='none';
   goTo(100);
 }
-function goTo(n){
+// ── Navigation History Stack ──
+let navHistory = [];
+let currentScreen = 100;
+
+function goBack(){
+  if(navHistory.length > 0){
+    const prev = navHistory.pop();
+    goTo(prev, false); // false = don't push to history
+  }
+}
+
+function goTo(n, pushToHistory){
+  // Push current screen to history (unless explicitly told not to, or it's the same screen)
+  if(pushToHistory !== false && currentScreen !== n){
+    navHistory.push(currentScreen);
+    // Keep history manageable — max 30 entries
+    if(navHistory.length > 30) navHistory.shift();
+  }
+  currentScreen = n;
+
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
@@ -3474,12 +3883,16 @@ function goTo(n){
   // Hide bottom nav, progress, phase for role selector and vendor screens
   const isVendorOnboarding = n >= 50 && n <= 54;
   const isVendorDashboard = n >= 60 && n <= 69;
+  const isInviteScreen = n >= 70 && n <= 79;
   const isRoleScreen = n === 100;
   
   if(isRoleScreen || n === 0){
     document.querySelector('.progress-wrap').style.display = 'none';
     document.querySelector('.phase-indicator').style.display = 'none';
-    document.getElementById('bottomNav').classList.remove('visible');
+    // Only hide nav for non-logged-in users; logged-in users keep it
+    if(!auth.isLoggedIn){
+      document.getElementById('bottomNav').classList.remove('visible');
+    }
     document.getElementById('vBottomNav').classList.remove('visible');
     document.getElementById('miraFab').classList.remove('visible');
     return;
@@ -3496,6 +3909,18 @@ function goTo(n){
     else if(n===61) buildVLeads();
     else if(n===63) buildVCalendar();
     else if(n===65) buildVProfile();
+    return;
+  }
+  
+  if(isInviteScreen){
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.phase-indicator').style.display = 'none';
+    document.getElementById('vBottomNav').classList.remove('visible');
+    document.getElementById('miraFab').classList.remove('visible');
+    if(!auth.isLoggedIn) document.getElementById('bottomNav').classList.remove('visible');
+    // Trigger builds
+    if(n===73) runInviteGeneration();
+    if(n===75) renderInviteFinal();
     return;
   }
   
@@ -3617,6 +4042,17 @@ function goTo(n){
   if(n===38) buildReviewRating();
   if(n===39) initMiraFullscreen();
 
+  // ── Show bottom nav on all post-auth dashboard/event screens ──
+  // If user is logged in and on a screen that should show the nav bar, ensure it's visible
+  const dashboardScreens = [7,8,9,10,20,30,32,33,34,35,36,37,38,39];
+  if(auth.isLoggedIn && dashboardScreens.includes(n)){
+    document.getElementById('bottomNav').classList.add('visible');
+  }
+  // Also show bottomNav on screens 1-5 if already logged in (returning user editing plan)
+  if(auth.isLoggedIn && n >= 1 && n <= 6){
+    document.getElementById('bottomNav').classList.add('visible');
+  }
+
   // Auto-highlight bottom nav for post-compare screens
   if(n >= 30){
     const tabMap = {32:'messages',33:'messages',34:'messages',35:'messages',36:'events',37:'events',38:'events',39:'mira'};
@@ -3641,8 +4077,12 @@ function pickMode(mode){
   state.path = 'occasion';
   if(mode === 'browse'){
     state.path = 'browse';
-    browseState = { cat: 'all', selected: [], selectedCats: {}, sortBy: 'rating' };
+    browseState = { cat: 'all', selected: [], selectedCats: {}, sortBy: 'rating', searchQuery: '' };
     goTo(20);
+  } else if(mode === 'invite'){
+    state.path = 'invite';
+    goTo(70);
+    buildInviteThemeGrid();
   } else {
     goTo(1);
   }
@@ -3654,7 +4094,7 @@ function pickPath(path){
 }
 
 // ========== BROWSE FLOW ==========
-let browseState = { cat: 'all', selected: [], selectedCats: {}, sortBy: 'rating' };
+let browseState = { cat: 'all', selected: [], selectedCats: {}, sortBy: 'rating', searchQuery: '' };
 
 // Extended vendor marketplace data — more vendors for browse feel
 const BROWSE_VENDORS = {
@@ -3981,6 +4421,23 @@ const BROWSE_VENDORS = {
       minBooking:'4 staff / 8 hours',maxCapacity:'Up to 50 staff',uniformProvided:true,
       backgroundVerified:true,supervisorIncluded:true,trainingLevel:'Fine-dining certified'},
   ],
+  designprint: [
+    {name:'Invita Studio',stars:4.9,reviews:142,city:'Mumbai',price:'₹3,000 – ₹25,000',priceNum:3000,responseTime:'~3 hours',events:280,yrs:8,badges:['verified','top'],tags:['Wedding','Luxury','Foil'],bio:'Boutique invitation design studio specializing in luxury wedding stationery. Custom illustrated cards, foil stamping, box invitations, and digital e-invites. From concept to print under one roof.',
+      dpType:'Both',designStyles:['Traditional Indian','Royal / Luxury','Calligraphy','Illustrated'],
+      printTechniques:['Foil stamping','Letterpress','Embossing','Digital'],paperTypes:['Cotton fiber','Velvet','Metallic / Pearl'],
+      languages:['Hindi','English','Marathi','Gujarati'],moq:'25 cards',turnaround:'Design: 5 days, Print: 10 days',
+      delivery:['Same-city delivery','Pan-India shipping'],sampleKit:true},
+    {name:'Prints & Petals',stars:4.7,reviews:89,city:'Mumbai',price:'₹1,500 – ₹8,000',priceNum:1500,responseTime:'~4 hours',events:350,yrs:5,badges:['verified','fast'],tags:['Budget','Digital','Quick'],bio:'Fast-turnaround invitation printing for all occasions. Specializing in digital printing, eco-friendly options, and bulk orders. Same-week delivery within Mumbai. Also offers digital e-invites with RSVP tracking.',
+      dpType:'Printer',designStyles:['Modern Minimal','Floral / Botanical'],
+      printTechniques:['Digital printing','Offset','UV spot'],paperTypes:['Matte cardstock','Glossy','Kraft','Textured / Linen'],
+      languages:['Hindi','English','Marathi','Tamil','Telugu'],moq:'50 cards',turnaround:'3–5 business days',
+      delivery:['Local pickup','Same-city delivery','Pan-India shipping'],sampleKit:true,acceptsCustomDesigns:true},
+    {name:'Aanya Designs',stars:4.8,reviews:178,city:'Mumbai',price:'₹5,000 – ₹40,000',priceNum:5000,responseTime:'~2 hours',events:200,yrs:10,badges:['verified','top','fast'],tags:['Custom','Illustrated','Premium'],bio:'Award-winning invitation designer creating bespoke illustrated wedding cards. Each invitation is a miniature artwork — hand-drawn florals, custom couple portraits, and heritage motifs. Design-only; partners with premium printers for production.',
+      dpType:'Designer',designStyles:['Illustrated','Floral / Botanical','Traditional Indian','Calligraphy','Photo-based'],
+      printTechniques:[],paperTypes:[],
+      languages:['Hindi','English','Marathi','Gujarati','Punjabi','Bengali'],moq:'No minimum for design',turnaround:'7–10 days for first draft, 2 revision rounds',
+      delivery:['Digital delivery'],sampleKit:false},
+  ],
 };
 
 function pickBrowseCat(el, key){
@@ -4002,24 +4459,91 @@ const BROWSE_CAT_PILLS = [
   {key:'eventManager', emoji:'📋', label:'Event Manager'},
   {key:'logistics', emoji:'🚗', label:'Logistics'},
   {key:'returnGifts', emoji:'🎁', label:'Return Gifts'},
+  {key:'staffing', emoji:'👥', label:'Staffing'},
+  {key:'designprint', emoji:'🎨', label:'Design & Print'},
 ];
 
 function switchBrowseCat(key){
   browseState.cat = key;
+  browseState.searchQuery = '';
+  document.getElementById('browseSearchInput').value = '';
+  document.getElementById('browseSearchClear').style.display = 'none';
   buildMarketplace();
+}
+
+function handleBrowseSearch(query){
+  browseState.searchQuery = query.trim();
+  document.getElementById('browseSearchClear').style.display = query ? '' : 'none';
+  // If searching, reset category to 'all' so results span everything
+  if(query.trim()){
+    browseState.cat = 'all';
+    showSearchHints(false);
+  }
+  buildMarketplace();
+}
+
+function clearBrowseSearch(){
+  browseState.searchQuery = '';
+  document.getElementById('browseSearchInput').value = '';
+  document.getElementById('browseSearchClear').style.display = 'none';
+  buildMarketplace();
+  document.getElementById('browseSearchInput').focus();
+}
+
+function showSearchHints(show){
+  document.getElementById('browseSearchHints').classList.toggle('visible', show);
+}
+
+function applySearchHint(hint){
+  document.getElementById('browseSearchInput').value = hint;
+  handleBrowseSearch(hint);
+}
+
+function matchesSearch(vendor, query){
+  if(!query) return true;
+  const q = query.toLowerCase();
+  const searchable = [
+    vendor.name, vendor.city, vendor.bio, vendor.price,
+    vendor._catName, 
+    ...(vendor.tags || []),
+    ...(vendor.styleTags || []),
+    ...(vendor.eventTypes || []),
+    vendor.equipment || '',
+    vendor.teamLabel || '',
+    vendor.deliverables || '',
+    vendor.pricingNote || '',
+    // Category-specific fields
+    ...(vendor.cuisineTypes || []),
+    ...(vendor.dietaryOptions || []),
+    ...(vendor.themeTags || []),
+    ...(vendor.flowerTypes || []),
+    vendor.tradition || '',
+    ...(vendor.serviceType ? [vendor.serviceType] : []),
+    ...(vendor.designStyles || []),
+    ...(vendor.printTechniques || []),
+    vendor.dpType || '',
+    ...(vendor.languages || []),
+  ].join(' ').toLowerCase();
+  // Split query into words, all must match
+  return q.split(/\s+/).every(word => searchable.includes(word));
 }
 
 function buildMarketplace(){
   const activeCat = browseState.cat || 'all';
+  const sq = browseState.searchQuery || '';
 
   const pillsEl = document.getElementById('browseCatPills');
   if(pillsEl){
     pillsEl.innerHTML = BROWSE_CAT_PILLS.map(p =>
-      `<div class="cat-pill ${activeCat===p.key?'active':''}" onclick="switchBrowseCat('${p.key}')">
+      `<div class="cat-pill ${activeCat===p.key && !sq ?'active':''}" onclick="switchBrowseCat('${p.key}')">
         <span class="cp-emoji">${p.emoji}</span>${p.label}
       </div>`
     ).join('');
   }
+
+  // Hide HIW box when searching (reclaim space)
+  const hiwBox = document.getElementById('browseHIW');
+  if(hiwBox) hiwBox.style.display = sq ? 'none' : '';
 
   let allVendors = [];
   if(activeCat === 'all'){
@@ -4041,6 +4565,28 @@ function buildMarketplace(){
         <div style="font-size:40px;margin-bottom:12px">🚧</div>
         <div style="font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px">Coming soon!</div>
         <div style="font-size:12px">We're onboarding vendors in this category.</div>
+      </div>`;
+    return;
+  }
+
+  // Apply search filter
+  if(sq){
+    allVendors = allVendors.filter(v => matchesSearch(v, sq));
+  }
+
+  // Search results label
+  const searchLabel = sq ? `<div class="browse-search-results-label"><span>${allVendors.length} result${allVendors.length!==1?'s':''} for "${sq}"</span><a onclick="clearBrowseSearch()">Clear search</a></div>` : '';
+
+  if(sq && allVendors.length === 0){
+    document.getElementById('marketplaceContent').innerHTML = `
+      ${searchLabel}
+      <div style="text-align:center;padding:40px 20px;color:var(--text-mid)">
+        <div style="font-size:40px;margin-bottom:12px">🔍</div>
+        <div style="font-size:14px;font-weight:600;color:var(--primary);margin-bottom:4px">No vendors found for "${sq}"</div>
+        <div style="font-size:12px;margin-bottom:16px">Try a different search term or browse by category above.</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+          ${['photographer','caterer','DJ','decorator','venue'].map(h => `<span class="bsh-chip" onclick="applySearchHint('${h}')">${h}</span>`).join('')}
+        </div>
       </div>`;
     return;
   }
@@ -4250,10 +4796,11 @@ function buildMarketplace(){
   const catLabel = activeCat === 'all' ? 'All Categories' : (CATS[activeCat]?.name || 'Vendors');
 
   document.getElementById('marketplaceContent').innerHTML = `
+    ${searchLabel}
     <div class="mp-header">
       <div>
-        <h3>${activeCat==='all'?'✨':CATS[activeCat]?.emoji||'✨'} ${catLabel}</h3>
-        <div class="mp-count">${totalCount} vendor${totalCount>1?'s':''} available</div>
+        <h3>${activeCat==='all'?'✨':CATS[activeCat]?.emoji||'✨'} ${sq ? 'Search Results' : catLabel}</h3>
+        <div class="mp-count">${totalCount} vendor${totalCount>1?'s':''} ${sq ? 'found' : 'available'}</div>
       </div>
     </div>
     <div class="mp-filters">
@@ -5095,7 +5642,7 @@ function buildCompare(){
       <div style="text-align:center;padding:40px;color:var(--text-mid)">
         <div style="font-size:36px;margin-bottom:12px">⚖️</div>
         <p>Select at least 2 vendors to compare.</p>
-        <button class="btn btn-primary" style="margin-top:16px" onclick="goTo(8)">← Back to vendor list</button>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="goBack()">← Back to vendor list</button>
       </div>`;
     return;
   }
@@ -5280,7 +5827,143 @@ function addMbLink(btn){
   input.placeholder = 'Paste link — Pinterest / Instagram / image URL';
   btn.parentNode.insertBefore(input, btn);
 }
-function toggleCat(el){ el.classList.toggle('checked'); }
+function toggleCat(el){ 
+  el.classList.toggle('checked'); 
+  checkCatDependencies();
+}
+
+// ── Category Dependency Map (India-specific) ──
+const CAT_DEPS = {
+  venue: [
+    {to:'fb',strength:'hard',nudge:'Your venue choice directly affects catering — many Indian venues have in-house catering policies or restrict outside food. Check this before booking separately.',icon:'🍽️'},
+    {to:'decor',strength:'hard',nudge:'Mandap dimensions, ceiling height, wall anchors, and fire permits (for havan) all depend on your venue. Your decorator needs to recce the venue first.',icon:'🎨'},
+    {to:'slp',strength:'hard',nudge:'Venue power supply determines what sound and lighting rigs are possible. Generator needs, noise curfew (10 PM in most cities), and cable distances all depend on venue.',icon:'🔊'},
+    {to:'eventManager',strength:'strong',nudge:'For 100+ guests, an event manager coordinates venue access, vendor load-in schedules, and day-of logistics. Strongly recommended.',icon:'📋'},
+  ],
+  fb: [
+    {to:'venue',strength:'hard',nudge:'Check if your venue allows outside catering or mandates their in-house kitchen. This is the #1 surprise in Indian event planning.',icon:'📍'},
+    {to:'staffing',strength:'strong',nudge:'Your catering style (buffet vs sit-down vs live counters) determines how many waiters and serving staff you need.',icon:'👥'},
+  ],
+  entertainment: [
+    {to:'slp',strength:'hard',nudge:'Your DJ or musician needs a sound system to perform. If they bring their own, check that venue power can handle it. If not, you need to book Sound & AV separately.',icon:'🔊'},
+    {to:'emcee',strength:'strong',nudge:'An emcee coordinates transitions between performances, manages sangeet flow, and handles mic handoffs. Especially important for sangeet nights.',icon:'🎙️'},
+  ],
+  decor: [
+    {to:'florist',strength:'hard',nudge:'In Indian events, florals ARE a major part of decor — mandap, stage, entrance, garlands. If booking separately, ensure your decorator and florist coordinate closely on theme and color palette.',icon:'💐'},
+    {to:'slp',strength:'strong',nudge:'Lighting design serves both aesthetic and functional roles. LED walls, fairy lights, and chandeliers all draw power alongside sound. Plan wattage together to avoid overload.',icon:'🔊'},
+    {to:'designprint',strength:'info',nudge:'Your invitation design sets the visual identity. Consider matching your invite color palette and motifs with your decor theme for a cohesive feel.',icon:'🎨'},
+  ],
+  florist: [
+    {to:'decor',strength:'hard',nudge:'Floral and decor are deeply intertwined for Indian events. Mandap flowers, stage florals, table centerpieces — these must share the same color palette and theme.',icon:'🎨'},
+    {to:'ceremonial',strength:'strong',nudge:'Puja flowers, varmala/jaimala garlands, and haldi arrangements are ceremony essentials. Some traditions require real flowers only (no artificial) for religious rituals.',icon:'🙏'},
+    {to:'styling',strength:'info',nudge:'Bridal hair flowers and floral jewelry for mehendi should match the overall floral theme. Coordinate with your MUA/stylist.',icon:'💄'},
+  ],
+  slp: [
+    {to:'venue',strength:'hard',nudge:'Power supply, generator requirement, noise curfew, and cable routing all depend on your venue. Always check venue power capacity before finalizing SLP vendor.',icon:'📍'},
+    {to:'entertainment',strength:'hard',nudge:'DJ and live performers cannot function without sound. Ensure your SLP vendor and entertainer coordinate on equipment, channels, and sound check timing.',icon:'🎤'},
+  ],
+  photographer: [
+    {to:'venue',strength:'strong',nudge:'Your photographer needs a venue recce for shot planning. Indoor lighting, drone permissions (outdoor), and mandap angle all affect the final photos.',icon:'📍'},
+    {to:'styling',strength:'info',nudge:'Bridal makeup completion time determines when the portrait session starts. Mehendi photos have a specific timing window. Coordinate schedules.',icon:'💄'},
+    {to:'ceremonial',strength:'info',nudge:'Key ritual moments (mangal phere, varmala, sindoor, bidaai) must be captured. Share the ceremony schedule with your photographer in advance.',icon:'🙏'},
+  ],
+  ceremonial: [
+    {to:'venue',strength:'strong',nudge:'Havan (sacred fire) requires venue fire permit. Some venues don\'t allow open flames. Mandap may need specific directional placement (east-facing in some traditions).',icon:'📍'},
+    {to:'florist',strength:'strong',nudge:'Puja flowers, garlands, and ritual-specific arrangements vary by community (South Indian vs North Indian vs Gujarati). Tell your florist which tradition.',icon:'💐'},
+  ],
+  styling: [
+    {to:'photographer',strength:'strong',nudge:'Camera-ready makeup looks different from in-person. Your MUA and photographer should coordinate on the bridal shoot timeline.',icon:'📸'},
+  ],
+  staffing: [
+    {to:'fb',strength:'strong',nudge:'Service style determines staffing. Buffet needs fewer waiters, sit-down needs more. Live counters may need dedicated staff. Coordinate numbers with your caterer.',icon:'🍽️'},
+    {to:'venue',strength:'strong',nudge:'Venue size determines security, valet, and serving staff count. Some venues provide in-house staff and restrict external.',icon:'📍'},
+  ],
+  logistics: [
+    {to:'venue',strength:'strong',nudge:'Parking capacity, guest drop-off zones, baraat route, and accommodation proximity all depend on venue location and layout.',icon:'📍'},
+  ],
+  eventManager: [
+    {to:'venue',strength:'info',nudge:'Your event manager coordinates all vendor access, setup schedules, and day-of logistics at the venue. Book them early so they can attend venue visits.',icon:'📍'},
+  ],
+  returnGifts: [
+    {to:'decor',strength:'info',nudge:'Gift display and packaging should match your event theme and color palette. Coordinate with your decorator on the gift table setup.',icon:'🎨'},
+  ],
+};
+
+function checkCatDependencies(){
+  const checked = new Set();
+  document.querySelectorAll('#catList .cat-item.checked').forEach(el => checked.add(el.dataset.cat));
+  
+  const nudges = [];
+  const seen = new Set(); // avoid duplicate nudges
+  
+  checked.forEach(catKey => {
+    const deps = CAT_DEPS[catKey];
+    if(!deps) return;
+    deps.forEach(dep => {
+      const pairKey = [catKey, dep.to].sort().join('-');
+      // Show nudge if: the linked category IS selected (coordination needed) 
+      // OR it's a hard dependency and the linked category is NOT selected (missing dependency)
+      if(checked.has(dep.to) && !seen.has(pairKey)){
+        seen.add(pairKey);
+        nudges.push({...dep, from: catKey, type: 'coord'});
+      } else if(dep.strength === 'hard' && !checked.has(dep.to) && !seen.has(pairKey+'miss')){
+        seen.add(pairKey+'miss');
+        const toCat = CATS[dep.to];
+        if(toCat){
+          nudges.push({
+            from: catKey, to: dep.to, strength: 'warn', type: 'missing',
+            nudge: `You've selected ${CATS[catKey]?.name} but not ${toCat.name}. These two have a hard dependency — ${dep.nudge.substring(0,80)}...`,
+            icon: '⚠️'
+          });
+        }
+      }
+    });
+  });
+
+  // Also: if 100+ guests and no event manager, suggest one
+  const bigEvent = is50Plus();
+  if(bigEvent && !checked.has('eventManager') && checked.size >= 3){
+    nudges.push({
+      from:'general', to:'eventManager', strength:'warn', type:'suggest',
+      nudge:'You have 50+ guests and 3+ vendor categories. An event manager coordinates all vendors, manages timelines, and handles day-of logistics — so you don\'t have to.',
+      icon:'📋'
+    });
+  }
+
+  const container = document.getElementById('catNudges');
+  if(!container) return;
+  
+  // Show max 4 nudges to avoid overwhelming
+  const shown = nudges.slice(0, 4);
+  
+  container.innerHTML = shown.map(n => {
+    const cls = n.type === 'missing' ? 'dep-nudge warn' : n.type === 'suggest' ? 'dep-nudge warn' : 'dep-nudge';
+    const fromCat = CATS[n.from];
+    const toCat = CATS[n.to];
+    return `<div class="${cls}">
+      <div class="dep-nudge-icon">${n.icon}</div>
+      <div>
+        ${n.type === 'missing' || n.type === 'suggest' ? `<strong>${n.icon === '⚠️' ? 'Missing dependency' : 'Suggestion'}</strong>` : 
+          `<strong>${fromCat?.name||''} + ${toCat?.name||''}</strong>`}
+        ${n.nudge}
+        ${n.type === 'missing' || n.type === 'suggest' ? `<div class="dep-nudge-action" onclick="addCatFromNudge('${n.to}')">+ Add ${toCat?.name || 'this category'}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addCatFromNudge(catKey){
+  const item = document.querySelector('#catList .cat-item[data-cat="'+catKey+'"]');
+  if(item && !item.classList.contains('checked')){
+    item.classList.add('checked');
+    item.scrollIntoView({behavior:'smooth', block:'center'});
+    // Flash animation
+    item.style.transition = 'box-shadow .3s';
+    item.style.boxShadow = '0 0 0 3px rgba(255,204,2,.4)';
+    setTimeout(()=>{ item.style.boxShadow = ''; }, 1500);
+    checkCatDependencies();
+  }
+}
 function toggleCQ(header){
   const card = header.closest('.cq-card');
   card.classList.toggle('open');
@@ -5290,6 +5973,13 @@ function handleVenueChoice(el, choice){
   selectChip(el, 'venue-status');
   document.querySelectorAll('[id^="cond-venue-"]').forEach(s=>s.classList.remove('visible'));
   const target = document.getElementById('cond-venue-'+choice);
+  if(target) target.classList.add('visible');
+}
+
+function handleDPChoice(el, choice){
+  selectChip(el, 'dp-need');
+  document.querySelectorAll('[id^="cond-dp-"]').forEach(s=>s.classList.remove('visible'));
+  const target = document.getElementById('cond-dp-'+choice);
   if(target) target.classList.add('visible');
 }
 
@@ -6601,10 +7291,16 @@ function showToast(msg){
 
 // ========== BOTTOM NAV ==========
 function bnav(tab){
-  document.querySelectorAll('.bnav-item').forEach((el,i)=>{
+  document.querySelectorAll('#bottomNav .bnav-item').forEach((el,i)=>{
     el.classList.toggle('active', el.getAttribute('onclick')===`bnav('${tab}')`);
   });
-  if(tab==='home') goTo(0);
+  if(tab==='home'){
+    // Route to the right dashboard based on mode
+    if(auth.isLoggedIn && state.mode === 'planning') goTo(10);
+    else if(auth.isLoggedIn && bookings.length > 0) goTo(7);
+    else if(auth.isLoggedIn) goTo(37); // My Events as fallback
+    else goTo(0);
+  }
   else if(tab==='explore') goTo(20);
   else if(tab==='messages') goTo(33);
   else if(tab==='events') goTo(37);
@@ -6915,7 +7611,7 @@ function buildGenericProfile(v, catKey, catLabel, emoji){
       </div>
     </div>
     <div class="vp-actions">
-      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
     </div>
   `;
@@ -7084,7 +7780,7 @@ function buildDecoratorProfile(v, catKey, catLabel, emoji){
 
     <!-- ACTIONS -->
     <div class="vp-actions">
-      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Get Quote</button>
     </div>
   `;
@@ -8157,7 +8853,7 @@ function buildCatererProfile(v, catKey, catLabel, emoji){
 
     <!-- ACTIONS -->
     <div class="vp-actions">
-      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
     </div>
   `;
@@ -8360,7 +9056,7 @@ function buildVenueProfile(v, catKey, catLabel, emoji){
 
     <!-- ACTIONS -->
     <div class="vp-actions">
-      <button class="btn btn-outline" onclick="goTo(20);buildMarketplace()">← Back</button>
+      <button class="btn btn-outline" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="triggerAuth('message','Contact ${v.name.replace(/'/g,"\\'")}','Send a message to check availability and get a quote.')">Message Venue</button>
     </div>
   `;
@@ -8598,7 +9294,7 @@ function buildPhotographerProfile(v, catKey, catLabel, emoji){
 
     <!-- ACTIONS -->
     <div class="vp-actions">
-      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
     </div>
   `;
@@ -8900,7 +9596,7 @@ function buildMusicianProfile(v, catKey, catLabel, emoji){
 
     <!-- 16. ACTIONS -->
     <div class="vp-actions">
-      <button class="btn btn-secondary" onclick="goBack30()">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()">← Back</button>
       <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
     </div>
   `;
@@ -8984,17 +9680,27 @@ function buildChat(){
   const occLabel = occ ? occ.label : 'Event';
   const guests = state.guestCount || state.planGuests || '50-100';
   const city = state.planCity || 'Mumbai';
+  const hasQuote = currentConvoIdx === 0;
+  const isOnline = c.responseSec < 7200;
 
   document.getElementById('chatContent').innerHTML = `
     <div style="margin-bottom:8px"><button class="btn btn-secondary" onclick="goTo(33)" style="padding:8px 16px;font-size:12px">← Messages</button></div>
     <div class="chat-header">
-      <div class="chat-avatar">${c.emoji}</div>
+      <div class="chat-avatar" style="position:relative">${c.emoji}
+        <div style="position:absolute;bottom:0;right:0;width:10px;height:10px;border-radius:50%;background:${isOnline?'var(--green)':'#ccc'};border:2px solid #fff"></div>
+      </div>
       <div class="chat-vendor-info">
         <div class="chat-vendor-name">${c.vendorName}</div>
-        <div class="chat-vendor-cat">${c.catLabel}</div>
+        <div class="chat-vendor-cat">${c.catLabel} · ${isOnline?'<span style="color:var(--green)">Online</span>':'Last seen 2h ago'}</div>
       </div>
-      <div class="chat-response-time">⚡ Responds in ~${Math.round(c.responseSec/3600)}h</div>
+      <div class="chat-response-time">⚡ ~${Math.round(c.responseSec/3600)}h avg</div>
     </div>
+
+    ${hasQuote ? `<div style="background:var(--accent-wash);border:1.5px solid var(--accent-soft);border-radius:12px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="goTo(34)">
+      <div><div style="font-size:12px;font-weight:700;color:var(--primary)">📋 Quote received: ₹22,000</div>
+      <div style="font-size:11px;color:var(--text-mid)">50% advance · Valid until 15 Mar</div></div>
+      <span style="font-size:12px;font-weight:700;color:var(--accent)">View →</span>
+    </div>` : ''}
 
     <div class="chat-body">
       ${c.messages.map(m => {
@@ -9018,13 +9724,17 @@ function buildChat(){
           </div>`;
       }).join('')}
 
-      ${currentConvoIdx === 0 ? `
+      ${hasQuote ? `
       <div style="text-align:center;margin:16px 0">
         <div style="display:inline-block;background:var(--accent-wash);border:1.5px solid var(--accent);border-radius:12px;padding:12px 20px;cursor:pointer" onclick="goTo(34)">
           <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">📋 Priya sent a quote</div>
           <div style="font-size:11px;color:var(--text-mid)">₹22,000 · Tap to view</div>
         </div>
       </div>` : ''}
+    </div>
+
+    <div style="background:#F0F7FF;border:1px solid #BFDBFE;border-radius:10px;padding:8px 12px;margin-bottom:8px;font-size:11px;color:#1E40AF;display:flex;align-items:center;gap:6px">
+      <span>✨</span> <strong>Mira tip:</strong> ${hasQuote ? 'Quote looks fair for Mumbai photography. Ask about album upgrade options.' : 'Try asking about their availability for your date and any package deals.'}
     </div>
 
     <div class="chat-input-bar">
@@ -9052,6 +9762,14 @@ function sendChatMsg(){
 }
 
 // ========== MESSAGES INBOX ==========
+let msgFilter = 'all';
+function filterMsgs(f, el){
+  msgFilter = f;
+  document.querySelectorAll('#msgFilterTabs .chip').forEach(c=>c.classList.remove('selected'));
+  if(el) el.classList.add('selected');
+  buildMsgInbox();
+}
+
 function buildMsgInbox(){
   const el = document.getElementById('msgInboxContent');
   if(conversations.length === 0){
@@ -9060,26 +9778,42 @@ function buildMsgInbox(){
         <div style="font-size:48px;margin-bottom:16px">💬</div>
         <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:700;color:var(--primary);margin-bottom:8px">No messages yet</div>
         <div style="font-size:13px;color:var(--text-mid);margin-bottom:24px">Browse vendors and send your first message to get quotes and availability.</div>
-        <button class="btn btn-primary" onclick="goTo(0)">Browse vendors →</button>
+        <button class="btn btn-primary" onclick="goTo(20)">Browse vendors →</button>
       </div>`;
     return;
   }
+
+  let filtered = conversations;
+  if(msgFilter === 'unread') filtered = conversations.filter(c => c.unread);
+  if(msgFilter === 'quoted') filtered = conversations.filter((c,i) => i === 0);
+
+  if(filtered.length === 0){
+    el.innerHTML = `<div style="text-align:center;padding:40px 20px;color:var(--text-light);font-size:13px">No ${msgFilter} conversations</div>`;
+    return;
+  }
+
   el.innerHTML = `
     <div class="msg-list">
-      ${conversations.map((c,i) => `
-        <div class="msg-item" onclick="currentConvoIdx=${i};goTo(32)">
-          <div class="msg-avatar">${c.emoji}</div>
+      ${filtered.map((c,i) => {
+        const origIdx = conversations.indexOf(c);
+        const hasQuote = origIdx === 0;
+        return `
+        <div class="msg-item" onclick="currentConvoIdx=${origIdx};goTo(32)">
+          <div class="msg-avatar" style="position:relative">${c.emoji}
+            ${c.unread?'<div style="position:absolute;top:-2px;right:-2px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid #fff"></div>':''}
+          </div>
           <div class="msg-content">
             <div class="msg-top">
               <span class="msg-name">${c.vendorName}</span>
               <span class="msg-time-label">${c.lastTime}</span>
             </div>
-            <div class="msg-cat">${c.catLabel}</div>
+            <div class="msg-cat">${c.catLabel}${hasQuote?' · <span style="color:var(--green);font-weight:700">₹22K quoted</span>':''}</div>
             <div class="msg-preview">${c.lastMsg}</div>
           </div>
-          <div class="msg-status">${c.unread ? '<div class="msg-unread"></div>' : '<span style="font-size:10px;color:var(--text-light)">✓✓</span>'}</div>
-        </div>
-      `).join('')}
+          ${hasQuote?'<div style="font-size:10px;padding:3px 8px;background:var(--accent-wash);border-radius:6px;color:var(--primary);font-weight:700;white-space:nowrap">📋 Quote</div>':
+           c.unread?'<div class="msg-unread"></div>':'<span style="font-size:10px;color:var(--text-light)">✓✓</span>'}
+        </div>`;
+      }).join('')}
     </div>
   `;
 }
@@ -9106,8 +9840,22 @@ function buildQuoteView(){
       <div class="quote-terms">
         <div class="qt-label">Payment terms</div>
         <div>50% advance (₹11,000) · 50% on event day</div>
-        <div style="margin-top:6px;font-size:11px;color:var(--text-light)">Valid until: 15 Mar 2026</div>
+        <div style="margin-top:6px;display:flex;align-items:center;gap:6px;font-size:11px;color:#D97706">
+          <span>⏰</span> Valid until 15 Mar 2026 · <strong>Expires in 3 days</strong>
+        </div>
       </div>
+
+      <!-- Mira market comparison -->
+      <div style="background:#F0F7FF;border:1px solid #BFDBFE;border-radius:12px;padding:14px;margin-top:16px">
+        <div style="font-size:12px;font-weight:700;color:#1E40AF;margin-bottom:8px;display:flex;align-items:center;gap:6px">✨ Mira's market analysis</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;font-size:11px;margin-bottom:8px">
+          <div style="background:#fff;border-radius:8px;padding:8px"><div style="color:var(--text-light)">Market low</div><div style="font-weight:700;color:var(--primary)">₹15,000</div></div>
+          <div style="background:#fff;border-radius:8px;padding:8px;border:1.5px solid var(--accent)"><div style="color:var(--text-light)">This quote</div><div style="font-weight:700;color:var(--green)">₹22,000</div></div>
+          <div style="background:#fff;border-radius:8px;padding:8px"><div style="color:var(--text-light)">Market high</div><div style="font-weight:700;color:var(--primary)">₹35,000</div></div>
+        </div>
+        <div style="font-size:11px;color:#1E40AF">This is <strong>below average</strong> for candid photographers in Mumbai with 4.8+ ratings. Good value — Priya's portfolio quality is top-tier.</div>
+      </div>
+
       <div class="quote-actions">
         <button class="qa-primary" onclick="goTo(35)">💳 Pay via PlanEzee — Secure & Protected</button>
         <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
@@ -9276,9 +10024,53 @@ function buildPayConfirm(){
 }
 
 // ========== MY EVENTS DASHBOARD ==========
+let myEventsTab = 'active';
+function filterMyEvents(tab, el){
+  myEventsTab = tab;
+  document.querySelectorAll('#myEventsTabs .chip').forEach(c=>c.classList.remove('selected'));
+  if(el) el.classList.add('selected');
+  buildMyEvents();
+}
+
 function buildMyEvents(){
   const occ = OCC[state.occasion];
   const occLabel = occ ? occ.label : 'Birthday';
+
+  // Build countdown
+  const countdownEl = document.getElementById('myEventsCountdown');
+  if(countdownEl && bookings.length > 0){
+    const b = bookings[0];
+    const eventDate = new Date('2026-03-22');
+    const today = new Date();
+    const daysLeft = Math.max(0, Math.ceil((eventDate - today) / (1000*60*60*24)));
+    const totalVendors = b.vendors.length;
+    const bookedVendors = b.vendors.filter(v => v.payment && v.payment.status !== 'no-payment').length;
+    const totalPaid = b.vendors.reduce((s,v) => s + (v.payment ? v.payment.totalPaid||0 : 0), 0);
+    
+    countdownEl.innerHTML = `
+      <div style="background:linear-gradient(135deg,var(--primary),#1a1a2e);border-radius:16px;padding:20px;color:#fff">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:700">${b.emoji} ${b.title}</div>
+          <div style="font-size:11px;opacity:.7">${b.date}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px">
+            <div style="font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--accent)">${daysLeft}</div>
+            <div style="font-size:10px;opacity:.7">days to go</div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px">
+            <div style="font-family:'Sora',sans-serif;font-size:24px;font-weight:800;color:var(--accent)">${bookedVendors}/${totalVendors}</div>
+            <div style="font-size:10px;opacity:.7">vendors booked</div>
+          </div>
+          <div style="background:rgba(255,255,255,.1);border-radius:10px;padding:10px">
+            <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--accent)">₹${Math.round(totalPaid/1000)}K</div>
+            <div style="font-size:10px;opacity:.7">paid so far</div>
+          </div>
+        </div>
+      </div>`;
+  } else if(countdownEl) {
+    countdownEl.innerHTML = '';
+  }
 
   const savedPlansHtml = savedPlans.length > 0
     ? savedPlans.map(p => `
@@ -9430,151 +10222,14 @@ function buildMyEvents(){
     `;
   }
 
-  document.getElementById('myEventsContent').innerHTML = `
+  // Tab-aware rendering
+  const el = document.getElementById('myEventsContent');
+  
+  if(myEventsTab === 'active'){
+    el.innerHTML = `
     <div class="events-section-label">Active Events</div>
     ${buildMiraInlineCard('myevents')}
     ${bookings.map(b => buildBookingCard(b)).join('')}
-
-    <div class="events-section-label" style="margin-top:24px">
-      <span>My Plans</span>
-      <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:8px">(${savedPlans.length})</span>
-    </div>
-    ${savedPlansHtml}
-
-    ${state.wishlist.length > 0 ? `
-    <div style="margin-top:24px">
-      <div class="events-section-label">
-        <span>♥ Saved Vendors</span>
-        <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:8px">(${state.wishlist.length})</span>
-      </div>
-      ${state.wishlist.map((w,wi) => `
-        <div class="wl-card" onclick="vendorProfileFrom=37;browseViewProfile('${w.catKey}',${w.idx})">
-          <div class="wl-emoji">${w.catEmoji}</div>
-          <div class="wl-info">
-            <div class="wl-name">${w.name}</div>
-            <div class="wl-meta">★ ${w.stars} (${w.reviews}) · ${w.catName} · ${w.city}</div>
-            <div class="wl-price">💰 ${w.price}</div>
-            ${w.catKey==='entertainment' ? `
-              <div class="wl-music-meta">
-                ${w.actType?'<span class="wl-music-chip">'+w.actType+'</span>':''}
-                ${w.performDuration?'<span class="wl-music-chip">⏱ '+w.performDuration+'</span>':''}
-                ${w.hasAudioClips?'<span class="wl-music-chip audio">▶ Audio</span>':''}
-                ${w.hasVideoClips?'<span class="wl-music-chip video">🎬 Video</span>':''}
-              </div>
-              ${w.willingToTravel?'<div class="wl-travel">📍 Based in '+w.city+' · Willing to travel</div>':''}
-            `:''}
-            ${w.catKey==='fb' ? `
-              <div class="wl-photo-meta">
-                ${w.cuisineTypes?w.cuisineTypes.slice(0,3).map(c=>'<span class="wl-photo-chip" style="background:#FFF7ED;color:#9A3412;border-color:#FDBA74">'+c+'</span>').join(''):''}
-                ${w.tastingAvailable?'<span class="wl-photo-chip" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A">🥄 Tasting</span>':''}
-              </div>
-              ${w.vegPlate?'<div class="wl-deliverables">🥬 Veg '+w.vegPlate+'/plate'+(w.nonvegPlate?' · 🍗 Non-veg '+w.nonvegPlate:'')+'</div>':''}
-            `:''}
-            ${w.catKey==='decor' ? `
-              <div class="wl-photo-meta">
-                ${w.themeTags?w.themeTags.slice(0,3).map(t=>'<span class="wl-photo-chip" style="background:#F5F3FF;color:#7C3AED;border-color:#C4B5FD">'+t+'</span>').join(''):''}
-              </div>
-              <div class="wl-deliverables">${w.flowersIncluded?'🌸 Flowers':''} ${w.lightingIncluded?'💡 Lighting':''} ${w.furnitureIncluded?'🪑 Furniture':''} ${w.ecoFriendly?'🌿 Eco':''}</div>
-            `:''}
-            ${w.catKey==='styling' ? `
-              <div class="wl-photo-meta">
-                <span class="wl-photo-chip" style="background:#FDF2F8;color:#9D174D;border-color:#F9A8D4">${w.serviceType==='MUA'?'💄 Makeup':'✋ Mehendi'}</span>
-                ${w.specializations?w.specializations.slice(0,2).map(s=>'<span class="wl-photo-chip" style="background:#FDF2F8;color:#9D174D;border-color:#F9A8D4">'+s+'</span>').join(''):''}
-                ${w.trialAvailable?'<span class="wl-photo-chip" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A">🪞 Trial</span>':''}
-              </div>
-              ${w.willingToTravel?'<div class="wl-travel">📍 Based in '+w.city+' · Willing to travel</div>':''}
-            `:''}
-            ${w.catKey==='florist' ? `
-              <div class="wl-photo-meta">
-                ${w.flowerTypes?w.flowerTypes.slice(0,3).map(f=>'<span class="wl-photo-chip" style="background:#FFF1F2;color:#9F1239;border-color:#FDA4AF">'+f+'</span>').join(''):''}
-                ${w.deliveryIncluded?'<span class="wl-photo-chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">🚚 Delivery</span>':''}
-              </div>
-              ${w.seasonal?'<div class="wl-deliverables" style="color:#92400E">⚠ Seasonal availability</div>':''}
-            `:''}
-            ${w.catKey==='ceremonial' ? `
-              <div class="wl-photo-meta">
-                ${w.tradition?'<span class="wl-photo-chip" style="background:#FFF7ED;color:#9A3412;border-color:#FDBA74">'+w.tradition+'</span>':''}
-                ${w.pujaItems?'<span class="wl-photo-chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">🪔 Samagri</span>':''}
-              </div>
-              ${w.ceremoniesPerformed?'<div class="wl-deliverables">🙏 '+w.ceremoniesPerformed.slice(0,3).join(', ')+'</div>':''}
-            `:''}
-            ${w.catKey==='emcee' ? `
-              <div class="wl-photo-meta">
-                ${w.performStyle?w.performStyle.slice(0,2).map(s=>'<span class="wl-photo-chip" style="background:#EFF6FF;color:#1E40AF;border-color:#93C5FD">'+s+'</span>').join(''):''}
-                ${w.hasVideoClips?'<span class="wl-photo-chip video">🎬 Video</span>':''}
-              </div>
-              ${w.willingToTravel?'<div class="wl-travel">📍 Based in '+w.city+' · Willing to travel</div>':''}
-            `:''}
-            ${w.catKey==='slp' ? `
-              <div class="wl-photo-meta">
-                ${w.serviceTypes?w.serviceTypes.slice(0,3).map(s=>'<span class="wl-photo-chip" style="background:#F0FDF4;color:#166534;border-color:#86EFAC">'+s+'</span>').join(''):''}
-                ${w.ledWall?'<span class="wl-photo-chip" style="background:#EFF6FF;color:#1E40AF;border-color:#93C5FD">📺 LED</span>':''}
-              </div>
-              ${w.coverageCapacity?'<div class="wl-deliverables">👥 '+w.coverageCapacity+'</div>':''}
-            `:''}
-            ${w.catKey==='logistics' ? `
-              <div class="wl-photo-meta">
-                <span class="wl-photo-chip" style="background:#FFF7ED;color:#9A3412;border-color:#FDBA74">🚗 ${w.fleetSize||'Fleet'}</span>
-                ${w.gpsTracking?'<span class="wl-photo-chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">📍 GPS</span>':''}
-                ${w.multiCity?'<span class="wl-photo-chip" style="background:#EFF6FF;color:#1E40AF;border-color:#93C5FD">🌐 Multi-city</span>':''}
-              </div>
-            `:''}
-            ${w.catKey==='eventManager' ? `
-              <div class="wl-photo-meta">
-                ${w.serviceTiers?w.serviceTiers.slice(0,2).map(s=>'<span class="wl-photo-chip" style="background:#F5F3FF;color:#7C3AED;border-color:#C4B5FD">'+s+'</span>').join(''):''}
-              </div>
-              ${w.budgetRange?'<div class="wl-deliverables">💰 '+w.budgetRange+'</div>':''}
-            `:''}
-            ${w.catKey==='returnGifts' ? `
-              <div class="wl-photo-meta">
-                ${w.moq?'<span class="wl-photo-chip" style="background:#FDF2F8;color:#9D174D;border-color:#F9A8D4">📦 Min '+w.moq+'</span>':''}
-                ${w.sampleAvailable?'<span class="wl-photo-chip" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A">🔍 Sample</span>':''}
-                ${w.ecoFriendly?'<span class="wl-photo-chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">🌿 Eco</span>':''}
-              </div>
-              ${w.leadTime?'<div class="wl-deliverables">⏱ Lead: '+w.leadTime+'</div>':''}
-            `:''}
-            ${w.catKey==='staffing' ? `
-              <div class="wl-photo-meta">
-                ${w.staffTypes?w.staffTypes.slice(0,2).map(s=>'<span class="wl-photo-chip" style="background:#F0FDF4;color:#166534;border-color:#86EFAC">'+s+'</span>').join(''):''}
-                ${w.uniformProvided?'<span class="wl-photo-chip" style="background:#F0FDF4;color:#166534;border-color:#86EFAC">👔 Uniform</span>':''}
-                ${w.backgroundVerified?'<span class="wl-photo-chip" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">✓ Verified</span>':''}
-              </div>
-              ${w.maxCapacity?'<div class="wl-deliverables">👥 '+w.maxCapacity+'</div>':''}
-            `:''}
-            ${w.catKey==='photo' ? `
-              <div class="wl-photo-meta">
-                ${w.styleTags?w.styleTags.slice(0,3).map(s=>'<span class="wl-photo-chip">'+s+'</span>').join(''):''}
-                ${w.hasVideoReel?'<span class="wl-photo-chip video">🎬 Video</span>':''}
-              </div>
-              ${w.deliverables?'<div class="wl-deliverables">📷 '+w.deliverables+'</div>':''}
-              ${w.turnaround?'<div class="wl-turnaround">⏱ '+w.turnaround+'</div>':''}
-            `:''}
-            ${w.catKey==='venue' ? `
-              <div class="wl-venue-meta">
-                ${w.venueType?'<span class="wl-venue-chip type">'+w.venueType+'</span>':''}
-                ${w.maxCapacity?'<span class="wl-venue-chip">👥 Up to '+w.maxCapacity+'</span>':''}
-                ${w.vegPlate?'<span class="wl-venue-chip">🍽 '+w.vegPlate+'/plate</span>':''}
-                ${w.roomCount?'<span class="wl-venue-chip">🛏 '+w.roomCount+' rooms</span>':''}
-              </div>
-              ${w.mapLocation?'<div class="wl-venue-loc">📍 '+w.mapLocation+'</div>':''}
-            `:''}
-          </div>
-          <button class="wl-remove" onclick="event.stopPropagation();removeWishlistItem(${wi})" title="Remove">✕</button>
-        </div>
-      `).join('')}
-      <div style="text-align:center;margin-top:12px">
-        <button class="btn btn-secondary" onclick="bnav('explore')" style="padding:8px 20px;font-size:12px">Browse more vendors →</button>
-      </div>
-    </div>` : `
-    <div style="margin-top:24px">
-      <div class="events-section-label">♥ Saved Vendors</div>
-      <div style="text-align:center;padding:30px 20px;color:var(--text-mid)">
-        <div style="font-size:28px;margin-bottom:8px">♡</div>
-        <div style="font-size:13px;font-weight:600;color:var(--primary);margin-bottom:4px">No saved vendors yet</div>
-        <div style="font-size:12px;margin-bottom:12px">Heart vendors while browsing to save them here for later</div>
-        <button class="btn btn-secondary" onclick="bnav('explore')" style="padding:8px 20px;font-size:12px">Browse vendors →</button>
-      </div>
-    </div>`}
 
     <div style="margin-top:24px">
       <div class="events-section-label">Past Events</div>
@@ -9600,20 +10255,63 @@ function buildMyEvents(){
           <div style="font-size:12px;color:var(--accent);font-weight:600;cursor:pointer">⭐ Leave a review →</div>
         </div>
       </div>
+    </div>`;
+  } else if(myEventsTab === 'plans'){
+    el.innerHTML = `
+    <div class="events-section-label">
+      <span>My Plans</span>
+      <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:8px">(${savedPlans.length})</span>
     </div>
-  `;
+    ${savedPlansHtml}`;
+  } else if(myEventsTab === 'saved'){
+    el.innerHTML = state.wishlist.length > 0 ? `
+    <div class="events-section-label">
+      <span>♥ Saved Vendors</span>
+      <span style="font-size:12px;color:var(--text-light);font-weight:400;margin-left:8px">(${state.wishlist.length})</span>
+    </div>
+    ${state.wishlist.map((w,wi) => `
+      <div class="wl-card" onclick="vendorProfileFrom=37;browseViewProfile('${w.catKey}',${w.idx})">
+        <div class="wl-emoji">${w.catEmoji}</div>
+        <div class="wl-info">
+          <div class="wl-name">${w.name}</div>
+          <div class="wl-meta">★ ${w.stars} (${w.reviews}) · ${w.catName} · ${w.city}</div>
+          <div class="wl-price">💰 ${w.price}</div>
+        </div>
+        <button class="wl-remove" onclick="event.stopPropagation();removeWishlistItem(${wi})" title="Remove">✕</button>
+      </div>
+    `).join('')}
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn btn-secondary" onclick="bnav('explore')" style="padding:8px 20px;font-size:12px">Browse more vendors →</button>
+    </div>` : `
+    <div style="text-align:center;padding:40px 20px;color:var(--text-mid)">
+      <div style="font-size:28px;margin-bottom:8px">♡</div>
+      <div style="font-size:13px;font-weight:600;color:var(--primary);margin-bottom:4px">No saved vendors yet</div>
+      <div style="font-size:12px;margin-bottom:12px">Heart vendors while browsing to save them here for later</div>
+      <button class="btn btn-secondary" onclick="bnav('explore')" style="padding:8px 20px;font-size:12px">Browse vendors →</button>
+    </div>`;
+  }
 }
 
 // ========== POST-EVENT REVIEW ==========
 let reviewStars = 0;
 function buildReviewRating(){
+  const b = bookings[0];
+  const vendors = b ? b.vendors.filter(v => v.payment && (v.payment.status === 'advance-paid' || v.payment.status === 'fully-paid')) : [];
+  const reviewVendor = vendors[0] || {emoji:'📸',name:'Priya Captures',catLabel:'Photography'};
+  
   document.getElementById('reviewRatingContent').innerHTML = `
     <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(37)" style="padding:8px 16px;font-size:12px">← My Events</button></div>
 
+    ${vendors.length > 1 ? `
+    <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Review your vendors</div>
+    <div style="display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;padding-bottom:4px">
+      ${vendors.map((v,i) => `<div class="chip ${i===0?'selected':''}" onclick="switchReviewVendor(${i},this)" style="white-space:nowrap">${v.emoji} ${v.name}</div>`).join('')}
+    </div>` : ''}
+
     <div class="rating-card">
-      <div class="rc-emoji">📸</div>
-      <div class="rc-title">How was Priya Captures?</div>
-      <div class="rc-vendor">Photography · Mom's 60th Birthday</div>
+      <div class="rc-emoji">${reviewVendor.emoji}</div>
+      <div class="rc-title">How was ${reviewVendor.name}?</div>
+      <div class="rc-vendor">${reviewVendor.catLabel} · ${b?b.title:'Event'}</div>
       <div class="star-row">
         <span class="star" onclick="setStars(1)">⭐</span>
         <span class="star" onclick="setStars(2)">⭐</span>
@@ -9632,12 +10330,25 @@ function buildReviewRating(){
         <div class="review-tag" onclick="this.classList.toggle('selected')">💰 Good value</div>
         <div class="review-tag" onclick="this.classList.toggle('selected')">🎨 Creative</div>
         <div class="review-tag" onclick="this.classList.toggle('selected')">📦 Fast delivery</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">👨‍👩‍👧 Great with guests</div>
+        <div class="review-tag" onclick="this.classList.toggle('selected')">🔧 Professional setup</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px">
+      <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Add photos (optional)</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div style="width:72px;height:72px;border:2px dashed var(--border);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-size:10px;color:var(--text-light)" onclick="showToast('Photo upload would open here')">
+          <span style="font-size:20px;margin-bottom:2px">📷</span>Upload
+        </div>
+        <div style="font-size:11px;color:var(--text-light);display:flex;align-items:center;max-width:200px">Share photos from the event. These help other planners see real work.</div>
       </div>
     </div>
 
     <div style="margin-bottom:20px">
       <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Write a review (optional)</div>
-      <textarea class="review-textarea" placeholder="Share your experience to help other planners..."></textarea>
+      <textarea class="review-textarea" placeholder="Share your experience to help other planners. What went well? Would you book again?"></textarea>
+      <div style="font-size:11px;color:var(--text-light);margin-top:4px">Tip: Mention specifics — punctuality, quality of deliverables, how they handled changes.</div>
     </div>
 
     <div class="release-box">
@@ -9652,6 +10363,13 @@ function buildReviewRating(){
 
     <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--text-light)">Auto-release in 48 hours if no action taken</div>
   `;
+}
+
+function switchReviewVendor(idx, el){
+  document.querySelectorAll('#reviewRatingContent .chip').forEach(c=>c.classList.remove('selected'));
+  if(el) el.classList.add('selected');
+  // In real implementation, would switch the review form to the selected vendor
+  showToast('Switched to vendor '+(idx+1));
 }
 
 function setStars(n){
@@ -9736,7 +10454,7 @@ function initMiraWelcome(){
   if(hasBookings) chips.push('📋 Event summary', '💰 Payment status', '📊 Compare quotes');
   chips.push('🔍 Help me find a vendor');
   if(hasWishlist) chips.push('♥ My saved vendors');
-  chips.push('🕐 Create a timeline', '💡 What should I do next?');
+  chips.push('🔗 Vendor dependencies', '🕐 Create a timeline', '💡 What should I do next?');
   if(!hasBookings) chips.push('⚠️ How does PlanEasy work?');
   setMiraChips(chips);
 }
@@ -9851,6 +10569,43 @@ ${booked < b.vendors.length ? `⚠️ You still have ${b.vendors.length - booked
 ${totalRemaining > 0 ? `\n💡 You have <strong>₹${totalRemaining.toLocaleString('en-IN')}</strong> in pending payments. The most urgent is <strong>${b.vendors.find(v=>v.payment?.status==='advance-due')?.name || 'Taste Buds Catering'}</strong> — their quote has been accepted but no advance paid yet.` : '✅ All payments are up to date!'}`);
 
     setMiraChips(['📋 Event summary', '⚠️ What\'s missing?', '💡 What should I do next?']);
+    return;
+  }
+
+  // ── VENDOR DEPENDENCIES / COORDINATION ──
+  if(q.includes('depend') || q.includes('coordinat') || q.includes('connect') || q.includes('linked') || q.includes('conflict') || q.includes('generator') || q.includes('power') || q.includes('curfew')){
+    const bookedCats = b.vendors.map(v => v.catKey || 'photo');
+    // Find relevant dependencies
+    let depWarnings = [];
+    if(bookedCats.includes('venue') && bookedCats.includes('fb')){
+      depWarnings.push('<div class="mira-card-row"><span class="mcr-label">📍 Venue ↔ 🍽️ Catering</span><span class="mcr-val red">Check in-house policy</span></div>');
+    }
+    if(bookedCats.some(c=>['entertainment','slp'].includes(c))){
+      depWarnings.push('<div class="mira-card-row"><span class="mcr-label">🎵 Entertainment ↔ 🔊 Sound</span><span class="mcr-val amber">Power & curfew check needed</span></div>');
+    }
+    if(bookedCats.includes('decor') || bookedCats.includes('florist')){
+      depWarnings.push('<div class="mira-card-row"><span class="mcr-label">🎨 Decor ↔ 💐 Florist</span><span class="mcr-val amber">Theme coordination needed</span></div>');
+    }
+    depWarnings.push('<div class="mira-card-row"><span class="mcr-label">📸 Photo ↔ 🎤 Entertainment</span><span class="mcr-val" style="color:var(--text-mid)">Share performance schedule</span></div>');
+
+    addMiraMsg('agent', `Great question! Here are the key vendor dependencies for your event:
+
+<div class="mira-card">
+  <div class="mira-card-title">🔗 Vendor Dependencies</div>
+  ${depWarnings.join('')}
+</div>
+
+<div class="mira-card">
+  <div class="mira-card-title">⚡ Critical Coordination Points</div>
+  <div style="font-size:12px;padding:6px 0;border-bottom:1px solid #f5f5f5"><strong>Venue → Everything:</strong> In-house catering policy, power supply for sound/lighting, noise curfew (10 PM in most Indian cities), mandap fire permit for havan.</div>
+  <div style="font-size:12px;padding:6px 0;border-bottom:1px solid #f5f5f5"><strong>Sound/AV ↔ Entertainment:</strong> DJ needs sound system. Wattage must fit venue power. Generator may be needed for 100+ guest outdoor events.</div>
+  <div style="font-size:12px;padding:6px 0;border-bottom:1px solid #f5f5f5"><strong>Decor ↔ Florist:</strong> In India, floral IS decor for mandap, stage, garlands. Must share color palette and theme.</div>
+  <div style="font-size:12px;padding:6px 0"><strong>Photography ↔ Ceremonies:</strong> Photographer needs ceremony schedule for ritual moments (phere, varmala, sindoor, bidaai). Can't miss these shots.</div>
+</div>
+
+💡 <strong>My recommendation:</strong> ${b.guests && parseInt(b.guests) >= 100 ? 'With '+b.guests+' guests, I strongly recommend an event manager to coordinate these vendor dependencies. They handle power checks, setup schedules, and day-of troubleshooting so your family doesn\'t have to.' : 'Share the ceremony schedule with your photographer and coordinate the sound check timeline with your DJ — those are the two most common coordination gaps.'}`);
+
+    setMiraChips(['📋 Event summary', '⚠️ What\'s missing?', '💡 What should I do next?', '🔊 Tell me about generators']);
     return;
   }
 
@@ -10501,6 +11256,27 @@ const VENDOR_CATS = [
       {type:'toggle',label:'Background-verified',id:'vStaffBG'},
       {type:'text',label:'Minimum booking',id:'vStaffMin',placeholder:'e.g. 5 staff minimum'}
     ]
+  },
+  // ── Design & Print ──
+  {id:'designprint',name:'Design & Print',emoji:'🎨',types:['S','P'],typeLabel:'Service + Portfolio',
+    heroFocus:'Sample gallery of work + capabilities',
+    priceChips:['Under ₹5K','₹5K–₹10K','₹10K–₹20K','₹20K–₹50K','₹50K+'],priceUnit:'per order',
+    importLookFor:{instagram:['printed card photos','design portfolio','close-ups of paper/finish','client work samples'],website:['services list','printing techniques','paper options','portfolio gallery'],google:['reviews','business photos','services mentioned']},
+    heroFields:[
+      {type:'chips',label:'I am a...',id:'vDPType',options:['Invitation Designer','Printer / Stationery','Designer + Printer (both)']},
+      {type:'chips',label:'What I offer',id:'vDPServices',options:['Wedding invitations','Event invitations','Save the dates','RSVP cards','Menu cards','Place cards','Thank you cards','Box invitations','Video invitations','E-invites / digital']}
+    ],
+    categoryFields:[
+      {type:'chips',label:'Design styles',id:'vDPStyles',options:['Traditional Indian','Modern Minimal','Floral / Botanical','Royal / Luxury','Rustic / Eco','Calligraphy','Illustrated','Photo-based']},
+      {type:'chips',label:'Printing capabilities (if printer)',id:'vDPTechniques',options:['Digital printing','Offset','Foil stamping','Embossing','Letterpress','Laser cutting','Screen printing','UV spot']},
+      {type:'chips',label:'Paper types (if printer)',id:'vDPPaper',options:['Matte cardstock','Glossy','Textured / Linen','Cotton fiber','Kraft','Metallic / Pearl','Handmade','Velvet']},
+      {type:'chips',label:'Languages supported',id:'vDPLangs',options:['Hindi','English','Marathi','Tamil','Telugu','Gujarati','Punjabi','Bengali','Urdu','Kannada']},
+      {type:'text',label:'Minimum order quantity',id:'vDPMOQ',placeholder:'e.g. 50 cards minimum (or "No minimum for design")'},
+      {type:'text',label:'Typical turnaround',id:'vDPTurnaround',placeholder:'e.g. Design: 3–5 days, Print: 7–10 days'},
+      {type:'toggle',label:'Offers sample kit / paper swatches',id:'vDPSamples'},
+      {type:'toggle',label:'Accepts customer designs for printing',id:'vDPAcceptsDesign'},
+      {type:'chips',label:'Delivery',id:'vDPDelivery',options:['Local pickup','Same-city delivery','Pan-India shipping','International']}
+    ]
   }
 ];
 
@@ -10540,7 +11316,8 @@ function selectVendorCat(id){
 function selectImportMethod(method){
   vendorState.importMethod = method;
   document.querySelectorAll('.v-import-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('vi' + {instagram:'Insta',website:'Web',google:'Google',manual:'Manual'}[method]).classList.add('selected');
+  const idMap = {instagram:'Insta',website:'Web',google:'Google',manual:'Manual',facebook:'Facebook',linkedin:'Linkedin'};
+  document.getElementById('vi' + idMap[method]).classList.add('selected');
   
   const inputDiv = document.getElementById('vImportInput');
   const label = document.getElementById('vImportLabel');
@@ -10557,10 +11334,18 @@ function selectImportMethod(method){
       label.textContent = 'Paste your Instagram handle or URL';
       hint.textContent = 'e.g. @yourhandle or https://instagram.com/yourhandle';
       urlInput.placeholder = '@yourbusiness';
+    } else if(method === 'facebook'){
+      label.textContent = 'Paste your Facebook page URL';
+      hint.textContent = 'e.g. https://facebook.com/yourbusiness or your page name';
+      urlInput.placeholder = 'https://facebook.com/yourbusiness';
     } else if(method === 'website'){
       label.textContent = 'Paste your website URL';
       hint.textContent = 'We\'ll read your services, gallery, about page, and pricing';
       urlInput.placeholder = 'https://yourbusiness.com';
+    } else if(method === 'linkedin'){
+      label.textContent = 'Paste your LinkedIn company or profile URL';
+      hint.textContent = 'e.g. https://linkedin.com/company/yourbusiness or your profile URL';
+      urlInput.placeholder = 'https://linkedin.com/company/yourbusiness';
     } else {
       label.textContent = 'Paste your Google Business URL';
       hint.textContent = 'Search your business on Google Maps and copy the link';
@@ -10698,7 +11483,58 @@ function buildVendorForm(cat, aiData){
   
   // Category-specific fields
   const catDiv = document.getElementById('vCategoryFields');
-  catDiv.innerHTML = cat.categoryFields.map(f => buildVendorField(f)).join('');
+  
+  // Design & Print: show conditional fields based on vendor sub-type
+  if(cat.id === 'designprint'){
+    // First show the "I am a..." selector from hero fields (already rendered above)
+    // Then add conditional sections that appear based on selection
+    let dpFields = '';
+    dpFields += `<div id="dpConditionalFields">
+      <div style="background:var(--accent-wash);border:1px solid var(--accent-soft);border-radius:10px;padding:10px 14px;font-size:12px;color:#92400E;margin-bottom:16px">
+        👆 Select your role above to see the right questions for you. Designers see style questions, printers see production questions, and combined vendors see both.
+      </div>
+    </div>`;
+    
+    // Design-only fields
+    dpFields += `<div id="dpDesignFields" style="display:none">
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">🎨 Design capabilities</div>
+      ${buildVendorField({type:'chips',label:'Design styles',id:'vDPStyles',options:['Traditional Indian','Modern Minimal','Floral / Botanical','Royal / Luxury','Rustic / Eco','Calligraphy','Illustrated','Photo-based']})}
+      ${buildVendorField({type:'chips',label:'Languages supported',id:'vDPLangs',options:['Hindi','English','Marathi','Tamil','Telugu','Gujarati','Punjabi','Bengali','Urdu','Kannada']})}
+      ${buildVendorField({type:'text',label:'Design turnaround time',id:'vDPDesignTurn',placeholder:'e.g. 3–5 days for first draft, 2 revision rounds included'})}
+      ${buildVendorField({type:'toggle',label:'Offers custom illustrations',id:'vDPCustomIllus'})}
+    </div>`;
+    
+    // Print-only fields
+    dpFields += `<div id="dpPrintFields" style="display:none">
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">🖨️ Printing capabilities</div>
+      ${buildVendorField({type:'chips',label:'Printing techniques',id:'vDPTechniques',options:['Digital printing','Offset','Foil stamping','Embossing','Letterpress','Laser cutting','Screen printing','UV spot']})}
+      ${buildVendorField({type:'chips',label:'Paper types',id:'vDPPaper',options:['Matte cardstock','Glossy','Textured / Linen','Cotton fiber','Kraft','Metallic / Pearl','Handmade','Velvet']})}
+      ${buildVendorField({type:'text',label:'Minimum order quantity',id:'vDPMOQ',placeholder:'e.g. 50 cards minimum'})}
+      ${buildVendorField({type:'text',label:'Print turnaround time',id:'vDPPrintTurn',placeholder:'e.g. 7–10 business days after design approval'})}
+      ${buildVendorField({type:'toggle',label:'Offers sample kit / paper swatches',id:'vDPSamples'})}
+      ${buildVendorField({type:'toggle',label:'Accepts customer designs for printing',id:'vDPAcceptsDesign'})}
+    </div>`;
+    
+    // Common fields
+    dpFields += `<div id="dpCommonFields" style="display:none">
+      <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">📦 Delivery & logistics</div>
+      ${buildVendorField({type:'chips',label:'Delivery',id:'vDPDelivery',options:['Local pickup','Same-city delivery','Pan-India shipping','International']})}
+    </div>`;
+    
+    catDiv.innerHTML = dpFields;
+    
+    // Attach listener for the "I am a..." chips
+    setTimeout(() => {
+      document.querySelectorAll('[data-field="vDPType"] ~ .chip, #vHeroFields .chip').forEach(chip => {
+        const origClick = chip.onclick;
+        chip.addEventListener('click', function(){
+          setTimeout(handleDPVendorType, 50);
+        });
+      });
+    }, 100);
+  } else {
+    catDiv.innerHTML = cat.categoryFields.map(f => buildVendorField(f)).join('');
+  }
   
   // Photo grid
   const photoGrid = document.getElementById('vPhotoGrid');
@@ -10714,6 +11550,41 @@ function buildVendorForm(cat, aiData){
     <span style="font-size:11px;color:var(--text-mid)">Add more</span>
   </div>`;
   photoGrid.innerHTML = photoHtml;
+}
+
+function handleDPVendorType(){
+  const selected = document.querySelectorAll('#vHeroFields [data-field="vDPType"].chip.selected, #vHeroFields .chip.selected');
+  let dpType = '';
+  selected.forEach(c => {
+    const t = c.textContent.toLowerCase();
+    if(t.includes('designer') && !t.includes('printer')) dpType = 'designer';
+    else if(t.includes('printer') && !t.includes('designer')) dpType = 'printer';
+    else if(t.includes('both')) dpType = 'both';
+  });
+  
+  const designEl = document.getElementById('dpDesignFields');
+  const printEl = document.getElementById('dpPrintFields');
+  const commonEl = document.getElementById('dpCommonFields');
+  const condEl = document.getElementById('dpConditionalFields');
+  
+  if(!designEl || !printEl) return;
+  
+  if(dpType === 'designer'){
+    designEl.style.display = '';
+    printEl.style.display = 'none';
+    commonEl.style.display = '';
+    if(condEl) condEl.style.display = 'none';
+  } else if(dpType === 'printer'){
+    designEl.style.display = 'none';
+    printEl.style.display = '';
+    commonEl.style.display = '';
+    if(condEl) condEl.style.display = 'none';
+  } else if(dpType === 'both'){
+    designEl.style.display = '';
+    printEl.style.display = '';
+    commonEl.style.display = '';
+    if(condEl) condEl.style.display = 'none';
+  }
 }
 
 function buildVendorField(f){
@@ -10892,6 +11763,203 @@ function vendorGoLive(){
       <div class="v-dash-label">Profile status</div>
     </div>
   `;
+}
+
+// ========================================================================
+// INVITE CREATOR — Embedded Standalone
+// ========================================================================
+const INV_THEMES = [
+  {id:'royal',name:'Royal Indian',desc:'Gold, maroon, ornate',bg:'linear-gradient(135deg,#8B0000,#4A0000)',color:'#FFD700',accent:'#FFF8DC'},
+  {id:'floral',name:'Floral Garden',desc:'Soft pastels, botanical',bg:'linear-gradient(135deg,#FFF0F5,#FFDEE2)',color:'#7A3044',accent:'#C9707D'},
+  {id:'modern',name:'Modern Minimal',desc:'Clean lines, bold type',bg:'linear-gradient(135deg,#1a1a1a,#333)',color:'#fff',accent:'#FFCC02'},
+  {id:'festive',name:'Festive Party',desc:'Bright colors, energy',bg:'linear-gradient(135deg,#FF6B35,#FF1493)',color:'#fff',accent:'#FFE066'},
+  {id:'rustic',name:'Rustic Organic',desc:'Earthy tones, natural',bg:'linear-gradient(135deg,#5C4033,#3E2723)',color:'#F5DEB3',accent:'#C4A265'},
+  {id:'pastel',name:'Soft Pastel',desc:'Gentle hues, dreamy',bg:'linear-gradient(135deg,#E8D5F5,#D5EAF0)',color:'#3A2350',accent:'#7B68AE'},
+  {id:'desi',name:'Desi Traditional',desc:'Marigold, rangoli, warm',bg:'linear-gradient(135deg,#FF9933,#CC6600)',color:'#fff',accent:'#FFF3CD'},
+  {id:'neon',name:'Night Neon',desc:'Dark glamour, electric',bg:'linear-gradient(135deg,#0D0221,#1A0533)',color:'#E0AAFF',accent:'#00FFD1'},
+  {id:'sage',name:'Sage & Ivory',desc:'Muted greens, elegant',bg:'linear-gradient(135deg,#D4DFC7,#A8BF95)',color:'#2C3E2D',accent:'#5B7A5E'},
+  {id:'midnight',name:'Midnight Blue',desc:'Deep navy, starlight',bg:'linear-gradient(135deg,#0C1445,#1B2A6B)',color:'#E8D5B7',accent:'#C4A265'},
+];
+
+let invSelectedTheme = null;
+let invSelectedOption = null;
+let invSelectedFormats = ['whatsapp'];
+
+const INV_FORMAT_INFO = {
+  whatsapp:'<strong>WhatsApp:</strong> 1080\u00d71080px JPEG \u00b7 Square shows fully in chat. Under 300KB.',
+  instagram:'<strong>Instagram:</strong> 1080\u00d71080px (post) or 1080\u00d71920px (story).',
+  email:'<strong>Email:</strong> 600\u00d7900px JPEG inline + 1500\u00d72100px PNG attachment.',
+  print:'<strong>Print-ready:</strong> 5\u00d77 inch PDF at 300 DPI with 3mm bleed. CMYK colors.'
+};
+
+function buildInviteThemeGrid(){
+  const grid = document.getElementById('invThemeGrid');
+  if(!grid) return;
+  grid.innerHTML = INV_THEMES.map(t => `
+    <div class="v-cat-card" data-id="${t.id}" onclick="pickInvTheme('${t.id}')" style="padding:0;overflow:hidden;border-radius:14px;border:2px solid var(--border);cursor:pointer;transition:all .25s">
+      <div style="height:72px;display:flex;align-items:center;justify-content:center;background:${t.bg};color:${t.color};font-size:10px;font-weight:700;letter-spacing:.5px;position:relative">
+        <span style="position:relative;z-index:1">${t.name.toUpperCase()}</span>
+        <div class="ck" style="position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:var(--primary);font-size:11px;font-weight:800;display:none;align-items:center;justify-content:center">✓</div>
+      </div>
+      <div style="padding:8px 10px">
+        <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">${t.name}</div>
+        <div style="font-size:10px;color:var(--text-mid)">${t.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function pickInvTheme(id){
+  invSelectedTheme = INV_THEMES.find(t => t.id === id);
+  document.querySelectorAll('#invThemeGrid .v-cat-card').forEach(c => {
+    const sel = c.dataset.id === id;
+    c.style.borderColor = sel ? 'var(--accent)' : 'var(--border)';
+    c.style.boxShadow = sel ? '0 0 0 3px rgba(255,204,2,.2)' : 'none';
+    const ck = c.querySelector('.ck');
+    if(ck) ck.style.display = sel ? 'flex' : 'none';
+  });
+  document.getElementById('btnInvGenerate').disabled = false;
+}
+
+function checkInvStep1(){
+  const name = document.getElementById('invName').value.trim();
+  const date = document.getElementById('invDate').value;
+  document.getElementById('btnInvStep1').disabled = !(name && date);
+}
+
+function runInviteGeneration(){
+  document.getElementById('invGenLoading').style.display = '';
+  document.getElementById('invGenResults').style.display = 'none';
+  invSelectedOption = null;
+  const msgs = ['Reading your event details...','Applying '+( invSelectedTheme?.name||'theme')+' palette...','Designing layout variations...','Refining typography...','Adding finishing touches...'];
+  let i = 0;
+  const iv = setInterval(() => {
+    i++;
+    if(i < msgs.length) document.getElementById('invGenStatus').textContent = msgs[i];
+    else { clearInterval(iv); showInviteOptions(); }
+  }, 800);
+}
+
+function showInviteOptions(){
+  document.getElementById('invGenLoading').style.display = 'none';
+  document.getElementById('invGenResults').style.display = '';
+  document.getElementById('btnInvPick').disabled = true;
+
+  const t = invSelectedTheme;
+  const name = document.getElementById('invName').value || 'Your Event';
+  const host = document.getElementById('invHost').value || '';
+  const date = document.getElementById('invDate').value;
+  const time = document.getElementById('invTime').value;
+  const venue = document.getElementById('invVenue').value || '';
+  const desc = document.getElementById('invDesc').value || '';
+  const dress = document.getElementById('invDress').value || '';
+  const fmtDate = date ? new Date(date+'T00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : 'Date TBD';
+  const fmtTime = time ? new Date('2026-01-01T'+time).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit',hour12:true}) : '';
+
+  const variations = [
+    {label:'Classic',titleSize:'22px',showDesc:true,note:'Full details, warm feel'},
+    {label:'Bold',titleSize:'28px',showDesc:false,note:'Impact-first, clean'},
+    {label:'Elegant',titleSize:'18px',showDesc:true,note:'Refined with all info'},
+  ];
+
+  const og = document.getElementById('invOptionsGrid');
+  og.innerHTML = '';
+  variations.forEach((v,idx) => {
+    const card = document.createElement('div');
+    card.style.cssText = 'border:2px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .25s';
+    card.dataset.idx = idx;
+    card.onclick = () => {
+      invSelectedOption = idx;
+      document.querySelectorAll('#invOptionsGrid > div').forEach(c => {
+        c.style.borderColor = +c.dataset.idx===idx ? 'var(--accent)' : 'var(--border)';
+        c.style.boxShadow = +c.dataset.idx===idx ? '0 0 0 3px rgba(255,204,2,.2)' : 'none';
+      });
+      document.getElementById('btnInvPick').disabled = false;
+    };
+    card.innerHTML = `
+      <div style="padding:36px 24px;text-align:center;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:${t.bg};color:${t.color}">
+        <div style="font-family:'Sora',sans-serif;font-size:${v.titleSize};font-weight:800">${name}</div>
+        ${host ? `<div style="font-size:12px;opacity:.7;margin-top:4px">${host}</div>` : ''}
+        <div style="font-size:13px;margin-top:10px;font-weight:600">${fmtDate}${fmtTime ? ' · '+fmtTime : ''}${venue?'<br>'+venue:''}</div>
+        ${v.showDesc && desc ? `<div style="font-size:11px;opacity:.75;margin-top:8px;max-width:260px;line-height:1.5">${desc.substring(0,120)}${desc.length>120?'...':''}</div>` : ''}
+        ${v.showDesc && dress ? `<div style="font-size:10px;opacity:.6;margin-top:6px;font-style:italic">${dress}</div>` : ''}
+      </div>
+      <div style="padding:12px 16px;background:#fff;display:flex;justify-content:space-between;align-items:center;font-size:12px;border-top:1px solid var(--border)">
+        <span style="font-weight:700;color:var(--primary)">${v.label} · ${v.note}</span>
+        <span style="color:var(--accent);font-weight:700">Select</span>
+      </div>`;
+    og.appendChild(card);
+  });
+}
+
+function toggleInvFormat(el){
+  el.classList.toggle('selected');
+  invSelectedFormats = [];
+  document.querySelectorAll('#invFormatChips .chip.selected').forEach(c => invSelectedFormats.push(c.dataset.fmt));
+  const fmt = el.dataset.fmt;
+  document.getElementById('invFormatInfo').innerHTML = INV_FORMAT_INFO[fmt] || '';
+}
+
+function renderInviteFinal(){
+  const t = invSelectedTheme;
+  const name = document.getElementById('invName').value || 'Your Event';
+  const host = document.getElementById('invHost').value || '';
+  const date = document.getElementById('invDate').value;
+  const time = document.getElementById('invTime').value;
+  const venue = document.getElementById('invVenue').value || '';
+  const desc = document.getElementById('invDesc').value || '';
+  const dress = document.getElementById('invDress').value || '';
+  const fmtDate = date ? new Date(date+'T00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : 'Date TBD';
+  const fmtTime = time ? new Date('2026-01-01T'+time).toLocaleTimeString('en-IN',{hour:'numeric',minute:'2-digit',hour12:true}) : '';
+
+  document.getElementById('invFinalPreview').innerHTML = `
+    <div style="padding:40px 24px;text-align:center;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:${t.bg};color:${t.color}">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;opacity:.5;margin-bottom:10px">${t.name}</div>
+      <div style="font-family:'Sora',sans-serif;font-size:26px;font-weight:800">${name}</div>
+      ${host ? `<div style="font-size:13px;opacity:.7;margin-top:4px">${host}</div>` : ''}
+      <div style="margin-top:14px;font-size:14px;font-weight:600">${fmtDate}${fmtTime ? ' · '+fmtTime : ''}</div>
+      ${venue ? `<div style="font-size:12px;opacity:.75;margin-top:4px">${venue}</div>` : ''}
+      ${desc ? `<div style="font-size:12px;opacity:.7;margin-top:12px;max-width:280px;line-height:1.6">${desc}</div>` : ''}
+      ${dress ? `<div style="font-size:11px;opacity:.6;margin-top:8px;font-style:italic">${dress}</div>` : ''}
+      <div style="margin-top:20px;padding:10px 24px;border:1.5px solid ${t.accent};border-radius:100px;font-size:12px;font-weight:700;color:${t.accent};display:inline-block">RSVP</div>
+    </div>`;
+
+  const dlMap = {
+    whatsapp:{icon:'📱',name:'WhatsApp',meta:'1080×1080 JPEG · ~250KB'},
+    instagram:{icon:'📸',name:'Instagram',meta:'1080×1080 + 1080×1920'},
+    email:{icon:'✉️',name:'Email',meta:'600×900 JPEG + PNG'},
+    print:{icon:'🖨️',name:'Print-Ready',meta:'5×7" PDF · 300 DPI'},
+  };
+  const fmts = invSelectedFormats.length > 0 ? invSelectedFormats : ['whatsapp'];
+  let dlHtml = '';
+  fmts.forEach(f => {
+    const d = dlMap[f]; if(!d) return;
+    dlHtml += `<div style="background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;text-align:center;transition:all .2s" onclick="alert('Downloading ${d.name} format...')">
+      <div style="font-size:24px;margin-bottom:4px">${d.icon}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--primary)">${d.name}</div>
+      <div style="font-size:10px;color:var(--text-light);margin-top:2px">${d.meta}</div>
+    </div>`;
+  });
+  if(fmts.length > 1){
+    dlHtml += `<div style="background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;text-align:center;transition:all .2s" onclick="alert('Downloading ZIP...')">
+      <div style="font-size:24px;margin-bottom:4px">📦</div>
+      <div style="font-size:13px;font-weight:700;color:var(--primary)">Download All</div>
+      <div style="font-size:10px;color:var(--text-light);margin-top:2px">ZIP with all formats</div>
+    </div>`;
+  }
+  document.getElementById('invDownloadGrid').innerHTML = dlHtml;
+}
+
+function resetInvite(){
+  invSelectedTheme = null;
+  invSelectedOption = null;
+  invSelectedFormats = ['whatsapp'];
+  ['invName','invHost','invVenue','invDesc','invDress'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const dateEl = document.getElementById('invDate'); if(dateEl) dateEl.value='';
+  const timeEl = document.getElementById('invTime'); if(timeEl) timeEl.value='18:00';
+  document.getElementById('btnInvStep1').disabled = true;
+  document.getElementById('btnInvGenerate').disabled = true;
+  buildInviteThemeGrid();
 }
 
 // Vendor onboarding system complete
@@ -11169,7 +12237,7 @@ function buildVLeadDetail(){
   const matchClass = l.matchScore >= 90 ? 'high' : l.matchScore >= 75 ? 'med' : 'low';
 
   document.getElementById('vLeadDetailContent').innerHTML = `
-    <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(61)" style="padding:8px 16px;font-size:12px">← Back to leads</button></div>
+    <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
 
     <div class="vd-detail-header">
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -11760,7 +12828,7 @@ function buildVEditProfile(){
   
   document.getElementById('vEditContent').innerHTML = `
     <div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
-      <button class="btn btn-secondary" onclick="goTo(65)" style="padding:8px 16px;font-size:12px">← Back</button>
+      <button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button>
       <button class="btn btn-primary" onclick="goTo(65)" style="padding:8px 16px;font-size:12px">Save Changes ✓</button>
     </div>
 
@@ -11826,8 +12894,8 @@ function buildVEditProfile(){
     </div>
 
     <div style="margin-top:24px;display:flex;gap:8px">
-      <button class="btn btn-secondary" style="flex:1" onclick="goTo(65)">Cancel</button>
-      <button class="btn btn-primary" style="flex:1" onclick="goTo(65)">Save Changes ✓</button>
+      <button class="btn btn-secondary" style="flex:1" onclick="goBack()">Cancel</button>
+      <button class="btn btn-primary" style="flex:1" onclick="goBack()">Save Changes ✓</button>
     </div>
   `;
 }
