@@ -4233,40 +4233,64 @@ const BROWSE_VENDORS = {
   venue: [
     {name:'The Garden Terrace',stars:4.9,reviews:156,city:'Mumbai',price:'₹50,000 – ₹2,00,000',priceNum:50000,responseTime:'~3 hours',events:200,yrs:10,badges:['verified','top'],tags:['Outdoor','Garden','Premium'],bio:'Lush garden venue with indoor and outdoor spaces. Capacity up to 500 guests with valet parking.',
       venueType:'Wedding Lawn & Banquet',spaceTypes:['Indoor','Outdoor','Garden'],
-      spaces:[{name:'Main Lawn',type:'Outdoor',seating:300,floating:500},{name:'Crystal Hall',type:'Indoor',seating:150,floating:200},{name:'Terrace Deck',type:'Outdoor',seating:80,floating:120}],
+      spaces:[{name:'Main Lawn',type:'Outdoor',seating:300,standing:500,roundTable:200,sqft:6000},{name:'Crystal Hall',type:'Indoor',seating:150,standing:200,roundTable:100,sqft:3200},{name:'Terrace Deck',type:'Outdoor',seating:80,standing:120,roundTable:50,sqft:1800}],
       vegPlate:'₹950',nonvegPlate:'₹1,150',rentalCost:'₹50,000/event',roomCount:0,
-      policies:{catering:'Outside caterer allowed',decor:'Outside decorator allowed',alcohol:'BYO permitted (corkage applies)',dj:'Outside DJ allowed (10pm curfew)',noiseCurfew:'10:00 PM',parking:'50 cars + valet',smallParty:true,generator:true},
-      amenities:['Parking','Generator','Bridal Room','WiFi','AC (Indoor)','Lift','Wheelchair Access'],
-      mapLocation:'Goregaon West, Mumbai',suitableEvents:['Wedding','Reception','Engagement','Birthday','Corporate','Haldi','Mehendi'],venueHours:'7 AM – 12 Midnight',changingRooms:2,multipleEvents:true},
+      proximity:{metro:'Goregaon (1.2 km)',airport:'Chhatrapati Shivaji Intl Airport (12 km, ~35 min)',railway:'Goregaon Railway Station (1.5 km)',bus:'Goregaon Bus Depot (0.8 km)',landmark:'Near Film City, Western Express Highway'},
+      policies:{catering:'Outside caterer allowed',decor:'Outside decorator allowed',alcohol:'BYO permitted (corkage ₹200/bottle)',dj:'Outside DJ allowed (10 PM curfew)',noiseCurfew:'10:00 PM',parking:'50 cars + valet',smallParty:true,generator:'Available (included)',fireFlame:'Havan allowed with prior permission and fire extinguisher',photography:'No restrictions. Drone allowed with advance notice.',smoking:'Designated area only',setupTime:'Vendors can access 4 hours before event',teardownTime:'Must clear within 2 hours after event'},
+      amenities:['Parking','Generator','Bridal Room','WiFi','AC (Indoor)','Lift','Wheelchair Access','Standby First Aid'],
+      mapLocation:'Goregaon West, Mumbai',suitableEvents:['Wedding','Reception','Engagement','Birthday','Corporate','Haldi','Mehendi'],venueHours:'7 AM – 12 Midnight',changingRooms:2,multipleEvents:true,
+      cancellation:{advance:'25% of total (non-refundable)',tiers:[{days:'60+',refund:'50% of advance as credit'},{days:'30–60',refund:'No refund'},{days:'Under 30',refund:'No refund, full amount forfeited'}],dateChange:'1 free date change if 45+ days before event',forceM:'Full credit for government-mandated restrictions'},
+      fAndBMin:'₹1,50,000 minimum F&B spend',overtimeRate:'₹15,000/hour after curfew (subject to police permission)',guestGuarantee:'Final guest count confirmed 7 days before event',securityDeposit:'₹25,000 refundable',gstNote:'18% GST applicable on all charges',
+      paymentSchedule:[{stage:'Booking token',when:'At booking',amount:'25% of total'},{stage:'Second installment',when:'30 days before event',amount:'50% of total'},{stage:'Final settlement',when:'On event day',amount:'Remaining 25%'}]},
+
     {name:'The Rustic Farmhouse',stars:4.6,reviews:98,city:'Mumbai',price:'₹45,000 – ₹1,20,000',priceNum:45000,responseTime:'~4 hours',events:120,yrs:6,badges:['verified'],tags:['Rustic','Farmhouse','Intimate'],bio:'Charming farmhouse setting on the outskirts of Mumbai. Perfect for intimate celebrations up to 200 guests.',
       venueType:'Farmhouse',spaceTypes:['Outdoor','Farmhouse'],
-      spaces:[{name:'Open Lawn',type:'Outdoor',seating:120,floating:200},{name:'Barn Hall',type:'Indoor',seating:60,floating:80}],
+      spaces:[{name:'Open Lawn',type:'Outdoor',seating:120,standing:200,roundTable:80,sqft:4000},{name:'Barn Hall',type:'Indoor',seating:60,standing:80,roundTable:40,sqft:1200}],
       vegPlate:'₹700',nonvegPlate:'₹900',rentalCost:'₹45,000/day',roomCount:4,roomPrice:'₹2,500/night',
-      policies:{catering:'Outside caterer allowed',decor:'Outside decorator allowed',alcohol:'BYO permitted',dj:'Outside DJ allowed (no curfew)',noiseCurfew:'No curfew',parking:'30 cars',smallParty:true,generator:true},
-      amenities:['Parking','Generator','4 Rooms','WiFi','Bonfire Area','Pet Friendly'],
-      mapLocation:'Vasai East, Mumbai',suitableEvents:['Wedding','Haldi','Birthday','Engagement','Baby Shower'],venueHours:'8 AM – No curfew',changingRooms:1,multipleEvents:false},
+      proximity:{metro:'Vasai Road (8 km)',airport:'Chhatrapati Shivaji Intl Airport (52 km, ~1.5 hr)',railway:'Vasai Road Railway Station (8 km)',bus:'Vasai Bus Stand (7 km)',landmark:'Near Tungareshwar Wildlife Sanctuary'},
+      policies:{catering:'Outside caterer allowed',decor:'Outside decorator allowed',alcohol:'BYO permitted',dj:'Outside DJ allowed (no curfew)',noiseCurfew:'No curfew (rural area)',parking:'30 cars',smallParty:true,generator:'Available (₹5,000 extra)',fireFlame:'Havan and bonfire allowed',photography:'No restrictions. Drone allowed.',smoking:'Allowed in open areas',setupTime:'Full day access from 8 AM',teardownTime:'Next day 10 AM checkout'},
+      amenities:['Parking','Generator','4 Rooms','WiFi','Bonfire Area','Pet Friendly','Swimming Pool'],
+      mapLocation:'Vasai East, Mumbai',suitableEvents:['Wedding','Haldi','Birthday','Engagement','Baby Shower','Pool Party'],venueHours:'8 AM – No curfew',changingRooms:1,multipleEvents:false,
+      cancellation:{advance:'₹15,000 token (non-refundable)',tiers:[{days:'30+',refund:'Token adjustable to new date'},{days:'Under 30',refund:'No refund'}],dateChange:'Free date change with 30+ days notice',forceM:'Full refund minus processing fee'},
+      gstNote:'GST included in per-plate pricing',
+      paymentSchedule:[{stage:'Booking token',when:'At booking',amount:'₹15,000 fixed'},{stage:'Final settlement',when:'7 days before event',amount:'Remaining balance'}]},
+
     {name:'Sky Lounge Mumbai',stars:4.8,reviews:134,city:'Mumbai',price:'₹80,000 – ₹3,00,000',priceNum:80000,responseTime:'~2 hours',events:95,yrs:4,badges:['verified','top','fast'],tags:['Rooftop','City View','Luxury'],bio:'Stunning rooftop venue with panoramic city views. Modern luxury with in-house bar and DJ booth.',
       venueType:'Rooftop Lounge',spaceTypes:['Rooftop','Indoor'],
-      spaces:[{name:'Sky Deck',type:'Rooftop',seating:100,floating:180},{name:'VIP Lounge',type:'Indoor',seating:30,floating:50}],
+      spaces:[{name:'Sky Deck',type:'Rooftop',seating:100,standing:180,roundTable:70,sqft:2500},{name:'VIP Lounge',type:'Indoor',seating:30,standing:50,roundTable:20,sqft:600}],
       vegPlate:'₹1,800',nonvegPlate:'₹2,200',rentalCost:'₹80,000/event',roomCount:0,
-      policies:{catering:'In-house catering only',decor:'Outside decorator allowed (restrictions apply)',alcohol:'In-house bar available',dj:'In-house DJ available (midnight curfew)',noiseCurfew:'12:00 AM',parking:'Valet only (20 cars)',smallParty:true,generator:true},
+      proximity:{metro:'Lower Parel (0.3 km)',airport:'Chhatrapati Shivaji Intl Airport (8 km, ~25 min)',railway:'Lower Parel Railway Station (0.5 km)',bus:'Senapati Bapat Marg (0.2 km)',landmark:'Near Phoenix Palladium Mall, Kamala Mills'},
+      policies:{catering:'In-house catering only',decor:'Outside decorator allowed (restrictions apply)',alcohol:'In-house bar available',dj:'In-house DJ available (midnight curfew)',noiseCurfew:'12:00 AM',parking:'Valet only (20 cars)',smallParty:true,generator:'Available (included)',fireFlame:'No open flame / havan allowed',photography:'No drone (rooftop). Flash photography allowed.',smoking:'Designated smoking area',setupTime:'2 hours before event',teardownTime:'Must clear same night'},
       amenities:['Valet Parking','Generator','In-house Bar','DJ Booth','City View','AC','Lift'],
-      mapLocation:'Lower Parel, Mumbai',suitableEvents:['Cocktail','Reception','Corporate','Birthday','New Year'],venueHours:'5 PM – 1 AM',changingRooms:0,multipleEvents:false},
+      mapLocation:'Lower Parel, Mumbai',suitableEvents:['Cocktail','Reception','Corporate','Birthday','New Year','Sangeet'],venueHours:'5 PM – 1 AM',changingRooms:0,multipleEvents:false,
+      cancellation:{advance:'50% of total',tiers:[{days:'15+',refund:'25% refund'},{days:'Under 15',refund:'No refund'}],dateChange:'₹10,000 date change fee',forceM:'Credit note valid 6 months'},
+      fAndBMin:'₹2,00,000 minimum spend',gstNote:'18% GST on all charges',
+      paymentSchedule:[{stage:'Booking token',when:'At booking',amount:'50% of total'},{stage:'Final settlement',when:'On event day',amount:'Remaining 50%'}]},
+
     {name:'Heritage Hall',stars:4.4,reviews:67,city:'Mumbai',price:'₹30,000 – ₹80,000',priceNum:30000,responseTime:'~6 hours',events:250,yrs:20,badges:['verified'],tags:['Banquet','Traditional','Large'],bio:'Classic banquet hall with 20 years of hosting weddings and celebrations. Capacity up to 800 guests.',
       venueType:'Banquet Hall',spaceTypes:['Indoor'],
-      spaces:[{name:'Grand Ballroom',type:'Indoor',seating:500,floating:800},{name:'Mini Hall',type:'Indoor',seating:100,floating:150}],
+      spaces:[{name:'Grand Ballroom',type:'Indoor',seating:500,standing:800,roundTable:350,sqft:8000},{name:'Mini Hall',type:'Indoor',seating:100,standing:150,roundTable:60,sqft:1500}],
       vegPlate:'₹600',nonvegPlate:'₹750',rentalCost:'₹30,000/event',roomCount:0,
-      policies:{catering:'In-house catering only',decor:'Decorators from panel only',alcohol:'No alcohol permitted',dj:'In-house DJ available (10pm curfew)',noiseCurfew:'10:00 PM',parking:'100 cars',smallParty:false,generator:true},
+      proximity:{metro:'Andheri (2 km)',airport:'Chhatrapati Shivaji Intl Airport (6 km, ~20 min)',railway:'Andheri Railway Station (2.5 km)',bus:'Andheri Bus Depot (1.8 km)',landmark:'Near DN Nagar Metro, Andheri West'},
+      policies:{catering:'In-house catering only',decor:'Decorators from panel only',alcohol:'No alcohol permitted',dj:'In-house DJ available (10 PM curfew)',noiseCurfew:'10:00 PM',parking:'100 cars',smallParty:false,generator:'Available (included)',fireFlame:'Havan allowed with in-house fire safety team',photography:'No restrictions',smoking:'Not allowed anywhere',setupTime:'3 hours before event',teardownTime:'2 hours after event'},
       amenities:['Parking (100 cars)','Generator','Stage','AC','Bridal Room','Lift'],
-      mapLocation:'Andheri West, Mumbai',suitableEvents:['Wedding','Reception','Engagement','Thread Ceremony','Corporate','Puja'],venueHours:'7 AM – 10 PM',changingRooms:2,multipleEvents:true},
+      mapLocation:'Andheri West, Mumbai',suitableEvents:['Wedding','Reception','Engagement','Thread Ceremony','Corporate','Puja','Community Event'],venueHours:'7 AM – 10 PM',changingRooms:2,multipleEvents:true,
+      cancellation:{advance:'₹10,000 token',tiers:[{days:'45+',refund:'Full token refunded'},{days:'15–45',refund:'50% refund'},{days:'Under 15',refund:'No refund'}],dateChange:'1 free date change',forceM:'Full refund'},
+      guestGuarantee:'Minimum 200 guests for Grand Ballroom',gstNote:'5% GST on food, 18% on venue rental',
+      paymentSchedule:[{stage:'Booking token',when:'At booking',amount:'₹10,000 fixed'},{stage:'Second installment',when:'15 days before event',amount:'50% of estimated total'},{stage:'Final settlement',when:'Within 3 days after event',amount:'Balance based on actual guest count'}]},
+
     {name:'Seaside Resort & Spa',stars:4.7,reviews:112,city:'Mumbai',price:'₹1,50,000 – ₹5,00,000',priceNum:150000,responseTime:'~1 hour',events:80,yrs:8,badges:['verified','top','fast'],tags:['Resort','Beachfront','Destination'],bio:'Beachfront resort with multiple event spaces, 60 rooms, pool area, and dedicated wedding coordination team.',
       venueType:'Resort',spaceTypes:['Indoor','Outdoor','Poolside','Beachfront'],
-      spaces:[{name:'Beachfront Lawn',type:'Outdoor',seating:250,floating:400},{name:'Poolside Deck',type:'Poolside',seating:80,floating:120},{name:'Grand Banquet',type:'Indoor',seating:300,floating:500},{name:'Terrace Lounge',type:'Rooftop',seating:60,floating:100}],
+      spaces:[{name:'Beachfront Lawn',type:'Outdoor',seating:250,standing:400,roundTable:180,sqft:8000},{name:'Poolside Deck',type:'Poolside',seating:80,standing:120,roundTable:50,sqft:2000},{name:'Grand Banquet',type:'Indoor',seating:300,standing:500,roundTable:220,sqft:6000},{name:'Terrace Lounge',type:'Rooftop',seating:60,standing:100,roundTable:40,sqft:1500}],
       vegPlate:'₹2,500',nonvegPlate:'₹3,200',rentalCost:'₹1,50,000/day',roomCount:60,roomPrice:'₹4,500/night',
       destinationPrice:'₹4.5 Lakhs/day for 60 rooms (rooms + meals + venue)',
-      policies:{catering:'In-house catering only',decor:'Outside decorator allowed',alcohol:'In-house bar + BYO permitted',dj:'Outside DJ allowed (11pm curfew)',noiseCurfew:'11:00 PM',parking:'80 cars + valet',smallParty:false,generator:true},
-      amenities:['Parking','Generator','60 Rooms','Pool','Spa','Beach Access','WiFi','AC','Bridal Suite','Wheelchair Access','Helipad'],
-      mapLocation:'Alibaug, Near Mumbai',suitableEvents:['Destination Wedding','Wedding','Reception','Sangeet','Haldi','Mehendi','Corporate Retreat'],venueHours:'24 hours (resort)',changingRooms:4,multipleEvents:true},
+      proximity:{metro:'Not available (Alibaug)',airport:'Chhatrapati Shivaji Intl Airport (110 km, ~3 hr via Atal Setu)',railway:'Pen Railway Station (35 km)',bus:'Alibaug Bus Stand (5 km)',landmark:'Alibaug Beach, 15 min from Mandwa Jetty (ferry from Gateway of India)'},
+      policies:{catering:'In-house catering only',decor:'Outside decorator allowed',alcohol:'In-house bar + BYO permitted',dj:'Outside DJ allowed (11 PM curfew)',noiseCurfew:'11:00 PM',parking:'80 cars + valet',smallParty:false,generator:'Available (included)',fireFlame:'Havan allowed (beach area only)',photography:'No restrictions. Drone allowed with advance notice.',smoking:'Designated areas only',setupTime:'Full day before event for setup',teardownTime:'Checkout by 11 AM next day'},
+      amenities:['Parking','Generator','60 Rooms','Pool','Spa','Beach Access','WiFi','AC','Bridal Suite','Wheelchair Access','Helipad','In-house Coordinator'],
+      mapLocation:'Alibaug, Near Mumbai',suitableEvents:['Destination Wedding','Wedding','Reception','Sangeet','Haldi','Mehendi','Corporate Retreat'],venueHours:'24 hours (resort)',changingRooms:4,multipleEvents:true,
+      cancellation:{advance:'30% of total package',tiers:[{days:'90+',refund:'Full advance refunded minus ₹25,000'},{days:'60–90',refund:'50% of advance refunded'},{days:'30–60',refund:'25% refund'},{days:'Under 30',refund:'No refund'}],dateChange:'1 free reschedule if 60+ days before',forceM:'Full credit valid 12 months'},
+      fAndBMin:'₹3,00,000 minimum F&B per event day',securityDeposit:'₹50,000 refundable',gstNote:'18% GST on venue + 5% on food',
+      paymentSchedule:[{stage:'Booking token',when:'At booking',amount:'30% of total package'},{stage:'Second installment',when:'60 days before event',amount:'40% of total'},{stage:'Final settlement',when:'7 days before event',amount:'Remaining 30%'},{stage:'Security deposit',when:'At booking (refunded within 14 days after event)',amount:'₹50,000'}]},
   ],
   decor: [
     {name:'Decor Dreams',stars:4.6,reviews:78,city:'Mumbai',price:'₹25,000 – ₹1,50,000',priceNum:25000,responseTime:'~6 hours',events:120,yrs:5,badges:['verified'],tags:['Floral','Theme','Balloon'],bio:'Creative decoration studio specializing in themed events, floral installations, and balloon art. From intimate haldis to grand wedding stages.',
@@ -4523,6 +4547,12 @@ function matchesSearch(vendor, query){
     ...(vendor.printTechniques || []),
     vendor.dpType || '',
     ...(vendor.languages || []),
+    vendor.venueType || '',
+    vendor.proximity?.metro || '',
+    vendor.proximity?.landmark || '',
+    vendor.mapLocation || '',
+    ...(vendor.suitableEvents || []),
+    ...(vendor.spaceTypes || []),
   ].join(' ').toLowerCase();
   // Split query into words, all must match
   return q.split(/\s+/).every(word => searchable.includes(word));
@@ -4640,6 +4670,7 @@ function buildMarketplace(){
             ${v.turnaround?'<span class="mp-photo-badge">⏱ '+v.turnaround+'</span>':''}
           </div>
           <div class="mp-ent-location">📍 Based in ${v.city}${v.willingToTravel?' · Willing to travel':''}</div>
+          <div style="margin-top:6px"><button class="btn btn-secondary" style="padding:6px 12px;font-size:11px;width:auto" onclick="event.stopPropagation();addToCompare('${v.name.replace(/'/g,"\\'")}','photo')">📊 Compare</button></div>
         ` : ''}
         ${v._catKey==='entertainment' && v.genreTags ? `
           <div class="mp-genre-row">${v.genreTags.slice(0,4).map(g => '<span class="mp-genre-chip">'+g+'</span>').join('')}${v.genreTags.length>4?'<span class="mp-genre-more">+' +(v.genreTags.length-4)+'</span>':''}</div>
@@ -4651,6 +4682,7 @@ function buildMarketplace(){
             ${v.hasVideoClips?'<span class="mp-music-badge video">🎬 Video</span>':''}
           </div>
           <div class="mp-ent-location">📍 Based in ${v.city}${v.willingToTravel?' · Willing to travel':''}</div>
+          <div style="margin-top:6px"><button class="btn btn-secondary" style="padding:6px 12px;font-size:11px;width:auto" onclick="event.stopPropagation();addToCompare('${v.name.replace(/'/g,"\\'")}','entertainment')">📊 Compare</button></div>
         ` : ''}
         ${v._catKey==='fb' && v.cuisineTypes ? `
           <div class="mp-genre-row">${v.cuisineTypes.slice(0,4).map(c => '<span class="mp-genre-chip" style="background:#FFF7ED;color:#9A3412;border-color:#FDBA74">'+c+'</span>').join('')}${v.cuisineTypes.length>4?'<span class="mp-genre-more">+'+(v.cuisineTypes.length-4)+'</span>':''}</div>
@@ -4664,6 +4696,7 @@ function buildMarketplace(){
             ${v.tastingAvailable?'<span class="mp-music-badge" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A">🥄 Tasting available</span>':''}
             ${v.fssaiCertified?'<span class="mp-music-badge" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">🏅 FSSAI</span>':''}
           </div>
+          <div style="margin-top:6px"><button class="btn btn-secondary" style="padding:6px 12px;font-size:11px;width:auto" onclick="event.stopPropagation();addToCompare('${v.name.replace(/'/g,"\\'")}','fb')">📊 Compare</button></div>
         ` : ''}
         ${v._catKey==='decor' && v.themeTags ? `
           <div class="mp-genre-row">${v.themeTags.slice(0,4).map(t => '<span class="mp-genre-chip" style="background:#F5F3FF;color:#7C3AED;border-color:#C4B5FD">'+t+'</span>').join('')}${v.themeTags.length>4?'<span class="mp-genre-more">+'+(v.themeTags.length-4)+'</span>':''}</div>
@@ -4673,6 +4706,7 @@ function buildMarketplace(){
             ${v.furnitureIncluded?'<span class="mp-music-badge" style="background:#EFF6FF;color:#1E40AF;border-color:#93C5FD">🪑 Furniture incl.</span>':''}
             ${v.ecoFriendly?'<span class="mp-music-badge" style="background:#ECFDF5;color:#065F46;border-color:#A7F3D0">🌿 Eco-friendly</span>':''}
           </div>
+          <div style="margin-top:6px"><button class="btn btn-secondary" style="padding:6px 12px;font-size:11px;width:auto" onclick="event.stopPropagation();addToCompare('${v.name.replace(/'/g,"\\'")}','decor')">📊 Compare</button></div>
         ` : ''}
         ${v._catKey==='styling' && v.serviceType ? `
           <div class="mp-genre-row">${(v.serviceType==='MUA'?v.specializations:v.specializations||[]).slice(0,4).map(s => '<span class="mp-genre-chip" style="background:#FDF2F8;color:#9D174D;border-color:#F9A8D4">'+s+'</span>').join('')}</div>
@@ -4768,7 +4802,7 @@ function buildMarketplace(){
           <div class="mp-venue-type">${v.venueType}</div>
           <div class="mp-venue-spaces">${v.spaceTypes.map(s => '<span class="mp-venue-space-chip">'+s+'</span>').join('')}</div>
           <div class="mp-venue-stats">
-            ${v.spaces?'<span class="mp-venue-stat">👥 Up to '+ Math.max(...v.spaces.map(s=>s.floating))+' guests</span>':''}
+            ${v.spaces?'<span class="mp-venue-stat">👥 Up to '+ Math.max(...v.spaces.map(s=>s.standing||s.floating||0))+' guests</span>':''}
             ${v.vegPlate?'<span class="mp-venue-stat">🍽 Veg '+v.vegPlate+'/plate</span>':''}
             ${v.nonvegPlate?'<span class="mp-venue-stat">🍗 Non-veg '+v.nonvegPlate+'/plate</span>':''}
             ${v.roomCount?'<span class="mp-venue-stat">🛏 '+v.roomCount+' rooms</span>':''}
@@ -4778,7 +4812,9 @@ function buildMarketplace(){
             ${v.policies?.alcohol?.includes('No')? '<span class="mp-venue-policy no">✗ No alcohol</span>': '<span class="mp-venue-policy yes">✓ Alcohol</span>'}
             ${v.policies?.generator? '<span class="mp-venue-policy yes">✓ Generator</span>':''}
           </div>
+          ${v.proximity?.metro?'<div style="font-size:11px;color:var(--text-mid);margin-bottom:4px">🚇 '+v.proximity.metro+'</div>':''}
           <div class="mp-ent-location">📍 ${v.mapLocation||v.city}</div>
+          <div style="margin-top:6px"><button class="btn btn-secondary" style="padding:6px 12px;font-size:11px;width:auto" onclick="event.stopPropagation();addToCompare('${v.name.replace(/'/g,"\\'")}','${v._catKey}')">📊 Compare</button></div>
         ` : ''}
         <div class="mp-tags">${badgeHtml}${tagHtml}</div>
       </div>
@@ -4916,7 +4952,7 @@ function toggleWishlist(name, catKey, idx){
       wlItem.venueType = v.venueType; wlItem.spaceTypes = v.spaceTypes;
       wlItem.vegPlate = v.vegPlate; wlItem.roomCount = v.roomCount;
       wlItem.mapLocation = v.mapLocation;
-      wlItem.maxCapacity = v.spaces ? Math.max(...v.spaces.map(s=>s.floating)) : 0;
+      wlItem.maxCapacity = v.spaces ? Math.max(...v.spaces.map(s=>s.standing||s.floating||0)) : 0;
     }
     state.wishlist.push(wlItem);
     showToast('♥ Saved to wishlist');
@@ -5018,7 +5054,7 @@ function toggleWishlistFromProfile(){
       wlItem.venueType = v.venueType; wlItem.spaceTypes = v.spaceTypes;
       wlItem.vegPlate = v.vegPlate; wlItem.roomCount = v.roomCount;
       wlItem.mapLocation = v.mapLocation;
-      wlItem.maxCapacity = v.spaces ? Math.max(...v.spaces.map(s=>s.floating)) : 0;
+      wlItem.maxCapacity = v.spaces ? Math.max(...v.spaces.map(s=>s.standing||s.floating||0)) : 0;
     }
     state.wishlist.push(wlItem);
     showToast('♥ Saved to wishlist');
@@ -5215,7 +5251,11 @@ function browseViewProfile(catKey, idx){
         policies: v.policies, amenities: v.amenities, mapLocation: v.mapLocation,
         suitableEvents: v.suitableEvents, venueHours: v.venueHours,
         changingRooms: v.changingRooms, multipleEvents: v.multipleEvents,
-        cancellationPolicy: v.cancellationPolicy || 'Contact venue for cancellation terms.',
+        proximity: v.proximity, cancellation: v.cancellation,
+        fAndBMin: v.fAndBMin, overtimeRate: v.overtimeRate, guestGuarantee: v.guestGuarantee,
+        securityDeposit: v.securityDeposit, gstNote: v.gstNote,
+        paymentSchedule: v.paymentSchedule,
+        cancellationPolicy: v.cancellationPolicy || 'See cancellation tiers above.',
         paymentTerms: v.paymentTerms || 'Contact venue for payment terms.',
       });
     }
@@ -5285,7 +5325,7 @@ function buildBrowseEventForm(){
             <div class="br-music-meta">👥 ${v.staffTypes.slice(0,2).join(', ')} · ${v.maxCapacity||''}</div>
           `:''}
           ${v._catKey==='venue' && v.venueType ? `
-            <div class="br-venue-meta">${v.venueType} · 👥 Up to ${v.spaces?Math.max(...v.spaces.map(s=>s.floating)):0} · 🍽 ${v.vegPlate||''}/plate</div>
+            <div class="br-venue-meta">${v.venueType} · 👥 Up to ${v.spaces?Math.max(...v.spaces.map(s=>s.standing||s.floating||0)):0} · 🍽 ${v.vegPlate||''}/plate</div>
           `:''}
         </div>
       </div>
@@ -7501,48 +7541,200 @@ function buildVendorProfile(){
   const emoji = CAT_MAP[catKey] ? CAT_MAP[catKey][1] : '📋';
   // Route to category-specific profile builders
   if(catKey === 'venue' && v.venueType){
-    return buildVenueProfile(v, catKey, catLabel, emoji);
+    return buildVenueProfile(v, catKey, catLabel, emoji); // Venue already has all shared sections built in
   }
-  if(catKey === 'fb' && v.cuisineTypes){
-    return buildCatererProfile(v, catKey, catLabel, emoji);
+  if(catKey === 'fb' && v.cuisineTypes) buildCatererProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'decor' && v.themeTags) buildDecoratorProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'styling' && v.serviceType) buildStylingProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'florist' && v.flowerTypes) buildFloristProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'ceremonial' && v.tradition) buildCeremonialProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'emcee' && v.performStyle) buildEmceeProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'slp' && v.equipmentBrands) buildSLPProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'logistics' && v.vehicleTypes) buildLogisticsProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'eventManager' && v.serviceTiers) buildEventManagerProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'returnGifts' && v.productCategories) buildReturnGiftsProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'staffing' && v.staffTypes) buildStaffingProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'photo' && v.styleTags) buildPhotographerProfile(v, catKey, catLabel, emoji);
+  else if(catKey === 'entertainment' && v.genreTags) buildMusicianProfile(v, catKey, catLabel, emoji);
+  else buildGenericProfile(v, catKey, catLabel, emoji);
+  
+  // ═══ APPEND SHARED SECTIONS to all non-venue profiles ═══
+  appendSharedProfileSections(v, catKey);
+}
+
+// ═══════════════════════════════════════════════════
+// SHARED SECTIONS — appended to all vendor profiles
+// ═══════════════════════════════════════════════════
+
+// Parse flat payment terms text into structured milestones
+function parsePaymentTerms(text){
+  if(!text) return [];
+  const steps = [];
+  // Split on periods or semicolons
+  const parts = text.split(/[.;]/).map(p=>p.trim()).filter(Boolean);
+  parts.forEach((part,i) => {
+    const lower = part.toLowerCase();
+    if(lower.includes('advance') || lower.includes('booking') || lower.includes('token')){
+      const amt = part.match(/[\d]+%|₹[\d,]+/)?.[0] || part;
+      steps.push({stage:'Booking advance',when:'At booking',amount:amt});
+    } else if(lower.includes('before') || lower.includes('installment') || lower.includes('days')){
+      const amt = part.match(/[\d]+%|₹[\d,]+/)?.[0] || part;
+      const when = part.match(/(\d+\s*days?\s*before)/i)?.[1] || 'Before event';
+      steps.push({stage:'Installment '+(steps.length+1),when:when,amount:amt});
+    } else if(lower.includes('balance') || lower.includes('final') || lower.includes('settlement') || lower.includes('event day') || lower.includes('remaining') || lower.includes('delivery')){
+      steps.push({stage:'Final settlement',when:part.replace(/balance|final/i,'').trim()||'On event day',amount:'Remaining balance'});
+    } else if(part.length > 3){
+      steps.push({stage:'Payment '+(steps.length+1),when:part,amount:'As agreed'});
+    }
+  });
+  // If nothing parsed, create a single step from the original text
+  if(steps.length === 0 && text.length > 3){
+    steps.push({stage:'Payment terms',when:'As per agreement',amount:text});
   }
-  if(catKey === 'decor' && v.themeTags){
-    return buildDecoratorProfile(v, catKey, catLabel, emoji);
+  return steps;
+}
+
+function appendSharedProfileSections(v, catKey){
+  const el = document.getElementById('vendorProfileContent');
+  if(!el) return;
+  
+  // Find the vp-actions div and insert before it, or append at end
+  const actionsDiv = el.querySelector('.vp-actions');
+  const container = document.createElement('div');
+  container.className = 'shared-profile-sections';
+  
+  let html = '';
+  
+  // ── 1. Date availability check (all categories) ──
+  html += `<div class="vp-section">
+    <div style="background:var(--accent-wash);border:1.5px solid var(--accent-soft);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="showToast('Date availability check coming soon!')">
+      <div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">📅 Check availability</div>
+      <div style="font-size:11px;color:var(--text-mid)">See if this vendor is available for your date</div></div>
+      <span style="font-size:12px;font-weight:700;color:var(--accent)">Check →</span>
+    </div>
+  </div>`;
+  
+  // ── 2. Minimum guests (caterers only) ──
+  if(catKey === 'fb' && v.minGuests){
+    html += `<div class="vp-section">
+      <div class="vp-section-title">👥 Minimum order</div>
+      <div style="background:#FFF8E1;border:1.5px solid #FFE082;border-radius:14px;padding:12px 16px;font-size:13px">
+        <span style="font-weight:700;color:var(--primary)">Minimum ${v.minGuests} guests</span>
+        <span style="color:var(--text-mid)"> — Pricing is per-plate and depends on guest count. Larger events may get better rates.</span>
+      </div>
+    </div>`;
   }
-  if(catKey === 'styling' && v.serviceType){
-    return buildStylingProfile(v, catKey, catLabel, emoji);
+  
+  // ── 3. Permissions (entertainment/music only) ──
+  if(catKey === 'entertainment'){
+    html += `<div class="vp-section">
+      <div style="border:1.5px solid #FFE082;border-radius:14px;overflow:hidden">
+        <div style="background:#FFF3E0;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:#E65100">🎫 Permissions</div>
+        <div style="padding:12px 14px;font-size:12px;line-height:1.8">
+          <div style="margin-bottom:6px;color:var(--text-mid)">Music performances may require:</div>
+          <div style="padding:4px 0;border-bottom:1px solid #f5f5f5">🔊 <strong>Loudspeaker permit</strong> — from local police station (especially after 10 PM)</div>
+          <div style="padding:4px 0;border-bottom:1px solid #f5f5f5">🎵 <strong>Music license</strong> — PPL/IPRS license for playing copyrighted music</div>
+          <div style="padding:4px 0">📋 <strong>Venue clearance</strong> — confirm venue allows live music / DJ with their noise curfew</div>
+          <div style="margin-top:8px;font-size:11px;color:var(--text-light);font-style:italic">Usually the venue or event manager arranges these. Confirm who is responsible before booking.</div>
+        </div>
+      </div>
+    </div>`;
   }
-  if(catKey === 'florist' && v.flowerTypes){
-    return buildFloristProfile(v, catKey, catLabel, emoji);
+  
+  // ── 4. Cancellation & payment terms (all categories) ──
+  const canc = v.cancellation || {};
+  html += `<div class="vp-section">
+    <div style="border:1.5px solid #FFE082;border-radius:14px;overflow:hidden">
+      <div style="background:#FFF8E1;padding:10px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#E65100">📄 Cancellation terms</div>
+      ${canc.advance ? `
+        <div style="padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Booking advance:</span> ${canc.advance}</div>
+        ${(canc.tiers||[]).map(t => '<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between"><span style="color:var(--text-mid)">Cancel '+t.days+' days before</span><span style="font-weight:600">'+t.refund+'</span></div>').join('')}
+        ${canc.dateChange?'<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Date change:</span> '+canc.dateChange+'</div>':''}
+        ${canc.forceM?'<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Force majeure:</span> '+canc.forceM+'</div>':''}
+      ` : `
+        <div style="padding:10px 14px;font-size:12px;color:var(--text-mid)">${v.cancellationPolicy||'Contact vendor for cancellation terms.'}</div>
+      `}
+      <div style="padding:10px 14px;font-size:10px;color:var(--text-light);line-height:1.6;border-top:1px solid #f0f0f0">
+        <em>Checklist for onboarding:</em>
+        <div style="margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px 12px">
+          <span>☐ Booking advance (% or fixed)</span>
+          <span>☐ Refund if cancelled 60+ days before</span>
+          <span>☐ Refund if cancelled 30–60 days before</span>
+          <span>☐ Refund if cancelled under 30 days</span>
+          <span>☐ Date change / postponement fee</span>
+          <span>☐ Force majeure / COVID clause</span>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  
+  // Build payment schedule — structured milestones when available, parsed text otherwise
+  const paySteps = v.paymentSchedule || parsePaymentTerms(v.paymentTerms);
+  html += `<div class="vp-section">
+    <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden">
+      <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">💳 Payment schedule</div>
+      ${paySteps.length > 0 ? paySteps.map((ps, i) => `
+        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0">
+          <div style="width:22px;height:22px;border-radius:50%;background:${i===0?'var(--accent)':'#F5F5F5'};border:1.5px solid ${i===0?'var(--accent)':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${i===0?'var(--primary)':'var(--text-light)'};flex-shrink:0;margin-top:1px">${i+1}</div>
+          <div style="flex:1">
+            <div style="font-size:12px;font-weight:700;color:var(--primary)">${ps.stage}</div>
+            <div style="font-size:11px;color:var(--text-mid)">${ps.when}</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:var(--primary);text-align:right">${ps.amount}</div>
+        </div>
+      `).join('') : `<div style="padding:10px 14px;font-size:12px;color:var(--text-mid)">Contact vendor for payment schedule.</div>`}
+      <div style="padding:10px 14px;font-size:10px;color:var(--text-light);line-height:1.6;border-top:1px solid #f0f0f0">
+        <em>Checklist for onboarding:</em>
+        <div style="margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px 12px">
+          <span>☐ Booking amount (% or fixed)</span>
+          <span>☐ Second installment (30–15 days before)</span>
+          <span>☐ Final settlement timeline</span>
+          <span>☐ Overtime / extra charges per hour</span>
+          <span>☐ Guest count guarantee deadline</span>
+          <span>☐ Security deposit + refund timeline</span>
+          <span>☐ GST treatment (inclusive or exclusive)</span>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  
+  // ── 5. Compare + Shortlist (Photo, F&B, Decor, Entertainment) ──
+  const compareCats = ['photo','fb','decor','entertainment'];
+  if(compareCats.includes(catKey)){
+    html += `<div class="vp-section">
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary" style="flex:1;padding:12px" onclick="addToCompare('${v.name.replace(/'/g,"\\'")}','${catKey}');showToast('Added to compare list')">📊 Compare</button>
+        <button class="btn btn-secondary" style="flex:1;padding:12px" onclick="showToast('Shortlist saved!')">📋 Shortlist</button>
+      </div>
+    </div>`;
   }
-  if(catKey === 'ceremonial' && v.tradition){
-    return buildCeremonialProfile(v, catKey, catLabel, emoji);
+  
+  // ── 6. Similar vendors (all categories) ──
+  const allInCat = BROWSE_VENDORS[catKey] || [];
+  const similar = allInCat.filter(sv => sv.name !== v.name).slice(0, 3);
+  if(similar.length > 0){
+    const catObj = CATS[catKey];
+    html += `<div class="vp-section">
+      <div class="vp-section-title">${catObj?.emoji||'📋'} Similar ${catObj?.name||'vendors'}</div>
+      <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">
+        ${similar.map(sv => `
+          <div style="min-width:160px;border:1.5px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;flex-shrink:0" onclick="browseViewProfile('${catKey}',${allInCat.indexOf(sv)})">
+            <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">${sv.name}</div>
+            <div style="font-size:11px;color:var(--text-mid);margin:2px 0">${sv.city}</div>
+            <div style="font-size:11px;color:var(--accent)">★ ${sv.stars} · ${sv.price.split('–')[0]}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
   }
-  if(catKey === 'emcee' && v.performStyle){
-    return buildEmceeProfile(v, catKey, catLabel, emoji);
+  
+  container.innerHTML = html;
+  
+  if(actionsDiv){
+    actionsDiv.parentNode.insertBefore(container, actionsDiv);
+  } else {
+    el.appendChild(container);
   }
-  if(catKey === 'slp' && v.equipmentBrands){
-    return buildSLPProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'logistics' && v.vehicleTypes){
-    return buildLogisticsProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'eventManager' && v.serviceTiers){
-    return buildEventManagerProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'returnGifts' && v.productCategories){
-    return buildReturnGiftsProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'staffing' && v.staffTypes){
-    return buildStaffingProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'photo' && v.styleTags){
-    return buildPhotographerProfile(v, catKey, catLabel, emoji);
-  }
-  if(catKey === 'entertainment' && v.genreTags){
-    return buildMusicianProfile(v, catKey, catLabel, emoji);
-  }
-  buildGenericProfile(v, catKey, catLabel, emoji);
 }
 
 function buildGenericProfile(v, catKey, catLabel, emoji){
@@ -7612,7 +7804,7 @@ function buildGenericProfile(v, catKey, catLabel, emoji){
     </div>
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
     </div>
   `;
 }
@@ -7781,7 +7973,7 @@ function buildDecoratorProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Get Quote</button>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
     </div>
   `;
 }
@@ -7917,23 +8109,6 @@ function buildStylingProfile(v, catKey, catLabel, emoji){
         </div>
       `).join('')}
     </div>
-
-    <details class="vp-details-section">
-      <summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary>
-      <div class="vp-details-content">
-        <div class="rr"><span class="rl">💳 Payment Terms</span></div>
-        <div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div>
-        <div class="rr"><span class="rl">❌ Cancellation Policy</span></div>
-        <div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div>
-      </div>
-    </details>
-
-    <div class="vp-cta-section">
-      <button class="btn btn-primary vp-cta-btn" onclick="showToast('${isMUA?'Trial':'Mehendi'} request sent!')">
-        ${isMUA?'Book Trial / Request Quote':'Request Quote'} →
-      </button>
-      <div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div>
-    </div>
   `;
 }
 
@@ -8068,23 +8243,6 @@ function buildFloristProfile(v, catKey, catLabel, emoji){
         </div>
       `).join('')}
     </div>
-
-    <details class="vp-details-section">
-      <summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary>
-      <div class="vp-details-content">
-        <div class="rr"><span class="rl">💳 Payment Terms</span></div>
-        <div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div>
-        <div class="rr"><span class="rl">❌ Cancellation Policy</span></div>
-        <div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div>
-      </div>
-    </details>
-
-    <div class="vp-cta-section">
-      <button class="btn btn-primary vp-cta-btn" onclick="showToast('Quote request sent!')">
-        Request Quote →
-      </button>
-      <div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div>
-    </div>
   `;
 }
 
@@ -8209,23 +8367,6 @@ function buildCeremonialProfile(v, catKey, catLabel, emoji){
         </div>
       `).join('')}
     </div>
-
-    <details class="vp-details-section">
-      <summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary>
-      <div class="vp-details-content">
-        <div class="rr"><span class="rl">💳 Payment Terms</span></div>
-        <div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div>
-        <div class="rr"><span class="rl">❌ Cancellation Policy</span></div>
-        <div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div>
-      </div>
-    </details>
-
-    <div class="vp-cta-section">
-      <button class="btn btn-primary vp-cta-btn" onclick="showToast('Booking request sent!')">
-        Book Ceremony →
-      </button>
-      <div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div>
-    </div>
   `;
 }
 
@@ -8307,8 +8448,6 @@ function buildEmceeProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     ${v.willingToTravel?'<div style="padding:12px 16px;background:#EFF6FF;border:1px solid #93C5FD;border-radius:var(--radius);margin:16px 0"><div style="font-size:13px;color:#1E40AF"><strong>📍 Based in '+v.city+'</strong> · Willing to travel</div><div style="font-size:12px;color:#1E40AF;opacity:0.7;margin-top:2px">Available pan-India. Outstation travel + stay at extra cost.</div></div>':''}
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('Booking request sent!')">Book ${v.name.split(' ')[0]} →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8376,8 +8515,6 @@ function buildSLPProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">📝 About</h3><p class="vp-bio">${v.bio}</p></div>
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('Quote request sent!')">Request Quote →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8444,8 +8581,6 @@ function buildLogisticsProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">📝 About</h3><p class="vp-bio">${v.bio}</p></div>
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('Booking request sent!')">Book Fleet →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8507,8 +8642,6 @@ function buildEventManagerProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">📝 About</h3><p class="vp-bio">${v.bio}</p></div>
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('Consultation request sent!')">Book Consultation →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8582,9 +8715,6 @@ function buildReturnGiftsProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">📝 About</h3><p class="vp-bio">${v.bio}</p></div>
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('${v.sampleAvailable?"Sample":"Quote"} request sent!')">
-      ${v.sampleAvailable?'Order Sample / Request Quote':'Request Quote'} →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8658,8 +8788,6 @@ function buildStaffingProfile(v, catKey, catLabel, emoji){
     <div class="vp-section"><h3 class="vp-section-title">📝 About</h3><p class="vp-bio">${v.bio}</p></div>
     <div class="vp-section"><h3 class="vp-section-title">✅ What's Included</h3>${(v.includes||[]).map(item => '<div class="vp-inc-row"><span class="vp-inc-icon '+(item.inc?'yes':'no')+'">'+(item.inc?'✓':'+')+'</span><span class="vp-inc-text">'+item.text+'</span>'+(item.price?'<span class="vp-inc-price">'+item.price+'</span>':'')+'</div>').join('')}</div>
     <div class="vp-section"><h3 class="vp-section-title">⭐ Reviews</h3>${(v.reviewData||[]).map(r => '<div class="vp-review"><div class="vp-review-head"><span class="vp-reviewer">'+r.name+'</span><span class="vp-review-stars">'+'★'.repeat(r.stars)+'☆'.repeat(5-r.stars)+'</span></div><div class="vp-review-date">'+r.date+(r.eventType?' · <span class="ph-review-event">'+r.eventType+'</span>':'')+'</div><p class="vp-review-text">'+r.text+'</p></div>').join('')}</div>
-    <details class="vp-details-section"><summary class="vp-details-toggle">📋 Payment & Cancellation Details</summary><div class="vp-details-content"><div class="rr"><span class="rl">💳 Payment Terms</span></div><div style="font-size:13px;color:var(--text-mid);margin-bottom:12px">${v.paymentTerms||'Contact for details'}</div><div class="rr"><span class="rl">❌ Cancellation Policy</span></div><div style="font-size:13px;color:var(--text-mid)">${v.cancellationPolicy||'Contact for details'}</div></div></details>
-    <div class="vp-cta-section"><button class="btn btn-primary vp-cta-btn" onclick="showToast('Staffing request sent!')">Request Staff Quote →</button><div class="vp-cta-note">Free to request · No obligation · Typically responds in ${v.responseTime||'a few hours'}</div></div>
   `;
 }
 
@@ -8834,18 +8962,6 @@ function buildCatererProfile(v, catKey, catLabel, emoji){
       ${reviewsHtml}
     </div>
 
-    <!-- PHASE 2: Booking & Payment Details -->
-    <div class="vp-section">
-      <div class="vp-p2-toggle" onclick="this.classList.toggle('open');this.nextElementSibling.style.display=this.classList.contains('open')?'block':'none'">
-        <span>📄 Booking & Payment Details</span><span class="vp-p2-arrow">▸</span>
-      </div>
-      <div class="vp-p2-content" style="display:none">
-        <div class="vn-p2-row"><strong>Payment terms:</strong> ${v.paymentTerms||'Contact for details'}</div>
-        <div class="vn-p2-row"><strong>Cancellation:</strong> ${v.cancellationPolicy||'Contact for details'}</div>
-        <div class="vn-p2-row"><strong>Events catered:</strong> ${v.events}+ across ${v.yrs} years</div>
-      </div>
-    </div>
-
     <!-- RESPONSE TIME -->
     <div style="text-align:center;padding:8px 0;font-size:12px;color:var(--text-light)">
       ⏱ Typically responds in <strong style="color:var(--primary)">${v.responseTime||'a few hours'}</strong>
@@ -8862,54 +8978,101 @@ function buildCatererProfile(v, catKey, catLabel, emoji){
 // ========== PHOTOGRAPHER PROFILE (Type T+P) ==========
 function buildVenueProfile(v, catKey, catLabel, emoji){
   const isLiked = state.wishlist.some(w=>w.name===v.name && w.catKey===catKey);
-  const maxCapacity = v.spaces ? Math.max(...v.spaces.map(s=>s.floating)) : 0;
+  const maxCap = v.spaces ? Math.max(...v.spaces.map(s=>s.standing||s.floating||0)) : 0;
 
-  // Build spaces breakdown
-  const spacesHtml = (v.spaces||[]).map(s => `
-    <div class="vn-space-card">
-      <div class="vn-space-placeholder"><span>${s.type==='Indoor'?'🏛':s.type==='Outdoor'?'🌿':s.type==='Poolside'?'🏊':s.type==='Rooftop'?'🌇':s.type==='Beachfront'?'🏖':'📍'}</span></div>
-      <div class="vn-space-info">
-        <div class="vn-space-name">${s.name}</div>
-        <div class="vn-space-type">${s.type}</div>
-        <div class="vn-space-cap">🪑 ${s.seating} seated · 👥 ${s.floating} floating</div>
+  // ── Helper: policy item with venue answer + all options as reference ──
+  function polItem(icon, label, value, allOptions){
+    const hasValue = value && value !== 'Ask venue';
+    return `<div style="border-bottom:1px solid #f0f0f0;padding:10px 0">
+      <div style="display:flex;align-items:flex-start;gap:8px">
+        <span style="font-size:14px;flex-shrink:0;margin-top:1px">${icon}</span>
+        <div style="flex:1">
+          <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);margin-bottom:2px">${label}</div>
+          <div style="font-size:12px;color:${hasValue?'var(--green)':'#D97706'};font-weight:600">${value||'Ask venue'}</div>
+          <div style="font-size:10px;color:var(--text-light);margin-top:4px;line-height:1.5"><em>Options: ${allOptions}</em></div>
+        </div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }
 
-  // Build policies grid
-  const pol = v.policies || {};
-  const policiesHtml = `
-    <div class="vn-policy-grid">
-      <div class="vn-policy-item"><div class="vn-pol-label">🍽 Catering</div><div class="vn-pol-value">${pol.catering||'Ask venue'}</div></div>
-      <div class="vn-policy-item"><div class="vn-pol-label">🎨 Decor</div><div class="vn-pol-value">${pol.decor||'Ask venue'}</div></div>
-      <div class="vn-policy-item"><div class="vn-pol-label">🍷 Alcohol</div><div class="vn-pol-value">${pol.alcohol||'Ask venue'}</div></div>
-      <div class="vn-policy-item"><div class="vn-pol-label">🎵 DJ / Music</div><div class="vn-pol-value">${pol.dj||'Ask venue'}</div></div>
-      <div class="vn-policy-item"><div class="vn-pol-label">🔇 Noise curfew</div><div class="vn-pol-value">${pol.noiseCurfew||'Ask venue'}</div></div>
-      <div class="vn-policy-item"><div class="vn-pol-label">🅿 Parking</div><div class="vn-pol-value">${pol.parking||'Ask venue'}</div></div>
-      ${pol.smallParty!==undefined?'<div class="vn-policy-item"><div class="vn-pol-label">👶 Small parties</div><div class="vn-pol-value">'+(pol.smallParty?'Under 50 pax allowed':'Minimum guest count applies')+'</div></div>':''}
-      <div class="vn-policy-item"><div class="vn-pol-label">⚡ Generator</div><div class="vn-pol-value">${pol.generator?'Available':'Not available'}</div></div>
-      ${v.venueHours?'<div class="vn-policy-item"><div class="vn-pol-label">🕐 Venue hours</div><div class="vn-pol-value">'+v.venueHours+'</div></div>':''}
-      ${v.changingRooms!==undefined?'<div class="vn-policy-item"><div class="vn-pol-label">👗 Changing rooms</div><div class="vn-pol-value">'+(v.changingRooms>0?v.changingRooms+' available':'Not available')+'</div></div>':''}
-      ${v.multipleEvents!==undefined?'<div class="vn-policy-item"><div class="vn-pol-label">📅 Multiple events/day</div><div class="vn-pol-value">'+(v.multipleEvents?'Can host haldi + wedding same day':'Single event per day')+'</div></div>':''}
+  // ── Build capacity table (simplified) ──
+  const capTableHtml = (v.spaces||[]).length > 0 ? `
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <thead><tr style="background:#F5F5F5;text-align:left">
+          <th style="padding:8px 10px;font-weight:700;color:var(--primary);border-bottom:1.5px solid var(--border)">Space</th>
+          <th style="padding:8px 10px;font-weight:700;color:var(--primary);border-bottom:1.5px solid var(--border)">Type</th>
+          ${v.spaces[0].sqft?'<th style="padding:8px 10px;font-weight:700;color:var(--primary);border-bottom:1.5px solid var(--border)">Area</th>':''}
+          <th style="padding:8px 10px;font-weight:700;color:var(--primary);border-bottom:1.5px solid var(--border)">Capacity</th>
+        </tr></thead>
+        <tbody>
+          ${v.spaces.map((s,i) => {
+            const icon = s.type==='Indoor'?'🏛':s.type==='Outdoor'?'🌿':s.type==='Poolside'?'🏊':s.type==='Rooftop'?'🌇':s.type==='Beachfront'?'🏖':'📍';
+            const rtLow = s.roundTable||0;
+            const rtHigh = Math.round(rtLow * 1.25);
+            const capStr = `${s.standing||0} standing · ${s.seating||0} banquet seating · ${rtLow}–${rtHigh} round table`;
+            return `<tr style="background:${i%2===0?'#fff':'#FAFAFA'}">
+              <td style="padding:10px;font-weight:600;border-bottom:1px solid #f0f0f0">${icon} ${s.name}</td>
+              <td style="padding:10px;color:var(--text-mid);border-bottom:1px solid #f0f0f0">${s.type}</td>
+              ${s.sqft?'<td style="padding:10px;color:var(--text-mid);border-bottom:1px solid #f0f0f0">'+s.sqft.toLocaleString()+' sq ft</td>':''}
+              <td style="padding:10px;font-size:11px;line-height:1.6;border-bottom:1px solid #f0f0f0">${capStr}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>` : '';
+
+  // ── Build proximity section ──
+  const prox = v.proximity || {};
+  const proximityHtml = Object.keys(prox).length > 0 ? `
+    <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden">
+      <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary);display:flex;align-items:center;gap:6px">📍 How to reach</div>
+      ${prox.metro?'<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0;font-size:12px"><span style="font-size:14px;width:20px;text-align:center">🚇</span><div><div style="font-weight:600;color:var(--primary)">Nearest metro</div><div style="color:var(--text-mid)">'+prox.metro+'</div></div></div>':''}
+      ${prox.airport?'<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0;font-size:12px"><span style="font-size:14px;width:20px;text-align:center">✈️</span><div><div style="font-weight:600;color:var(--primary)">Airport</div><div style="color:var(--text-mid)">'+prox.airport+'</div></div></div>':''}
+      ${prox.railway?'<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0;font-size:12px"><span style="font-size:14px;width:20px;text-align:center">🚂</span><div><div style="font-weight:600;color:var(--primary)">Railway station</div><div style="color:var(--text-mid)">'+prox.railway+'</div></div></div>':''}
+      ${prox.bus?'<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0;font-size:12px"><span style="font-size:14px;width:20px;text-align:center">🚌</span><div><div style="font-weight:600;color:var(--primary)">Bus stand</div><div style="color:var(--text-mid)">'+prox.bus+'</div></div></div>':''}
+      ${prox.landmark?'<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:12px"><span style="font-size:14px;width:20px;text-align:center">🏛</span><div><div style="font-weight:600;color:var(--primary)">Landmark</div><div style="color:var(--text-mid)">'+prox.landmark+'</div></div></div>':''}
+    </div>` : '';
+
+  // ── Cancellation tiers (always show — with data or as checklist) ──
+  const canc = v.cancellation || {};
+  const cancHtml = `
+    <div style="border:1.5px solid #FFE082;border-radius:14px;overflow:hidden">
+      <div style="background:#FFF8E1;padding:10px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:#E65100;display:flex;align-items:center;gap:6px">📄 Cancellation terms</div>
+      ${canc.advance ? `
+        <div style="padding:10px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Booking advance:</span> ${canc.advance}</div>
+        ${(canc.tiers||[]).map(t => '<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between"><span style="color:var(--text-mid)">Cancel '+t.days+' days before</span><span style="font-weight:600">'+t.refund+'</span></div>').join('')}
+        ${canc.dateChange?'<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Date change:</span> '+canc.dateChange+'</div>':''}
+        ${canc.forceM?'<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">Force majeure:</span> '+canc.forceM+'</div>':''}
+      ` : `
+        <div style="padding:10px 14px;font-size:12px;color:var(--text-mid)">${v.cancellationPolicy||'Contact venue for cancellation terms.'}</div>
+      `}
+      <div style="padding:10px 14px;font-size:10px;color:var(--text-light);line-height:1.6;border-top:1px solid #f0f0f0">
+        <em>Checklist for onboarding:</em>
+        <div style="margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px 12px">
+          <span>☐ Booking advance (% or fixed)</span>
+          <span>☐ Refund if cancelled 60+ days before</span>
+          <span>☐ Refund if cancelled 30–60 days before</span>
+          <span>☐ Refund if cancelled under 30 days</span>
+          <span>☐ Date change / postponement fee</span>
+          <span>☐ Force majeure / COVID clause</span>
+          <span>☐ Security deposit refund timeline</span>
+        </div>
+      </div>
     </div>`;
 
-  // Build amenities
-  const amenitiesHtml = (v.amenities||[]).map(a => `<span class="vn-amenity">${a}</span>`).join('');
-
-  // Reviews
+  // ── Reviews ──
   const reviewsHtml = (v.reviewData||[]).map(r => `
     <div class="vp-review">
-      <div class="vr-header">
-        <span class="vr-name">${r.name}${r.eventType ? '<span class="vr-event-tag">'+r.eventType+'</span>' : ''}</span>
-        <span class="vr-date">${r.date}</span>
-      </div>
+      <div class="vr-header"><span class="vr-name">${r.name}${r.eventType?'<span class="vr-event-tag">'+r.eventType+'</span>':''}</span><span class="vr-date">${r.date}</span></div>
       <div class="vr-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
       <div class="vr-text">"${r.text}"</div>
-    </div>
-  `).join('');
+    </div>`).join('');
+
+  const pol = v.policies || {};
 
   document.getElementById('vendorProfileContent').innerHTML = `
-    <!-- HERO: Gallery with space labels -->
+    <!-- GALLERY -->
     <div class="vp-gallery vn-gallery">
       ${(v.spaces||[]).slice(0,4).map((s,i) => `
         <div class="vp-img" style="background:linear-gradient(135deg,${i===0?'#E8F5E9,#C8E6C9':i===1?'#FFF3E0,#FFE0B2':i===2?'#E3F2FD,#BBDEFB':'#F3E5F5,#E1BEE7'})">
@@ -8940,38 +9103,55 @@ function buildVenueProfile(v, catKey, catLabel, emoji){
       </div>
     </div>
 
-    <!-- QUICK STATS: Capacity, Plate Price, Rooms, Experience -->
+    <!-- QUICK STATS -->
     <div class="vp-stats" style="grid-template-columns:repeat(4,1fr)">
-      <div class="vp-stat"><div class="vs-val">Up to ${maxCapacity}</div><div class="vs-label">Max guests</div></div>
+      <div class="vp-stat"><div class="vs-val">Up to ${maxCap}</div><div class="vs-label">Max guests</div></div>
       <div class="vp-stat"><div class="vs-val">${v.vegPlate||'—'}</div><div class="vs-label">Veg/plate + taxes</div></div>
       <div class="vp-stat"><div class="vs-val">${v.roomCount||'—'}</div><div class="vs-label">Rooms</div></div>
       <div class="vp-stat"><div class="vs-val">${v.yrs} yrs</div><div class="vs-label">Experience</div></div>
     </div>
 
-    <!-- SPACE TYPES: Clickable pills -->
-    <div class="vp-section">
-      <div class="vp-section-title">📍 Spaces Available</div>
-      <div class="vn-space-chips">
-        ${(v.spaceTypes||[]).map(s => '<span class="vn-space-chip">'+s+'</span>').join('')}
-      </div>
-    </div>
-
     <!-- SUITABLE EVENTS -->
-    ${v.suitableEvents ? `
-    <div class="vp-section">
-      <div class="vp-section-title">🎉 Suitable For</div>
-      <div class="vn-event-chips">
-        ${v.suitableEvents.map(e => '<span class="vn-event-chip">'+e+'</span>').join('')}
-      </div>
+    ${v.suitableEvents ? `<div class="vp-section">
+      <div class="vp-section-title">🎉 Suitable for</div>
+      <div class="vn-event-chips">${v.suitableEvents.map(e => '<span class="vn-event-chip">'+e+'</span>').join('')}</div>
     </div>` : ''}
 
-    <!-- SPACES BREAKDOWN: Card per space with capacity -->
+    <!-- DATE AVAILABILITY -->
     <div class="vp-section">
-      <div class="vp-section-title">🏛 Areas & Capacity</div>
-      <div class="vn-spaces-grid">${spacesHtml}</div>
+      <div style="background:var(--accent-wash);border:1.5px solid var(--accent-soft);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="showToast('Date availability check coming soon!')">
+        <div><div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">📅 Check date availability</div>
+        <div style="font-size:11px;color:var(--text-mid)">See if your preferred date is open</div></div>
+        <span style="font-size:12px;font-weight:700;color:var(--accent)">Check →</span>
+      </div>
     </div>
 
-    <!-- PRICING -->
+    <!-- ═══ AREAS & CAPACITY (simplified table) ═══ -->
+    <div class="vp-section">
+      <div class="vp-section-title">🏛 Areas & capacity</div>
+      <div class="vn-space-chips" style="margin-bottom:8px">${(v.spaceTypes||[]).map(s => '<span class="vn-space-chip">'+s+'</span>').join('')}</div>
+      ${capTableHtml}
+    </div>
+
+    <!-- ═══ PROXIMITY / HOW TO REACH ═══ -->
+    ${proximityHtml ? `<div class="vp-section">${proximityHtml}</div>` : ''}
+
+    <!-- MAP -->
+    <div class="vp-section">
+      <div class="vn-map-placeholder" onclick="showToast('🗺 Map opening soon')">
+        <div class="vn-map-icon">📍</div>
+        <div class="vn-map-text">${v.mapLocation||v.city}</div>
+        <div class="vn-map-sub">Tap to view on Google Maps · Get directions</div>
+      </div>
+    </div>
+
+    <!-- ═══ ABOUT ═══ -->
+    <div class="vp-section">
+      <div class="vp-section-title">About</div>
+      <div style="font-size:13px;color:var(--text-mid);line-height:1.7">${v.bio}</div>
+    </div>
+
+    <!-- ═══ PRICING ═══ -->
     <div class="vp-section">
       <div class="vp-section-title">💰 Pricing</div>
       <div class="vn-pricing-card">
@@ -8980,60 +9160,160 @@ function buildVenueProfile(v, catKey, catLabel, emoji){
         ${v.rentalCost?'<div class="vn-price-row"><span class="vn-price-label">Venue rental</span><span class="vn-price-val">'+v.rentalCost+' <small>+ taxes</small></span></div>':''}
         ${v.roomPrice?'<div class="vn-price-row"><span class="vn-price-label">Room price</span><span class="vn-price-val">'+v.roomPrice+'</span></div>':''}
         ${v.destinationPrice?'<div class="vn-price-row dest"><span class="vn-price-label">🏝 Destination package</span><span class="vn-price-val">'+v.destinationPrice+'</span></div>':''}
+        ${v.fAndBMin?'<div class="vn-price-row" style="background:#FFF8E1"><span class="vn-price-label">⚠ F&B minimum</span><span class="vn-price-val" style="color:#D97706">'+v.fAndBMin+'</span></div>':''}
+        ${v.overtimeRate?'<div class="vn-price-row"><span class="vn-price-label">⏰ Overtime</span><span class="vn-price-val">'+v.overtimeRate+'</span></div>':''}
+        ${v.securityDeposit?'<div class="vn-price-row"><span class="vn-price-label">🔒 Security deposit</span><span class="vn-price-val">'+v.securityDeposit+'</span></div>':''}
+        ${v.gstNote?'<div style="padding:8px 14px;font-size:11px;color:var(--text-light);border-top:1px solid #f0f0f0">'+v.gstNote+'</div>':''}
       </div>
     </div>
 
-    <!-- MAP LOCATION -->
+    <!-- ═══════════════════════════════════════ -->
+    <!-- VENUE POLICIES (grouped, with checklist) -->
+    <!-- ═══════════════════════════════════════ -->
     <div class="vp-section">
-      <div class="vp-section-title">🗺 Location</div>
-      <div class="vn-map-placeholder" onclick="showToast('🗺 Map opening soon')">
-        <div class="vn-map-icon">📍</div>
-        <div class="vn-map-text">${v.mapLocation||v.city}</div>
-        <div class="vn-map-sub">Tap to view on map</div>
+      <div class="vp-section-title" style="margin-bottom:12px">📋 Venue policies</div>
+      <div style="font-size:11px;color:var(--text-light);margin-bottom:12px;font-style:italic">Each policy lists the venue's answer and all possible options as a reference checklist for onboarding.</div>
+
+      <!-- Catering Policy -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Catering policy</div>
+        ${polItem('🍽','Catering',pol.catering,'In-house catering only · Outside caterer allowed · Panel caterers only · Outside allowed with kitchen fee · Catering + venue package required')}
+        ${polItem('🍷','Alcohol',pol.alcohol,'In-house bar only · BYO allowed · BYO wine with corkage fee · No alcohol permitted · Temporary liquor license needed (state-specific)')}
+        ${v.fAndBMin?polItem('💰','F&B minimum spend',v.fAndBMin,'Fixed minimum · Per-event · Per-day · Shortfall charged as penalty · Varies by day of week'):''}
+        ${v.guestGuarantee?polItem('👥','Guest count guarantee',v.guestGuarantee,'Minimum headcount confirmed X days before · Charged even if fewer show · Final count locked 7–14 days before'):''}
+      </div>
+
+      <!-- Decor & Setup Policy -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Decor & setup policy</div>
+        ${polItem('🎨','Decor',pol.decor,'In-house only · Outside decorator allowed · Panel decorators only · Restrictions on nails / tape / hooks · Wall restrictions')}
+        ${polItem('🔥','Fire / Havan',pol.fireFlame,'Havan allowed with permit · Havan allowed unconditionally · No open flame allowed · Cold pyro only · Fire extinguisher required on standby')}
+        ${polItem('🔧','Vendor setup time',pol.setupTime,'Vendors can access X hours before · Full day before event · Morning of event only · Overnight setup allowed')}
+        ${polItem('🧹','Teardown deadline',pol.teardownTime,'Must clear X hours after · Same night · Next day morning · Extra charge for overtime')}
+      </div>
+
+      <!-- Music & Entertainment Policy -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Music & entertainment policy</div>
+        ${polItem('🎵','DJ / Music',pol.dj,'In-house DJ only · Outside DJ allowed · Live band allowed · Volume restrictions apply · Equipment must be venue-approved')}
+        ${polItem('🔇','Noise curfew',pol.noiseCurfew,'10:00 PM (most cities) · 11:00 PM · Midnight · No curfew (rural/resort) · Varies by zone / municipality')}
+      </div>
+
+      <!-- Photography & Smoking Policy -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Photography & other</div>
+        ${polItem('📸','Photography',pol.photography,'No restrictions · Drone allowed with advance notice · Drone not allowed · Flash restrictions in certain areas · Photographer access fee')}
+        ${polItem('🚬','Smoking',pol.smoking,'Designated area only · Fully non-smoking · Hookah allowed · Not allowed anywhere')}
+        ${polItem('📅','Multiple events per day',v.multipleEvents!==undefined?(v.multipleEvents?'Can host haldi + wedding same day':'Single event per day'):'Ask venue','Single event per day · Multiple events allowed (haldi morning + wedding evening) · Time slots available')}
+      </div>
+
+      <!-- Parking & Logistics -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Parking & logistics</div>
+        ${polItem('🅿','Parking',pol.parking,'Free parking included · Paid parking · Valet available · Number of car slots · Bike parking · Street parking only')}
+        ${polItem('⚡','Generator / Power backup',pol.generator,'Available and included · Available at extra cost · Not available (bring your own) · Capacity in KVA · Covers AC + sound + lighting')}
+        ${polItem('🕐','Venue hours',v.venueHours,'Specific hours (e.g. 7 AM – 12 Midnight) · 24 hours (resort) · Morning slot + Evening slot · Per-event timing negotiable')}
+      </div>
+
+      <!-- Permissions Required -->
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px">
+        <div style="background:#FFF3E0;padding:10px 14px;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:#E65100">Permissions required</div>
+        <div style="padding:12px 14px;font-size:12px;line-height:1.8">
+          <div style="margin-bottom:8px;color:var(--text-mid)">Select the option that applies to this venue:</div>
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 0;border-bottom:1px solid #f5f5f5">
+            <input type="radio" name="vnPerms" disabled checked style="margin-top:3px">
+            <div><div style="font-weight:600;color:var(--primary)">Venue arranges permissions</div><div style="font-size:11px;color:var(--text-light)">Venue has most necessary permissions. Ask venue about specific permissions and their pricing.</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 0;border-bottom:1px solid #f5f5f5">
+            <input type="radio" name="vnPerms" disabled style="margin-top:3px">
+            <div><div style="font-weight:600;color:var(--primary)">You arrange all permissions</div><div style="font-size:11px;color:var(--text-light)">Venue requires you to obtain all event permissions (noise, fire, alcohol, etc.)</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 0;border-bottom:1px solid #f5f5f5">
+            <input type="radio" name="vnPerms" disabled style="margin-top:3px">
+            <div><div style="font-weight:600;color:var(--primary)">No permissions required</div><div style="font-size:11px;color:var(--text-light)">Venue has blanket permissions for events. Nothing additional needed.</div></div>
+          </label>
+          <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:6px 0">
+            <input type="radio" name="vnPerms" disabled style="margin-top:3px">
+            <div><div style="font-weight:600;color:var(--primary)">Ask venue</div><div style="font-size:11px;color:var(--text-light)">Confirm permission requirements directly with the venue.</div></div>
+          </label>
+        </div>
       </div>
     </div>
 
-    <!-- ABOUT -->
+    <!-- ═══ CANCELLATION & PAYMENT TERMS ═══ -->
+    <div class="vp-section">${cancHtml}</div>
     <div class="vp-section">
-      <div class="vp-section-title">About</div>
-      <div style="font-size:13px;color:var(--text-mid);line-height:1.7">${v.bio}</div>
+      <div style="border:1.5px solid var(--border);border-radius:14px;overflow:hidden">
+        <div style="background:#F5F5F5;padding:10px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">💳 Payment schedule</div>
+        ${(v.paymentSchedule||[]).length > 0 ? `
+          ${v.paymentSchedule.map((ps, i) => `
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid #f0f0f0">
+              <div style="width:22px;height:22px;border-radius:50%;background:${i===0?'var(--accent)':'#F5F5F5'};border:1.5px solid ${i===0?'var(--accent)':'var(--border)'};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:${i===0?'var(--primary)':'var(--text-light)'};flex-shrink:0;margin-top:1px">${i+1}</div>
+              <div style="flex:1">
+                <div style="font-size:12px;font-weight:700;color:var(--primary)">${ps.stage}</div>
+                <div style="font-size:11px;color:var(--text-mid)">${ps.when}</div>
+              </div>
+              <div style="font-size:12px;font-weight:700;color:var(--primary);text-align:right">${ps.amount}</div>
+            </div>
+          `).join('')}
+        ` : `<div style="padding:10px 14px;font-size:12px;color:var(--text-mid)">${v.paymentTerms||'Contact venue for payment schedule.'}</div>`}
+        ${v.overtimeRate?'<div style="padding:8px 14px;font-size:12px;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between"><span style="color:var(--text-mid)">⏰ Overtime</span><span style="font-weight:600">'+v.overtimeRate+'</span></div>':''}
+        ${v.gstNote?'<div style="padding:8px 14px;font-size:11px;color:var(--text-light)">'+v.gstNote+'</div>':''}
+        <div style="padding:10px 14px;font-size:10px;color:var(--text-light);line-height:1.6;border-top:1px solid #f0f0f0">
+          <em>Checklist for onboarding:</em>
+          <div style="margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px 12px">
+            <span>☐ Booking amount (% or fixed)</span>
+            <span>☐ Second installment (30–15 days before)</span>
+            <span>☐ Final settlement timeline</span>
+            <span>☐ Overtime charges per hour</span>
+            <span>☐ Guest count guarantee deadline</span>
+            <span>☐ Security deposit + refund timeline</span>
+            <span>☐ GST treatment (inclusive or exclusive)</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- KEY POLICIES (above the fold - Phase 1) -->
+    <!-- ═══ AMENITIES (physical facilities only — no policy items) ═══ -->
     <div class="vp-section">
-      <div class="vp-section-title">📋 Key Policies</div>
-      ${policiesHtml}
+      <div class="vp-section-title">🏢 Facilities & amenities</div>
+      <div style="font-size:11px;color:var(--text-light);margin-bottom:8px;font-style:italic">Physical facilities available at the venue. Rules and restrictions are under Policies above.</div>
+      <div class="vn-amenities-grid">
+        ${(v.amenities||[]).filter(a => !['Parking','Generator'].includes(a) && !a.startsWith('Parking (')).map(a => `<span class="vn-amenity">${a}</span>`).join('')}
+        ${v.changingRooms>0?'<span class="vn-amenity">👗 '+v.changingRooms+' Changing Room'+(v.changingRooms>1?'s':'')+'</span>':''}
+      </div>
     </div>
 
-    <!-- AMENITIES -->
+    <!-- ═══ FLOOR PLAN ═══ -->
     <div class="vp-section">
-      <div class="vp-section-title">✅ Amenities</div>
-      <div class="vn-amenities-grid">${amenitiesHtml}</div>
+      <div class="vp-section-title">📐 Floor plan</div>
+      <div style="border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer" onclick="showToast('Floor plan viewer coming soon!')">
+        <div style="font-size:28px;margin-bottom:8px">📐</div>
+        <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px">View floor plan</div>
+        <div style="font-size:11px;color:var(--text-mid)">See layout of each event space with dimensions, entry/exit points, and stage positions.</div>
+        <div style="font-size:10px;color:var(--text-light);margin-top:8px">Available for venues that have uploaded their floor plan.</div>
+      </div>
     </div>
 
-    <!-- WHAT'S INCLUDED -->
+    <!-- ═══ COMPARE / SHORTLIST ═══ -->
     <div class="vp-section">
-      <div class="vp-section-title">📋 What's Included</div>
-      <div class="vp-includes">
-        ${(v.includes||[]).map(i => `
-          <div class="vp-inc-item ${i.inc ? 'included' : 'addon'}">
-            <span class="inc-icon">${i.inc ? '✓' : '+'}</span>
-            <span>${i.text}</span>
-            ${i.price ? '<span class="addon-price">'+i.price+'</span>' : ''}
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary" style="flex:1;padding:12px" onclick="addToCompare('${v.name.replace(/'/g,"\\'")}','venue');showToast('Added to compare list')">📊 Add to compare</button>
+        <button class="btn btn-secondary" style="flex:1;padding:12px" onclick="showToast('Shortlist saved!')">📋 Shortlist</button>
+      </div>
+    </div>
+
+    <!-- SIMILAR VENUES -->
+    <div class="vp-section">
+      <div class="vp-section-title">🏛 Similar venues</div>
+      <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px">
+        ${(BROWSE_VENDORS.venue||[]).filter(sv=>sv.name!==v.name).slice(0,3).map(sv => `
+          <div style="min-width:160px;border:1.5px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;flex-shrink:0" onclick="browseViewProfile('venue',${BROWSE_VENDORS.venue.indexOf(sv)})">
+            <div style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">${sv.name}</div>
+            <div style="font-size:11px;color:var(--text-mid);margin:2px 0">${sv.venueType}</div>
+            <div style="font-size:11px;color:var(--accent)">★ ${sv.stars} · ${sv.price.split('–')[0]}</div>
           </div>
         `).join('')}
-      </div>
-    </div>
-
-    <!-- PHASE 2 EXPANDABLE: Booking details -->
-    <div class="vp-section">
-      <button class="ph-phase2-toggle" onclick="toggleVnPhase2()">
-        📄 Booking & Payment Details <span class="ph-p2-arrow" id="vnP2Arrow">▾</span>
-      </button>
-      <div id="vnPhase2Content" class="ph-phase2-content" style="display:none">
-        ${v.paymentTerms?'<div class="vn-p2-row"><strong>Payment terms:</strong> '+v.paymentTerms+'</div>':''}
-        ${v.cancellationPolicy?'<div class="vn-p2-row"><strong>Cancellation:</strong> '+v.cancellationPolicy+'</div>':''}
-        ${v.events?'<div class="vn-p2-row"><strong>Events hosted:</strong> '+v.events+'+ events in '+v.yrs+' years</div>':''}
       </div>
     </div>
 
@@ -9066,6 +9346,216 @@ function toggleVnPhase2(){
   const a=document.getElementById('vnP2Arrow');
   if(c.style.display==='none'){c.style.display='block';a.textContent='▴';}
   else{c.style.display='none';a.textContent='▾';}
+}
+
+// ========== COMPARE (all categories) ==========
+let compareList = []; // [{name, catKey, idx}]
+let compareCatKey = null; // track which category is being compared
+
+function addToCompare(name, catKey){
+  catKey = catKey || 'venue';
+  // Enforce same category
+  if(compareList.length > 0 && compareCatKey !== catKey){
+    showToast('Clear compare first — can only compare within same category');
+    return;
+  }
+  if(compareList.length >= 3){ showToast('Max 3 to compare'); return; }
+  if(compareList.find(c=>c.name===name)){ showToast('Already in compare list'); return; }
+  const arr = BROWSE_VENDORS[catKey] || [];
+  const idx = arr.findIndex(v=>v.name===name);
+  if(idx >= 0){
+    compareList.push({name, catKey, idx});
+    compareCatKey = catKey;
+  }
+  updateCompareBar();
+}
+
+function removeFromCompare(name){
+  compareList = compareList.filter(c=>c.name!==name);
+  if(compareList.length === 0) compareCatKey = null;
+  updateCompareBar();
+}
+
+function updateCompareBar(){
+  let bar = document.getElementById('compareBar');
+  if(!bar){
+    bar = document.createElement('div');
+    bar.id = 'compareBar';
+    bar.style.cssText = 'position:fixed;bottom:70px;left:0;right:0;z-index:200;padding:8px 16px;display:none;max-width:420px;margin:0 auto';
+    document.body.appendChild(bar);
+  }
+  if(compareList.length === 0){ bar.style.display = 'none'; return; }
+  bar.style.display = '';
+  const catName = CATS[compareCatKey]?.name || 'vendors';
+  bar.innerHTML = `<div style="background:var(--primary);color:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 4px 20px rgba(0,0,0,.2)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700">Compare ${catName} (${compareList.length}/3)</span>
+      <span style="font-size:11px;opacity:.7;cursor:pointer" onclick="compareList=[];compareCatKey=null;updateCompareBar()">Clear all</span>
+    </div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+      ${compareList.map(c => `<span style="background:rgba(255,255,255,.15);border-radius:8px;padding:4px 10px;font-size:11px;display:flex;align-items:center;gap:4px">${c.name} <span style="cursor:pointer;opacity:.6" onclick="removeFromCompare('${c.name.replace(/'/g,"\\'")}')">&times;</span></span>`).join('')}
+    </div>
+    ${compareList.length >= 2 ? `<button style="width:100%;padding:10px;border:none;border-radius:10px;background:var(--accent);color:var(--primary);font-family:'Sora',sans-serif;font-size:13px;font-weight:700;cursor:pointer" onclick="showCompare()">Compare ${compareList.length} ${catName} →</button>` : '<div style="font-size:11px;opacity:.6;text-align:center">Add at least 2 to compare</div>'}
+  </div>`;
+}
+
+function getCompareRows(catKey){
+  // Shared rows: basics + cancellation + payment (apply to ALL categories)
+  const sharedBasics = [
+    {label:'Rating',get:v=>'★ '+v.stars+' ('+v.reviews+')'},
+    {label:'Price range',get:v=>v.price},
+    {label:'Experience',get:v=>v.yrs+' years'},
+    {label:'City',get:v=>v.city},
+  ];
+  const sharedCancellation = [
+    {label:'Booking advance',get:v=>v.cancellation?.advance || (v.paymentTerms?.match(/[\d]+%\s*advance/)?.[0]) || 'Ask'},
+    {label:'Date change',get:v=>v.cancellation?.dateChange||'Ask'},
+  ];
+  const sharedPayment = [
+    {label:'Payment step 1',get:v=>{const ps=(v.paymentSchedule||parsePaymentTerms(v.paymentTerms))[0]; return ps?ps.amount+' ('+ps.when+')':'Ask';}},
+    {label:'Payment step 2',get:v=>{const ps=(v.paymentSchedule||parsePaymentTerms(v.paymentTerms))[1]; return ps?ps.amount+' ('+ps.when+')':'—';}},
+    {label:'Payment step 3',get:v=>{const ps=(v.paymentSchedule||parsePaymentTerms(v.paymentTerms))[2]; return ps?ps.amount+' ('+ps.when+')':'—';}},
+  ];
+
+  // Category-specific rows
+  const catRows = {
+    venue: [
+      {s:'Basics'}, ...sharedBasics,
+      {label:'Type',get:v=>v.venueType}, {label:'Suitable for',get:v=>(v.suitableEvents||[]).slice(0,3).join(', ')||'—'},
+      {s:'Capacity'},
+      {label:'Max standing',get:v=>v.spaces?Math.max(...v.spaces.map(s=>s.standing||0)):'—'},
+      {label:'Max banquet seating',get:v=>v.spaces?Math.max(...v.spaces.map(s=>s.seating||0)):'—'},
+      {label:'Max round table',get:v=>{if(!v.spaces) return '—'; const rt=Math.max(...v.spaces.map(s=>s.roundTable||0)); return rt?rt+'–'+Math.round(rt*1.25):'—';}},
+      {label:'Spaces',get:v=>(v.spaceTypes||[]).join(', ')||'—'},
+      {s:'Pricing'},
+      {label:'Veg plate',get:v=>v.vegPlate||'—'}, {label:'Non-veg plate',get:v=>v.nonvegPlate||'—'},
+      {label:'Venue rental',get:v=>v.rentalCost||'—'}, {label:'F&B minimum',get:v=>v.fAndBMin||'—'},
+      {label:'Rooms',get:v=>v.roomCount||'None'}, {label:'Security deposit',get:v=>v.securityDeposit||'—'},
+      {s:'Catering policy'},
+      {label:'Catering',get:v=>v.policies?.catering||'Ask'}, {label:'Alcohol',get:v=>v.policies?.alcohol||'Ask'},
+      {s:'Decor & setup'},
+      {label:'Decor',get:v=>v.policies?.decor||'Ask'}, {label:'Fire / Havan',get:v=>v.policies?.fireFlame||'Ask'},
+      {label:'Setup time',get:v=>v.policies?.setupTime||'Ask'}, {label:'Teardown',get:v=>v.policies?.teardownTime||'Ask'},
+      {s:'Music & entertainment'},
+      {label:'DJ / Music',get:v=>v.policies?.dj||'Ask'}, {label:'Noise curfew',get:v=>v.policies?.noiseCurfew||'Ask'},
+      {s:'Other policies'},
+      {label:'Photography',get:v=>v.policies?.photography||'Ask'}, {label:'Smoking',get:v=>v.policies?.smoking||'Ask'},
+      {label:'Parking',get:v=>v.policies?.parking||'Ask'}, {label:'Generator',get:v=>v.policies?.generator||'Ask'},
+      {label:'Multiple events/day',get:v=>v.multipleEvents===true?'Yes':v.multipleEvents===false?'No':'Ask'},
+      {label:'Venue hours',get:v=>v.venueHours||'—'}, {label:'Changing rooms',get:v=>v.changingRooms||'None'},
+      {s:'Proximity'},
+      {label:'Metro',get:v=>v.proximity?.metro||'—'}, {label:'Airport',get:v=>v.proximity?.airport?.split('(')[0]?.trim()||'—'},
+      {label:'Railway',get:v=>v.proximity?.railway||'—'},
+      {s:'Cancellation'}, ...sharedCancellation,
+      {s:'Payment schedule'}, ...sharedPayment,
+      {label:'Overtime rate',get:v=>v.overtimeRate||'—'}, {label:'GST',get:v=>v.gstNote||'Ask'},
+    ],
+    photo: [
+      {s:'Basics'}, ...sharedBasics,
+      {s:'Photography details'},
+      {label:'Styles',get:v=>(v.styleTags||[]).join(', ')||'—'},
+      {label:'Deliverables',get:v=>v.deliverables||'—'},
+      {label:'Team size',get:v=>v.teamLabel||'—'},
+      {label:'Coverage hours',get:v=>v.coverageHours||'—'},
+      {label:'Turnaround',get:v=>v.turnaround||'—'},
+      {label:'Video reel',get:v=>v.hasVideoReel?'Yes':'No'},
+      {label:'Album samples',get:v=>v.hasAlbumSamples?'Yes':'No'},
+      {label:'Travel',get:v=>v.willingToTravel?'Willing to travel':'Local only'},
+      {s:'Cancellation'}, ...sharedCancellation,
+      {s:'Payment schedule'}, ...sharedPayment,
+    ],
+    fb: [
+      {s:'Basics'}, ...sharedBasics,
+      {s:'Catering details'},
+      {label:'Cuisines',get:v=>(v.cuisineTypes||[]).join(', ')||'—'},
+      {label:'Dietary options',get:v=>(v.dietaryOptions||[]).join(', ')||'—'},
+      {label:'Service style',get:v=>(v.serviceStyle||[]).join(', ')||'—'},
+      {label:'Min guests',get:v=>v.minGuests||'—'},
+      {label:'Max guests',get:v=>v.maxGuests||'—'},
+      {label:'Veg plate',get:v=>v.vegPlate||'—'},
+      {label:'Non-veg plate',get:v=>v.nonvegPlate||'—'},
+      {label:'Tasting available',get:v=>v.tastingAvailable?'Yes':'No'},
+      {label:'FSSAI certified',get:v=>v.fssaiCertified?'Yes':'No'},
+      {label:'Eco-friendly',get:v=>v.ecoFriendly?'Yes':'No'},
+      {s:'Cancellation'}, ...sharedCancellation,
+      {s:'Payment schedule'}, ...sharedPayment,
+    ],
+    decor: [
+      {s:'Basics'}, ...sharedBasics,
+      {s:'Decor details'},
+      {label:'Themes',get:v=>(v.themeTags||[]).join(', ')||'—'},
+      {label:'Setup types',get:v=>(v.setupTypes||[]).slice(0,4).join(', ')||'—'},
+      {label:'Venue types',get:v=>(v.venueTypes||[]).join(', ')||'—'},
+      {label:'Flowers included',get:v=>v.flowersIncluded?'Yes':'No'},
+      {label:'Lighting included',get:v=>v.lightingIncluded?'Yes':'No'},
+      {label:'Furniture included',get:v=>v.furnitureIncluded?'Yes':'No'},
+      {label:'Eco-friendly',get:v=>v.ecoFriendly?'Yes':'No'},
+      {s:'Cancellation'}, ...sharedCancellation,
+      {s:'Payment schedule'}, ...sharedPayment,
+    ],
+    entertainment: [
+      {s:'Basics'}, ...sharedBasics,
+      {s:'Performance details'},
+      {label:'Act type',get:v=>v.actType||'—'},
+      {label:'Genres',get:v=>(v.genreTags||[]).join(', ')||'—'},
+      {label:'Duration',get:v=>v.performDuration||'—'},
+      {label:'Languages',get:v=>(v.languages||[]).join(', ')||'—'},
+      {label:'Own equipment',get:v=>v.bringsEquipment?'Yes':'No'},
+      {label:'Travel',get:v=>v.willingToTravel?'Willing to travel':'Local only'},
+      {label:'Audio clips',get:v=>v.hasAudioClips?'Yes':'No'},
+      {label:'Video clips',get:v=>v.hasVideoClips?'Yes':'No'},
+      {s:'Cancellation'}, ...sharedCancellation,
+      {s:'Payment schedule'}, ...sharedPayment,
+    ],
+  };
+  return catRows[catKey] || [
+    {s:'Basics'}, ...sharedBasics,
+    {s:'Cancellation'}, ...sharedCancellation,
+    {s:'Payment schedule'}, ...sharedPayment,
+  ];
+}
+
+function showCompare(){
+  const catKey = compareCatKey || 'venue';
+  const arr = BROWSE_VENDORS[catKey] || [];
+  const vendors = compareList.map(c => arr[c.idx]).filter(Boolean);
+  if(vendors.length < 2) return;
+  
+  const rows = getCompareRows(catKey);
+  const catName = CATS[catKey]?.name || 'Vendors';
+
+  let tableHtml = `<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:11px">
+    <thead><tr style="background:#F5F5F5">
+      <th style="padding:8px;text-align:left;font-weight:700;border-bottom:1.5px solid var(--border);width:30%"></th>
+      ${vendors.map(v=>'<th style="padding:8px;text-align:center;font-weight:700;border-bottom:1.5px solid var(--border)">'+v.name+'</th>').join('')}
+    </tr></thead><tbody>`;
+  let rowIdx = 0;
+  rows.forEach(r => {
+    if(r.s){
+      tableHtml += `<tr><td colspan="${vendors.length+1}" style="padding:8px;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;background:#F9F9F6;border-bottom:1px solid var(--border)">${r.s}</td></tr>`;
+      return;
+    }
+    tableHtml += `<tr style="background:${rowIdx%2===0?'#fff':'#FAFAFA'}"><td style="padding:6px 8px;font-weight:600;color:var(--text-mid);border-bottom:1px solid #f0f0f0">${r.label}</td>`;
+    vendors.forEach(v => {
+      tableHtml += `<td style="padding:6px 8px;text-align:center;border-bottom:1px solid #f0f0f0">${r.get(v)}</td>`;
+    });
+    tableHtml += '</tr>';
+    rowIdx++;
+  });
+  tableHtml += '</tbody></table></div>';
+
+  document.getElementById('vendorProfileContent').innerHTML = `
+    <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back to browse</button></div>
+    <h2 style="font-family:'Sora',sans-serif;font-size:20px;margin-bottom:4px">📊 ${catName} comparison</h2>
+    <p style="font-size:13px;color:var(--text-mid);margin-bottom:16px">Side-by-side comparison of ${vendors.length} ${catName.toLowerCase()}</p>
+    ${tableHtml}
+    <div style="display:flex;gap:8px;margin-top:20px">
+      ${vendors.map((v,i) => `<button class="btn btn-primary" style="flex:1;padding:12px;font-size:12px" onclick="browseViewProfile('${catKey}',${compareList[i].idx})">View ${v.name.split(' ')[0]}</button>`).join('')}
+    </div>
+    <div style="text-align:center;margin-top:12px"><button class="btn btn-secondary" onclick="compareList=[];compareCatKey=null;updateCompareBar();goBack()" style="padding:8px 20px;font-size:12px">Clear & go back</button></div>
+  `;
+  const bar = document.getElementById('compareBar');
+  if(bar) bar.style.display = 'none';
 }
 
 function buildPhotographerProfile(v, catKey, catLabel, emoji){
@@ -9246,32 +9736,6 @@ function buildPhotographerProfile(v, catKey, catLabel, emoji){
       <div class="vp-section-title">🔗 Social</div>
       <div class="ph-social-grid">${socialHtml}</div>
     </div>` : ''}
-
-    <!-- PHASE 2: BOOKING DETAILS (expandable) -->
-    <div class="vp-section">
-      <div class="ph-phase2-toggle" onclick="togglePhPhase2()">
-        <span>📋 Booking Details & Terms</span>
-        <span class="ph-p2-arrow" id="phP2Arrow">▼</span>
-      </div>
-      <div class="ph-phase2-content" id="phPhase2Content">
-        <div class="ph-detail-grid" style="margin-top:8px">
-          <div class="ph-detail-item">
-            <div class="ph-dl">Equipment</div>
-            <div class="ph-dv">${v.equipment||'Professional gear'}</div>
-          </div>
-          <div class="ph-detail-item">
-            <div class="ph-dl">Payment Terms</div>
-            <div class="ph-dv">${v.paymentTerms||'Discuss with vendor'}</div>
-          </div>
-          <div class="ph-detail-item full-width">
-            <div class="ph-dl">Travel Policy</div>
-            <div class="ph-dv">${v.travelPolicy||'Ask vendor for details'}</div>
-          </div>
-          <div class="ph-detail-item full-width">
-            <div class="ph-dl">Cancellation Policy</div>
-            <div class="ph-dv">${v.cancellationPolicy||'Contact vendor for terms'}</div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -9295,7 +9759,7 @@ function buildPhotographerProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
     </div>
   `;
 }
@@ -9304,18 +9768,6 @@ function filterPhotoGallery(el, eventType){
   el.parentElement.querySelectorAll('.ph-event-pill').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   showToast('Showing ' + eventType + ' photos');
-}
-
-function togglePhPhase2(){
-  const el = document.getElementById('phPhase2Content');
-  const arrow = document.getElementById('phP2Arrow');
-  if(el.style.display === 'block'){
-    el.style.display = 'none';
-    arrow.textContent = '▼';
-  } else {
-    el.style.display = 'block';
-    arrow.textContent = '▲';
-  }
 }
 
 // ========== MUSICIAN / DJ PROFILE ==========
@@ -9559,11 +10011,7 @@ function buildMusicianProfile(v, catKey, catLabel, emoji){
           <div class="mu-phase2-label">🎭 Artist Requirements</div>
           <div class="mu-rider-list">${riderHtml}</div>
         </div>` : ''}
-        ${v.paymentTerms ? `
-        <div class="mu-phase2-block">
-          <div class="mu-phase2-label">💳 Payment Terms</div>
-          <div class="mu-phase2-text">${v.paymentTerms}</div>
-        </div>` : ''}
+        
         ${v.cancellationPolicy ? `
         <div class="mu-phase2-block">
           <div class="mu-phase2-label">❌ Cancellation Policy</div>
@@ -9597,7 +10045,7 @@ function buildMusicianProfile(v, catKey, catLabel, emoji){
     <!-- 16. ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Message Vendor</button>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
     </div>
   `;
 }
