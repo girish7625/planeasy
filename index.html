@@ -1885,10 +1885,6 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   <div id="compareContent">
     <!-- Populated dynamically -->
   </div>
-  <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-    <button class="btn btn-primary" onclick="goTo(7)">Confirm & Return to Dashboard</button>
-  </div>
 </div>
 
 
@@ -6275,6 +6271,10 @@ function submitOpt2Inquiry(){
   const sentCount = pendingShortlist.length;
   showToast((wasFirstSend ? 'Inquiry sent to ' : 'Added ') + sentCount + ' vendor' + (sentCount === 1 ? '' : 's'));
   
+  // Schedule simulated vendor responses for 2 of the pending vendors so the demo
+  // shows the "Quote received" → "Pay & Book" path. Others stay awaiting.
+  scheduleSimulatedQuotes(pendingShortlist);
+  
   // 6. Routing:
   //    a. Brief sending-inquiry animation (s6)
   //    b. If user is not logged in (first inquiry from this device), route to Create Account
@@ -6293,6 +6293,160 @@ function submitOpt2Inquiry(){
       if(bn) bn.classList.add('visible');
     }
   }, 2200);
+}
+
+// Pick 2 vendors from the pending shortlist and "respond with quotes" after a delay.
+// Updates conversations + bookings so the dashboard transitions naturally during the demo.
+function scheduleSimulatedQuotes(pendingShortlist){
+  if(!pendingShortlist || pendingShortlist.length === 0) return;
+  
+  // Pick 2 vendors (or all if fewer) — first 2 in the list for predictability
+  const respondingVendors = pendingShortlist.slice(0, Math.min(2, pendingShortlist.length));
+  
+  respondingVendors.forEach((s, i) => {
+    const vendorData = BROWSE_VENDORS[s.catKey] && BROWSE_VENDORS[s.catKey][s.vendorIdx];
+    if(!vendorData) return;
+    
+    // Stagger: first vendor responds after ~6s, second after ~12s
+    const delay = (i + 1) * 6000;
+    
+    setTimeout(() => simulateVendorQuoteResponse(vendorData.name, s.catKey), delay);
+  });
+}
+
+// Sends a simulated quote message in chat AND updates the booking record.
+function simulateVendorQuoteResponse(vendorName, catKey){
+  // Find conversation
+  const convoIdx = conversations.findIndex(c => c.vendorName === vendorName);
+  if(convoIdx < 0) return;
+  
+  const convo = conversations[convoIdx];
+  
+  // Generate a category-aware quote — keeps demo realistic
+  const quoteData = generateSimulatedQuote(catKey, vendorName);
+  
+  // Build the chat message
+  const replyText = `Hi! Thanks for your inquiry. I'd love to be part of your event. Here's my quote:\n\n${quoteData.lines.map(l => `• ${l.name}: ${l.included ? 'Included' : l.price}`).join('\n')}\n\n*Total: ${quoteData.label}*\nPayment terms: ${quoteData.terms}\n\nLet me know if you have any questions.`;
+  
+  convo.messages = convo.messages || [];
+  convo.messages.push({
+    type: 'vendor',
+    text: replyText,
+    time: 'Just now',
+    isQuote: true,
+  });
+  convo.lastMsg = `Quote: ${quoteData.label} — ` + (quoteData.lines[0]?.name || 'See details');
+  convo.lastTime = 'Just now';
+  convo.unread = true;
+  convo.awaitingQuote = false;
+  convo.hasQuote = true;
+  
+  // Update the booking record so the vendor flips from 'inquiry-sent' → 'quote-received'
+  for(const b of bookings){
+    if(!b.vendors) continue;
+    const v = b.vendors.find(x => x.name === vendorName);
+    if(v){
+      v.status = 'quote-received';
+      v.quote = {
+        amount: quoteData.amount,
+        label: quoteData.label,
+        terms: quoteData.terms,
+        lines: quoteData.lines,
+        accepted: false,
+      };
+      // Booking-level: there's at least one quote now, so awaitingQuotes can stay true
+      // until ALL vendors quote, but we expose hasQuoteReceived for dashboard cues.
+      b.hasQuoteReceived = true;
+      break;
+    }
+  }
+  
+  // If user is currently on a screen that should reflect this, refresh it
+  const activeScreen = document.querySelector('.screen.active');
+  const activeId = activeScreen ? activeScreen.id : null;
+  if(activeId === 's7') buildDashboard();
+  if(activeId === 's33' && typeof buildMsgInbox === 'function') buildMsgInbox();
+  if(activeId === 's32' && currentConvoIdx === convoIdx && typeof buildChat === 'function') buildChat();
+  if(activeId === 's37' && typeof buildMyEvents === 'function') buildMyEvents();
+  
+  // Toast — only if user is on a screen where it makes sense
+  if(activeId && ['s7','s33','s37','s42','s44'].includes(activeId)){
+    showToast(`📩 ${vendorName} sent a quote!`);
+  }
+}
+
+// Generate a plausible-looking quote per category. Numbers based on BROWSE_VENDORS price ranges
+// where possible, with structured line items so the compare sheet works downstream.
+function generateSimulatedQuote(catKey, vendorName){
+  // Try to anchor the amount to the vendor's stated price range
+  const vendorAcrossCats = Object.values(BROWSE_VENDORS).flat().find(v => v && v.name === vendorName);
+  let baseAmount = vendorAcrossCats ? (vendorAcrossCats.priceNum || 25000) : 25000;
+  // Add a bit so it's not exactly the floor price
+  baseAmount = Math.round(baseAmount * 1.15 / 1000) * 1000;
+  
+  const tplsByCat = {
+    photo: () => ({
+      lines: [
+        {name:'Event coverage (4 hours)', price:'₹' + Math.round(baseAmount * 0.7).toLocaleString('en-IN')},
+        {name:'200+ edited photos', included:true},
+        {name:'Online gallery (1 year)', included:true},
+        {name:'Travel within city', included:true},
+        {name:'Extra hour', price:'₹' + Math.round(baseAmount * 0.18).toLocaleString('en-IN')},
+      ],
+      terms: '50% advance · 50% on event day',
+    }),
+    fb: () => ({
+      lines: [
+        {name:'Veg menu (8 items)', price:'₹' + Math.round(baseAmount * 0.6).toLocaleString('en-IN')},
+        {name:'Live counters (2)', price:'₹' + Math.round(baseAmount * 0.25).toLocaleString('en-IN')},
+        {name:'Service staff (6 hours)', included:true},
+        {name:'Plates, cutlery, glassware', included:true},
+      ],
+      terms: '40% advance · 60% on event day',
+    }),
+    venue: () => ({
+      lines: [
+        {name:'Venue rental (8 hours)', price:'₹' + Math.round(baseAmount * 0.85).toLocaleString('en-IN')},
+        {name:'Basic AV setup', included:true},
+        {name:'Tables & chairs (200 pax)', included:true},
+        {name:'Parking', included:true},
+      ],
+      terms: '30% advance · balance 7 days before event',
+    }),
+    decor: () => ({
+      lines: [
+        {name:'Stage setup + backdrop', price:'₹' + Math.round(baseAmount * 0.55).toLocaleString('en-IN')},
+        {name:'Entrance arch', price:'₹' + Math.round(baseAmount * 0.2).toLocaleString('en-IN')},
+        {name:'Table centerpieces (10)', price:'₹' + Math.round(baseAmount * 0.15).toLocaleString('en-IN')},
+        {name:'Setup + teardown', included:true},
+      ],
+      terms: '50% advance · 50% on event day',
+    }),
+    entertainment: () => ({
+      lines: [
+        {name:'DJ + sound system (4 hours)', price:'₹' + Math.round(baseAmount * 0.75).toLocaleString('en-IN')},
+        {name:'Lighting setup', price:'₹' + Math.round(baseAmount * 0.2).toLocaleString('en-IN')},
+        {name:'Mic + emcee support', included:true},
+      ],
+      terms: '50% advance · 50% on event day',
+    }),
+  };
+  
+  // Default: simple single-line quote
+  const tpl = tplsByCat[catKey] ? tplsByCat[catKey]() : {
+    lines: [
+      {name: (typeof OPT2_CATS !== 'undefined' && OPT2_CATS[catKey] ? OPT2_CATS[catKey].label : catKey) + ' service', 
+       price: '₹' + baseAmount.toLocaleString('en-IN')}
+    ],
+    terms: '50% advance · 50% on event day',
+  };
+  
+  return {
+    amount: baseAmount,
+    label: '₹' + baseAmount.toLocaleString('en-IN'),
+    terms: tpl.terms,
+    lines: tpl.lines,
+  };
 }
 
 // Called from the Create Account screen — fakes signup, lands on Quotes Dashboard.
@@ -6338,16 +6492,37 @@ function editPlanFromDashboard(){
 }
 
 // ========== OPT 2 — POST-INQUIRY VENDOR LIST (s8 path) ==========
-// Renders shortlisted vendors for one category, all in "awaiting quote" state
+// Renders shortlisted vendors for one category, with state-aware actions per vendor
 function renderOpt2VendorListForCat(catKey){
   const c = CATS[catKey];
   const def = OPT2_CATS[catKey] || {emoji:c?.emoji, label:c?.name};
   const idxs = state.vendorSelections[catKey] || [];
   const vendors = idxs.map(i => BROWSE_VENDORS[catKey]?.[i]).filter(Boolean);
   
+  // Count states across vendors for header summary
+  let quotedCount = 0, paidCount = 0, awaitingCount = 0;
+  vendors.forEach(v => {
+    const rel = getVendorRelationshipState(v.name);
+    if(rel === 'booked') paidCount++;
+    else if(rel === 'quote-received') quotedCount++;
+    else awaitingCount++;
+  });
+  
+  // Header subtext reflects current state
+  let subText;
+  if(paidCount === vendors.length){
+    subText = `All ${vendors.length} booked.`;
+  } else if(quotedCount + paidCount === vendors.length){
+    subText = `All ${vendors.length} have quoted.${paidCount > 0 ? ` ${paidCount} booked.` : ''} Compare and book the right one.`;
+  } else if(quotedCount + paidCount > 0){
+    subText = `${quotedCount + paidCount} of ${vendors.length} have quoted · ${awaitingCount} awaiting.`;
+  } else {
+    subText = `Awaiting quotes. We'll notify you when responses come in.`;
+  }
+  
   let h = `<div class="vl-header">
     <h3>${def.emoji} ${def.label} — ${vendors.length} vendor${vendors.length===1?'':'s'} contacted</h3>
-    <p style="font-size:12px;color:var(--text-mid);margin-top:4px">Awaiting quotes. We'll notify you when responses come in.</p>
+    <p style="font-size:12px;color:var(--text-mid);margin-top:4px">${subText}</p>
     ${vendors.length >= 2 ? `<div style="margin-top:8px"><button onclick="opt2CompareCategory('${catKey}')" style="background:var(--primary);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">📊 Compare these vendors</button></div>` : ''}
   </div>
   <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:1px solid #FFE082;border-radius:10px;margin-bottom:12px;cursor:pointer;font-size:12px" onclick="openMira();setTimeout(()=>handleMiraChip('📊 Help me decide between ${def.label} vendors'),500)">
@@ -6379,9 +6554,29 @@ function renderOpt2VendorListForCat(catKey){
             <div class="vc-tags">${badgeHtml}</div>
             <div class="vc-rating"><span class="stars">★ ${v.stars}</span><span class="cnt">(${v.reviews} reviews)</span></div>
           </div>
-          <div class="vc-price">
-            <div style="background:#FFF7E6;border:1px solid #FFD89B;color:#92400E;font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;line-height:1.3">⏳ Awaiting<br>quote</div>
-          </div>
+          ${(() => {
+            const rel = getVendorRelationshipState(v.name);
+            if(rel === 'booked'){
+              return `<div class="vc-price">
+                <div style="background:#DCFCE7;border:1px solid #86EFAC;color:#166534;font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;line-height:1.3">✓ Booked</div>
+              </div>`;
+            } else if(rel === 'quote-received'){
+              // Look up quote amount
+              let quoteLabel = '';
+              for(const b of bookings){
+                if(!b.vendors) continue;
+                const found = b.vendors.find(x => x.name === v.name);
+                if(found && found.quote){ quoteLabel = found.quote.label; break; }
+              }
+              return `<div class="vc-price">
+                <div style="background:#DBEAFE;border:1px solid #93C5FD;color:#1E40AF;font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;line-height:1.3">📩 Quote<br>${quoteLabel || 'received'}</div>
+              </div>`;
+            } else {
+              return `<div class="vc-price">
+                <div style="background:#FFF7E6;border:1px solid #FFD89B;color:#92400E;font-size:10px;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;line-height:1.3">⏳ Awaiting<br>quote</div>
+              </div>`;
+            }
+          })()}
         </div>
         <div class="vc-bottom">
           <div class="vc-highlights">
@@ -6395,8 +6590,20 @@ function renderOpt2VendorListForCat(catKey){
             <div style="font-size:10px;color:var(--text-light);margin-top:2px">Final quote depends on your specifics</div>
           </div>
           <div class="vc-actions">
-            <button class="btn-sm" style="background:var(--primary);color:#fff;border:none" onclick="openChatFromInquiry('${v.name.replace(/'/g,"\\'")}','${catKey}',${realIdx})">💬 Chat with vendor</button>
-            <button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="openProfileFromBrowse(${realIdx},'${catKey}')">View Profile</button>
+            ${(() => {
+              const rel = getVendorRelationshipState(v.name);
+              const escName = v.name.replace(/'/g,"\\'");
+              if(rel === 'quote-received'){
+                return `<button class="btn-sm" style="background:var(--primary);color:#fff;border:none" onclick="initPaymentForVendor('${escName}','${catKey}')">💳 Pay & Book</button>
+                  <button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="openChatFromInquiry('${escName}','${catKey}',${realIdx})">💬 Message</button>`;
+              } else if(rel === 'booked'){
+                return `<button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="openChatFromInquiry('${escName}','${catKey}',${realIdx})">💬 Message</button>
+                  <button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="openProfileFromBrowse(${realIdx},'${catKey}')">View Profile</button>`;
+              } else {
+                return `<button class="btn-sm" style="background:var(--primary);color:#fff;border:none" onclick="openChatFromInquiry('${escName}','${catKey}',${realIdx})">💬 Chat with vendor</button>
+                  <button class="btn-sm" style="background:transparent;color:var(--primary);border:1.5px solid var(--border)" onclick="openProfileFromBrowse(${realIdx},'${catKey}')">View Profile</button>`;
+              }
+            })()}
           </div>
         </div>
       </div>`;
@@ -6420,21 +6627,18 @@ function openChatFromInquiry(vendorName, catKey, vendorIdx){
   }
 }
 
-// Compare button entry point — uses existing s9 compare flow
+// Compare button entry point — routes to s9 (Compare Vendors screen)
+// buildCompare() will detect Option A vs Option B and render the right view.
 function opt2CompareCategory(catKey){
-  // Pre-select shortlisted vendors for comparison and route to s9
+  // Need at least 2 shortlisted vendors in this category to compare
   const idxs = state.vendorSelections[catKey] || [];
   if(idxs.length < 2){
     showToast('Need at least 2 vendors to compare.');
     return;
   }
-  // The existing compareVendors function reads from state.vendorSelections; just route there
   state.currentViewCat = catKey;
-  if(typeof compareVendors === 'function'){
-    compareVendors();
-  } else {
-    showToast('Compare view coming soon');
-  }
+  goTo(9);
+  buildCompare();
 }
 
 // ========== BROWSE FLOW ==========
@@ -7903,10 +8107,11 @@ function buildReview(){
 // ========== SCREEN 7: DASHBOARD ==========
 function buildDashboard(){
   const quoteCounts = {venue:3,fb:3,entertainment:3,decor:2,photo:2,florist:1,slp:1,returnGifts:2,staffing:1,styling:2,ceremonial:2,rangoli:1,fireworks:1,gifting:2,emcee:1,memoryVideo:1,logistics:2,eventManager:2};
-  let h='', totalQuotes=0, totalSelected=0;
+  let h='', totalQuotes=0, totalSelected=0, totalReceived=0;
   
-  // Detect if we're showing an Option B inquiry (no Option A vendor data yet, just shortlist)
-  const isOpt2Inquiry = state.activeInquiryTitle && bookings.find(b => b.title === state.activeInquiryTitle && b.fromOpt2 && b.awaitingQuotes);
+  // Detect if we're showing an Option B inquiry (we have an active inquiry that came from Option B)
+  const activeBooking = state.activeInquiryTitle ? bookings.find(b => b.title === state.activeInquiryTitle && b.fromOpt2) : null;
+  const isOpt2Inquiry = !!activeBooking;
   
   state.selectedCats.forEach(catKey=>{
     const c = CATS[catKey];
@@ -7918,14 +8123,43 @@ function buildDashboard(){
     let qc, hasV, metaText, badgeText, badgeClass;
     
     if(isOpt2Inquiry){
-      // Option B branch: show shortlisted vendor count with "awaiting" state
+      // Option B branch — count vendors in this category who have quoted
       qc = selCount;
       totalQuotes += qc;
-      const respondedCount = 0; // No simulated responses yet — all "awaiting"
-      metaText = `${qc} vendor${qc===1?'':'s'} contacted · awaiting quotes`;
-      badgeText = `${qc} pending`;
-      badgeClass = 'pending';
-      hasV = true; // We always have the BROWSE_VENDORS data to render the next screen
+      // Count quoted in this category (look up by name in BROWSE_VENDORS, then check booking record)
+      let quotedInCat = 0;
+      let paidInCat = 0;
+      selArr.forEach(idx => {
+        const bv = BROWSE_VENDORS[catKey] && BROWSE_VENDORS[catKey][idx];
+        if(!bv) return;
+        const v = activeBooking.vendors && activeBooking.vendors.find(x => x.name === bv.name);
+        if(!v) return;
+        if(v.payment && (v.payment.status === 'fully-paid' || v.payment.status === 'advance-paid')) paidInCat++;
+        else if(v.quote) quotedInCat++;
+      });
+      const awaitingInCat = qc - quotedInCat - paidInCat;
+      totalReceived += quotedInCat + paidInCat;
+      
+      // Set meta + badge based on what's happening
+      if(paidInCat > 0 && awaitingInCat === 0 && quotedInCat === 0){
+        metaText = `✓ ${paidInCat} booked`;
+        badgeText = `Booked`;
+        badgeClass = 'ready';
+      } else if(quotedInCat > 0 && awaitingInCat === 0){
+        metaText = `${quotedInCat} quote${quotedInCat===1?'':'s'} received${paidInCat>0?` · ${paidInCat} booked`:''}`;
+        badgeText = `${quotedInCat} ready`;
+        badgeClass = 'ready';
+      } else if(quotedInCat > 0 && awaitingInCat > 0){
+        metaText = `${quotedInCat} quote${quotedInCat===1?'':'s'} received · ${awaitingInCat} awaiting`;
+        badgeText = `${quotedInCat} ready`;
+        badgeClass = 'ready';
+      } else {
+        // All awaiting
+        metaText = `${qc} vendor${qc===1?'':'s'} contacted · awaiting quotes`;
+        badgeText = `${qc} pending`;
+        badgeClass = 'pending';
+      }
+      hasV = true;
     } else {
       // Option A branch: existing logic
       qc = quoteCounts[catKey]||1;
@@ -7954,11 +8188,11 @@ function buildDashboard(){
   document.getElementById('dsQuotes').textContent = totalQuotes;
   document.getElementById('dsSelected').textContent = totalSelected;
   
-  // Update the "Selected" stat label for Option B (clearer language)
+  // Update the "Selected" stat label for Option B — now showing received vs awaiting
   if(isOpt2Inquiry){
     const selectedLabel = document.querySelector('.dash-stats .dash-stat:nth-child(3) .ds-label');
-    if(selectedLabel) selectedLabel.textContent = 'Awaiting';
-    document.getElementById('dsSelected').textContent = totalQuotes; // Number awaiting = number contacted
+    if(selectedLabel) selectedLabel.textContent = 'Quotes';
+    document.getElementById('dsSelected').textContent = totalReceived;
     const quotesLabel = document.querySelector('.dash-stats .dash-stat:nth-child(2) .ds-label');
     if(quotesLabel) quotesLabel.textContent = 'Contacted';
   }
@@ -8062,6 +8296,15 @@ function sortVendors(el){
 function buildCompare(){
   const catKey = state.currentViewCat;
   const c = CATS[catKey];
+  
+  // Detect Option B context: active inquiry from Option B exists
+  const isOpt2 = state.activeInquiryTitle && bookings.find(b => b.title === state.activeInquiryTitle && b.fromOpt2);
+  
+  if(isOpt2){
+    return buildOpt2Compare(catKey);
+  }
+  
+  // Existing Option A path below
   const vendors = VENDORS[catKey];
   const selArr = state.vendorSelections[catKey] || [];
 
@@ -8183,6 +8426,221 @@ function buildCompare(){
   `;
 
   document.getElementById('compareContent').innerHTML = html;
+}
+
+// ========== OPTION B — COMPARE VENDORS ==========
+// Quote-aware compare view for shortlisted vendors. Renders side-by-side cards 
+// with category-specific rows where possible. This is an early version of "the moat" — 
+// see Notion: "The Compare Sheet — Why It's PlanEzee's Moat" for the full strategy.
+function buildOpt2Compare(catKey){
+  const def = (typeof OPT2_CATS !== 'undefined' && OPT2_CATS[catKey]) || {emoji:'📋', label:catKey};
+  const idxs = state.vendorSelections[catKey] || [];
+  
+  if(idxs.length < 2){
+    document.getElementById('compareContent').innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-mid)">
+        <div style="font-size:36px;margin-bottom:12px">⚖️</div>
+        <p>Need at least 2 vendors in the same category to compare.</p>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="goBack()">← Back to vendor list</button>
+      </div>`;
+    return;
+  }
+  
+  // Build vendor data — pull from BROWSE_VENDORS + booking quote if present
+  const activeBooking = state.activeInquiryTitle 
+    ? bookings.find(b => b.title === state.activeInquiryTitle && b.fromOpt2) 
+    : null;
+  
+  const vendorRows = idxs.map(idx => {
+    const bv = BROWSE_VENDORS[catKey] && BROWSE_VENDORS[catKey][idx];
+    if(!bv) return null;
+    let bookedV = null;
+    if(activeBooking && activeBooking.vendors){
+      bookedV = activeBooking.vendors.find(x => x.name === bv.name);
+    }
+    return {
+      base: bv,
+      idx: idx,
+      booked: bookedV,
+      hasQuote: !!(bookedV && bookedV.quote),
+      isPaid: !!(bookedV && bookedV.payment && (bookedV.payment.status === 'fully-paid' || bookedV.payment.status === 'advance-paid')),
+    };
+  }).filter(Boolean);
+  
+  if(vendorRows.length < 2){
+    document.getElementById('compareContent').innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-mid)">
+        <div style="font-size:36px;margin-bottom:12px">⚖️</div>
+        <p>Could not load vendors for comparison.</p>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="goBack()">← Back</button>
+      </div>`;
+    return;
+  }
+  
+  // Get the row spec — common rows + category-specific quote rows
+  const rows = getCompareRowsForCategory(catKey);
+  
+  // Build header cards for each vendor
+  const headerHtml = vendorRows.map(vr => {
+    const v = vr.base;
+    const stateBadge = vr.isPaid 
+      ? '<span style="background:#DCFCE7;color:#166534;font-size:9px;font-weight:700;padding:3px 6px;border-radius:5px;margin-top:4px;display:inline-block">✓ BOOKED</span>'
+      : vr.hasQuote
+      ? '<span style="background:#DBEAFE;color:#1E40AF;font-size:9px;font-weight:700;padding:3px 6px;border-radius:5px;margin-top:4px;display:inline-block">📩 QUOTE IN</span>'
+      : '<span style="background:#FFF7E6;color:#92400E;font-size:9px;font-weight:700;padding:3px 6px;border-radius:5px;margin-top:4px;display:inline-block">⏳ AWAITING</span>';
+    return `<th style="text-align:center;padding:14px 8px;min-width:160px;vertical-align:top">
+      <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);line-height:1.3">${v.name}</div>
+      <div style="font-size:10px;color:var(--text-light);margin-top:3px">⭐ ${v.stars} (${v.reviews})</div>
+      ${stateBadge}
+    </th>`;
+  }).join('');
+  
+  // Build body rows
+  const bodyHtml = rows.map(row => {
+    const cells = vendorRows.map(vr => {
+      const cellContent = row.render(vr) || '<span style="color:var(--text-light);font-style:italic">—</span>';
+      return `<td style="padding:11px 8px;text-align:center;font-size:12px;line-height:1.5;vertical-align:top">${cellContent}</td>`;
+    }).join('');
+    return `<tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:11px 8px;font-weight:600;color:var(--text-mid);font-size:11px;text-transform:uppercase;letter-spacing:.4px;position:sticky;left:0;background:#fff;z-index:1;min-width:110px">${row.label}</td>
+      ${cells}
+    </tr>`;
+  }).join('');
+  
+  // CTA per vendor — context-aware
+  const ctaHtml = vendorRows.map(vr => {
+    const escName = (vr.base.name||'').replace(/'/g,"\\'");
+    if(vr.isPaid){
+      return `<div style="flex:1;min-width:140px;padding:8px">
+        <button class="btn btn-secondary" style="width:100%;font-size:11px;padding:8px" onclick="openChatWithVendorByName('${escName}')">💬 Message</button>
+      </div>`;
+    } else if(vr.hasQuote){
+      return `<div style="flex:1;min-width:140px;padding:8px;display:flex;flex-direction:column;gap:6px">
+        <button class="btn btn-primary" style="width:100%;font-size:11px;padding:8px" onclick="initPaymentForVendor('${escName}','${catKey}')">💳 Pay & Book</button>
+        <button class="btn btn-secondary" style="width:100%;font-size:11px;padding:6px" onclick="openChatWithVendorByName('${escName}')">💬 Message</button>
+      </div>`;
+    } else {
+      return `<div style="flex:1;min-width:140px;padding:8px">
+        <button class="btn btn-secondary" style="width:100%;font-size:11px;padding:8px" onclick="openChatFromInquiry('${escName}','${catKey}',${vr.idx})">💬 Message</button>
+      </div>`;
+    }
+  }).join('');
+  
+  // Quoted-vendors-count summary at top
+  const quotedCount = vendorRows.filter(vr => vr.hasQuote || vr.isPaid).length;
+  const summaryText = quotedCount === vendorRows.length
+    ? `All ${vendorRows.length} vendors have quoted`
+    : quotedCount > 0
+    ? `${quotedCount} of ${vendorRows.length} have quoted · ${vendorRows.length - quotedCount} awaiting`
+    : `Awaiting quotes from all ${vendorRows.length}`;
+  
+  document.getElementById('compareContent').innerHTML = `
+    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:700;color:var(--primary);margin-bottom:4px">${def.emoji} Compare ${def.label}</div>
+    <div style="font-size:12px;color:var(--text-mid);margin-bottom:14px">${summaryText} · Scroll right to see all columns</div>
+    
+    ${quotedCount < vendorRows.length ? `
+      <div style="background:#FFF7E6;border:1px solid #FFE082;border-radius:10px;padding:10px 12px;margin-bottom:16px;font-size:11px;color:var(--text-mid);line-height:1.5">
+        💡 You'll get the most out of compare once all vendors have responded. Awaiting vendors typically reply within 2–6 hours.
+      </div>
+    ` : ''}
+    
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -20px;padding:0 20px;border:1px solid var(--border);border-radius:12px;background:#fff">
+      <table style="width:100%;min-width:${vendorRows.length > 2 ? '600' : '480'}px;border-collapse:collapse">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);background:#FAFAFA">
+            <th style="text-align:left;padding:14px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text-mid);min-width:110px;position:sticky;left:0;background:#FAFAFA;z-index:1"></th>
+            ${headerHtml}
+          </tr>
+        </thead>
+        <tbody>
+          ${bodyHtml}
+        </tbody>
+      </table>
+    </div>
+    
+    <div style="display:flex;flex-wrap:wrap;margin:14px -8px 0;align-items:stretch">
+      <div style="flex:0 0 110px;padding:8px"></div>
+      ${ctaHtml}
+    </div>
+  `;
+}
+
+// Returns the row specification for a given category. Each row has a label and a render function.
+// This is the foundation for the "compare sheet as moat" strategy — see Notion strategy doc.
+// Per-category specs override the defaults to surface what matters most for that category.
+function getCompareRowsForCategory(catKey){
+  // Common rows that work across all categories
+  const commonHead = [
+    {label: 'Quote', render: vr => {
+      if(vr.isPaid) return `<span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--green)">${vr.booked.quote.label}</span><div style="font-size:10px;color:var(--text-light);margin-top:2px">Paid</div>`;
+      if(vr.hasQuote) return `<span style="font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--primary)">${vr.booked.quote.label}</span>`;
+      return `<span style="color:var(--text-light);font-style:italic;font-size:11px">Awaiting</span><div style="font-size:10px;color:var(--text-light);margin-top:2px">Indicative: ${vr.base.price}</div>`;
+    }},
+    {label: 'Payment terms', render: vr => {
+      if(vr.hasQuote && vr.booked.quote.terms) return `<span style="font-size:11px">${vr.booked.quote.terms}</span>`;
+      return null;
+    }},
+  ];
+  
+  const commonTail = [
+    {label: 'City', render: vr => vr.base.city},
+    {label: 'Experience', render: vr => `${vr.base.yrs} years · ${vr.base.events} events`},
+    {label: 'Response time', render: vr => `<span style="color:var(--green);font-weight:600">⚡ ${vr.base.responseTime}</span>`},
+    {label: 'Tags', render: vr => (vr.base.tags || []).map(t => `<span style="display:inline-block;font-size:10px;padding:2px 6px;background:var(--accent-wash);border-radius:4px;color:var(--primary);font-weight:600;margin:1px">${t}</span>`).join('')},
+  ];
+  
+  // Category-specific rows — surface the most relevant quote line items per category.
+  // These map directly to what we generate in generateSimulatedQuote() for each category.
+  const categoryRows = {
+    photo: [
+      {label: 'Coverage hours', render: vr => extractQuoteLine(vr, 'coverage') || extractQuoteLine(vr, 'event') || '4 hours (typical)'},
+      {label: 'Photos delivered', render: vr => extractQuoteLine(vr, 'photos') || '200+ (typical)'},
+      {label: 'Online gallery', render: vr => quoteIncludes(vr, 'gallery') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : extractQuoteLine(vr, 'gallery')},
+      {label: 'Travel', render: vr => quoteIncludes(vr, 'travel') ? '<span style="color:var(--green);font-weight:600">✓ Within city</span>' : extractQuoteLine(vr, 'travel')},
+      {label: 'Style', render: vr => (vr.base.styleTags || vr.base.tags || []).slice(0,2).join(', ')},
+    ],
+    fb: [
+      {label: 'Menu items', render: vr => extractQuoteLine(vr, 'menu') || extractQuoteLine(vr, 'veg') || 'Per quote'},
+      {label: 'Live counters', render: vr => extractQuoteLine(vr, 'counter') || extractQuoteLine(vr, 'live') || 'Per quote'},
+      {label: 'Service staff', render: vr => quoteIncludes(vr, 'staff') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+      {label: 'Tableware', render: vr => quoteIncludes(vr, 'plate') || quoteIncludes(vr, 'cutlery') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+    ],
+    venue: [
+      {label: 'Rental hours', render: vr => extractQuoteLine(vr, 'rental') || extractQuoteLine(vr, 'venue') || 'Per quote'},
+      {label: 'AV setup', render: vr => quoteIncludes(vr, 'av') ? '<span style="color:var(--green);font-weight:600">✓ Basic included</span>' : 'Per quote'},
+      {label: 'Tables & chairs', render: vr => quoteIncludes(vr, 'tables') || quoteIncludes(vr, 'chairs') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+      {label: 'Parking', render: vr => quoteIncludes(vr, 'parking') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+    ],
+    decor: [
+      {label: 'Stage setup', render: vr => extractQuoteLine(vr, 'stage') || extractQuoteLine(vr, 'backdrop') || 'Per quote'},
+      {label: 'Entrance arch', render: vr => extractQuoteLine(vr, 'entrance') || extractQuoteLine(vr, 'arch') || 'Per quote'},
+      {label: 'Centerpieces', render: vr => extractQuoteLine(vr, 'centerpiece') || 'Per quote'},
+      {label: 'Setup & teardown', render: vr => quoteIncludes(vr, 'setup') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+    ],
+    entertainment: [
+      {label: 'Performance hours', render: vr => extractQuoteLine(vr, 'dj') || extractQuoteLine(vr, 'sound') || extractQuoteLine(vr, 'hours') || 'Per quote'},
+      {label: 'Lighting', render: vr => extractQuoteLine(vr, 'lighting') || 'Per quote'},
+      {label: 'Mic & emcee', render: vr => quoteIncludes(vr, 'mic') || quoteIncludes(vr, 'emcee') ? '<span style="color:var(--green);font-weight:600">✓ Included</span>' : 'Per quote'},
+    ],
+  };
+  
+  const specific = categoryRows[catKey] || [];
+  return [...commonHead, ...specific, ...commonTail];
+}
+
+// Helpers for extracting line items from a quote — used by category-specific row renderers
+function extractQuoteLine(vr, keyword){
+  if(!vr.hasQuote || !vr.booked.quote.lines) return null;
+  const line = vr.booked.quote.lines.find(l => l.name && l.name.toLowerCase().includes(keyword.toLowerCase()));
+  if(!line) return null;
+  if(line.included) return '<span style="color:var(--green);font-weight:600">✓ Included</span>';
+  if(line.price) return `<span style="font-weight:600">${line.price}</span><div style="font-size:10px;color:var(--text-light);margin-top:1px">${line.name}</div>`;
+  return line.name;
+}
+
+function quoteIncludes(vr, keyword){
+  if(!vr.hasQuote || !vr.booked.quote.lines) return false;
+  return vr.booked.quote.lines.some(l => l.name && l.included && l.name.toLowerCase().includes(keyword.toLowerCase()));
 }
 
 function messageVendorFromCompare(catKey, vendorIdx){
@@ -8664,6 +9122,23 @@ let auth = {
   depositPaid: false,
   pendingAction: null, // {type:'save-plan'} or {type:'message', vendorIdx:0, catKey:'photo'}
 };
+
+// ========== PAYMENT CONTEXT ==========
+// Set when user clicks "Pay & Book" — tells the payment screens which vendor + which quote.
+// Cleared after payment confirmation flow ends.
+let paymentContext = null; 
+// Shape: {
+//   vendorName: 'Priya Captures',
+//   catKey: 'photo',
+//   catLabel: 'Photography',
+//   emoji: '📸',
+//   quote: {amount, label, terms, lines: [{name, price/included}]},
+//   payAmount: 11000,         // amount being paid right now (advance or full)
+//   payAmountLabel: '₹11,000',
+//   payType: 'advance',       // 'advance' or 'full'
+//   bookingIdx: 0,            // which booking record to update
+//   vendorIdx: 0,             // index in booking.vendors[]
+// };
 
 // Demo conversations
 let conversations = [
@@ -10068,6 +10543,123 @@ function closeProfileDrawerIfOverlay(event){
   }
 }
 
+// ========== VENDOR RELATIONSHIP STATE ==========
+// Detects what stage the user is at with a given vendor, so the profile shows the right CTAs.
+// States: 'new' | 'inquiry-sent' | 'quote-received' | 'booked'
+function getVendorRelationshipState(vendorName){
+  if(!vendorName) return 'new';
+  
+  // Check if there's a conversation with this vendor
+  const convo = (typeof conversations !== 'undefined') ? 
+    conversations.find(c => c.vendorName === vendorName) : null;
+  
+  // Check if vendor appears in any booking with payment / quote status
+  let bookedVendor = null;
+  if(typeof bookings !== 'undefined' && bookings.length){
+    for(const b of bookings){
+      if(b.vendors){
+        const v = b.vendors.find(x => x.name === vendorName);
+        if(v){ bookedVendor = v; break; }
+      }
+    }
+  }
+  
+  // Booked = payment made (advance or full)
+  if(bookedVendor && bookedVendor.payment){
+    const ps = bookedVendor.payment.status;
+    if(ps === 'fully-paid' || ps === 'advance-paid') return 'booked';
+  }
+  
+  // Quote received = vendor has submitted a quote but no payment yet
+  if(bookedVendor && bookedVendor.quote){
+    return 'quote-received';
+  }
+  
+  // Inquiry sent = conversation exists OR vendor is in a booking with status 'inquiry-sent'
+  if(convo) return 'inquiry-sent';
+  if(bookedVendor && bookedVendor.status === 'inquiry-sent') return 'inquiry-sent';
+  
+  return 'new';
+}
+
+// Initialize paymentContext when user clicks "Pay & Book" from a profile.
+// Looks up the vendor's quote in bookings, builds the context, routes to Quote View (s34).
+function initPaymentForVendor(vendorName, catKey){
+  // Find the vendor in any booking
+  let bookedVendor = null;
+  let parentBooking = null;
+  for(const b of bookings){
+    if(!b.vendors) continue;
+    const v = b.vendors.find(x => x.name === vendorName);
+    if(v){ bookedVendor = v; parentBooking = b; break; }
+  }
+  
+  if(!bookedVendor || !bookedVendor.quote){
+    showToast('No quote found for this vendor yet.');
+    return;
+  }
+  
+  const totalAmt = bookedVendor.quote.amount || 0;
+  const advanceAmt = Math.round(totalAmt / 2);
+  const def = (typeof OPT2_CATS !== 'undefined' && OPT2_CATS[catKey]) || {emoji:'📋', label:catKey};
+  
+  paymentContext = {
+    vendorName: vendorName,
+    catKey: catKey,
+    catLabel: def.label,
+    emoji: def.emoji,
+    quote: {
+      amount: totalAmt,
+      label: bookedVendor.quote.label,
+      terms: bookedVendor.quote.terms,
+      lines: bookedVendor.quote.lines || null,
+    },
+    payAmount: advanceAmt,
+    payAmountLabel: '₹' + advanceAmt.toLocaleString('en-IN'),
+    payType: 'advance',
+  };
+  
+  goTo(34);
+  buildQuoteView();
+}
+
+// Returns the CTA button(s) HTML appropriate for the current vendor's relationship state.
+function getVendorProfileCTAs(vendor, catKey){
+  const vendorIdx = currentVendorProfile.vendorIdx;
+  const escName = (vendor.name || '').replace(/'/g, "\\'");
+  const stateNow = getVendorRelationshipState(vendor.name);
+  
+  // Helper for secondary "Message" button (used in multi-CTA states)
+  const msgBtn = `<button class="btn btn-secondary" onclick="tryMessageVendor(${vendorIdx},'${catKey}')">💬 Message</button>`;
+  
+  if(stateNow === 'booked'){
+    // Already paid (in advance or full). Just messaging.
+    return `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">
+      <span style="background:#DCFCE7;color:#166534;font-size:11px;font-weight:700;padding:6px 11px;border-radius:6px">✓ Booked</span>
+      ${msgBtn}
+    </div>`;
+  }
+  
+  if(stateNow === 'quote-received'){
+    // Vendor has quoted. User can pay or message for clarification.
+    return `<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+      ${msgBtn}
+      <button class="btn btn-primary" onclick="initPaymentForVendor('${escName}','${catKey}')">💳 Pay & Book</button>
+    </div>`;
+  }
+  
+  if(stateNow === 'inquiry-sent'){
+    // Inquiry sent, awaiting quote. Single primary CTA: chat with vendor.
+    return `<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px">
+      <span style="background:#FFF7E6;color:#92400E;font-size:11px;font-weight:700;padding:6px 11px;border-radius:6px">⏳ Awaiting quote</span>
+      <button class="btn btn-primary" onclick="tryMessageVendor(${vendorIdx},'${catKey}')">💬 Message vendor</button>
+    </div>`;
+  }
+  
+  // 'new' — first time seeing vendor. Default: Request Quote.
+  return `<button class="btn btn-primary" onclick="tryMessageVendor(${vendorIdx},'${catKey}')">💬 Request Quote</button>`;
+}
+
 function buildVendorProfile(){
   const v = currentVendorProfile.data;
   const catKey = currentVendorProfile.catKey;
@@ -10338,7 +10930,7 @@ function buildGenericProfile(v, catKey, catLabel, emoji){
     </div>
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -10507,7 +11099,7 @@ function buildDecoratorProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -11504,7 +12096,7 @@ function buildCatererProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -11871,7 +12463,7 @@ function buildVenueProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-outline" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="triggerAuth('message','Contact ${v.name.replace(/'/g,"\\'")}','Send a message to check availability and get a quote.')">Message Venue</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -12293,7 +12885,7 @@ function buildPhotographerProfile(v, catKey, catLabel, emoji){
     <!-- ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -12579,7 +13171,7 @@ function buildMusicianProfile(v, catKey, catLabel, emoji){
     <!-- 16. ACTIONS -->
     <div class="vp-actions">
       <button class="btn btn-secondary" onclick="goBack()">← Back</button>
-      <button class="btn btn-primary" onclick="tryMessageVendor(${currentVendorProfile.vendorIdx},'${catKey}')">💬 Request Quote</button>
+      ${getVendorProfileCTAs(v, catKey)}
     </div>
   `;
 }
@@ -12802,6 +13394,61 @@ function buildMsgInbox(){
 
 // ========== QUOTE VIEW ==========
 function buildQuoteView(){
+  // If paymentContext is set (driven by "Pay & Book" from a profile), use it.
+  // Otherwise fall back to the legacy hardcoded demo (Priya Captures) so old paths still work.
+  const ctx = paymentContext;
+  
+  if(ctx){
+    // Build quote lines HTML — flexible: if ctx.quote.lines is provided, use it, else show summary
+    let linesHtml = '';
+    if(ctx.quote.lines && ctx.quote.lines.length){
+      linesHtml = ctx.quote.lines.map(l => {
+        const right = l.included ? `<span class="ql-included">Included</span>` : `<span class="ql-price">${l.price}</span>`;
+        return `<div class="ql-item"><span class="ql-name">${l.name}</span>${right}</div>`;
+      }).join('');
+    } else {
+      linesHtml = `<div class="ql-item"><span class="ql-name">${ctx.quote.summary || ctx.catLabel + ' service'}</span><span class="ql-price">${ctx.quote.label}</span></div>`;
+    }
+    
+    document.getElementById('quoteContent').innerHTML = `
+      <div class="quote-card">
+        <div class="qc-header">
+          <span class="qc-icon">${ctx.emoji}</span>
+          <div>
+            <div class="qc-title">Quote from ${ctx.vendorName}</div>
+            <div class="qc-vendor">${ctx.catLabel}</div>
+          </div>
+        </div>
+        <div class="quote-lines">
+          ${linesHtml}
+        </div>
+        <div class="ql-total"><span>Total</span><span>${ctx.quote.label}</span></div>
+        <div class="quote-terms">
+          <div class="qt-label">Payment terms</div>
+          <div>${ctx.quote.terms || 'As per agreement'}</div>
+        </div>
+
+        <div class="quote-actions">
+          <button class="qa-primary" onclick="goTo(35);buildPaymentFlow()">💳 Pay via PlanEzee — Secure & Protected</button>
+          <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
+          <div class="qa-row">
+            <button onclick="openChatWithVendorByName('${(ctx.vendorName||'').replace(/'/g,"\\'")}')">💬 Message vendor</button>
+            <button onclick="openChatWithVendorByName('${(ctx.vendorName||'').replace(/'/g,"\\'")}')">✗ Decline</button>
+          </div>
+        </div>
+      </div>
+      
+      <div style="padding:14px;background:#FAFAFA;border-radius:12px;font-size:12px;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start;margin-top:12px">
+        <span style="font-size:16px">🛡️</span>
+        <div>
+          <strong style="color:var(--text-dark)">Protected by PlanEzee.</strong> Your payment is held securely. Vendor receives funds only after the event. Full refund if vendor cancels.
+        </div>
+      </div>
+    `;
+    return;
+  }
+  
+  // Legacy fallback (Priya hardcoded — only used if paymentContext is null)
   document.getElementById('quoteContent').innerHTML = `
     <div class="quote-card">
       <div class="qc-header">
@@ -12822,40 +13469,16 @@ function buildQuoteView(){
       <div class="quote-terms">
         <div class="qt-label">Payment terms</div>
         <div>50% advance (₹11,000) · 50% on event day</div>
-        <div style="margin-top:6px;display:flex;align-items:center;gap:6px;font-size:11px;color:#D97706">
-          <span>⏰</span> Valid until 15 Mar 2026 · <strong>Expires in 3 days</strong>
-        </div>
       </div>
-
-      <!-- Mira market comparison -->
-      <div style="background:#F0F7FF;border:1px solid #BFDBFE;border-radius:12px;padding:14px;margin-top:16px">
-        <div style="font-size:12px;font-weight:700;color:#1E40AF;margin-bottom:8px;display:flex;align-items:center;gap:6px">✨ Mira's market analysis</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center;font-size:11px;margin-bottom:8px">
-          <div style="background:#fff;border-radius:8px;padding:8px"><div style="color:var(--text-light)">Market low</div><div style="font-weight:700;color:var(--primary)">₹15,000</div></div>
-          <div style="background:#fff;border-radius:8px;padding:8px;border:1.5px solid var(--accent)"><div style="color:var(--text-light)">This quote</div><div style="font-weight:700;color:var(--green)">₹22,000</div></div>
-          <div style="background:#fff;border-radius:8px;padding:8px"><div style="color:var(--text-light)">Market high</div><div style="font-weight:700;color:var(--primary)">₹35,000</div></div>
-        </div>
-        <div style="font-size:11px;color:#1E40AF">This is <strong>below average</strong> for candid photographers in Mumbai with 4.8+ ratings. Good value — Priya's portfolio quality is top-tier.</div>
-      </div>
-
       <div class="quote-actions">
-        <button class="qa-primary" onclick="goTo(35)">💳 Pay via PlanEzee — Secure & Protected</button>
+        <button class="qa-primary" onclick="goTo(35);buildPaymentFlow()">💳 Pay via PlanEzee — Secure & Protected</button>
         <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
         <div class="qa-row">
-          <button onclick="goTo(32)">💬 Negotiate</button>
+          <button onclick="goTo(32)">💬 Message vendor</button>
           <button onclick="goTo(32)">✗ Decline</button>
         </div>
       </div>
-    </div>
-
-    <div style="padding:14px;background:#FAFAFA;border-radius:12px;font-size:12px;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start">
-      <span style="font-size:16px">🛡️</span>
-      <div>
-        <div style="font-weight:700;color:var(--primary);margin-bottom:4px">Why pay through PlanEzee?</div>
-        <div>Your payment is held securely until the service is complete. Full refund if the vendor cancels. No fees for you — we earn from vendors.</div>
-      </div>
-    </div>
-  `;
+    </div>`;
 }
 
 function payDirect(){
@@ -12896,10 +13519,24 @@ function confirmDirectPay(){
 
 // ========== PAYMENT FLOW ==========
 function buildPaymentFlow(){
+  // Read from paymentContext if available, else legacy defaults (Priya advance)
+  const ctx = paymentContext;
+  const payLabel = ctx ? ctx.payAmountLabel : '₹11,000';
+  const payTitle = ctx 
+    ? (ctx.payType === 'full' ? 'Full payment' : 'Advance payment (50%)')
+    : 'Advance payment (50%)';
+  const remainingLabel = (ctx && ctx.payType === 'advance') 
+    ? `Remaining ${ctx.quote.label && ctx.payAmount ? '₹' + (parseInt(ctx.quote.amount||0) - parseInt(ctx.payAmount||0)).toLocaleString('en-IN') : ''} due on event day`
+    : (ctx && ctx.payType === 'full')
+      ? '✓ This covers the full booking — no balance due later'
+      : 'Remaining ₹11,000 due on event day';
+  const vendorLine = ctx ? `<div style="font-size:12px;color:var(--text-mid);margin-top:4px">to ${ctx.emoji} ${ctx.vendorName}</div>` : '';
+  
   document.getElementById('paymentContent').innerHTML = `
     <div class="pay-amount">
-      <div class="pa-label">Advance payment (50%)</div>
-      <div class="pa-val">₹11,000</div>
+      <div class="pa-label">${payTitle}</div>
+      <div class="pa-val">${payLabel}</div>
+      ${vendorLine}
     </div>
 
     <div style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--text-mid);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Choose payment method</div>
@@ -12947,10 +13584,10 @@ function buildPaymentFlow(){
       </div>
     </div>
 
-    <button class="btn btn-primary" style="width:100%;padding:16px;font-size:15px" onclick="processPayment()">Pay ₹11,000 →</button>
+    <button class="btn btn-primary" style="width:100%;padding:16px;font-size:15px" onclick="processPayment()">Pay ${payLabel} →</button>
 
     <div class="pay-remaining">
-      Remaining ₹11,000 due on event day
+      ${remainingLabel}
     </div>
   `;
 }
@@ -12961,7 +13598,7 @@ function selectPayMethod(el){
 }
 
 function processPayment(){
-  // Show loading then confirmation
+  // Show loading then confirmation. While loading, apply the payment to bookings.
   document.getElementById('paymentContent').innerHTML = `
     <div style="text-align:center;padding:60px 20px">
       <div style="font-size:48px;margin-bottom:20px">💳</div>
@@ -12972,11 +13609,122 @@ function processPayment(){
       </div>
     </div>
   `;
-  setTimeout(()=> goTo(36), 2000);
+  // Apply payment to the booking record so dashboards reflect the booked state
+  applyPaymentToBookings();
+  setTimeout(()=> { goTo(36); buildPayConfirm(); }, 2000);
+}
+
+// Mutates the relevant booking record to mark this vendor as paid.
+function applyPaymentToBookings(){
+  if(!paymentContext) return;
+  const ctx = paymentContext;
+  
+  // Find the right booking + vendor entry by name
+  for(const b of bookings){
+    if(!b.vendors) continue;
+    const v = b.vendors.find(x => x.name === ctx.vendorName);
+    if(v){
+      // Mark quote as accepted, payment status applied
+      if(!v.quote && ctx.quote){
+        v.quote = {
+          amount: ctx.quote.amount || 0,
+          label: ctx.quote.label,
+          terms: ctx.quote.terms || '',
+          accepted: true,
+        };
+      } else if(v.quote){
+        v.quote.accepted = true;
+      }
+      
+      const todayStr = formatTodayDate();
+      if(ctx.payType === 'full'){
+        v.status = 'booked';
+        v.payment = {
+          status: 'fully-paid',
+          totalPaid: ctx.payAmount,
+          totalLabel: ctx.payAmountLabel,
+          paidDate: todayStr,
+        };
+      } else {
+        v.status = 'booked';
+        const total = ctx.quote.amount || 0;
+        const remaining = total - ctx.payAmount;
+        v.payment = {
+          status: 'advance-paid',
+          advancePaid: ctx.payAmount,
+          advanceLabel: ctx.payAmountLabel,
+          totalPaid: ctx.payAmount,
+          remaining: remaining,
+          remainingLabel: '₹' + remaining.toLocaleString('en-IN'),
+          paidDate: todayStr,
+        };
+      }
+      // Update booking-level flag if ALL vendors are now paid
+      const anyAwaiting = b.vendors.some(x => 
+        !x.payment || (x.payment.status !== 'fully-paid' && x.payment.status !== 'advance-paid')
+      );
+      if(!anyAwaiting){
+        b.awaitingQuotes = false;
+      }
+      break;
+    }
+  }
+}
+
+// "DD MMM YYYY" — used for paidDate stamping
+function formatTodayDate(){
+  const d = new Date();
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
 // ========== PAYMENT CONFIRMATION ==========
 function buildPayConfirm(){
+  const ctx = paymentContext;
+  
+  if(ctx){
+    const totalAmt = ctx.quote.amount || 0;
+    const remainingAmt = ctx.payType === 'full' ? 0 : totalAmt - ctx.payAmount;
+    const paidLine = ctx.payType === 'full'
+      ? `${ctx.payAmountLabel} (full payment)`
+      : `${ctx.payAmountLabel} (advance)`;
+    const remainingLine = ctx.payType === 'full'
+      ? `<div class="cd-row"><span class="cd-label">Status</span><span class="cd-val" style="color:var(--green)">✓ Fully booked</span></div>`
+      : `<div class="cd-row"><span class="cd-label">Remaining</span><span class="cd-val">₹${remainingAmt.toLocaleString('en-IN')} on event day</span></div>`;
+    
+    // Build event line — get from active inquiry if possible
+    const eventLine = state.activeInquiryTitle || (state.dashSummaryText ? state.dashSummaryText.replace(/^[^A-Za-z]+/,'') : '');
+    
+    document.getElementById('payConfirmContent').innerHTML = `
+      <div class="confirm-card">
+        <div class="cc-icon">✅</div>
+        <div class="cc-title">Payment confirmed!</div>
+        <div class="cc-sub">${ctx.payAmountLabel} paid securely via PlanEzee</div>
+        <div class="confirm-details">
+          <div class="cd-row"><span class="cd-label">Vendor</span><span class="cd-val">${ctx.emoji} ${ctx.vendorName}</span></div>
+          <div class="cd-row"><span class="cd-label">Service</span><span class="cd-val">${ctx.catLabel}</span></div>
+          ${eventLine ? `<div class="cd-row"><span class="cd-label">Event</span><span class="cd-val">${eventLine}</span></div>` : ''}
+          <div class="cd-row"><span class="cd-label">Paid</span><span class="cd-val">${paidLine}</span></div>
+          ${remainingLine}
+        </div>
+      </div>
+
+      <div class="confirm-next">
+        <div class="cn-title">What happens next</div>
+        <div class="cn-step"><span class="cn-num">1</span> Vendor is notified ✓</div>
+        <div class="cn-step"><span class="cn-num">2</span> You'll confirm after the event</div>
+        <div class="cn-step"><span class="cn-num">3</span> Vendor gets paid within 48 hours</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-secondary" onclick="openChatWithVendorByName('${(ctx.vendorName||'').replace(/'/g,"\\'")}')">💬 Message vendor</button>
+        <button class="btn btn-primary" onclick="goTo(37);buildMyEvents();">View My Events →</button>
+      </div>
+    `;
+    return;
+  }
+  
+  // Legacy fallback — Priya hardcoded
   document.getElementById('payConfirmContent').innerHTML = `
     <div class="confirm-card">
       <div class="cc-icon">✅</div>
@@ -13003,6 +13751,17 @@ function buildPayConfirm(){
       <button class="btn btn-primary" onclick="goTo(37)">View My Events →</button>
     </div>
   `;
+}
+
+// Open chat by vendor name — used by quote view + payment confirm CTAs
+function openChatWithVendorByName(vendorName){
+  const idx = conversations.findIndex(c => c.vendorName === vendorName);
+  if(idx >= 0){
+    currentConvoIdx = idx;
+    goTo(32);
+  } else {
+    showToast('Conversation not found.');
+  }
 }
 
 // ========== MY EVENTS DASHBOARD ==========
@@ -13223,7 +13982,7 @@ function buildMyEvents(){
       paymentHtml = `
         <div class="evc-actions">
           <button class="btn-sm btn-primary" onclick="goTo(34)">Review Quote →</button>
-          <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Negotiate</button>
+          <button class="btn-sm btn-secondary" onclick="goTo(32)">💬 Message vendor</button>
         </div>`;
     } else {
       // No quote — just message
@@ -13801,7 +14560,7 @@ Want me to help with any of these?`);
 💡 DJ Rohan quoted ₹18,000 for a 3-hour set including his own sound system. That's competitive for Mumbai. His rating is ★ 4.7 with 95 reviews.
 
 Would you like to accept this quote, or should I help you negotiate? Some things you could ask about: extending to 4 hours, adding a fog machine, or requesting a specific setlist.`);
-    setMiraChips(['✅ Accept this quote', '💬 Negotiate with DJ', '📊 Compare all quotes']);
+    setMiraChips(['✅ Accept this quote', '💬 Message the DJ', '📊 Compare all quotes']);
     return;
   }
 
