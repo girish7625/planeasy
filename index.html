@@ -40,7 +40,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   content:attr(data-screen-name);
   position:absolute;
   top:-4px;
-  left:0;
+  right:0;
   background:rgba(15,23,42,0.85);
   color:#FFCC02;
   font-family:'Sora',sans-serif;
@@ -48,17 +48,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   font-weight:600;
   letter-spacing:.3px;
   padding:3px 8px;
-  border-radius:0 0 6px 0;
+  border-radius:0 0 0 6px;
   z-index:50;
   pointer-events:none;
   white-space:nowrap;
-  max-width:90%;
+  max-width:60%;
   overflow:hidden;
   text-overflow:ellipsis;
 }
 /* Hide on Mira full-screen + invite designer ready (they go edge-to-edge) — overrides handled per screen */
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes slideInRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
 /* Screen header */
@@ -531,7 +532,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .chat-vendor-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
 .chat-vendor-cat{font-size:11px;color:var(--text-mid)}
 .chat-response-time{font-size:10px;color:var(--green);font-weight:600}
-.chat-body{display:flex;flex-direction:column;gap:12px;padding-bottom:80px;min-height:300px}
+.chat-body{display:flex;flex-direction:column;gap:12px;padding-bottom:80px;min-height:120px}
 .chat-msg{max-width:80%;padding:12px 16px;border-radius:16px;font-size:13px;line-height:1.5;position:relative}
 .chat-msg.user{align-self:flex-end;background:var(--accent);color:var(--primary);border-bottom-right-radius:4px}
 .chat-msg.vendor{align-self:flex-start;background:#F5F5F5;color:var(--primary);border-bottom-left-radius:4px}
@@ -1179,7 +1180,6 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <span class="fork-arrow">→</span>
     </div>
   </div>
-  <div style="text-align:center;margin-top:32px;font-size:12px;color:var(--text-light)">No payment needed to get started. Free for users, free to list for vendors.</div>
 </div>
 
 <!-- ==================== SCREEN 0: THE FORK (USER) ==================== -->
@@ -1189,41 +1189,32 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <p>Planning an occasion? We'll help you find the right vendors.</p>
   </div>
   <div class="fork-wrap">
-    <div class="fork-card" onclick="pickMode('planning')">
-      <span class="fork-emoji">🔍</span>
-      <div class="fork-title">Help me figure out what I need</div>
-      <div class="fork-sub">Not sure where to start? Tell us the occasion and we'll guide you through what vendors and services you might need.</div>
+    <div class="fork-card" onclick="pickMode('estimate')">
+      <span class="fork-emoji">💰</span>
+      <div class="fork-title">Estimate my event</div>
+      <div class="fork-sub">How much will it cost?</div>
       <span class="fork-arrow">→</span>
     </div>
     <div class="fork-or">or</div>
-    <div class="fork-card" onclick="pickMode('execution')">
-      <span class="fork-emoji">🚀</span>
-      <div class="fork-title">I know what I need, let's go</div>
-      <div class="fork-sub">You have an occasion coming up. Let's find the right vendors, compare them, and get real estimates.</div>
+    <div class="fork-card" onclick="pickMode('planning')">
+      <span class="fork-emoji">🎯</span>
+      <div class="fork-title">Plan an event</div>
+      <div class="fork-sub">Help me figure it out, step by step.</div>
       <span class="fork-arrow">→</span>
     </div>
     <div class="fork-or">or</div>
     <div class="fork-card" onclick="pickMode('browse')">
-      <span class="fork-emoji">🛒</span>
-      <div class="fork-title">Just browsing vendors</div>
-      <div class="fork-sub">Skip the planning. Go straight to browsing venues, photographers, caterers, and more by category.</div>
+      <span class="fork-emoji">🔍</span>
+      <div class="fork-title">Browse vendors</div>
+      <div class="fork-sub">I know what I need.</div>
       <span class="fork-arrow">→</span>
     </div>
-    <div class="fork-or">or</div>
-    <div class="fork-card" onclick="pickMode('invite')" style="border-color:var(--accent-soft);background:linear-gradient(135deg,#FFFBEB,#FFF8E1)">
-      <span class="fork-emoji">🎨</span>
-      <div class="fork-title">Design your invite</div>
-      <div class="fork-sub">Create stunning invitations with AI in 60 seconds. Free. Download for WhatsApp, Instagram, Email, or Print.</div>
-      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
-        <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--accent);color:var(--primary)">Phase 1 · Standalone web app</span>
-        <span style="font-size:9px;font-weight:700;padding:3px 8px;border-radius:6px;background:#F5F5F5;color:var(--text-light)">Phase 2 · Integrated in main product</span>
-      </div>
-      <span class="fork-arrow">→</span>
-    </div>
+    <!-- Invite designer code preserved at screens s70-s75 — restorable later via:
+         <div class="fork-card" onclick="pickMode('invite')">…</div> -->
   </div>
   <div class="switch-link" style="margin-top:24px"><a onclick="goTo(100)">← Are you a vendor? List your business instead</a></div>
 </div>
-<div class="screen" id="s1" data-screen-name="Plan / Option A / Pick Occasion">
+<div class="screen" id="s1" data-screen-name="Estimator / Pick Occasion">
   <div class="sh">
     <div class="sh-step" id="s1Step">Step 1 of 5</div>
     <h2>What are you celebrating?</h2>
@@ -1247,7 +1238,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 2: DETAILS ==================== -->
-<div class="screen" id="s2" data-screen-name="Plan / Option A / Event Details">
+<div class="screen" id="s2" data-screen-name="Estimator / Event Details">
   <div class="sh">
     <div class="sh-step">Step 2 of 5</div>
     <h2>Tell us about your event</h2>
@@ -1378,7 +1369,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 </div>
 <!-- ==================== SCREEN 10: PLANNING DASHBOARD ==================== -->
-<div class="screen" id="s10" data-screen-name="Plan / Planning Mode / Overview">
+<div class="screen" id="s10" data-screen-name="Estimator / Overview">
   <div class="sh">
     <div class="sh-step">Your Planning Guide</div>
     <h2 id="planTitle">Your Event at a Glance</h2>
@@ -1432,9 +1423,9 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 
   <!-- CTA -->
   <div class="plan-cta">
-    <h3>Ready to make it happen?</h3>
-    <p>Switch to execution mode to start getting real quotes from vendors.</p>
-    <button class="btn btn-primary" onclick="switchToExecution()" style="margin-right:8px">Find vendors →</button>
+    <h3>Ready to plan?</h3>
+    <p>You have the budget picture. Now let's find the right vendors for each category.</p>
+    <button class="btn btn-primary" onclick="switchToExecution()" style="margin-right:8px">Plan an event →</button>
     <button class="btn btn-secondary" onclick="goHome()">Start over</button>
   </div>
 
@@ -1451,7 +1442,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 11: PROFILE / TELL US ABOUT YOU ==================== -->
-<div class="screen" id="s11" data-screen-name="Plan / Planning Mode / Profile">
+<div class="screen" id="s11" data-screen-name="Estimator / Profile">
   <div class="profile-screen">
     <div class="profile-header">
       <div class="ph-icon" id="profileIcon">📋</div>
@@ -1512,7 +1503,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 3: DYNAMIC CATEGORIES ==================== -->
-<div class="screen" id="s3" data-screen-name="Plan / Option A / Pick Categories">
+<div class="screen" id="s3" data-screen-name="Estimator / Pick Categories">
   <div class="sh">
     <div class="sh-step">Step 3 of 5</div>
     <h2>What do you need?</h2>
@@ -1531,7 +1522,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 4: PER-CATEGORY QUESTIONS ==================== -->
-<div class="screen" id="s4" data-screen-name="Plan / Option A / Category Details">
+<div class="screen" id="s4" data-screen-name="Estimator / Category Details">
   <div class="sh">
     <div class="sh-step">Step 4 of 5</div>
     <h2>A few details per category</h2>
@@ -1547,7 +1538,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 5: REVIEW ==================== -->
-<div class="screen" id="s5" data-screen-name="Plan / Option A / Review Plan">
+<div class="screen" id="s5" data-screen-name="Estimator / Review Plan">
   <div class="sh">
     <div class="sh-step">Step 5 of 5</div>
     <h2>Review your plan</h2>
@@ -1926,11 +1917,20 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 41: OPTION 2 — COMBINED OCCASION + DETAILS ==================== -->
-<div class="screen" id="s41" data-screen-name="Plan / Option B / Event Details">
+<div class="screen" id="s41" data-screen-name="Plan / Event Details">
   <div class="sh">
-    <div class="sh-step">Step 1 of 3</div>
     <h2>Tell us about your occasion</h2>
-    <p>Basic details to help us show you the right vendors.</p>
+    <p>A few quick details so we can show you the right vendors.</p>
+  </div>
+
+  <!-- How it works — sets expectations before user fills the form -->
+  <div class="hiw-box" style="margin-top:0;margin-bottom:20px">
+    <div class="hiw-title">✨ How it works</div>
+    <div class="hiw-steps">
+      <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-text">Tell us your occasion, city, and guest count — takes a minute</div></div>
+      <div class="hiw-step"><div class="hiw-num">2</div><div class="hiw-text">See your vendor roadmap — pick from each category and shortlist the ones you like</div></div>
+      <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-text">Send your shortlist — vendors respond with quotes, you pick who to book</div></div>
+    </div>
   </div>
 
   <div class="form-group">
@@ -1969,9 +1969,9 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <label class="form-label">How many guests?</label>
     <div class="chip-group">
       <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">Under 25</div>
-      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">25-50</div>
-      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">50-100</div>
-      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">100-200</div>
+      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">25–50</div>
+      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">50–100</div>
+      <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">100–200</div>
       <div class="chip" onclick="selectChip(this,'s41-guests');state.guestCount=this.textContent">200+</div>
     </div>
   </div>
@@ -1985,17 +1985,16 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 
   <div class="btn-row">
-    <button class="btn btn-secondary" onclick="goTo(40)">← Back</button>
+    <button class="btn btn-secondary" onclick="goTo(0)">← Back</button>
     <button class="btn btn-primary" onclick="goTo(42);buildOpt2Roadmap()">Continue →</button>
   </div>
 </div>
 
 <!-- ==================== SCREEN 42: OPTION 2 — ROADMAP OVERVIEW ==================== -->
-<div class="screen" id="s42" data-screen-name="Plan / Option B / Roadmap">
+<div class="screen" id="s42" data-screen-name="Plan / Roadmap">
   <div class="sh">
-    <div class="sh-step">Step 2 of 3</div>
     <h2>Your vendor roadmap</h2>
-    <p>Here's everything your event needs. Tap any card to find vendors, or skip what you don't need.</p>
+    <p>Everything your event needs, in one place. Tap any category to find vendors. Come back any time.</p>
   </div>
 
   <!-- Event summary bar -->
@@ -2030,7 +2029,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 44: OPTION 2 — CATEGORY DRILLDOWN ==================== -->
-<div class="screen" id="s44" data-screen-name="Plan / Option B / Category Drilldown">
+<div class="screen" id="s44" data-screen-name="Plan / Drilldown">
   <!-- Top row: Back link + shortlist pill -->
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px">
     <button class="btn btn-secondary" onclick="backToRoadmap()" style="padding:8px 14px;font-size:12px">← Back to roadmap</button>
@@ -2059,11 +2058,17 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <!-- Matching vendor cards -->
   </div>
 
-  <!-- Soft footer — single soft back link; no heavy Next CTA -->
-  <div style="padding:16px 0 8px;text-align:center;border-top:1px solid var(--border);margin-top:12px">
+  <!-- Soft back link — kept as a quiet text-only escape -->
+  <div style="padding:16px 0 8px;text-align:center;margin-top:12px">
     <button onclick="backToRoadmap()" style="background:transparent;border:none;color:var(--text-mid);font-size:13px;font-weight:600;cursor:pointer;padding:8px 16px">
       ← Done here? Back to roadmap
     </button>
+  </div>
+
+  <!-- Slim sticky shortlist bar — appears whenever user has shortlisted vendors -->
+  <div id="opt2DrillStickyBar" style="display:none;position:sticky;bottom:0;background:var(--primary);color:#fff;padding:10px 14px;border-radius:12px;margin-top:12px;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 -4px 16px rgba(0,0,0,.12)">
+    <div id="opt2DrillStickyText" style="font-size:12px;line-height:1.4"></div>
+    <button id="opt2DrillStickyBtn" style="background:var(--accent);color:var(--primary);border:none;padding:8px 14px;border-radius:8px;font-weight:700;font-size:11px;cursor:pointer;font-family:'Sora',sans-serif;white-space:nowrap"></button>
   </div>
 </div>
 
@@ -2097,7 +2102,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 </div>
 
 <!-- ==================== SCREEN 43: OPTION 2 — PERSONALIZE NOTES (final step before send) ==================== -->
-<div class="screen" id="s43" data-screen-name="Plan / Option B / Personalize Notes">
+<div class="screen" id="s43" data-screen-name="Plan / Personalize Notes">
   <div style="margin-bottom:8px">
     <button class="btn btn-secondary" onclick="goTo(42);buildOpt2Roadmap()" style="padding:8px 14px;font-size:12px">← Back to Roadmap</button>
   </div>
@@ -2123,12 +2128,63 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
   </div>
 </div>
 
-<!-- ==================== BROWSE: SCREEN 20 — VENDOR MARKETPLACE (MERGED) ==================== -->
+<!-- ==================== SCREEN 46: OPTION 2 — CREATE ACCOUNT (Phase 1 → Phase 2 demo gate) ==================== -->
+<div class="screen" id="s46" data-screen-name="Plan / Create Account">
+  <!-- Phase break banner — visible to demo audience to understand scope -->
+  <div style="background:#1F2937;color:#FFCC02;padding:8px 12px;border-radius:8px;margin-bottom:18px;font-size:11px;font-weight:600;text-align:center;letter-spacing:.4px;font-family:'Sora',sans-serif">
+    PHASE 1 ENDS HERE · PHASE 2 BEGINS AFTER SIGN UP
+  </div>
+
+  <div class="sh" style="margin-bottom:18px;text-align:center">
+    <div style="font-size:48px;margin-bottom:10px">📩</div>
+    <h2 style="margin-bottom:4px">Inquiry sent!</h2>
+    <p>Create your account to receive quotes and chat with vendors.</p>
+  </div>
+
+  <!-- Why card -->
+  <div style="background:linear-gradient(135deg,#F0F7FF,#EEF2FF);border:1px solid #BFDBFE;border-radius:12px;padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start">
+    <span style="font-size:16px">🔔</span>
+    <div style="font-size:12px;color:var(--text-mid);line-height:1.5">
+      We'll text you when each vendor responds with a quote — usually within 2–6 hours. You can chat, compare, and book from one place.
+    </div>
+  </div>
+
+  <!-- Dummy form -->
+  <div class="form-group">
+    <label class="form-label">Your name</label>
+    <input type="text" placeholder="Aarav Sharma" id="s46Name">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Mobile number</label>
+    <div style="display:flex;gap:8px">
+      <select style="flex:0 0 90px"><option>🇮🇳 +91</option><option>🇺🇸 +1</option><option>🇬🇧 +44</option><option>🇦🇪 +971</option></select>
+      <input type="tel" placeholder="98XXX XXXXX" id="s46Phone" style="flex:1">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Email</label>
+    <input type="email" placeholder="aarav@example.com" id="s46Email">
+  </div>
+
+  <!-- Trust line -->
+  <div style="font-size:11px;color:var(--text-light);text-align:center;margin:14px 0 18px;line-height:1.5">
+    By continuing, you agree to PlanEzee's Terms and Privacy Policy.<br>
+    <span style="opacity:.7">We'll never spam you or share your number with anyone outside your shortlist.</span>
+  </div>
+
+  <!-- CTAs -->
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <button class="btn btn-green" onclick="completeAccountFromOpt2(false)" style="padding:14px;font-size:14px">✓ Create Account & Continue</button>
+    <button onclick="completeAccountFromOpt2(true)" style="background:transparent;border:none;color:var(--text-mid);font-size:13px;cursor:pointer;padding:10px;font-weight:500">Continue as guest →</button>
+  </div>
+</div>
+
+<!-- ==================== BROWSE: SCREEN 20 — VENDOR MARKETPLACE ==================== -->
 <div class="screen" id="s20" data-screen-name="Browse / Vendors">
-  <div style="margin-bottom:4px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
-  <div class="sh" style="margin-bottom:12px">
-    <h2>Browse Vendors</h2>
-    <p>Explore profiles, pricing, and reviews. Select vendors to request quotes.</p>
+  <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goTo(0)" style="padding:8px 16px;font-size:12px">← Back</button></div>
+  <div class="sh" style="margin-bottom:14px">
+    <h2>Browse vendors</h2>
+    <p>Explore profiles, pricing, and reviews. Pick the ones you like and we'll connect you.</p>
   </div>
 
   <!-- Search Bar -->
@@ -2898,6 +2954,22 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <input class="mira-input" id="miraInput" type="text" placeholder="Ask Mira anything about your event..." onkeydown="if(event.key==='Enter')sendMiraMsg()">
       <button class="mira-send" onclick="sendMiraMsg()">→</button>
     </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE-OVER VENDOR PROFILE DRAWER ==================== -->
+<!-- Opens from the right when a profile is requested from drilldown / vendor list contexts.
+     Falls back to the full-page s30 from contexts where full-screen makes more sense. -->
+<div id="profileSlideOver" style="display:none;position:fixed;inset:0;z-index:200;animation:fadeIn .2s ease" onclick="closeProfileDrawerIfOverlay(event)">
+  <div style="position:absolute;inset:0;background:rgba(15,23,42,0.5)"></div>
+  <div id="profileSlideOverPanel" style="position:absolute;top:0;right:0;height:100vh;width:100%;max-width:560px;background:#fff;box-shadow:-8px 0 32px rgba(0,0,0,.18);overflow-y:auto;animation:slideInRight .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column">
+    <!-- Sticky close header -->
+    <div style="position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;z-index:10">
+      <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Vendor profile</div>
+      <button onclick="closeProfileDrawer()" style="background:transparent;border:none;color:var(--text-mid);font-size:22px;cursor:pointer;line-height:1;padding:4px 8px" title="Close">✕</button>
+    </div>
+    <!-- The actual profile content gets injected here -->
+    <div id="profileSlideOverContent" style="padding:20px"></div>
   </div>
 </div>
 
@@ -4114,18 +4186,84 @@ const VENDORS = {
 
 // ========== NAVIGATION ==========
 function goHome(){
-  // Reset all state
+  // ─── Reset all session state for a clean demo ───
   navHistory = [];
+  
+  // Core state
   state.mode = null; state.path = null; state.occasion = null; state.subType = null; state.guestCount = null;
   state.selectedCats = []; state.currentViewCat = null; state.vendorSelections = {};
   state.serviceKey = null; state.serviceContext = null;
   state.crossPollinate = null; state.ceremonyDetail = null;
   state.planGuests = null; state.planCity = null; state.planBudget = null; state.planBudgetLabel = null;
-  // Clear selections visually
-  document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected').forEach(el => el.classList.remove('selected','checked'));
-  document.getElementById('culturalDeepDive').style.display='none';
-  document.getElementById('executionFields').style.display='';
-  document.getElementById('planningFields').style.display='none';
+  state.s41City = null; state.s41Date = null; state.s41Time = null;
+  state.fromEstimate = false; state.activeInquiryTitle = null; state.dashSummaryText = null;
+  state.wishlist = [];
+  state.planOption = 1;
+  
+  // Option B state
+  if(typeof opt2Shortlist !== 'undefined'){
+    opt2Shortlist.length = 0;
+  }
+  if(typeof opt2CatState !== 'undefined'){
+    Object.keys(opt2CatState).forEach(k => delete opt2CatState[k]);
+  }
+  if(typeof opt2CurrentCat !== 'undefined') opt2CurrentCat = null;
+  if(typeof opt2TailoredCats !== 'undefined') opt2TailoredCats.length = 0;
+  
+  // Browse state
+  if(typeof browseState !== 'undefined'){
+    browseState.cat = 'all';
+    browseState.selected = [];
+    browseState.selectedCats = {};
+    browseState.sortBy = 'rating';
+    browseState.searchQuery = '';
+  }
+  
+  // Auth — log out
+  if(typeof auth !== 'undefined'){
+    auth.isLoggedIn = false;
+    auth.name = '';
+    auth.phone = '';
+    auth.depositPaid = false;
+    auth.pendingAction = null;
+  }
+  
+  // Restore conversations, bookings, savedPlans to their original demo seed values
+  if(typeof __DEMO_INITIAL_CONVERSATIONS !== 'undefined'){
+    conversations.length = 0;
+    JSON.parse(JSON.stringify(__DEMO_INITIAL_CONVERSATIONS)).forEach(c => conversations.push(c));
+  }
+  if(typeof __DEMO_INITIAL_BOOKINGS !== 'undefined'){
+    bookings.length = 0;
+    JSON.parse(JSON.stringify(__DEMO_INITIAL_BOOKINGS)).forEach(b => bookings.push(b));
+  }
+  if(typeof __DEMO_INITIAL_SAVED_PLANS !== 'undefined'){
+    savedPlans.length = 0;
+    JSON.parse(JSON.stringify(__DEMO_INITIAL_SAVED_PLANS)).forEach(p => savedPlans.push(p));
+  }
+  
+  // Hide bottom navs
+  const bn = document.getElementById('bottomNav');
+  if(bn) bn.classList.remove('visible');
+  const vbn = document.getElementById('vBottomNav');
+  if(vbn) vbn.classList.remove('visible');
+  
+  // Clear visual selection states across all screens
+  document.querySelectorAll('.occ-card.selected, .chip.selected, .cat-item.checked, .svc-card.selected, .rm-card.active, .fork-card.selected').forEach(el => 
+    el.classList.remove('selected','checked','active')
+  );
+  // Reset cultural deep-dive + Option A field toggles if they exist
+  const cdd = document.getElementById('culturalDeepDive');
+  if(cdd) cdd.style.display = 'none';
+  const ef = document.getElementById('executionFields');
+  if(ef) ef.style.display = '';
+  const pf = document.getElementById('planningFields');
+  if(pf) pf.style.display = 'none';
+  // Clear any open shortlist drawer
+  const sd = document.getElementById('opt2ShortlistDrawer');
+  if(sd) sd.style.display = 'none';
+  document.body.style.overflow = '';
+  
   // Replace browser history so back button doesn't re-enter old screens
   history.replaceState({screen: 100}, '', '');
   goTo(100);
@@ -4379,10 +4517,20 @@ function pickMode(mode){
     state.path = 'invite';
     goTo(70);
     buildInviteThemeGrid();
-  } else if(mode === 'execution'){
-    goTo(40);
-  } else {
+  } else if(mode === 'estimate'){
+    // Estimate path — use Option A's planning flow which ends on the budget overview screen.
+    // The estimator is for users without a date who want to plan around budget.
+    state.mode = 'planning';
+    state.path = 'occasion';
+    state.fromEstimate = true; // flag for downstream tweaks
     goTo(1);
+  } else {
+    // Both 'planning' (Help me figure out) and 'execution' (I know what I need) 
+    // route to Option B since that is our preferred flow.
+    // The old Plan / Pick Option (A or B) screen is bypassed by default.
+    state.mode = 'execution';
+    state.planOption = 2;
+    goTo(41);
   }
 }
 function pickPath(path){
@@ -4491,12 +4639,14 @@ function buildTailoredRoadmap(){
 
 function parseGuestCount(g){
   if(!g) return 0;
-  if(g.includes('Under 25')) return 20;
-  if(g.includes('25–50')) return 40;
-  if(g.includes('50–100')) return 75;
-  if(g.includes('100–200')) return 150;
-  if(g.includes('200+')) return 300;
-  const n = parseInt(g.replace(/\D/g,''));
+  // Normalize all dash variants (hyphen, en-dash, em-dash) to a regular hyphen
+  const norm = g.replace(/[–—]/g, '-');
+  if(norm.includes('Under 25')) return 20;
+  if(norm.includes('25-50')) return 40;
+  if(norm.includes('50-100')) return 75;
+  if(norm.includes('100-200')) return 150;
+  if(norm.includes('200+')) return 300;
+  const n = parseInt(norm.replace(/\D/g,''));
   return isNaN(n) ? 0 : n;
 }
 
@@ -4536,18 +4686,64 @@ function buildOpt2Roadmap(){
   const roadmap = document.getElementById('opt2Roadmap');
   let html = '';
   
-  // Shortlist header link (only when at least one vendor is shortlisted)
+  // Shortlist summary card — appears at top when user has shortlisted at least one vendor
+  // This is the "checklist + actions" surface the user can recognize at a glance.
   const totalShortlisted = opt2Shortlist.length;
-  if(totalShortlisted > 0){
-    html += `<div onclick="openShortlistDrawer()" style="background:linear-gradient(135deg,#FFF7E6,#FFF3D6);border:1.5px solid var(--accent);border-radius:12px;padding:11px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:transform .15s">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:18px">📋</span>
-        <div>
-          <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">My Shortlist (${totalShortlisted})</div>
-          <div style="font-size:10px;color:var(--text-mid);margin-top:1px">Tap to view everyone you've picked</div>
-        </div>
+  const sentCount = opt2Shortlist.filter(s => s.inquirySent).length;
+  const pendingCount = totalShortlisted - sentCount;
+  
+  // HIW — show only when shortlist is empty (first-time orientation; hides once user starts working)
+  if(totalShortlisted === 0){
+    html += `<div class="hiw-box" style="margin-top:0;margin-bottom:18px">
+      <div class="hiw-title">✨ How it works</div>
+      <div class="hiw-steps">
+        <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-text">Tap any category below to find vendors</div></div>
+        <div class="hiw-step"><div class="hiw-num">2</div><div class="hiw-text">Shortlist the ones you like — they show up here as you go</div></div>
+        <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-text">When you're ready, send your shortlist and get quotes</div></div>
       </div>
-      <div style="font-size:16px;color:var(--primary)">▲</div>
+    </div>`;
+  }
+  
+  if(totalShortlisted > 0){
+    // Build category breakdown text — e.g., "Venue (2) · F&B (2) · Photo (1)"
+    const breakdownByCat = {};
+    opt2Shortlist.forEach(s => {
+      breakdownByCat[s.catKey] = (breakdownByCat[s.catKey] || 0) + 1;
+    });
+    const breakdownText = Object.keys(breakdownByCat)
+      .map(k => `${OPT2_CATS[k]?.label || k} (${breakdownByCat[k]})`)
+      .join(' · ');
+    
+    // Headline + sub change based on state
+    let headline, subText, primaryBtn;
+    if(pendingCount > 0 && sentCount > 0){
+      headline = `${pendingCount} new · ${sentCount} sent`;
+      subText = breakdownText;
+      primaryBtn = `<button onclick="goTo(43);buildOpt2Review()" style="flex:1;padding:9px 12px;font-size:12px;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif">Send (${pendingCount}) →</button>`;
+    } else if(pendingCount > 0){
+      headline = `${pendingCount} vendor${pendingCount===1?'':'s'} shortlisted`;
+      subText = breakdownText;
+      primaryBtn = `<button onclick="goTo(43);buildOpt2Review()" style="flex:1;padding:9px 12px;font-size:12px;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif">Send (${pendingCount}) →</button>`;
+    } else {
+      // All sent
+      headline = `${sentCount} inquiry sent · awaiting quotes`;
+      subText = breakdownText;
+      primaryBtn = `<button onclick="goTo(7);buildDashboard();" style="flex:1;padding:9px 12px;font-size:12px;font-weight:600;background:var(--primary);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif">View status →</button>`;
+    }
+    
+    html += `<div style="background:linear-gradient(135deg,#FFF7E6,#FFF3D6);border:1.5px solid var(--accent);border-radius:12px;padding:14px;margin-bottom:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:16px">📋</span>
+          <span style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Your shortlist</span>
+        </div>
+        <span style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">${totalShortlisted} vendor${totalShortlisted===1?'':'s'}</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-mid);margin-bottom:11px;line-height:1.5">${headline} · <span style="color:var(--text-light)">${subText}</span></div>
+      <div style="display:flex;gap:8px">
+        <button onclick="openShortlistDrawer()" style="flex:1;padding:9px 12px;font-size:12px;font-weight:600;background:transparent;color:var(--primary);border:1.5px solid var(--accent);border-radius:8px;cursor:pointer;font-family:'Sora',sans-serif">Review</button>
+        ${primaryBtn}
+      </div>
     </div>`;
   }
   
@@ -4667,6 +4863,36 @@ function updateOpt2ShortlistBar(){
   }
 }
 
+// Slim sticky bar on Drilldown — same logic as the Roadmap bar but on s44.
+// Shows current shortlist count + primary action whatever it is right now.
+function updateOpt2DrillStickyBar(){
+  const bar = document.getElementById('opt2DrillStickyBar');
+  const textEl = document.getElementById('opt2DrillStickyText');
+  const btnEl = document.getElementById('opt2DrillStickyBtn');
+  if(!bar || !textEl || !btnEl) return;
+  
+  const total = opt2Shortlist.length;
+  const sent = opt2Shortlist.filter(s => s.inquirySent).length;
+  const pending = total - sent;
+  
+  if(total === 0){
+    bar.style.display = 'none';
+    return;
+  }
+  
+  bar.style.display = 'flex';
+  
+  if(pending > 0){
+    textEl.innerHTML = `📋 <strong>${total}</strong> shortlisted${sent>0?` · ${sent} sent`:''}`;
+    btnEl.textContent = `Send (${pending}) →`;
+    btnEl.onclick = function(){ goTo(43); buildOpt2Review(); };
+  } else {
+    textEl.innerHTML = `📋 <strong>${sent}</strong> sent · awaiting quotes`;
+    btnEl.textContent = 'View status →';
+    btnEl.onclick = function(){ goTo(7); buildDashboard(); };
+  }
+}
+
 // ========== DRILLDOWN ==========
 function openDrilldown(catKey){
   opt2CurrentCat = catKey;
@@ -4676,15 +4902,12 @@ function openDrilldown(catKey){
     `${def.emoji} ${def.label}`;
   document.getElementById('opt2DrillSub').textContent = def.sub;
   
-  // Shortlist pill — show count across all categories
-  const totalShortlisted = opt2Shortlist.length;
+  // Hide the legacy top-right pill — sticky bar at bottom now serves this role
   const pill = document.getElementById('opt2DrillShortlistPill');
-  if(totalShortlisted > 0){
-    document.getElementById('opt2DrillShortlistCount').textContent = totalShortlisted;
-    pill.style.display = 'inline-flex';
-  } else {
-    pill.style.display = 'none';
-  }
+  if(pill) pill.style.display = 'none';
+  
+  // Update slim shortlist sticky bar at the bottom
+  updateOpt2DrillStickyBar();
   
   // Clear results
   document.getElementById('opt2DrillResults').innerHTML = '';
@@ -5835,16 +6058,10 @@ function opt2ToggleShortlist(name, catKey, idx){
     if(catToShowFn[opt2CurrentCat]) catToShowFn[opt2CurrentCat]();
     
     // Update drilldown shortlist pill
-    const totalShortlisted = opt2Shortlist.length;
+    // Hide pill (legacy) and update the sticky bar instead
     const pill = document.getElementById('opt2DrillShortlistPill');
-    if(pill){
-      if(totalShortlisted > 0){
-        document.getElementById('opt2DrillShortlistCount').textContent = totalShortlisted;
-        pill.style.display = 'inline-flex';
-      } else {
-        pill.style.display = 'none';
-      }
-    }
+    if(pill) pill.style.display = 'none';
+    updateOpt2DrillStickyBar();
   }
   updateOpt2ShortlistBar();
 }
@@ -6058,18 +6275,40 @@ function submitOpt2Inquiry(){
   const sentCount = pendingShortlist.length;
   showToast((wasFirstSend ? 'Inquiry sent to ' : 'Added ') + sentCount + ' vendor' + (sentCount === 1 ? '' : 's'));
   
-  // 6. Brief s6 animation, then dashboard
+  // 6. Routing:
+  //    a. Brief sending-inquiry animation (s6)
+  //    b. If user is not logged in (first inquiry from this device), route to Create Account
+  //       — this is the Phase 1 → Phase 2 demo gate. After signup/skip, lands on Quotes Dashboard.
+  //    c. If already logged in, skip auth and go straight to Quotes Dashboard.
   goTo(6);
   setTimeout(() => {
-    goTo(7);
-    buildDashboard();
-    const summaryEl = document.getElementById('dashSummary');
-    if(summaryEl && state.dashSummaryText) summaryEl.textContent = state.dashSummaryText;
-    if(typeof auth !== 'undefined' && auth.isLoggedIn){
+    if(typeof auth !== 'undefined' && !auth.isLoggedIn){
+      goTo(46);
+    } else {
+      goTo(7);
+      buildDashboard();
+      const summaryEl = document.getElementById('dashSummary');
+      if(summaryEl && state.dashSummaryText) summaryEl.textContent = state.dashSummaryText;
       const bn = document.getElementById('bottomNav');
       if(bn) bn.classList.add('visible');
     }
   }, 2200);
+}
+
+// Called from the Create Account screen — fakes signup, lands on Quotes Dashboard.
+function completeAccountFromOpt2(skipped){
+  if(typeof auth !== 'undefined'){
+    auth.isLoggedIn = true;
+    auth.name = auth.name || 'Demo User';
+    auth.phone = auth.phone || '+91 98XXX XXXXX';
+  }
+  goTo(7);
+  buildDashboard();
+  const summaryEl = document.getElementById('dashSummary');
+  if(summaryEl && state.dashSummaryText) summaryEl.textContent = state.dashSummaryText;
+  const bn = document.getElementById('bottomNav');
+  if(bn) bn.classList.add('visible');
+  if(!skipped) showToast('Account created — welcome!');
 }
 
 // Helper — format a YYYY-MM-DD date string into "DD MMM YYYY"
@@ -8348,10 +8587,58 @@ function buildPlanningDashboard(){
 function switchToExecution(){
   state.mode = 'execution';
   state.path = 'occasion';
-  // Pre-fill guest count from planning inputs
+  state.planOption = 2;
+  state.fromEstimate = false;
+  // Pre-fill what we already know from the estimator
   if(state.planGuests) state.guestCount = state.planGuests;
-  // Go to s2 in execution mode (user already picked occasion + subtype)
-  goTo(2);
+  if(state.planCity) state.s41City = state.planCity;
+  // Go to Option B Event Details — user already picked occasion + sub + city + guests
+  goTo(41);
+  // Pre-select chips visually based on existing state. Wait one tick for DOM.
+  setTimeout(prefillS41FromEstimate, 50);
+}
+
+// Pre-fill s41 chips when arriving from the estimator
+function prefillS41FromEstimate(){
+  // Occasion chip
+  if(state.occasion){
+    document.querySelectorAll('#s41OccChips .chip').forEach(chip => {
+      const onclickStr = chip.getAttribute('onclick') || '';
+      if(onclickStr.includes(`'${state.occasion}'`)){
+        chip.classList.add('selected');
+        // Trigger sub-question rendering if any
+        if(typeof showOpt2SubQ === 'function') showOpt2SubQ();
+      }
+    });
+  }
+  // After sub-questions render, also pre-select sub if we have one
+  if(state.subType){
+    setTimeout(() => {
+      document.querySelectorAll('#s41SubQChips .chip').forEach(chip => {
+        const onclickStr = chip.getAttribute('onclick') || '';
+        if(onclickStr.includes(`'${state.subType}'`)){
+          chip.classList.add('selected');
+        }
+      });
+    }, 60);
+  }
+  // City
+  if(state.s41City){
+    document.querySelectorAll('#s41 .chip').forEach(chip => {
+      const onclickStr = chip.getAttribute('onclick') || '';
+      if(onclickStr.includes(`'${state.s41City}'`) && onclickStr.includes('s41-city')){
+        chip.classList.add('selected');
+      }
+    });
+  }
+  // Guest count
+  if(state.guestCount){
+    document.querySelectorAll('#s41 .chip').forEach(chip => {
+      if(chip.textContent === state.guestCount && (chip.getAttribute('onclick')||'').includes('s41-guests')){
+        chip.classList.add('selected');
+      }
+    });
+  }
 }
 
 function resumePlanAsExecution(occasion, subType, city){
@@ -8361,9 +8648,12 @@ function resumePlanAsExecution(occasion, subType, city){
   state.occasion = occasion;
   state.subType = subType;
   state.planCity = city;
-  // Jump to s2 (details) with occasion/subtype pre-filled
-  goTo(2);
-  showToast('📋 Loaded your saved plan — pick your details and find vendors!');
+  state.s41City = city;
+  state.planOption = 2;
+  // Jump to Option B Event Details with as much pre-filled as possible
+  goTo(41);
+  setTimeout(prefillS41FromEstimate, 50);
+  showToast('📋 Loaded your saved plan — review your details and find vendors!');
 }
 
 // ========== AUTH STATE ==========
@@ -9484,11 +9774,24 @@ function bnav(tab){
     el.classList.toggle('active', el.getAttribute('onclick')===`bnav('${tab}')`);
   });
   if(tab==='home'){
-    // Route to the right dashboard based on mode
-    if(auth.isLoggedIn && state.mode === 'planning') goTo(10);
-    else if(auth.isLoggedIn && bookings.length > 0) goTo(7);
-    else if(auth.isLoggedIn) goTo(37); // My Events as fallback
-    else goTo(0);
+    // Route to the right home based on context — Option B users always land on Roadmap
+    const hasOpt2Inquiry = state.activeInquiryTitle && bookings.some(b => b.title === state.activeInquiryTitle && b.fromOpt2);
+    const hasOpt2Plan = (typeof opt2Shortlist !== 'undefined' && opt2Shortlist.length > 0);
+    
+    if(hasOpt2Inquiry || hasOpt2Plan){
+      // Option B is the user's home — Roadmap is the center of gravity
+      goTo(42);
+      buildOpt2Roadmap();
+    } else if(auth.isLoggedIn && state.mode === 'planning'){
+      goTo(10);
+    } else if(auth.isLoggedIn && bookings.length > 0){
+      goTo(7);
+      buildDashboard();
+    } else if(auth.isLoggedIn){
+      goTo(37); // My Events as fallback
+    } else {
+      goTo(0);
+    }
   }
   else if(tab==='explore') goTo(20);
   else if(tab==='messages') goTo(33);
@@ -9508,6 +9811,12 @@ let savedPlans = [
     cats: ['decor','photo','fb','entertainment']
   }
 ];
+
+// ========== DEMO RESET — initial state snapshot ==========
+// Captured at page load so the logo-tap reset can restore everything to first-run state.
+const __DEMO_INITIAL_CONVERSATIONS = JSON.parse(JSON.stringify(conversations));
+const __DEMO_INITIAL_BOOKINGS = JSON.parse(JSON.stringify(bookings));
+const __DEMO_INITIAL_SAVED_PLANS = JSON.parse(JSON.stringify(savedPlans));
 
 // ========== PROFILE SCREEN STATE ==========
 let profileContext = 'quotes'; // 'quotes' or 'save'
@@ -9681,6 +9990,82 @@ function openVendorProfile(catKey, vendorIdx, fromScreen){
   if(!vendors || !vendors[vendorIdx]) return;
   currentVendorProfile = {catKey, vendorIdx, data: vendors[vendorIdx]};
   goTo(30);
+}
+
+// Open a vendor profile when called from Option B (drilldown / dashboard / vendor list).
+// Strategy: try DEMO_VENDORS by name match first (richer profile data), 
+// fall back to BROWSE_VENDORS at the same index if not found.
+function openProfileFromBrowse(vendorIdx, catKey){
+  vendorProfileFrom = 44; // came from drilldown (Plan / Option B / Category Drilldown)
+  
+  const browseVendor = BROWSE_VENDORS[catKey] && BROWSE_VENDORS[catKey][vendorIdx];
+  if(!browseVendor){
+    showToast('Vendor not found.');
+    return;
+  }
+  
+  // Prefer DEMO_VENDORS (has richer profile data like reviews, payment terms, etc.)
+  // Match by name since indexes may differ between BROWSE_VENDORS and DEMO_VENDORS.
+  const demoList = DEMO_VENDORS[catKey] || [];
+  let chosenIdx = -1;
+  let chosenData = null;
+  
+  const demoMatch = demoList.findIndex(v => v && v.name === browseVendor.name);
+  if(demoMatch >= 0){
+    chosenIdx = demoMatch;
+    chosenData = demoList[demoMatch];
+  } else {
+    // Fallback — use BROWSE_VENDORS data directly. Profile builders will degrade gracefully
+    // for any field they can't find.
+    chosenIdx = vendorIdx;
+    chosenData = browseVendor;
+  }
+  
+  currentVendorProfile = {catKey, vendorIdx: chosenIdx, data: chosenData};
+  // Open as slide-over instead of full screen (Pattern A — modern feel, easy return)
+  openProfileDrawer();
+}
+
+// Open the profile slide-over drawer.
+// Reuses buildVendorProfile (which writes to #vendorProfileContent on s30),
+// then copies the rendered HTML into the drawer panel.
+function openProfileDrawer(){
+  // Render the profile into the off-screen s30 container first
+  buildVendorProfile();
+  
+  const sourceEl = document.getElementById('vendorProfileContent');
+  const drawerContentEl = document.getElementById('profileSlideOverContent');
+  if(!sourceEl || !drawerContentEl) return;
+  
+  // Move the rendered nodes into the drawer (preserves event handlers)
+  drawerContentEl.innerHTML = '';
+  while(sourceEl.firstChild){
+    drawerContentEl.appendChild(sourceEl.firstChild);
+  }
+  
+  const drawer = document.getElementById('profileSlideOver');
+  drawer.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  
+  // Reset internal scroll
+  const panel = document.getElementById('profileSlideOverPanel');
+  if(panel) panel.scrollTop = 0;
+}
+
+function closeProfileDrawer(){
+  const drawer = document.getElementById('profileSlideOver');
+  drawer.style.display = 'none';
+  document.body.style.overflow = '';
+  // Clear contents so the next open is clean
+  const drawerContentEl = document.getElementById('profileSlideOverContent');
+  if(drawerContentEl) drawerContentEl.innerHTML = '';
+}
+
+function closeProfileDrawerIfOverlay(event){
+  // Close only if user taps the dark backdrop (not the panel itself)
+  if(event.target.id === 'profileSlideOver'){
+    closeProfileDrawer();
+  }
 }
 
 function buildVendorProfile(){
