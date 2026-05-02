@@ -1079,6 +1079,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .vd-lead-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:all .2s;position:relative}
 .vd-lead-card:hover{box-shadow:var(--shadow);border-color:var(--accent-soft)}
 .vd-lead-card.new{border-left:4px solid var(--accent)}
+.vd-lead-card.urgent{border-left:4px solid #A32D2D;background:linear-gradient(90deg,#FCE7E7,#fff 30%)}
 .vd-lead-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
 .vd-lead-name{font-family:'Sora',sans-serif;font-size:14px;font-weight:700;color:var(--primary)}
 .vd-lead-match{padding:3px 8px;border-radius:100px;font-size:10px;font-weight:700}
@@ -1133,6 +1134,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
 .vd-cal-cell.today{border-color:var(--accent);background:var(--accent-wash)}
 .vd-cal-cell.booked{background:#E8F5E9;color:var(--green)}
 .vd-cal-cell.tentative{background:#FFF3E0;color:#E65100}
+.vd-cal-cell.tentative.hold{background:#FFF8E1;color:#854F0B;border-color:#FFE082;border-style:dashed}
 .vd-cal-cell.blocked{background:#F5F5F5;color:var(--text-light)}
 .vd-cal-cell.travel{background:#E3F2FD;color:#1565C0}
 .vd-cal-cell .cal-dot{width:5px;height:5px;border-radius:50%;position:absolute;bottom:4px}
@@ -1403,7 +1405,7 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
         <span style="font-size:16px">💡</span>
         <div>
           <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary);margin-bottom:4px">Budget? We'll figure it out together</div>
-          <div style="font-size:12px;color:var(--text-mid);line-height:1.6">Most people don't know their budget upfront — and that's perfectly fine. As vendors send quotes, Mira will help you compare, negotiate, and track costs across all categories.</div>
+          <div style="font-size:12px;color:var(--text-mid);line-height:1.6">Most people don't know their budget upfront — and that's perfectly fine. As vendors send quotes, Mira will help you compare them and track costs across all categories.</div>
         </div>
       </div>
     </div>
@@ -2739,6 +2741,35 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
       <p>We've built a draft — tweak anything, then go live.</p>
     </div>
 
+    <!-- Compare Sheet pitch — vendors learn the philosophy at the moment they're shaping their profile -->
+    <div style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:0.5px solid #FFE082;border-radius:14px;padding:16px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="font-size:18px">📊</span>
+        <span style="font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--primary)">How PlanEzee is different</span>
+      </div>
+      <div style="font-size:13px;line-height:1.6;color:var(--text-mid);margin-bottom:12px">
+        Hosts on PlanEzee compare 2-3 vendors side-by-side before booking. We've structured your profile so you'll show up clearly next to competitors. <strong style="color:var(--primary)">Vendors who fill every structured field win 3x more bookings</strong> — even when their pricing is slightly higher.
+      </div>
+      <div style="background:#fff;border-radius:9px;padding:10px;border:0.5px solid #FFE082">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#854F0B;font-weight:700;margin-bottom:6px">Sample comparison view (what hosts see)</div>
+        <table style="width:100%;border-collapse:collapse;font-size:11px">
+          <thead>
+            <tr style="border-bottom:0.5px solid #F5EBD2">
+              <th style="text-align:left;padding:5px 4px;font-size:9px;color:var(--text-light);font-weight:700">Field</th>
+              <th style="text-align:left;padding:5px 4px;font-size:10px;font-weight:700;color:var(--primary);background:#FFFEF8">You</th>
+              <th style="text-align:left;padding:5px 4px;font-size:10px;font-weight:700;color:var(--text-mid)">Competitor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:5px 4px;color:var(--text-mid);font-weight:600">Coverage</td><td style="padding:5px 4px;background:#FFFEF8;color:var(--primary);font-weight:600">8 hours</td><td style="padding:5px 4px;color:var(--text-mid)">Per discussion</td></tr>
+            <tr><td style="padding:5px 4px;color:var(--text-mid);font-weight:600">Inclusions</td><td style="padding:5px 4px;background:#FFFEF8;color:var(--primary);font-weight:600">✓ Clear</td><td style="padding:5px 4px;color:var(--text-mid)">—</td></tr>
+            <tr><td style="padding:5px 4px;color:var(--text-mid);font-weight:600">Turnaround</td><td style="padding:5px 4px;background:#FFFEF8;color:var(--primary);font-weight:600">10-14 days</td><td style="padding:5px 4px;color:var(--text-mid)">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:var(--text-mid);margin-top:10px;font-style:italic">Vague or missing fields cost vendors bookings. Specific answers win.</div>
+    </div>
+
     <div class="v-profile-form">
       <div class="v-section-label">Basic Info</div>
       <div class="form-group">
@@ -2827,6 +2858,10 @@ select{cursor:pointer;appearance:none;background:url("data:image/svg+xml,%3Csvg 
     <div style="margin-top:32px">
       <div class="v-section-label">What's next?</div>
       <div class="v-next-steps">
+        <div class="v-next-step">
+          <div class="v-next-icon">📊</div>
+          <div><strong>Reach 100% compare sheet readiness</strong><br><span style="color:var(--text-mid)">Vendors at 100% win 3x more competitions against rivals</span></div>
+        </div>
         <div class="v-next-step">
           <div class="v-next-icon">📸</div>
           <div><strong>Add more photos</strong><br><span style="color:var(--text-mid)">Profiles with 10+ photos get 3x more inquiries</span></div>
@@ -4329,6 +4364,14 @@ function goHome(){
   }
   if(typeof opt2CurrentCat !== 'undefined') opt2CurrentCat = null;
   if(typeof opt2TailoredCats !== 'undefined') opt2TailoredCats.length = 0;
+  // Reset event-level prefs (B+C combo)
+  if(typeof eventPrefs !== 'undefined'){
+    eventPrefs.styles.length = 0;
+    eventPrefs.mustHaves.length = 0;
+    eventPrefs.dealBreakers.length = 0;
+    eventPrefs.extra = '';
+  }
+  if(typeof eventPrefsExpanded !== 'undefined') eventPrefsExpanded = false;
   
   // Browse state
   if(typeof browseState !== 'undefined'){
@@ -4665,6 +4708,26 @@ function pickPath(path){
 
 // ========== OPTION 2: BROWSE-FIRST PLANNING FLOW ==========
 let opt2Shortlist = []; // [{name, catKey, vendorIdx}]
+
+// Event-level preferences captured on Personalize Notes screen.
+// Optional — host can leave empty. When set, vendor lead detail page surfaces these
+// as structured fields so vendors can price without chasing for clarification.
+let eventPrefs = {
+  styles: [],        // e.g. ['Candid', 'Modern']
+  mustHaves: [],     // e.g. ['Drone shots', 'Live food']
+  dealBreakers: [],  // e.g. ['Heavy flash', 'Plastic flowers']
+  extra: ''          // freeform: accessibility, flexibility, anything else
+};
+// UI: expanded state of the event-prefs section. Collapsed by default — friction-free skip.
+let eventPrefsExpanded = false;
+
+// Generic chip sets that work across categories. Category-specific chips deferred to Phase 2
+// per Notion Vendor Journey doc Section 7. For now, broad styles capture enough signal.
+const EVENT_PREF_OPTIONS = {
+  styles: ['Candid', 'Traditional', 'Modern', 'Cinematic', 'Minimalist', 'Bohemian', 'Royal', 'Editorial'],
+  mustHaves: ['Drone shots', 'Live food counters', 'Highlight reel', 'Album included', 'Pre-event shoot', 'Setup & teardown', 'On-site coordinator', 'Quick turnaround'],
+  dealBreakers: ['Heavy flash', 'Plastic flowers', 'Late delivery', 'Posed-only photos', 'Generic templates', 'Hidden fees']
+};
 
 
 function showOpt2SubQ(){
@@ -6205,7 +6268,11 @@ function buildOpt2Review(){
     grouped[s.catKey].push(s);
   });
   
-  let html = '';
+  // Event-level prefs panel (collapsed by default)
+  let html = buildEventPrefsPanel();
+  
+  // Inherited prefs bar shown on each vendor card if prefs are filled
+  const inheritedBar = buildInheritedPrefsBar();
   
   Object.keys(grouped).forEach(catKey => {
     const vendors = grouped[catKey];
@@ -6225,6 +6292,7 @@ function buildOpt2Review(){
             </div>
             <button onclick="removeFromShortlist(${shortlistIdx})" style="background:transparent;border:none;color:var(--text-light);cursor:pointer;font-size:16px;padding:0 4px" title="Remove from shortlist">✕</button>
           </div>
+          ${inheritedBar}
           <textarea 
             oninput="updateNote(${shortlistIdx}, this.value)"
             placeholder="${placeholder}"
@@ -6283,6 +6351,125 @@ function getNotePlaceholder(catKey){
     eventManager:'e.g., "3-day event, need full coordination" or "Day-of only, vendors already booked"',
   };
   return placeholders[catKey] || 'Any specific requirements or questions for this vendor?';
+}
+
+// ========== EVENT-LEVEL PREFERENCES (B+C combo) ==========
+function toggleEventPrefsSection(){
+  eventPrefsExpanded = !eventPrefsExpanded;
+  buildOpt2Review();
+}
+
+function toggleEventPrefChip(group, value){
+  const list = eventPrefs[group];
+  const idx = list.indexOf(value);
+  if(idx >= 0) list.splice(idx, 1);
+  else list.push(value);
+  buildOpt2Review();
+}
+
+function updateEventPrefsExtra(text){
+  eventPrefs.extra = text;
+}
+
+function hasEventPrefs(){
+  return eventPrefs.styles.length > 0 || 
+         eventPrefs.mustHaves.length > 0 || 
+         eventPrefs.dealBreakers.length > 0 ||
+         (eventPrefs.extra && eventPrefs.extra.trim().length > 0);
+}
+
+// Renders the event-level prefs panel. Collapsed by default; tap to expand.
+function buildEventPrefsPanel(){
+  const filled = hasEventPrefs();
+  const totalSelected = eventPrefs.styles.length + eventPrefs.mustHaves.length + eventPrefs.dealBreakers.length + (eventPrefs.extra.trim() ? 1 : 0);
+  
+  if(!eventPrefsExpanded){
+    return `<div style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:0.5px solid #FFE082;border-radius:12px;padding:14px;margin-bottom:14px;cursor:pointer" onclick="toggleEventPrefsSection()">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap">
+            <span style="font-size:14px">📋</span>
+            <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">${filled ? 'Your event preferences' : 'Tell vendors about your event style'}</span>
+            ${filled ? `<span style="font-size:10px;background:#fff;color:#854F0B;padding:2px 7px;border-radius:5px;font-weight:700">${totalSelected} added</span>` : '<span style="font-size:10px;color:var(--text-light);font-weight:600">Optional</span>'}
+          </div>
+          <div style="font-size:11px;color:var(--text-mid);line-height:1.5">
+            ${filled 
+              ? 'Tap to view or edit. Vendors see these to price clearly.'
+              : "Quick taps that help all vendors price you clearly. Skip if you'd rather just write notes below."}
+          </div>
+        </div>
+        <span style="font-size:18px;color:var(--text-light);margin-left:8px">›</span>
+      </div>
+    </div>`;
+  }
+  
+  return `<div style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:0.5px solid #FFE082;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;cursor:pointer" onclick="toggleEventPrefsSection()">
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:3px">
+          <span style="font-size:14px">📋</span>
+          <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">Tell vendors about your event style</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-mid);line-height:1.5">All optional. Skip anything that doesn't fit.</div>
+      </div>
+      <span style="font-size:18px;color:var(--text-light);margin-left:8px">⌃</span>
+    </div>
+    
+    <div style="margin-bottom:10px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#854F0B;font-weight:700;margin-bottom:6px">Style preferences</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${EVENT_PREF_OPTIONS.styles.map(s => {
+          const sel = eventPrefs.styles.includes(s);
+          return `<span onclick="toggleEventPrefChip('styles','${s}')" style="cursor:pointer;font-size:11px;padding:4px 9px;border-radius:6px;font-weight:600;${sel ? 'background:#0C447C;color:#fff' : 'background:#fff;color:var(--text-mid);border:0.5px solid #E0D0A0'}">${s}</span>`;
+        }).join('')}
+      </div>
+    </div>
+    
+    <div style="margin-bottom:10px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#854F0B;font-weight:700;margin-bottom:6px">Must-haves</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${EVENT_PREF_OPTIONS.mustHaves.map(m => {
+          const sel = eventPrefs.mustHaves.includes(m);
+          return `<span onclick="toggleEventPrefChip('mustHaves','${m}')" style="cursor:pointer;font-size:11px;padding:4px 9px;border-radius:6px;font-weight:600;${sel ? 'background:#0F6E56;color:#fff' : 'background:#fff;color:var(--text-mid);border:0.5px solid #E0D0A0'}">+ ${m}</span>`;
+        }).join('')}
+      </div>
+    </div>
+    
+    <div style="margin-bottom:10px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#854F0B;font-weight:700;margin-bottom:6px">Deal-breakers</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${EVENT_PREF_OPTIONS.dealBreakers.map(d => {
+          const sel = eventPrefs.dealBreakers.includes(d);
+          return `<span onclick="toggleEventPrefChip('dealBreakers','${d}')" style="cursor:pointer;font-size:11px;padding:4px 9px;border-radius:6px;font-weight:600;${sel ? 'background:#A32D2D;color:#fff' : 'background:#fff;color:var(--text-mid);border:0.5px solid #E0D0A0'}">− ${d}</span>`;
+        }).join('')}
+      </div>
+    </div>
+    
+    <div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:#854F0B;font-weight:700;margin-bottom:6px">Anything else? (optional)</div>
+      <textarea oninput="updateEventPrefsExtra(this.value)" placeholder="Accessibility needs, date flexibility, cultural requirements..." rows="2" style="width:100%;padding:8px 10px;border:0.5px solid #E0D0A0;border-radius:8px;font-size:12px;font-family:inherit;resize:vertical;outline:none;color:var(--text-dark);line-height:1.5;box-sizing:border-box;background:#fff">${eventPrefs.extra}</textarea>
+    </div>
+  </div>`;
+}
+
+// Inherited bar shown on each vendor card if eventPrefs are filled.
+function buildInheritedPrefsBar(){
+  if(!hasEventPrefs()) return '';
+  
+  const tags = [];
+  eventPrefs.styles.slice(0,3).forEach(s => tags.push(`<span style="font-size:9px;padding:2px 6px;background:#fff;color:#0C447C;border:0.5px solid #BFD4F0;border-radius:4px;font-weight:600">${s}</span>`));
+  eventPrefs.mustHaves.slice(0,2).forEach(m => tags.push(`<span style="font-size:9px;padding:2px 6px;background:#fff;color:#0F6E56;border:0.5px solid #B7E4D1;border-radius:4px;font-weight:600">+ ${m}</span>`));
+  eventPrefs.dealBreakers.slice(0,2).forEach(d => tags.push(`<span style="font-size:9px;padding:2px 6px;background:#fff;color:#A32D2D;border:0.5px solid #F4C5C5;border-radius:4px;font-weight:600">− ${d}</span>`));
+  
+  const total = eventPrefs.styles.length + eventPrefs.mustHaves.length + eventPrefs.dealBreakers.length;
+  const shown = Math.min(3, eventPrefs.styles.length) + Math.min(2, eventPrefs.mustHaves.length) + Math.min(2, eventPrefs.dealBreakers.length);
+  const more = total - shown;
+  if(more > 0) tags.push(`<span style="font-size:9px;color:var(--text-light);font-style:italic;align-self:center">+${more} more</span>`);
+  
+  return `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;padding:6px 8px;background:#FFFBF2;border-radius:5px;margin-bottom:8px">
+    <span style="font-size:9px;color:#854F0B;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-right:2px">Vendor sees:</span>
+    ${tags.join('')}
+  </div>`;
 }
 
 function submitOpt2Inquiry(){
@@ -6371,6 +6558,11 @@ function submitOpt2Inquiry(){
     budget: '—',
     fromOpt2: true,
     awaitingQuotes: true,
+    // Snapshot the event-level prefs at submit time. The vendor lead detail page
+    // reads these to populate Style / Must-Have / Deal-Breaker fields when seed
+    // data isn't available. JSON parse/stringify gives a deep copy so later edits
+    // don't mutate sent inquiries.
+    eventPrefs: typeof eventPrefs !== 'undefined' ? JSON.parse(JSON.stringify(eventPrefs)) : null,
     vendors: opt2Shortlist.filter(s => s.inquirySent).map(s => {
       const vd = BROWSE_VENDORS[s.catKey]?.[s.vendorIdx];
       const def = OPT2_CATS[s.catKey] || {emoji:'📋', label:s.catKey};
@@ -8544,7 +8736,7 @@ function buildCompare(){
     <!-- Action -->
     <div style="margin-top:24px;padding:20px;background:var(--accent-wash);border-radius:var(--radius);text-align:center">
       <div style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:var(--primary);margin-bottom:6px">Ready to connect?</div>
-      <div style="font-size:13px;color:var(--text-mid);margin-bottom:16px">Message your shortlisted vendors to ask questions, negotiate, or request a detailed quote.</div>
+      <div style="font-size:13px;color:var(--text-mid);margin-bottom:16px">Message your shortlisted vendors to ask questions about fit, scope, or anything you'd like to confirm before booking.</div>
       <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
         ${selected.map((v,i) => `
           <button class="btn btn-primary" style="padding:10px 16px;font-size:12px" onclick="messageVendorFromCompare('${catKey}',${selArr[i]})">💬 Message ${v.name.split(' ')[0]}</button>
@@ -9159,7 +9351,7 @@ function buildPlanningDashboard(){
   if(isHoli()) tips.push('Holi venues need washable surfaces and strong drainage. Always confirm the venue allows color and water.');
   if(isCultural()) tips.push('Confirm the pandit\'s availability early — experienced priests are booked months ahead for auspicious dates.');
   tips.push('Weekend rates are typically 20–40% higher than weekday rates. A Friday evening event can save significantly.');
-  tips.push('Ask vendors about their cancellation and rescheduling policies upfront — it\'s easier to negotiate before booking.');
+  tips.push('Ask vendors about their cancellation and rescheduling policies upfront — it\'s easier to confirm terms before booking.');
 
   document.getElementById('planTips').innerHTML = `
     <div class="tips-title">💡 Pro Tips for Your ${occLabel}</div>
@@ -13599,18 +13791,38 @@ function buildQuoteView(){
 
         <div class="quote-actions">
           <button class="qa-primary" onclick="goTo(35);buildPaymentFlow()">💳 Pay via PlanEzee — Secure & Protected</button>
+          
+          <!-- Why pay through PlanEzee — surfaced at the decision moment, between the two payment options -->
+          <div style="background:#FFFBF2;border:0.5px solid #FAEEDA;border-radius:12px;padding:14px;margin:14px 0">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <span style="font-size:16px">🛡️</span>
+              <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:#854F0B;text-transform:uppercase;letter-spacing:.4px">What paying through PlanEzee gets you</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55">
+                <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                <div><strong style="color:var(--primary)">Vendor confirmed.</strong> Your booking is locked in. Vendor cannot back out without consequences.</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55">
+                <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                <div><strong style="color:var(--primary)">Standard cancellation terms.</strong> Vendor agrees to PlanEzee's policy. No back-and-forth on refund timelines.</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55">
+                <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                <div><strong style="color:var(--primary)">Replacement if they cancel.</strong> If your vendor backs out, we surface alternatives from your shortlist within hours.</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55">
+                <span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span>
+                <div><strong style="color:var(--primary)">Funds held safely.</strong> We hold the payment until your service is delivered. Full refund if vendor doesn't show.</div>
+              </div>
+            </div>
+          </div>
+          
           <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
           <div class="qa-row">
             <button onclick="openChatWithVendorByName('${(ctx.vendorName||'').replace(/'/g,"\\'")}')">💬 Message vendor</button>
             <button onclick="openChatWithVendorByName('${(ctx.vendorName||'').replace(/'/g,"\\'")}')">✗ Decline</button>
           </div>
-        </div>
-      </div>
-      
-      <div style="padding:14px;background:#FAFAFA;border-radius:12px;font-size:12px;color:var(--text-mid);display:flex;gap:10px;align-items:flex-start;margin-top:12px">
-        <span style="font-size:16px">🛡️</span>
-        <div>
-          <strong style="color:var(--text-dark)">Protected by PlanEzee.</strong> Your payment is held securely. Vendor receives funds only after the event. Full refund if vendor cancels.
         </div>
       </div>
     `;
@@ -13641,6 +13853,20 @@ function buildQuoteView(){
       </div>
       <div class="quote-actions">
         <button class="qa-primary" onclick="goTo(35);buildPaymentFlow()">💳 Pay via PlanEzee — Secure & Protected</button>
+        
+        <div style="background:#FFFBF2;border:0.5px solid #FAEEDA;border-radius:12px;padding:14px;margin:14px 0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:16px">🛡️</span>
+            <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:#854F0B;text-transform:uppercase;letter-spacing:.4px">What paying through PlanEzee gets you</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span><div><strong style="color:var(--primary)">Vendor confirmed.</strong> Your booking is locked in.</div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span><div><strong style="color:var(--primary)">Standard cancellation terms.</strong> No back-and-forth on refunds.</div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span><div><strong style="color:var(--primary)">Replacement if they cancel.</strong> Within hours, from your shortlist.</div></div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--text-mid);line-height:1.55"><span style="color:var(--green);font-weight:700;flex-shrink:0">✓</span><div><strong style="color:var(--primary)">Funds held safely.</strong> Full refund if vendor doesn't show.</div></div>
+          </div>
+        </div>
+        
         <button class="qa-secondary" onclick="payDirect()">Pay vendor directly</button>
         <div class="qa-row">
           <button onclick="goTo(32)">💬 Message vendor</button>
@@ -13745,12 +13971,10 @@ function buildPaymentFlow(){
       </div>
     </div>
 
-    <div class="pay-trust">
-      <span class="pt-icon">🔒</span>
-      <div>
-        <strong>Payment secured by PlanEzee</strong><br>
-        Funds held until service day. Full refund if vendor cancels.
-      </div>
+    <!-- Slim trust + actionable hold reminder. Full value-prop now lives on Quote View screen. -->
+    <div style="background:#FAFAFB;border:0.5px solid var(--border);border-radius:10px;padding:11px 13px;margin:14px 0;font-size:12px;color:var(--text-mid);line-height:1.55;display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:14px;flex-shrink:0">⏳</span>
+      <div><strong style="color:var(--primary)">Pay within 48 hours of accepting a quote</strong> to lock in your booking. The vendor's hold auto-releases otherwise.</div>
     </div>
 
     <button class="btn btn-primary" style="width:100%;padding:16px;font-size:15px" onclick="processPayment()">Pay ${payLabel} →</button>
@@ -14646,7 +14870,7 @@ Tap any category above to start searching for vendors, or ask me for more detail
 <div class="mira-card">
   <div class="mira-card-title">💡 Your Next Steps — Priority Order</div>
   <div class="mira-card-row"><span class="mcr-label">1️⃣ Pay caterer advance</span><span class="mcr-val red">₹24,375 due</span></div>
-  <div class="mira-card-row"><span class="mcr-label">2️⃣ Accept or negotiate DJ quote</span><span class="mcr-val amber">₹18,000 pending</span></div>
+  <div class="mira-card-row"><span class="mcr-label">2️⃣ Confirm DJ quote details</span><span class="mcr-val amber">₹18,000 pending</span></div>
   <div class="mira-card-row"><span class="mcr-label">3️⃣ Follow up with Decor Dreams</span><span class="mcr-val">No quote yet</span></div>
   <div class="mira-card-row"><span class="mcr-label">4️⃣ Book logistics / transport</span><span class="mcr-val" style="color:var(--text-light)">Not started</span></div>
   <div class="mira-card-row"><span class="mcr-label">5️⃣ Consider return gifts</span><span class="mcr-val" style="color:var(--text-light)">Optional</span></div>
@@ -14711,7 +14935,7 @@ Want me to help with any of these?`);
 
 💡 DJ Rohan quoted ₹18,000 for a 3-hour set including his own sound system. That's competitive for Mumbai. His rating is ★ 4.7 with 95 reviews.
 
-Would you like to accept this quote, or should I help you negotiate? Some things you could ask about: extending to 4 hours, adding a fog machine, or requesting a specific setlist.`);
+Would you like to accept this quote, or would you like to confirm a few details first? You could ask about extending to 4 hours, adding a fog machine, or requesting a specific setlist.`);
     setMiraChips(['✅ Accept this quote', '💬 Message the DJ', '📊 Compare all quotes']);
     return;
   }
@@ -15915,37 +16139,107 @@ function vendorToggle(el){
 // ========================================================================
 
 // ========== MOCK DATA ==========
+// Option B-shaped vendor leads. Each lead represents a host who picked this vendor specifically
+// (not algorithmically matched) and is comparing them against 2-3 other vendors in the same category.
+//
+// Key fields for Option B:
+// - personalizedNote: the note the host wrote on Plan / Personalize Notes screen. Hero element on lead detail.
+// - competingCount: number of OTHER vendors the host shortlisted in this category (vendor is competing against these)
+// - competingState: { quoted, paid, awaiting } — race state across the shortlist
+// - mustHaves / dealBreakers / accessibility: structured info that lets vendor price without chatting
+// - status taxonomy: 'new' | 'quoted' | 'competing' | 'accepted' | 'paid-advance' | 'paid-full' | 'lost-to-competitor'
 const VENDOR_LEADS = [
-  {id:'vl1',name:'Riya Sharma',event:'Wedding Reception',date:'April 12, 2026',city:'Mumbai',guests:'200–300',budget:'₹1L–₹2L',status:'new',matchScore:95,timeAgo:'12 min ago',
+  {id:'vl1',name:'Riya Sharma',event:'Wedding Reception',date:'April 12, 2026',city:'Mumbai',guests:'200–300',budget:'₹1L–₹2L',status:'new',timeAgo:'12 min ago',
+   personalizedNote:'Hi! We loved your portfolio — especially the candid moments at the Bansal wedding last month. We want someone who can capture the emotional moments without being intrusive. Pre-event couple shoot would be a bonus. Looking forward to working with you!',
    details:'Looking for a professional who can capture both ceremony and reception. Prefer candid + cinematic style. Venue is outdoor lawn setting. Need both photo and video.',
-   venue:'Royal Greens, Andheri West',timeOfDay:'Evening (4–10 PM)',special:'Drone shots required. Want a highlight reel within 1 week.'},
-  {id:'vl2',name:'Arjun Mehra',event:'50th Birthday Party',date:'March 28, 2026',city:'Pune',guests:'50–100',budget:'₹50K–₹1L',status:'new',matchScore:88,timeAgo:'2 hours ago',
+   venue:'Royal Greens, Andheri West',venueType:'Outdoor lawn',timeOfDay:'Evening (4–10 PM)',
+   coverage:'Both ceremony and reception (8 hours total)',
+   stylePreferences:['Candid','Cinematic','Documentary'],
+   mustHaves:['Drone shots','Highlight reel within 1 week','Both photo and video coverage'],
+   dealBreakers:['No staged formal-only photos'],
+   accessibility:'No specific requirements',
+   competingCount:2,
+   competingState:{quoted:1,paid:0,awaiting:1}},
+  
+  {id:'vl2',name:'Arjun Mehra',event:'50th Birthday Party',date:'March 28, 2026',city:'Pune',guests:'50–100',budget:'₹50K–₹1L',status:'new',timeAgo:'2 hours ago',
+   personalizedNote:'My father is turning 50 and this is a milestone we want to do right. We saw your traditional family portrait work and felt you understand what older relatives appreciate. Please be patient with everyone — there will be a lot of group photos!',
    details:'Intimate milestone birthday for my father. Prefer traditional + some candid. Indoor venue.',
-   venue:'Hotel Marriott, Pune',timeOfDay:'Afternoon (12–5 PM)',special:'Family group photos are a must. No drone needed.'},
-  {id:'vl3',name:'Priya & Vikram',event:'Engagement Ceremony',date:'May 5, 2026',city:'Mumbai',guests:'100–150',budget:'₹75K–₹1.5L',status:'quoted',matchScore:92,timeAgo:'1 day ago',
+   venue:'Hotel Marriott, Pune',venueType:'Indoor banquet hall',timeOfDay:'Afternoon (12–5 PM)',
+   coverage:'5 hours, full event',
+   stylePreferences:['Traditional','Some candid','Family portrait focus'],
+   mustHaves:['Family group photos','Patient with elderly guests'],
+   dealBreakers:['No drone needed','No flashy editing styles'],
+   accessibility:'2 elderly guests in wheelchairs — needs aisle space for shots',
+   competingCount:3,
+   competingState:{quoted:0,paid:0,awaiting:3}},
+  
+  {id:'vl3',name:'Priya & Vikram',event:'Engagement Ceremony',date:'May 5, 2026',city:'Mumbai',guests:'100–150',budget:'₹75K–₹1.5L',status:'quoted',timeAgo:'1 day ago',
+   personalizedNote:'We adored your engagement album work. We want something that feels timeless — not trendy. Pre-wedding shoot is a definite yes. Album design quality matters as much as the photos themselves.',
    details:'Ring ceremony + small celebration. Want a mix of formal and candid. Will need album design services too.',
-   venue:'The Club, Mumbai',timeOfDay:'Evening (5–9 PM)',special:'Album design needed. Pre-event couple shoot if possible.', quoteSent:'₹1,20,000'},
-  {id:'vl4',name:'Sneha Kapoor',event:'Baby Shower',date:'April 1, 2026',city:'Mumbai',guests:'30–50',budget:'₹25K–₹50K',status:'chat',matchScore:78,timeAgo:'3 days ago',
+   venue:'The Club, Mumbai',venueType:'Indoor club hall',timeOfDay:'Evening (5–9 PM)',
+   coverage:'4 hours main event + 2 hour pre-wedding shoot',
+   stylePreferences:['Timeless','Formal + candid mix','Album-quality'],
+   mustHaves:['Album design included','Pre-wedding couple shoot','Edited photos within 2 weeks'],
+   dealBreakers:[],
+   accessibility:'No specific requirements',
+   competingCount:2,
+   competingState:{quoted:2,paid:0,awaiting:0},
+   quoteSent:'₹1,20,000'},
+  
+  {id:'vl4',name:'Sneha Kapoor',event:'Baby Shower',date:'April 1, 2026',city:'Mumbai',guests:'30–50',budget:'₹25K–₹50K',status:'competing',timeAgo:'3 days ago',
+   personalizedNote:'Looking for someone who does soft, warm, lifestyle-style photos. Our home has natural light and pastel decor. Please don\'t use heavy flash — we want it to feel intimate and home-y.',
    details:'Cozy baby shower at home. Pastel theme. Want lifestyle-style photos.',
-   venue:'Private residence, Bandra',timeOfDay:'Morning (10 AM–1 PM)',special:'Pastel / soft tone editing preferred.'},
-  {id:'vl5',name:'Mehta Family',event:'Grihapravesh Ceremony',date:'March 20, 2026',city:'Thane',guests:'Under 30',budget:'₹15K–₹30K',status:'booked',matchScore:82,timeAgo:'1 week ago',
+   venue:'Private residence, Bandra',venueType:'Home (residential)',timeOfDay:'Morning (10 AM–1 PM)',
+   coverage:'3 hours',
+   stylePreferences:['Lifestyle','Soft tones','Natural light'],
+   mustHaves:['Pastel/warm editing','Use natural light primarily'],
+   dealBreakers:['No heavy flash','No formal staged shots'],
+   accessibility:'No specific requirements',
+   competingCount:2,
+   competingState:{quoted:1,paid:0,awaiting:1},
+   quoteSent:'₹35,000'},
+  
+  {id:'vl5',name:'Mehta Family',event:'Grihapravesh Ceremony',date:'March 20, 2026',city:'Thane',guests:'Under 30',budget:'₹15K–₹30K',status:'paid-advance',timeAgo:'1 week ago',
+   personalizedNote:'Small house warming with close family. We want the puja ceremony documented well — especially the priest performing rituals. Quick turnaround would help us share with relatives abroad.',
    details:'House warming ceremony. Need 2-3 hours of coverage.',
-   venue:'Hiranandani Gardens, Thane',timeOfDay:'Morning (8–11 AM)',special:'Puja ceremony focus. Quick turnaround needed.',quoteSent:'₹22,000',bookingConfirmed:true},
-  {id:'vl6',name:'Corporate Events Ltd',event:'Annual Company Meet',date:'March 22, 2026',city:'Mumbai',guests:'500+',budget:'₹2L+',status:'lost',matchScore:70,timeAgo:'2 weeks ago',
+   venue:'Hiranandani Gardens, Thane',venueType:'Home (residential)',timeOfDay:'Morning (8–11 AM)',
+   coverage:'3 hours',
+   stylePreferences:['Documentary','Ritual-focused'],
+   mustHaves:['Puja ceremony detailed coverage','Photos within 5 days'],
+   dealBreakers:[],
+   accessibility:'No specific requirements',
+   competingCount:0, // already won this booking
+   competingState:{quoted:0,paid:1,awaiting:0},
+   quoteSent:'₹22,000',bookingConfirmed:true},
+  
+  {id:'vl6',name:'Corporate Events Ltd',event:'Annual Company Meet',date:'March 22, 2026',city:'Mumbai',guests:'500+',budget:'₹2L+',status:'lost-to-competitor',timeAgo:'2 weeks ago',
+   personalizedNote:'',
    details:'Large corporate annual gathering with awards ceremony.',
-   venue:'NSCI Dome, Worli',timeOfDay:'Full day',special:'Stage photography + headshots.', lostReason:'Budget mismatch'}
+   venue:'NSCI Dome, Worli',venueType:'Convention hall',timeOfDay:'Full day',
+   coverage:'10 hours',
+   stylePreferences:['Corporate','Stage photography','Headshots'],
+   mustHaves:['Stage photography','Headshots for all attendees','Same-day delivery'],
+   dealBreakers:[],
+   accessibility:'No specific requirements',
+   competingCount:0,
+   competingState:{quoted:0,paid:1,awaiting:0},
+   lostReason:'User chose another vendor (lower bid)'}
 ];
 
+// VENDOR_EVENTS now carries Option B payment context.
+// paymentStatus: 'fully-paid' | 'advance-paid' | 'awaiting-payment' (host accepted, hasn't paid) | null (no payment context)
+// 'awaiting-payment' is the "hold" state — slot is reserved but not locked in yet.
 const VENDOR_EVENTS = [
-  {day:5,title:'Mehta Grihapravesh',time:'8 AM',type:'booked',client:'Mehta Family'},
-  {day:12,title:'Sharma Wedding',time:'4 PM',type:'tentative',client:'Riya Sharma'},
-  {day:15,title:'Blocked',time:'',type:'blocked',client:'Personal'},
-  {day:16,title:'Travel buffer',time:'',type:'travel',client:'Post-wedding'},
-  {day:20,title:'Corporate Shoot',time:'9 AM',type:'booked',client:'TechStart Inc'},
-  {day:28,title:'Mehra Birthday',time:'12 PM',type:'tentative',client:'Arjun Mehra'}
+  {day:5,title:'Mehta Grihapravesh',time:'8 AM',type:'booked',client:'Mehta Family',paymentStatus:'advance-paid',amount:'₹22,000'},
+  {day:12,title:'Sharma Wedding',time:'4 PM',type:'tentative',client:'Riya Sharma',paymentStatus:'awaiting-payment',amount:'₹1,20,000'},
+  {day:15,title:'Blocked',time:'',type:'blocked',client:'Personal',paymentStatus:null},
+  {day:16,title:'Travel buffer',time:'',type:'travel',client:'Post-wedding',paymentStatus:null},
+  {day:20,title:'Corporate Shoot',time:'9 AM',type:'booked',client:'TechStart Inc',paymentStatus:'fully-paid',amount:'₹85,000'},
+  {day:28,title:'Mehra Birthday',time:'12 PM',type:'tentative',client:'Arjun Mehra',paymentStatus:'awaiting-payment',amount:'₹65,000'}
 ];
 
 let vLeadFilter = 'all';
+let vLeadSort = 'newest'; // 'newest' | 'urgent' | 'budget' — Option B sort options
 let vCalMonth = 2; // March = 2 (0-indexed)
 let vCalYear = 2026;
 let vMiraMessages = [];
@@ -15977,7 +16271,30 @@ function enterVendorDashboard(){
 function buildVHome(){
   const cat = VENDOR_CATS.find(c => c.id === vendorState.category);
   const name = document.getElementById('vBizName')?.value || 'Your Business';
+  
+  // ===== Option B stat calculations from real lead data =====
+  // Active shortlists = leads where vendor is still in the race (host hasn't decided)
+  const activeShortlists = VENDOR_LEADS.filter(l => 
+    l.status === 'new' || l.status === 'quoted' || l.status === 'competing' || l.status === 'chat'
+  ).length;
+  
+  // Win rate = won / (won + lost), only counting decided competitions
+  const wonLeads = VENDOR_LEADS.filter(l => 
+    l.status === 'paid-advance' || l.status === 'paid-full' || l.status === 'booked' || l.status === 'accepted'
+  ).length;
+  const lostLeads = VENDOR_LEADS.filter(l => 
+    l.status === 'lost' || l.status === 'lost-to-competitor'
+  ).length;
+  const decidedCount = wonLeads + lostLeads;
+  const winRate = decidedCount > 0 ? Math.round((wonLeads / decidedCount) * 100) : null;
+  
+  // New leads count for the alert banner
   const newLeads = VENDOR_LEADS.filter(l => l.status === 'new').length;
+  const newLeadsList = VENDOR_LEADS.filter(l => l.status === 'new');
+  
+  // Hosts viewing now — fake-but-believable, varies slightly to feel live
+  const hostsViewing = 3 + (Date.now() % 3);
+  
   const todayEvents = VENDOR_EVENTS.filter(e => e.day === new Date().getDate() && e.type === 'booked');
 
   document.getElementById('vHomeContent').innerHTML = `
@@ -15994,39 +16311,40 @@ function buildVHome(){
       <div class="vd-alert-icon">🔔</div>
       <div class="vd-alert-text">
         <strong>${newLeads} new lead${newLeads>1?'s':''}!</strong>
-        ${VENDOR_LEADS[0].name} needs a ${cat?cat.name.toLowerCase():'vendor'} for a ${VENDOR_LEADS[0].event} in ${VENDOR_LEADS[0].city}. Budget: ${VENDOR_LEADS[0].budget}.
+        ${newLeadsList[0].name} picked you for a ${newLeadsList[0].event} in ${newLeadsList[0].city}. ${newLeadsList[0].competingCount > 0 ? `You're competing with ${newLeadsList[0].competingCount} other vendor${newLeadsList[0].competingCount>1?'s':''}.` : ''}
       </div>
     </div>` : ''}
 
+    <!-- Option B stats: shortlists / win rate / response time / revenue -->
     <div class="vd-stats">
       <div class="vd-stat" onclick="vbnav('leads')">
-        <div class="vd-stat-num">${newLeads}</div>
-        <div class="vd-stat-label">New leads</div>
-        <div class="vd-stat-change up">↑ ${newLeads} this week</div>
+        <div class="vd-stat-num">${activeShortlists}</div>
+        <div class="vd-stat-label">Active shortlists</div>
+        <div class="vd-stat-change up">${newLeads} new this week</div>
       </div>
-      <div class="vd-stat" onclick="vbnav('profile')">
-        <div class="vd-stat-num">47</div>
-        <div class="vd-stat-label">Profile views</div>
-        <div class="vd-stat-change up">↑ 12% vs last week</div>
+      <div class="vd-stat">
+        <div class="vd-stat-num">${winRate !== null ? winRate + '%' : '—'}</div>
+        <div class="vd-stat-label">Win rate</div>
+        <div class="vd-stat-change ${winRate !== null && winRate >= 50 ? 'up' : ''}">${winRate !== null ? `${wonLeads} won · ${lostLeads} lost` : 'Need decided competitions'}</div>
       </div>
       <div class="vd-stat">
         <div class="vd-stat-num">1.8h</div>
         <div class="vd-stat-label">Avg response time</div>
         <div class="vd-stat-change up">↑ Faster than 72%</div>
       </div>
-      <div class="vd-stat">
-        <div class="vd-stat-num">₹22K</div>
-        <div class="vd-stat-label">Revenue this month</div>
-        <div class="vd-stat-change up">1 confirmed booking</div>
+      <div class="vd-stat" onclick="vbnav('profile')">
+        <div class="vd-stat-num">${hostsViewing}</div>
+        <div class="vd-stat-label">Viewing your profile now</div>
+        <div class="vd-stat-change up">↑ ${cat?.name||'Vendor'} category</div>
       </div>
     </div>
 
     <div class="vd-section">
       <div class="vd-section-title">Quick actions</div>
       <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch">
-        <div class="vd-filter-pill" onclick="openLeadDetail('vl1')" style="display:flex;align-items:center;gap:4px;padding:8px 14px;background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary);font-weight:700">📋 Draft a quote</div>
+        ${newLeads > 0 ? `<div class="vd-filter-pill" onclick="openLeadDetail('${newLeadsList[0].id}')" style="display:flex;align-items:center;gap:4px;padding:8px 14px;background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary);font-weight:700">📋 Send a quote</div>` : ''}
         <div class="vd-filter-pill" onclick="vbnav('calendar')" style="display:flex;align-items:center;gap:4px;padding:8px 14px">📅 Block dates</div>
-        <div class="vd-filter-pill" onclick="goTo(66);buildVEditProfile()" style="display:flex;align-items:center;gap:4px;padding:8px 14px">💰 Update pricing</div>
+        <div class="vd-filter-pill" onclick="goTo(66);buildVEditProfile()" style="display:flex;align-items:center;gap:4px;padding:8px 14px">📝 Update profile</div>
         <div class="vd-filter-pill" onclick="vbnav('mira')" style="display:flex;align-items:center;gap:4px;padding:8px 14px">✨ Ask Mira</div>
       </div>
     </div>
@@ -16050,15 +16368,13 @@ function buildVHome(){
       `}
     </div>
 
+    <!-- Mira tip — Option B aware: speaks about winning shortlist competitions -->
     <div class="vd-section">
       <div class="vd-section-title">✨ Mira's tip of the day</div>
       <div class="vd-ai-suggest">
         <span class="ai-icon">💡</span>
         <div>
-          <strong>Add a video reel to your profile.</strong> Profiles with video get 65% more inquiries. 
-          ${cat?.types.includes('T') ? 'As a talent-driven vendor, your performance clips are your biggest selling point.' : 
-            cat?.types.includes('P') ? 'A timelapse of your setup process would showcase your work beautifully.' : 
-            'A short clip showing your team in action builds instant trust.'}
+          ${getMiraHomeTip(cat, activeShortlists, winRate)}
           <div style="margin-top:6px"><a style="color:var(--accent);font-weight:700;cursor:pointer" onclick="vbnav('profile')">Update profile →</a></div>
         </div>
       </div>
@@ -16101,13 +16417,54 @@ function buildVHome(){
   `;
 }
 
+// Mira's home-screen tip — Option B aware. Pulls from real vendor state.
+function getMiraHomeTip(cat, activeShortlists, winRate){
+  // High activity, low win rate → coaching about quote quality
+  if(activeShortlists >= 3 && winRate !== null && winRate < 50){
+    return `<strong>You\'re in ${activeShortlists} active shortlists, but only winning ${winRate}%.</strong> Hosts pick vendors with the clearest, most structured quotes. Try filling every field in the quote builder — vague quotes lose to specific ones.`;
+  }
+  // Low activity → profile coaching
+  if(activeShortlists <= 1){
+    return `<strong>Only ${activeShortlists} active shortlist${activeShortlists===1?'':'s'} right now.</strong> Hosts shortlist vendors based on profile clarity. Add ${cat?.types.includes('T') ? 'performance clips' : cat?.types.includes('P') ? 'recent portfolio shots' : 'team-in-action photos'} to stand out when hosts compare you against competitors.`;
+  }
+  // Healthy state → reinforcement
+  if(winRate !== null && winRate >= 60){
+    return `<strong>Strong run — you\'re winning ${winRate}% of decided competitions.</strong> Don\'t coast: keep response time under 2 hours and quote completeness high. Hosts notice both.`;
+  }
+  // Default
+  return `<strong>You\'re in ${activeShortlists} active shortlist${activeShortlists===1?'':'s'} this week.</strong> Hosts compare ${cat?.name?.toLowerCase()||'vendor'}s side-by-side now. The clearest quote often wins, even over the cheapest one.`;
+}
+
 function renderVLeadCard(l){
-  const matchClass = l.matchScore >= 90 ? 'high' : l.matchScore >= 75 ? 'med' : 'low';
+  // Status pill from Option B taxonomy
+  const pill = getLeadStatusPill(l.status);
+  
+  // Urgency indicator: a competitor has already paid (we're losing the slot fast)
+  const competitorPaid = l.competingState && l.competingState.paid > 0;
+  const isOpen = l.status === 'new' || l.status === 'quoted' || l.status === 'competing' || l.status === 'chat';
+  const showUrgent = isOpen && competitorPaid;
+  
+  // Bottom-line context: shortlist info or final outcome
+  let bottomLine = '';
+  if(showUrgent){
+    bottomLine = `<span style="font-size:10px;color:#A32D2D;font-weight:700">⚡ A competitor was just booked \u2014 act fast</span>`;
+  } else if(l.competingCount > 0 && isOpen){
+    const cs = l.competingState || {};
+    const stateBit = cs.quoted > 0 ? `${cs.quoted} quoted` : `all awaiting`;
+    bottomLine = `<span style="font-size:10px;color:var(--text-mid)">⚔️ Competing with ${l.competingCount} \u00b7 ${stateBit}</span>`;
+  } else if(l.status === 'paid-advance' || l.status === 'paid-full' || l.status === 'booked' || l.status === 'accepted'){
+    bottomLine = `<span style="font-size:10px;color:#0F6E56;font-weight:700">🏆 You won this booking</span>`;
+  } else if(l.status === 'lost-to-competitor' || l.status === 'lost'){
+    bottomLine = `<span style="font-size:10px;color:#A32D2D">${l.lostReason || 'Host went with another vendor'}</span>`;
+  } else {
+    bottomLine = `<span></span>`;
+  }
+  
   return `
-    <div class="vd-lead-card ${l.status==='new'?'new':''}" onclick="openLeadDetail('${l.id}')">
+    <div class="vd-lead-card ${l.status==='new'?'new':''}${showUrgent?' urgent':''}" onclick="openLeadDetail('${l.id}')">
       <div class="vd-lead-top">
         <div class="vd-lead-name">${l.name}</div>
-        <div class="vd-lead-match ${matchClass}">${l.matchScore}% match</div>
+        <span style="display:inline-block;font-family:'Sora',sans-serif;font-size:9px;font-weight:700;padding:3px 8px;border-radius:5px;white-space:nowrap;background:${pill.bg};color:${pill.color}">${pill.label}</span>
       </div>
       <div class="vd-lead-meta">
         <span>🎉 ${l.event}</span>
@@ -16116,13 +16473,8 @@ function renderVLeadCard(l){
         <span>📅 ${l.date}</span>
       </div>
       <div class="vd-lead-budget">${l.budget}</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-        <span class="vd-lead-status ${l.status}">${
-          l.status==='new'?'🔵 New Lead':
-          l.status==='quoted'?'📤 Quote Sent':
-          l.status==='chat'?'💬 In Conversation':
-          l.status==='booked'?'✅ Booked':
-          '❌ Lost'}</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;gap:8px">
+        ${bottomLine}
         <span class="vd-lead-time">${l.timeAgo}</span>
       </div>
     </div>
@@ -16131,33 +16483,84 @@ function renderVLeadCard(l){
 
 // ========== SCREEN 61: LEADS LIST ==========
 function buildVLeads(){
-  const counts = {all:VENDOR_LEADS.length,new:0,quoted:0,chat:0,booked:0,lost:0};
-  VENDOR_LEADS.forEach(l => counts[l.status]++);
-  const filtered = vLeadFilter === 'all' ? VENDOR_LEADS : VENDOR_LEADS.filter(l => l.status === vLeadFilter);
-
+  // Option B taxonomy: New / Competing (quoted but undecided) / Won / Lost
+  // Sort options: Newest, Most urgent, Highest budget
+  const counts = {all:VENDOR_LEADS.length, new:0, competing:0, won:0, lost:0};
+  VENDOR_LEADS.forEach(l => {
+    const s = l.status;
+    if(s === 'new') counts.new++;
+    else if(s === 'quoted' || s === 'competing' || s === 'chat') counts.competing++;
+    else if(s === 'booked' || s === 'paid-advance' || s === 'paid-full' || s === 'accepted') counts.won++;
+    else if(s === 'lost' || s === 'lost-to-competitor') counts.lost++;
+  });
+  
+  // Filter
+  let filtered = vLeadFilter === 'all' ? [...VENDOR_LEADS] : VENDOR_LEADS.filter(l => {
+    const s = l.status;
+    if(vLeadFilter === 'new') return s === 'new';
+    if(vLeadFilter === 'competing') return s === 'quoted' || s === 'competing' || s === 'chat';
+    if(vLeadFilter === 'won') return s === 'booked' || s === 'paid-advance' || s === 'paid-full' || s === 'accepted';
+    if(vLeadFilter === 'lost') return s === 'lost' || s === 'lost-to-competitor';
+    return true;
+  });
+  
+  // Sort
+  if(vLeadSort === 'urgent'){
+    // Most urgent: leads where competitor already paid OR event date is close
+    filtered.sort((a,b) => {
+      const aUrgent = (a.competingState?.paid > 0 ? 2 : 0) + (a.status === 'new' ? 1 : 0);
+      const bUrgent = (b.competingState?.paid > 0 ? 2 : 0) + (b.status === 'new' ? 1 : 0);
+      return bUrgent - aUrgent;
+    });
+  } else if(vLeadSort === 'budget'){
+    // Parse budget upper bound from "₹50K–₹1L" style strings
+    const parseBudget = (b) => {
+      const upper = (b||'').split('–').pop().replace(/[^\d.LK]/g,'');
+      if(upper.includes('L')) return parseFloat(upper) * 100000;
+      if(upper.includes('K')) return parseFloat(upper) * 1000;
+      return parseFloat(upper) || 0;
+    };
+    filtered.sort((a,b) => parseBudget(b.budget) - parseBudget(a.budget));
+  }
+  // Default: Newest is the seed-data order
+  
+  // Subtitle reflects Option B reality
+  const subtitleBits = [`${counts.all} total`];
+  if(counts.new > 0) subtitleBits.push(`${counts.new} new`);
+  if(counts.competing > 0) subtitleBits.push(`${counts.competing} competing`);
+  if(counts.won > 0) subtitleBits.push(`${counts.won} won`);
+  
   document.getElementById('vLeadsContent').innerHTML = `
     <div style="margin-bottom:16px">
       <div style="font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--primary)">Leads</div>
-      <div style="font-size:13px;color:var(--text-mid)">${counts.all} total · ${counts.new} new · ${counts.booked} booked</div>
+      <div style="font-size:13px;color:var(--text-mid)">${subtitleBits.join(' · ')}</div>
     </div>
 
+    <!-- Option B filter chips: All / New / Competing / Won / Lost -->
     <div class="vd-filter-pills">
-      ${['all','new','quoted','chat','booked','lost'].map(f => `
-        <div class="vd-filter-pill ${vLeadFilter===f?'active':''}" onclick="vLeadFilter='${f}';buildVLeads()">
-          ${f==='all'?`All (${counts.all})`:f==='new'?`New (${counts.new})`:f==='quoted'?`Quoted (${counts.quoted})`:f==='chat'?`Chatting (${counts.chat})`:f==='booked'?`Booked (${counts.booked})`:`Lost (${counts.lost})`}
+      ${[
+        {id:'all',     label:'All',       count:counts.all},
+        {id:'new',     label:'New',       count:counts.new},
+        {id:'competing',label:'Competing',count:counts.competing},
+        {id:'won',     label:'Won',       count:counts.won},
+        {id:'lost',    label:'Lost',      count:counts.lost}
+      ].map(f => `
+        <div class="vd-filter-pill ${vLeadFilter===f.id?'active':''}" onclick="vLeadFilter='${f.id}';buildVLeads()">
+          ${f.label} (${f.count})
         </div>
       `).join('')}
     </div>
 
+    <!-- Sort options reflect Option B priorities -->
     <div style="display:flex;gap:8px;margin-bottom:16px">
-      <div class="vd-filter-pill active" style="background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary)">⚡ Best Match</div>
-      <div class="vd-filter-pill">📅 Newest</div>
-      <div class="vd-filter-pill">💰 Budget ↓</div>
+      <div class="vd-filter-pill ${vLeadSort==='newest'?'active':''}" onclick="vLeadSort='newest';buildVLeads()" style="${vLeadSort==='newest'?'background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary);font-weight:700':''}">📅 Newest</div>
+      <div class="vd-filter-pill ${vLeadSort==='urgent'?'active':''}" onclick="vLeadSort='urgent';buildVLeads()" style="${vLeadSort==='urgent'?'background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary);font-weight:700':''}">⚡ Most urgent</div>
+      <div class="vd-filter-pill ${vLeadSort==='budget'?'active':''}" onclick="vLeadSort='budget';buildVLeads()" style="${vLeadSort==='budget'?'background:var(--accent-wash);border-color:var(--accent-soft);color:var(--primary);font-weight:700':''}">💰 Budget ↓</div>
     </div>
 
     ${filtered.map(l => renderVLeadCard(l)).join('')}
 
-    ${filtered.length === 0 ? `<div style="text-align:center;padding:40px;color:var(--text-light)">No leads in this category yet.</div>` : ''}
+    ${filtered.length === 0 ? `<div style="text-align:center;padding:40px;color:var(--text-light)">No leads in this view yet.</div>` : ''}
   `;
 }
 
@@ -16173,18 +16576,141 @@ function buildVLeadDetail(){
   const l = vCurrentLead;
   if(!l) return;
   const cat = VENDOR_CATS.find(c => c.id === vendorState.category);
-  const matchClass = l.matchScore >= 90 ? 'high' : l.matchScore >= 75 ? 'med' : 'low';
+  const catId = cat ? cat.id : 'photographer';
 
   document.getElementById('vLeadDetailContent').innerHTML = `
     <div style="margin-bottom:12px"><button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button></div>
 
+    ${buildLeadStatusHeader(l)}
+
+    ${buildLeadCompetitiveContext(l)}
+
+    ${l.personalizedNote ? buildLeadPersonalizedNote(l) : ''}
+
+    ${buildLeadEventDetails(l)}
+
+    ${buildLeadHostPrefs(l)}
+
+    ${buildLeadActionArea(l, catId)}
+
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button class="btn btn-secondary" style="flex:1" onclick="alert('Opening chat with ${l.name}')">💬 Message ${l.name.split(' ')[0]}</button>
+      ${l.status === 'new' ? `<button class="btn btn-secondary" style="flex:0 0 auto;padding:10px 16px" onclick="openDeclineReasonModal('${l.id}')">✕ Decline</button>` : ''}
+    </div>
+  `;
+}
+
+// ========== DECLINE REASON CAPTURE ==========
+// When vendor declines, ask why. Optional — vendor can skip. Data is gold for understanding
+// why vendors aren't quoting. Reasons feed back into platform improvements (e.g., if many
+// vendors decline due to "too far," refine geographic targeting).
+function openDeclineReasonModal(leadId){
+  const lead = VENDOR_LEADS.find(l => l.id === leadId);
+  if(!lead) return;
+  
+  // Build the modal as an overlay
+  const overlayId = 'declineReasonOverlay';
+  let overlay = document.getElementById(overlayId);
+  if(overlay) overlay.remove();
+  
+  overlay = document.createElement('div');
+  overlay.id = overlayId;
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:300;background:rgba(15,23,42,0.5);display:flex;align-items:flex-end;justify-content:center;animation:fadeIn .2s ease';
+  overlay.onclick = function(e){ if(e.target === overlay) closeDeclineReasonModal(); };
+  
+  overlay.innerHTML = `
+    <div style="background:#fff;border-radius:18px 18px 0 0;width:100%;max-width:560px;padding:22px 20px 16px;animation:slideUp .25s cubic-bezier(.16,1,.3,1);max-height:88vh;overflow-y:auto">
+      <div style="text-align:center;margin-bottom:6px"><div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 14px"></div></div>
+      <div style="font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:var(--primary);margin-bottom:4px">Decline ${lead.name.split(' ')[0]}'s inquiry?</div>
+      <div style="font-size:12px;color:var(--text-mid);margin-bottom:16px;line-height:1.5">A quick reason helps us send you better-fit leads. <strong style="color:var(--text-mid)">Optional</strong> — feel free to skip.</div>
+      
+      <div id="declineReasonChips" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+        ${[
+          {id:'busy', label:"⏰ I'm fully booked that week"},
+          {id:'far', label:'📍 Venue is too far'},
+          {id:'scope', label:"📐 Scope doesn't fit me"},
+          {id:'crew', label:"👥 No crew available that day"},
+          {id:'budget', label:'💰 Budget too low for this scope'},
+          {id:'date', label:"📅 I'm out of town that date"},
+          {id:'other', label:'✏️ Other reason'}
+        ].map(r => `
+          <div class="chip" onclick="selectDeclineReason(this,'${r.id}')" data-reason="${r.id}" style="cursor:pointer">${r.label}</div>
+        `).join('')}
+      </div>
+      
+      <textarea id="declineReasonNote" placeholder="Anything else you'd like us to know? (optional)" style="width:100%;min-height:60px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;font-size:12px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;resize:vertical;margin-bottom:14px"></textarea>
+      
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-secondary" style="flex:1" onclick="closeDeclineReasonModal()">Cancel</button>
+        <button class="btn btn-secondary" style="flex:1" onclick="confirmDecline('${leadId}', true)">Skip & decline</button>
+        <button class="btn btn-primary" style="flex:1" onclick="confirmDecline('${leadId}', false)">Submit & decline</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+let _selectedDeclineReason = null;
+function selectDeclineReason(el, reasonId){
+  document.querySelectorAll('#declineReasonChips .chip').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  _selectedDeclineReason = reasonId;
+}
+
+function closeDeclineReasonModal(){
+  const overlay = document.getElementById('declineReasonOverlay');
+  if(overlay) overlay.remove();
+  _selectedDeclineReason = null;
+}
+
+function confirmDecline(leadId, skipped){
+  // In a real implementation we'd POST this to the API. For demo, log and toast.
+  const noteEl = document.getElementById('declineReasonNote');
+  const noteText = noteEl ? noteEl.value.trim() : '';
+  
+  // Could log to analytics: { leadId, reason: _selectedDeclineReason, note: noteText, skipped }
+  closeDeclineReasonModal();
+  
+  if(skipped){
+    showToast('Lead declined. Thanks for letting us know.');
+  } else {
+    showToast('Lead declined. This helps us send you better-fit leads.');
+  }
+  
+  // Navigate back to leads list
+  setTimeout(() => goBack(), 400);
+}
+
+// ========== LEAD DETAIL — sub-builders (Option B shape) ==========
+
+// Status pill mapping for Option B taxonomy
+function getLeadStatusPill(status){
+  const map = {
+    'new':                {label:'New inquiry',     color:'#854F0B', bg:'#FAEEDA'},
+    'quoted':             {label:'Quote sent',      color:'#0C447C', bg:'#E6F1FB'},
+    'competing':          {label:'Competing',       color:'#0C447C', bg:'#E6F1FB'},
+    'accepted':           {label:'Quote accepted',  color:'#0F6E56', bg:'#E1F5EE'},
+    'paid-advance':       {label:'Advance received',color:'#0F6E56', bg:'#E1F5EE'},
+    'paid-full':          {label:'Paid in full',    color:'#0F6E56', bg:'#E1F5EE'},
+    'lost-to-competitor': {label:'Lost',            color:'#A32D2D', bg:'#FCE7E7'},
+    // Backwards-compat for any leftover status values
+    'chat':               {label:'In conversation', color:'#0C447C', bg:'#E6F1FB'},
+    'booked':             {label:'Booked',          color:'#0F6E56', bg:'#E1F5EE'},
+    'lost':               {label:'Lost',            color:'#A32D2D', bg:'#FCE7E7'},
+  };
+  return map[status] || map['new'];
+}
+
+function buildLeadStatusHeader(l){
+  const pill = getLeadStatusPill(l.status);
+  return `
     <div class="vd-detail-header">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
-        <div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+        <div style="min-width:0">
           <div class="vd-detail-event">${l.event}</div>
-          <div class="vd-detail-user">by ${l.name}</div>
+          <div class="vd-detail-user">by ${l.name} · ${l.timeAgo}</div>
         </div>
-        <div class="vd-lead-match ${matchClass}" style="font-size:12px;padding:5px 12px">${l.matchScore}% match</div>
+        <span style="display:inline-block;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;padding:4px 10px;border-radius:6px;white-space:nowrap;background:${pill.bg};color:${pill.color}">${pill.label}</span>
       </div>
       <div class="vd-detail-pills">
         <span class="vd-detail-pill">📅 ${l.date}</span>
@@ -16193,115 +16719,305 @@ function buildVLeadDetail(){
         <span class="vd-detail-pill">💰 ${l.budget}</span>
       </div>
     </div>
-
-    <div class="vd-detail-section">
-      <div class="vd-detail-section-title">Event Details</div>
-      <div class="vd-detail-row"><span class="dr-label">Venue</span><span class="dr-val">${l.venue}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Time</span><span class="dr-val">${l.timeOfDay}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Requirements</span><span class="dr-val" style="max-width:200px;text-align:right">${l.details}</span></div>
-      ${l.special ? `<div class="vd-detail-row"><span class="dr-label">Special notes</span><span class="dr-val" style="max-width:200px;text-align:right;color:#E65100">${l.special}</span></div>` : ''}
-    </div>
-
-    <div class="vd-detail-section">
-      <div class="vd-detail-section-title">User Profile</div>
-      <div class="vd-detail-row"><span class="dr-label">Name</span><span class="dr-val">${l.name}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Events on PlanEzee</span><span class="dr-val">${Math.floor(1+Math.random()*3)}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Verified</span><span class="dr-val" style="color:var(--green)">✓ Deposit paid</span></div>
-    </div>
-
-    ${l.status === 'new' || l.status === 'chat' ? `
-    <div class="vd-quote-builder">
-      <div class="vd-quote-title">✨ AI Quote Builder</div>
-      <div class="vd-ai-suggest" style="margin-top:0;margin-bottom:12px">
-        <span class="ai-icon">💡</span>
-        <div>Based on this event (${l.guests} guests, ${l.city}, ${l.event}), similar ${cat?cat.name.toLowerCase():'vendor'}s quoted <strong>₹${(80+Math.floor(Math.random()*60))},000</strong>. Your pricing is competitive.</div>
-      </div>
-      <div class="vd-quote-row">
-        <input type="text" placeholder="Line item (e.g. Photography coverage)" value="${cat?.id==='photographer'?'Photography (8 hours)':cat?.id==='caterer'?'Full catering service':'Service package'}">
-        <input type="text" placeholder="₹ Amount" style="max-width:100px" value="₹${(60+Math.floor(Math.random()*80))},000">
-      </div>
-      <div class="vd-quote-row">
-        <input type="text" placeholder="Add line item..." value="${cat?.id==='photographer'?'Video highlight reel':cat?.id==='caterer'?'Live counter setup':'Additional services'}">
-        <input type="text" placeholder="₹ Amount" style="max-width:100px" value="₹${(15+Math.floor(Math.random()*25))},000">
-      </div>
-      <div style="text-align:center;margin:8px 0"><a style="font-size:12px;color:var(--accent);font-weight:600;cursor:pointer">+ Add line item</a></div>
-      <div class="vd-quote-total">
-        <span>Total</span>
-        <span>₹${(90+Math.floor(Math.random()*60))},000 + taxes</span>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-        <input type="text" placeholder="Payment terms" value="50% advance" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
-        <input type="text" placeholder="Valid until" value="7 days" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
-      </div>
-      <button class="btn btn-primary" style="width:100%;margin-top:12px">Send Quote →</button>
-    </div>
-    ` : l.status === 'quoted' ? `
-    <div class="vd-detail-section" style="border-color:var(--accent)">
-      <div class="vd-detail-section-title">📤 Quote Sent</div>
-      <div class="vd-detail-row"><span class="dr-label">Amount</span><span class="dr-val">${l.quoteSent}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Status</span><span class="dr-val" style="color:#1565C0">Viewed · Awaiting response</span></div>
-      <div class="vd-ai-suggest" style="margin-top:10px">
-        <span class="ai-icon">💡</span>
-        <div>This lead viewed your quote 4 hours ago but hasn't responded. Mira suggests a gentle follow-up: <em>"Hi ${l.name.split(' ')[0]}, just checking in! Happy to discuss the quote or customize the package. Let me know if you have any questions."</em>
-        <div style="margin-top:8px"><button class="btn btn-secondary" style="padding:6px 14px;font-size:11px">Send follow-up →</button></div></div>
-      </div>
-    </div>
-    ` : l.status === 'booked' ? `
-    <div class="vd-detail-section" style="border-color:var(--green);background:#F0FDF4">
-      <div class="vd-detail-section-title" style="color:var(--green)">✅ Booking Confirmed</div>
-      <div class="vd-detail-row"><span class="dr-label">Quote accepted</span><span class="dr-val">${l.quoteSent}</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Advance received</span><span class="dr-val" style="color:var(--green)">₹11,000</span></div>
-      <div class="vd-detail-row"><span class="dr-label">Remaining</span><span class="dr-val">₹11,000 due on event day</span></div>
-    </div>
-    ` : `
-    <div class="vd-detail-section" style="border-color:var(--red)">
-      <div class="vd-detail-section-title" style="color:var(--red)">❌ Lead Lost</div>
-      <div style="font-size:12px;color:var(--text-mid)">${l.lostReason || 'User chose another vendor'}</div>
-    </div>
-    `}
-
-    <div style="display:flex;gap:8px;margin-top:12px">
-      <button class="btn btn-secondary" style="flex:1" onclick="alert('Opening chat with ${l.name}')">💬 Message</button>
-      <button class="btn btn-secondary" style="flex:1" onclick="alert('Declining lead')">✕ Decline</button>
-    </div>
-
-    ${l.status !== 'new' ? `
-    <div class="vd-detail-section" style="margin-top:16px">
-      <div class="vd-detail-section-title">💬 Conversation</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;gap:8px;align-items:flex-start">
-          <div style="width:28px;height:28px;border-radius:50%;background:#E3F2FD;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">👤</div>
-          <div>
-            <div style="background:#F5F5F5;border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:12px;color:var(--primary);max-width:260px;line-height:1.5">${l.details.substring(0,120)}...</div>
-            <div style="font-size:10px;color:var(--text-light);margin-top:2px;padding-left:4px">${l.name.split(' ')[0]} · ${l.timeAgo}</div>
-          </div>
-        </div>
-        ${l.status === 'quoted' || l.status === 'booked' ? `
-        <div style="display:flex;gap:8px;align-items:flex-start;flex-direction:row-reverse">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--accent-wash);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">${VENDOR_CATS.find(c=>c.id===vendorState.category)?.emoji||'📸'}</div>
-          <div style="text-align:right">
-            <div style="background:var(--primary);color:#fff;border-radius:14px 14px 4px 14px;padding:10px 14px;font-size:12px;max-width:260px;line-height:1.5">Hi ${l.name.split(' ')[0]}! Thanks for reaching out. I'd love to cover your ${l.event.toLowerCase()}. Based on your requirements, I've put together a detailed quote — please check it out and let me know if you'd like to discuss!</div>
-            <div style="font-size:10px;color:var(--text-light);margin-top:2px;padding-right:4px">You · 2 hours later</div>
-          </div>
-        </div>
-        ` : ''}
-        ${l.status === 'booked' ? `
-        <div style="display:flex;gap:8px;align-items:flex-start">
-          <div style="width:28px;height:28px;border-radius:50%;background:#E3F2FD;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">👤</div>
-          <div>
-            <div style="background:#E8F5E9;border:1px solid #A5D6A7;border-radius:14px 14px 14px 4px;padding:10px 14px;font-size:12px;color:var(--primary);max-width:260px;line-height:1.5">Looks great! I'd like to go ahead and book. How do I pay the advance?</div>
-            <div style="font-size:10px;color:var(--text-light);margin-top:2px;padding-left:4px">${l.name.split(' ')[0]} · 1 day later</div>
-          </div>
-        </div>
-        ` : ''}
-      </div>
-      <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-        <input type="text" class="v-input" placeholder="Type a message..." style="flex:1;padding:10px 14px;font-size:12px;border-radius:20px">
-        <button style="width:36px;height:36px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;font-size:14px;flex-shrink:0">→</button>
-      </div>
-    </div>
-    ` : ''}
   `;
+}
+
+// Competitive context banner — tells the vendor they're racing against N others.
+// Pulled directly from strategy doc section 2.1: "the vendor must know they're competing"
+function buildLeadCompetitiveContext(l){
+  const cc = l.competingCount || 0;
+  const cs = l.competingState || {quoted:0,paid:0,awaiting:0};
+  
+  // Already won or lost — different messaging
+  if(l.status === 'paid-advance' || l.status === 'paid-full') {
+    return `<div style="background:#E1F5EE;border:0.5px solid #B7E4D1;border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:12px">
+      <span style="font-size:16px">🏆</span>
+      <span style="color:#0F6E56"><strong>You won this booking.</strong> The host picked you over ${cc > 0 ? cc + ' other' + (cc>1?'s':'') : 'other competitors'}.</span>
+    </div>`;
+  }
+  if(l.status === 'lost-to-competitor') {
+    return `<div style="background:#FCE7E7;border:0.5px solid #F4C5C5;border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:10px;font-size:12px">
+      <span style="font-size:16px">📊</span>
+      <span style="color:#A32D2D"><strong>The host went with another vendor.</strong> ${l.lostReason || ''}</span>
+    </div>`;
+  }
+  if(cc === 0) return '';
+  
+  // Still in race — show race state
+  let raceText = '';
+  if(cs.paid > 0){
+    raceText = `<span style="color:#A32D2D;font-weight:700">${cs.paid} already booked</span> · ${cs.quoted} quoted · ${cs.awaiting} awaiting`;
+  } else if(cs.quoted > 0){
+    raceText = `<strong>${cs.quoted} quoted</strong> · ${cs.awaiting} awaiting`;
+  } else {
+    raceText = `All ${cs.awaiting} awaiting — be quick`;
+  }
+  
+  return `<div style="background:#FFFBF2;border:0.5px solid #FAEEDA;border-radius:10px;padding:11px 13px;margin-bottom:12px;font-size:12px;line-height:1.5">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+      <span style="font-size:14px">⚔️</span>
+      <span style="font-family:'Sora',sans-serif;font-weight:700;color:#854F0B">Competing with ${cc} other vendor${cc>1?'s':''}</span>
+    </div>
+    <div style="color:var(--text-mid);padding-left:22px">Race state: ${raceText}</div>
+  </div>`;
+}
+
+// Personalized note — the host's reason for picking THIS vendor.
+// Hero element per strategy doc: "highest-signal information available"
+function buildLeadPersonalizedNote(l){
+  return `<div style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:0.5px solid #FFE082;border-radius:12px;padding:14px;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <span style="font-size:16px">💌</span>
+      <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px">Why ${l.name.split(' ')[0]} picked you</span>
+    </div>
+    <div style="font-size:13px;line-height:1.55;color:var(--primary);font-style:italic">"${l.personalizedNote}"</div>
+  </div>`;
+}
+
+// Event details — everything the vendor needs to price. Friction-zero principle.
+function buildLeadEventDetails(l){
+  return `<div class="vd-detail-section">
+    <div class="vd-detail-section-title">Event details</div>
+    <div class="vd-detail-row"><span class="dr-label">Venue</span><span class="dr-val" style="text-align:right">${l.venue}</span></div>
+    ${l.venueType ? `<div class="vd-detail-row"><span class="dr-label">Venue type</span><span class="dr-val">${l.venueType}</span></div>` : ''}
+    <div class="vd-detail-row"><span class="dr-label">Time</span><span class="dr-val">${l.timeOfDay}</span></div>
+    ${l.coverage ? `<div class="vd-detail-row"><span class="dr-label">Coverage needed</span><span class="dr-val" style="text-align:right;max-width:200px">${l.coverage}</span></div>` : ''}
+    ${l.accessibility && l.accessibility !== 'No specific requirements' ? `<div class="vd-detail-row"><span class="dr-label">Accessibility</span><span class="dr-val" style="text-align:right;max-width:200px;color:#854F0B">${l.accessibility}</span></div>` : ''}
+  </div>`;
+}
+
+// Host preferences — style, must-haves, deal-breakers. Structured, not freeform notes.
+function buildLeadHostPrefs(l){
+  // Reads from seed VENDOR_LEADS fields. For real host-submitted inquiries,
+  // these would come from booking.eventPrefs (set in submitOpt2Inquiry).
+  // The bridge between bookings and VENDOR_LEADS isn't built yet — when the
+  // vendor side reads real inquiries instead of seed data, this function
+  // should also accept the originating booking and fall back to its eventPrefs.
+  const hasStyles = l.stylePreferences && l.stylePreferences.length > 0;
+  const hasMust = l.mustHaves && l.mustHaves.length > 0;
+  const hasDeal = l.dealBreakers && l.dealBreakers.length > 0;
+  if(!hasStyles && !hasMust && !hasDeal) return '';
+  
+  return `<div class="vd-detail-section">
+    <div class="vd-detail-section-title">What ${l.name.split(' ')[0]} wants</div>
+    ${hasStyles ? `<div style="margin-bottom:10px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);font-weight:700;margin-bottom:6px">Style preferences</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px">
+        ${l.stylePreferences.map(s => `<span style="display:inline-block;font-size:11px;padding:3px 8px;background:#E6F1FB;color:#0C447C;border-radius:5px;font-weight:600">${s}</span>`).join('')}
+      </div>
+    </div>` : ''}
+    ${hasMust ? `<div style="margin-bottom:10px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);font-weight:700;margin-bottom:6px">Must-haves</div>
+      <ul style="margin:0;padding-left:16px;font-size:12px;color:var(--text-mid);line-height:1.7">
+        ${l.mustHaves.map(m => `<li>${m}</li>`).join('')}
+      </ul>
+    </div>` : ''}
+    ${hasDeal ? `<div>
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);font-weight:700;margin-bottom:6px">Deal-breakers</div>
+      <ul style="margin:0;padding-left:16px;font-size:12px;color:#A32D2D;line-height:1.7">
+        ${l.dealBreakers.map(d => `<li>${d}</li>`).join('')}
+      </ul>
+    </div>` : ''}
+  </div>`;
+}
+
+// Status-aware action area — quote builder if 'new', quote summary if quoted/booked, lost message if lost
+function buildLeadActionArea(l, catId){
+  if(l.status === 'new'){
+    return buildStructuredQuoteBuilder(l, catId);
+  }
+  if(l.status === 'quoted' || l.status === 'competing' || l.status === 'chat'){
+    return `<div class="vd-detail-section" style="border-color:var(--accent)">
+      <div class="vd-detail-section-title">📤 Quote sent</div>
+      <div class="vd-detail-row"><span class="dr-label">Amount</span><span class="dr-val">${l.quoteSent || '—'}</span></div>
+      <div class="vd-detail-row"><span class="dr-label">Status</span><span class="dr-val" style="color:#1565C0">Awaiting host's decision</span></div>
+      ${l.competingState && l.competingState.quoted >= 1 && l.competingState.paid === 0 ? `
+        <div class="vd-ai-suggest" style="margin-top:10px">
+          <span class="ai-icon">✨</span>
+          <div>The host has ${l.competingState.quoted} quote${l.competingState.quoted>1?'s':''} including yours. Comparing now. <strong>Stay responsive in chat — fit conversations often tip decisions.</strong></div>
+        </div>
+      ` : ''}
+    </div>`;
+  }
+  if(l.status === 'paid-advance' || l.status === 'booked'){
+    return `<div class="vd-detail-section" style="border-color:var(--green);background:#F0FDF4">
+      <div class="vd-detail-section-title" style="color:var(--green)">✅ Booking confirmed</div>
+      <div class="vd-detail-row"><span class="dr-label">Quote accepted</span><span class="dr-val">${l.quoteSent || '—'}</span></div>
+      <div class="vd-detail-row"><span class="dr-label">Advance received</span><span class="dr-val" style="color:var(--green)">via PlanEzee</span></div>
+      <div class="vd-detail-row"><span class="dr-label">Balance due</span><span class="dr-val">On event day</span></div>
+    </div>`;
+  }
+  if(l.status === 'paid-full'){
+    return `<div class="vd-detail-section" style="border-color:var(--green);background:#F0FDF4">
+      <div class="vd-detail-section-title" style="color:var(--green)">✅ Paid in full</div>
+      <div class="vd-detail-row"><span class="dr-label">Total</span><span class="dr-val">${l.quoteSent || '—'}</span></div>
+    </div>`;
+  }
+  if(l.status === 'lost-to-competitor' || l.status === 'lost'){
+    return ''; // handled by competitive context banner already
+  }
+  return '';
+}
+
+// ========== STRUCTURED QUOTE BUILDER ==========
+// Category-specific templates that map to Compare Sheet rows.
+// Foundation for the Compare Sheet moat: vendors must fill structured fields,
+// not freeform line items. Each row a vendor fills here = a row in the Compare Sheet.
+function getQuoteTemplateForCategory(catId){
+  const templates = {
+    photographer: {
+      label: 'Photography quote',
+      fields: [
+        {id:'coverage',  label:'Coverage hours',     type:'text',   required:true,  placeholder:'e.g. 8 hours', value:'8 hours'},
+        {id:'photos',    label:'Edited photos delivered', type:'text', required:true, placeholder:'e.g. 300+', value:'300+ edited photos'},
+        {id:'gallery',   label:'Online gallery',     type:'toggle', required:false, value:true},
+        {id:'travel',    label:'Travel within city', type:'toggle', required:false, value:true},
+        {id:'team',      label:'Team size on event day', type:'text', required:true, placeholder:'e.g. 2 photographers', value:'2 photographers'},
+        {id:'turnaround',label:'Edited gallery delivery', type:'text', required:true, placeholder:'e.g. 14 days', value:'10–14 days'},
+      ],
+      lineItems: [
+        {label:'Event coverage', amount:60000},
+        {label:'Photo editing & delivery', amount:18000},
+      ]
+    },
+    caterer: {
+      label: 'Catering quote',
+      fields: [
+        {id:'menu',      label:'Menu items count',   type:'text',   required:true,  placeholder:'e.g. 12 items', value:'12 items'},
+        {id:'perPlate',  label:'Per-plate price',    type:'text',   required:true,  placeholder:'e.g. ₹450/plate', value:'₹450/plate'},
+        {id:'liveCounters',label:'Live counters',    type:'text',   required:false, placeholder:'e.g. 2 counters', value:'2 counters (chaat, dosa)'},
+        {id:'staff',     label:'Service staff included', type:'toggle', required:true, value:true},
+        {id:'tableware', label:'Tableware & cutlery included', type:'toggle', required:true, value:true},
+        {id:'dietary',   label:'Dietary options',    type:'text',   required:false, placeholder:'e.g. Jain, gluten-free', value:'Jain available'},
+      ],
+      lineItems: [
+        {label:'Menu (per plate basis)', amount:67500},
+        {label:'Live counters & service', amount:15000},
+      ]
+    },
+    venue: {
+      label: 'Venue quote',
+      fields: [
+        {id:'rental',    label:'Rental hours',       type:'text',   required:true,  placeholder:'e.g. 6 hours', value:'6 hours'},
+        {id:'av',        label:'Basic AV included',  type:'toggle', required:false, value:true},
+        {id:'tables',    label:'Tables & chairs included', type:'toggle', required:true, value:true},
+        {id:'parking',   label:'Parking',            type:'toggle', required:false, value:true},
+        {id:'capacity',  label:'Max capacity',       type:'text',   required:true,  placeholder:'e.g. 200', value:'250'},
+      ],
+      lineItems: [
+        {label:'Venue rental', amount:45000},
+        {label:'Setup & cleanup', amount:8000},
+      ]
+    },
+    decorator: {
+      label: 'Decor quote',
+      fields: [
+        {id:'stage',     label:'Stage setup',        type:'text',   required:true,  placeholder:'e.g. 12ft floral backdrop', value:'12ft floral backdrop'},
+        {id:'entrance', label:'Entrance arch',       type:'text',   required:false, placeholder:'e.g. floral arch', value:'Floral arch with marigolds'},
+        {id:'centerpiece',label:'Centerpieces',      type:'text',   required:false, placeholder:'e.g. 20 tables', value:'20 table centerpieces'},
+        {id:'setup',     label:'Setup & teardown included', type:'toggle', required:true, value:true},
+      ],
+      lineItems: [
+        {label:'Stage & backdrop', amount:38000},
+        {label:'Floral & lighting', amount:22000},
+      ]
+    },
+    musician: {
+      label: 'Entertainment quote',
+      fields: [
+        {id:'hours',     label:'Performance hours',  type:'text',   required:true,  placeholder:'e.g. 4 hours', value:'4 hours'},
+        {id:'lighting',  label:'Lighting setup',     type:'text',   required:false, placeholder:'e.g. basic LED', value:'Basic LED + smoke'},
+        {id:'mic',       label:'Mic & emcee included', type:'toggle', required:false, value:true},
+        {id:'requests',  label:'Song requests honored', type:'toggle', required:false, value:true},
+      ],
+      lineItems: [
+        {label:'DJ + sound system', amount:18000},
+        {label:'Lighting setup', amount:6000},
+      ]
+    },
+  };
+  return templates[catId] || templates['photographer'];
+}
+
+function buildStructuredQuoteBuilder(l, catId){
+  const tpl = getQuoteTemplateForCategory(catId);
+  const total = tpl.lineItems.reduce((s,li) => s + li.amount, 0);
+  
+  return `<div class="vd-quote-builder">
+    <div class="vd-quote-title">📋 ${tpl.label}</div>
+    <div style="font-size:11px;color:var(--text-mid);margin:-4px 0 12px;line-height:1.5">Structured fields help your quote stand out on the host's compare sheet. Required fields ensure clarity.</div>
+    
+    <!-- Structured fields — these map to Compare Sheet rows -->
+    <div style="display:grid;gap:9px;padding:11px;background:#FAFAFB;border:0.5px solid var(--border);border-radius:9px;margin-bottom:14px">
+      ${tpl.fields.map(f => buildQuoteField(f)).join('')}
+    </div>
+    
+    <!-- Line items — vendor's pricing breakdown -->
+    <div style="font-size:10px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);font-weight:700;margin-bottom:6px">Pricing breakdown</div>
+    ${tpl.lineItems.map((li,i) => `
+      <div class="vd-quote-row">
+        <input type="text" placeholder="Line item" value="${li.label}">
+        <input type="text" placeholder="₹ Amount" style="max-width:110px" value="₹${li.amount.toLocaleString('en-IN')}">
+      </div>
+    `).join('')}
+    <div style="text-align:center;margin:8px 0"><a style="font-size:12px;color:var(--accent);font-weight:600;cursor:pointer">+ Add line item</a></div>
+    <div class="vd-quote-total">
+      <span>Total</span>
+      <span>₹${total.toLocaleString('en-IN')} + taxes</span>
+    </div>
+    
+    <!-- Payment terms -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+      <input type="text" placeholder="Payment terms" value="50% advance" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+      <input type="text" placeholder="Quote valid for" value="7 days" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:12px;outline:none;font-family:'Plus Jakarta Sans',sans-serif">
+    </div>
+    
+    <!-- Mira coaching tip — winning-mindset prompt -->
+    <div class="vd-ai-suggest" style="margin-top:12px">
+      <span class="ai-icon">✨</span>
+      <div><strong>Mira tip:</strong> ${getMiraQuoteTip(l, catId)}</div>
+    </div>
+    
+    <button class="btn btn-primary" style="width:100%;margin-top:12px" onclick="alert('Quote sent. Host will be notified.')">Send Quote →</button>
+  </div>`;
+}
+
+function buildQuoteField(f){
+  if(f.type === 'toggle'){
+    return `<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px">
+      <label style="color:var(--text-mid);font-weight:600">${f.label}${f.required ? ' <span style="color:#A32D2D">*</span>' : ''}</label>
+      <span style="font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;background:${f.value ? '#E1F5EE' : '#F5F5F5'};color:${f.value ? '#0F6E56' : 'var(--text-light)'}">${f.value ? '✓ Included' : '— Not included'}</span>
+    </div>`;
+  }
+  return `<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px">
+    <label style="color:var(--text-mid);font-weight:600;flex-shrink:0">${f.label}${f.required ? ' <span style="color:#A32D2D">*</span>' : ''}</label>
+    <input type="text" value="${f.value||''}" placeholder="${f.placeholder||''}" style="flex:1;max-width:200px;padding:6px 9px;border:1px solid var(--border);border-radius:6px;font-size:11px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;text-align:right">
+  </div>`;
+}
+
+// Mira's contextual coaching for the quote — winning-mindset prompts.
+// Pulls from the host's mustHaves and stylePreferences to tailor advice.
+function getMiraQuoteTip(l, catId){
+  const must = l.mustHaves || [];
+  const styles = l.stylePreferences || [];
+  
+  // Surface the most actionable insight from the host's preferences
+  if(must.some(m => /drone/i.test(m))){
+    return 'The host explicitly wants drone shots. Make sure to include drone coverage as a line item — competitors who skip it will look incomplete.';
+  }
+  if(must.some(m => /album/i.test(m))){
+    return 'Album design is on the must-have list. Include it as a clear line item with delivery timeline — this is often where vendors differentiate.';
+  }
+  if(must.some(m => /turnaround|days|week/i.test(m))){
+    return 'Quick turnaround matters here. If you can deliver faster than your usual SLA, mention it. Speed wins bookings.';
+  }
+  if(styles.some(s => /candid/i.test(s))){
+    return 'Host wants candid work. Highlight your candid portfolio in chat or include sample links — style fit closes deals.';
+  }
+  if(catId === 'caterer' && (l.guests||'').includes('500')){
+    return 'Large headcount. Lock in your team size and prep time clearly — hosts at this scale worry most about execution risk.';
+  }
+  return 'A clear, structured quote with everything itemized tends to win against vague freeform pricing. Be specific.';
 }
 
 // ========== SCREEN 63: CALENDAR ==========
@@ -16312,11 +17028,26 @@ function buildVCalendar(){
   const today = new Date().getDate();
   const isCurrentMonth = vCalMonth === new Date().getMonth() && vCalYear === new Date().getFullYear();
 
+  // Helper for payment status pill on event rows
+  function getPaymentPill(ps){
+    if(ps === 'fully-paid')      return '<span style="display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:#E1F5EE;color:#0F6E56">✓ Paid in full</span>';
+    if(ps === 'advance-paid')    return '<span style="display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:#E1F5EE;color:#0F6E56">✓ Advance received</span>';
+    if(ps === 'awaiting-payment')return '<span style="display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:#FAEEDA;color:#854F0B">⏳ Hold · awaiting payment</span>';
+    return '';
+  }
+
   let cells = '';
   for(let i = 0; i < firstDay; i++) cells += '<div></div>';
   for(let d = 1; d <= daysInMonth; d++){
     const ev = VENDOR_EVENTS.find(e => e.day === d);
-    const cls = ev ? ev.type : (isCurrentMonth && d === today ? 'today' : '');
+    let cls = '';
+    if(ev){
+      // Hold state (awaiting-payment) gets distinct visual treatment
+      if(ev.type === 'tentative' && ev.paymentStatus === 'awaiting-payment') cls = 'tentative hold';
+      else cls = ev.type;
+    } else if(isCurrentMonth && d === today){
+      cls = 'today';
+    }
     cells += `<div class="vd-cal-cell ${cls}" onclick="${ev ? `alert('${ev.title} - ${ev.client}')` : `alert('Block March ${d}?')`}">
       ${d}
       ${ev && (ev.type==='booked'||ev.type==='tentative') ? '<div class="cal-dot"></div>' : ''}
@@ -16324,6 +17055,7 @@ function buildVCalendar(){
   }
 
   const upcomingEvents = VENDOR_EVENTS.filter(e => e.type==='booked' || e.type==='tentative');
+  const holdEvents = upcomingEvents.filter(e => e.paymentStatus === 'awaiting-payment');
 
   document.getElementById('vCalContent').innerHTML = `
     <div class="vd-cal-header">
@@ -16339,21 +17071,34 @@ function buildVCalendar(){
       ${cells}
     </div>
 
+    <!-- Legend now distinguishes hold (awaiting payment) from confirmed booked -->
     <div class="vd-cal-legend">
-      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:var(--green)"></div> Booked</div>
-      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:#E65100"></div> Quoted</div>
-      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:#E3F2FD"></div> Travel</div>
+      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:var(--green)"></div> Booked + paid</div>
+      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:#FFE082"></div> Hold · awaiting payment</div>
+      <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:#E3F2FD"></div> Travel buffer</div>
       <div class="vd-cal-legend-item"><div class="vd-cal-legend-dot" style="background:#F5F5F5"></div> Blocked</div>
     </div>
+
+    <!-- Hold alert: events where host accepted but hasn't paid yet -->
+    ${holdEvents.length > 0 ? `
+      <div style="background:#FFFBF2;border:0.5px solid #FAEEDA;border-radius:10px;padding:11px 13px;margin-top:14px;font-size:12px;line-height:1.5">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:14px">⏳</span>
+          <span style="font-family:'Sora',sans-serif;font-weight:700;color:#854F0B">${holdEvents.length} hold${holdEvents.length>1?'s':''} on your calendar</span>
+        </div>
+        <div style="color:var(--text-mid);padding-left:22px">${holdEvents.length>1?'These hosts have':'This host has'} accepted your quote but payment hasn\'t cleared yet via PlanEzee. Holds auto-release if unpaid 48 hours before the event.</div>
+      </div>
+    ` : ''}
 
     <div class="vd-section" style="margin-top:24px">
       <div class="vd-section-title">Upcoming this month</div>
       ${upcomingEvents.map(e => `
-        <div class="vd-cal-event">
-          <div class="vd-cal-event-color" style="background:${e.type==='booked'?'var(--green)':'#E65100'}"></div>
+        <div class="vd-cal-event" style="${e.paymentStatus === 'awaiting-payment' ? 'background:#FFFBF2;border:0.5px solid #FAEEDA' : ''}">
+          <div class="vd-cal-event-color" style="background:${e.paymentStatus === 'fully-paid' || e.paymentStatus === 'advance-paid' ? 'var(--green)' : '#FFE082'}"></div>
           <div class="vd-cal-event-info">
             <div class="vd-cal-event-title">${e.title}</div>
-            <div class="vd-cal-event-meta">${monthNames[vCalMonth]} ${e.day} · ${e.time || 'All day'} · ${e.client}</div>
+            <div class="vd-cal-event-meta">${monthNames[vCalMonth]} ${e.day} · ${e.time || 'All day'} · ${e.client}${e.amount ? ' · ' + e.amount : ''}</div>
+            ${getPaymentPill(e.paymentStatus) ? `<div style="margin-top:4px">${getPaymentPill(e.paymentStatus)}</div>` : ''}
           </div>
         </div>
       `).join('')}
@@ -16374,10 +17119,9 @@ function buildVCalendar(){
           <div style="font-family:'Sora',sans-serif;font-size:13px;font-weight:700;color:var(--primary)">Sync with Google Calendar</div>
           <div style="font-size:12px;color:var(--text-mid);margin-top:2px">Two-way sync so you never double-book. Personal events stay private.</div>
         </div>
-        <button class="btn btn-secondary" style="padding:6px 14px;font-size:11px;white-space:nowrap">Connect →</button>
+        <button class="btn btn-secondary" style="padding:8px 12px;font-size:11px">Connect</button>
       </div>
     </div>
-
     <div class="vd-section" style="margin-top:20px">
       <div class="vd-section-title">📈 Demand forecast</div>
       <div class="vd-analytics-card" style="margin-bottom:0">
@@ -16395,6 +17139,7 @@ function buildVCalendar(){
     </div>
   `;
 }
+
 
 // ========== SCREEN 64: VENDOR MIRA ==========
 function initVMira(){
@@ -16541,10 +17286,10 @@ Your profile is <strong>89% complete</strong> — you're ahead of most vendors. 
 <div class="mira-card">
   <div class="mira-card-title">📊 This Month's Performance</div>
   <div class="mira-card-row"><span class="mcr-label">Profile views</span><span class="mcr-val">124 (+18%)</span></div>
-  <div class="mira-card-row"><span class="mcr-label">Leads received</span><span class="mcr-val">6</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Shortlisted by hosts</span><span class="mcr-val">6</span></div>
   <div class="mira-card-row"><span class="mcr-label">Quotes sent</span><span class="mcr-val">4</span></div>
-  <div class="mira-card-row"><span class="mcr-label">Bookings</span><span class="mcr-val green">1</span></div>
-  <div class="mira-card-row"><span class="mcr-label">Conversion rate</span><span class="mcr-val">25%</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Won bookings</span><span class="mcr-val green">1</span></div>
+  <div class="mira-card-row"><span class="mcr-label">Win rate</span><span class="mcr-val">25%</span></div>
   <div class="mira-card-row"><span class="mcr-label">Revenue</span><span class="mcr-val green">₹22,000</span></div>
 </div>
 
@@ -16665,7 +17410,7 @@ function buildVProfile(){
 
     <div class="vd-detail-section" style="margin-bottom:20px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-        <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">Profile completeness</span>
+        <span style="font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:var(--primary)">Compare sheet readiness</span>
         <span style="font-size:12px;font-weight:700;color:var(--green)">89%</span>
       </div>
       <div style="height:6px;background:var(--border);border-radius:3px;overflow:hidden">
@@ -16673,21 +17418,21 @@ function buildVProfile(){
       </div>
       <div class="vd-ai-suggest" style="margin-top:10px;padding:8px 12px">
         <span class="ai-icon" style="font-size:14px">✨</span>
-        <div style="font-size:11px">Complete your ${cat?.types.includes('T') ? 'video reel and audio samples' : cat?.types.includes('P') ? 'theme gallery and transformation shots' : cat?.types.includes('S') ? 'menu PDF and tasting info' : 'equipment specs and capacity details'} to reach 100% and get 3x more leads.</div>
+        <div style="font-size:11px">Hosts compare you side-by-side with competitors. Fill ${cat?.types.includes('T') ? 'video reel and audio samples' : cat?.types.includes('P') ? 'theme gallery and transformation shots' : cat?.types.includes('S') ? 'menu PDF and tasting info' : 'equipment specs and capacity details'} to reach 100% \u2014 vendors at 100% win 3x more competitions.</div>
       </div>
     </div>
 
     <div class="vd-section">
       <div class="vd-section-title">Performance this month</div>
       <div class="vd-analytics-card">
-        <div class="vd-analytics-title">📊 Lead Funnel</div>
+        <div class="vd-analytics-title">📊 Lead funnel</div>
         <div class="vd-funnel">
           <div class="vd-funnel-row">
             <span class="vd-funnel-label">Profile views</span>
             <div class="vd-funnel-bar" style="width:100%;background:var(--accent-wash);border:1px solid var(--accent-soft)">124</div>
           </div>
           <div class="vd-funnel-row">
-            <span class="vd-funnel-label">Leads</span>
+            <span class="vd-funnel-label">Shortlisted</span>
             <div class="vd-funnel-bar" style="width:48%;background:#FFF3E0;border:1px solid #FFE0B2">6</div>
           </div>
           <div class="vd-funnel-row">
@@ -16695,19 +17440,19 @@ function buildVProfile(){
             <div class="vd-funnel-bar" style="width:32%;background:#E3F2FD;border:1px solid #BBDEFB">4</div>
           </div>
           <div class="vd-funnel-row">
-            <span class="vd-funnel-label">Booked</span>
+            <span class="vd-funnel-label">Won bookings</span>
             <div class="vd-funnel-bar" style="width:8%;background:var(--green-wash);border:1px solid #A5D6A7">1</div>
           </div>
         </div>
       </div>
 
       <div class="vd-analytics-card">
-        <div class="vd-analytics-title">📈 Competitive Benchmarks</div>
+        <div class="vd-analytics-title">📈 Competitive benchmarks</div>
         <div class="vd-benchmark"><span class="vd-benchmark-label">Response time</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">1.8h (you)</span><span class="vd-benchmark-avg">3.1h avg</span></span></div>
-        <div class="vd-benchmark"><span class="vd-benchmark-label">Conversion rate</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">25% (you)</span><span class="vd-benchmark-avg">18% avg</span></span></div>
+        <div class="vd-benchmark"><span class="vd-benchmark-label">Win rate</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">25% (you)</span><span class="vd-benchmark-avg">18% avg</span></span></div>
         <div class="vd-benchmark"><span class="vd-benchmark-label">Profile views</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">124 (you)</span><span class="vd-benchmark-avg">87 avg</span></span></div>
         <div class="vd-benchmark"><span class="vd-benchmark-label">Rating</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">4.7 (you)</span><span class="vd-benchmark-avg">4.3 avg</span></span></div>
-        <div class="vd-benchmark"><span class="vd-benchmark-label">Profile completeness</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">89% (you)</span><span class="vd-benchmark-avg">68% avg</span></span></div>
+        <div class="vd-benchmark"><span class="vd-benchmark-label">Compare sheet readiness</span><span class="vd-benchmark-vals"><span class="vd-benchmark-you">89% (you)</span><span class="vd-benchmark-avg">68% avg</span></span></div>
       </div>
 
       <div class="vd-analytics-card">
@@ -16765,18 +17510,31 @@ function buildVEditProfile(){
   const cat = VENDOR_CATS.find(c => c.id === vendorState.category);
   if(!cat) return;
   
+  // Hosts viewing now — fake-but-believable, ties to the shop-window framing
+  const hostsViewedThisWeek = 12 + (Date.now() % 8);
+  
   document.getElementById('vEditContent').innerHTML = `
     <div style="margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
       <button class="btn btn-secondary" onclick="goBack()" style="padding:8px 16px;font-size:12px">← Back</button>
       <button class="btn btn-primary" onclick="goTo(65)" style="padding:8px 16px;font-size:12px">Save Changes ✓</button>
     </div>
 
-    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--primary);margin-bottom:20px">Edit Profile</div>
+    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:var(--primary);margin-bottom:6px">Edit Profile</div>
+    
+    <!-- Profile-as-shop-window banner — the most important framing on this screen -->
+    <div style="background:linear-gradient(135deg,#FFF8E1,#FFFDE7);border:0.5px solid #FFE082;border-radius:12px;padding:12px 14px;margin-bottom:18px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:16px">👀</span>
+        <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.4px">Your profile is being read by real hosts</span>
+      </div>
+      <div style="font-size:12px;line-height:1.5;color:var(--text-mid)"><strong style="color:var(--primary)">${hostsViewedThisWeek} hosts viewed you this week.</strong> When they decide whether to shortlist you, this profile is what they read. Treat the fields below as a sales pitch — not a directory listing.</div>
+    </div>
 
     <div class="v-profile-form">
-      <div class="v-section-label">Basic Info</div>
+      <!-- ============== BASICS ============== -->
+      <div class="v-section-label">Basics</div>
       <div class="form-group">
-        <label class="form-label">Business Name</label>
+        <label class="form-label">Business name</label>
         <input type="text" class="v-input" value="${document.getElementById('vBizName')?.value || ''}">
       </div>
       <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
@@ -16792,21 +17550,32 @@ function buildVEditProfile(){
       <div class="form-group">
         <label class="form-label">Bio <span style="font-weight:400;font-size:11px;color:var(--text-light)"><a style="color:var(--accent);cursor:pointer">✨ Rewrite with AI</a></span></label>
         <textarea class="v-input" rows="3">${document.getElementById('vBio')?.value || ''}</textarea>
+        <div style="font-size:11px;color:var(--text-light);margin-top:4px">Hosts read this on your profile card. Lead with what makes you different, not your years of experience.</div>
       </div>
 
-      <div class="v-section-label">Pricing</div>
+      <!-- ============== COMPARE SHEET FIELDS ============== -->
+      <!-- Section header explicitly tells the vendor these fields appear on host comparisons -->
+      <div class="v-section-label" style="display:flex;align-items:center;gap:6px;margin-top:24px">
+        <span>📊 Compare sheet fields</span>
+        <span style="font-size:9px;font-weight:700;background:#FAEEDA;color:#854F0B;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.4px">Wins competitions</span>
+      </div>
+      <div style="background:#FAFAFB;border:0.5px solid var(--border);border-radius:10px;padding:11px 13px;margin-bottom:14px;font-size:12px;line-height:1.55;color:var(--text-mid)">
+        These fields appear side-by-side with your competitors when a host compares you. Fill them clearly and completely. Vague or missing fields cost you bookings.
+      </div>
+      
       <div class="form-group">
-        <label class="form-label">Price Range (${cat.priceUnit})</label>
-        <div class="chip-group">${cat.priceChips.map(p => `<div class="chip" onclick="selectChip(this,'ve-price')">${p}</div>`).join('')}</div>
+        <label class="form-label">Price range (${cat.priceUnit})</label>
+        <div class="chip-group">${cat.priceChips.map(p => `<div class="chip" onclick="selectChip(this,\'ve-price\')">${p}</div>`).join('')}</div>
       </div>
-
-      <div class="v-section-label">Hero Content — ${cat.heroFocus}</div>
+      
       ${cat.heroFields.map(f => buildVendorField(f)).join('')}
-
-      <div class="v-section-label">Category Details</div>
       ${cat.categoryFields.map(f => buildVendorField(f)).join('')}
 
-      <div class="v-section-label">Photos & Media</div>
+      <!-- Compare Sheet preview — concrete, anonymous example -->
+      ${buildCompareSheetPreview(cat)}
+
+      <!-- ============== PORTFOLIO ============== -->
+      <div class="v-section-label" style="margin-top:24px">📸 Portfolio — the proof</div>
       <div class="form-group">
         <div class="v-photo-grid">
           ${Array.from({length:6},(_,i) => `<div class="v-photo-thumb" style="background:hsl(${i*40+20},40%,75%);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff">${i+1}</div>`).join('')}
@@ -16817,8 +17586,9 @@ function buildVEditProfile(){
         </div>
       </div>
 
+      <!-- ============== SETTINGS ============== -->
       ${cat.types.includes('T') ? `
-      <div class="v-section-label">Travel Policy</div>
+      <div class="v-section-label" style="margin-top:24px">Settings</div>
       <div class="form-group">
         <label class="form-label">Based in</label>
         <input type="text" class="v-input" placeholder="e.g. Mumbai" value="${document.getElementById('vCity')?.value || ''}">
@@ -16837,6 +17607,103 @@ function buildVEditProfile(){
       <button class="btn btn-primary" style="flex:1" onclick="goBack()">Save Changes ✓</button>
     </div>
   `;
+}
+
+// Static-but-real preview of how this vendor's data appears side-by-side on a host's
+// Compare Sheet. Shows the vendor next to two anonymous competitors.
+// This makes the abstract concept of "structured data" tangible.
+function buildCompareSheetPreview(cat){
+  // Pick a few key fields to preview, depending on category type
+  const previewRows = getCompareSheetPreviewRows(cat);
+  if(!previewRows.length) return '';
+  
+  return `
+    <div style="background:#FFFBF2;border:0.5px solid #FAEEDA;border-radius:12px;padding:14px;margin:18px 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span style="font-size:14px">👁</span>
+        <span style="font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:#854F0B;text-transform:uppercase;letter-spacing:.4px">How hosts will see you</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-mid);margin-bottom:10px;line-height:1.5">A preview of how your fields appear next to other ${cat.name.toLowerCase()}s on a host's compare sheet.</div>
+      
+      <div style="overflow-x:auto;background:#fff;border:0.5px solid var(--border);border-radius:9px">
+        <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:400px">
+          <thead>
+            <tr style="background:#FAFAFA;border-bottom:0.5px solid var(--border)">
+              <th style="text-align:left;padding:8px;font-size:9px;text-transform:uppercase;letter-spacing:.4px;color:var(--text-light);font-weight:700">Field</th>
+              <th style="text-align:left;padding:8px;font-size:10px;font-weight:700;color:var(--primary);background:#FFFEF8">You</th>
+              <th style="text-align:left;padding:8px;font-size:10px;font-weight:700;color:var(--text-mid)">Vendor B</th>
+              <th style="text-align:left;padding:8px;font-size:10px;font-weight:700;color:var(--text-mid)">Vendor C</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${previewRows.map(r => `
+              <tr style="border-bottom:0.5px solid #F5EBD2">
+                <td style="padding:7px 8px;color:var(--text-mid);font-weight:600">${r.label}</td>
+                <td style="padding:7px 8px;color:var(--primary);font-weight:600;background:#FFFEF8">${r.you}</td>
+                <td style="padding:7px 8px;color:var(--text-mid)">${r.b}</td>
+                <td style="padding:7px 8px;color:var(--text-mid)">${r.c}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="font-size:11px;color:var(--text-mid);margin-top:10px;line-height:1.5;padding:8px 10px;background:#fff;border-radius:6px">
+        <strong style="color:var(--primary)">✨ Tip:</strong> Your row is highlighted. Vague or missing fields here will hurt you. Specific answers (numbers, lengths, included items) win.
+      </div>
+    </div>
+  `;
+}
+
+// Returns example compare sheet rows for the vendor's category.
+// "you" values reflect well-filled defaults; B and C show realistic competitor states.
+function getCompareSheetPreviewRows(cat){
+  const presets = {
+    photographer: [
+      {label:'Coverage',     you:'8 hours',           b:'6 hours',         c:'Per discussion'},
+      {label:'Edited photos',you:'300+',              b:'200',             c:'—'},
+      {label:'Online gallery',you:'✓ Included',  b:'✓ Included', c:'—'},
+      {label:'Turnaround',   you:'10–14 days',   b:'3 weeks',         c:'—'},
+      {label:'Team size',    you:'2 photographers',   b:'1 + assistant',   c:'1'},
+    ],
+    caterer: [
+      {label:'Per plate',     you:'₹450',          b:'₹520',          c:'₹380'},
+      {label:'Menu items',    you:'12 items',           b:'10 items',           c:'8 items'},
+      {label:'Live counters', you:'2 (chaat, dosa)',    b:'1',                  c:'—'},
+      {label:'Service staff', you:'✓ Included',    b:'✓ Included',    c:'+₹ extra'},
+      {label:'Tableware',     you:'✓ Included',    b:'✓ Included',    c:'✓ Included'},
+    ],
+    venue: [
+      {label:'Rental hours',  you:'6 hours',            b:'8 hours',            c:'4 hours'},
+      {label:'AV included',   you:'✓ Basic',       b:'+₹ extra',      c:'✓ Basic'},
+      {label:'Tables/chairs', you:'✓ Included',    b:'✓ Included',    c:'+₹ extra'},
+      {label:'Parking',       you:'✓ Free',        b:'✓ Free',        c:'Paid'},
+      {label:'Capacity',      you:'250',                b:'180',                c:'300'},
+    ],
+    decorator: [
+      {label:'Stage setup',   you:'12ft floral',        b:'10ft floral',        c:'8ft basic'},
+      {label:'Entrance arch', you:'✓ Floral',      b:'—',             c:'✓ Basic'},
+      {label:'Centerpieces',  you:'20 tables',          b:'15 tables',          c:'—'},
+      {label:'Setup/teardown',you:'✓ Included',    b:'✓ Included',    c:'+₹ extra'},
+      {label:'Themes offered',you:'5 styles',           b:'2 styles',           c:'1 style'},
+    ],
+    musician: [
+      {label:'Performance',   you:'4 hours',            b:'3 hours',            c:'2 hours'},
+      {label:'Lighting',      you:'LED + smoke',        b:'Basic LED',          c:'—'},
+      {label:'Mic & emcee',   you:'✓ Included',    b:'+₹ extra',      c:'✓ Included'},
+      {label:'Song requests', you:'✓ Yes',         b:'✓ Yes',         c:'Limited'},
+    ],
+    florist: [
+      {label:'Arrangements',  you:'15 styles',          b:'8 styles',           c:'5 styles'},
+      {label:'Fresh flowers', you:'✓ Daily',       b:'✓ Daily',       c:'Stocked'},
+      {label:'Setup at venue',you:'✓ Included',    b:'+₹ extra',      c:'✓ Included'},
+    ],
+  };
+  return presets[cat.id] || [
+    {label:'Service offered',you:'Per category',         b:'Per category',         c:'Per category'},
+    {label:'Pricing',        you:'See above',             b:'—',                c:'—'},
+    {label:'Inclusions',     you:'See category fields',   b:'—',                c:'—'},
+  ];
 }
 
 </script>
